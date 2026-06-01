@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100-Day Data Science Roadmap | Tracker Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="glow-bg"></div>
+    <div class="glow-bg2"></div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-graduation-cap logo-icon"></i>
+                <div>
+                    <h1>DS Roadmap</h1>
+                    <span class="sub-logo">100-Day Challenge</span>
+                </div>
+            </div>
+
+            <!-- Global Progress Widget -->
+            <div class="progress-widget">
+                <h3>Overall Progress</h3>
+                <div class="gauge-container">
+                    <svg class="progress-ring" width="120" height="120">
+                        <circle class="progress-ring-circle-bg" stroke="rgba(255,255,255,0.05)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                        <circle id="global-gauge" class="progress-ring-circle" stroke="url(#cyan-purple-grad)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                        <defs>
+                            <linearGradient id="cyan-purple-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#06B6D4" />
+                                <stop offset="100%" stop-color="#8B5CF6" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <div class="gauge-label">
+                        <span id="progress-percent">0%</span>
+                        <span class="gauge-days"><span id="completed-days-count">0</span>/100 Days</span>
+                    </div>
+                </div>
+                
+                <div class="streak-box">
+                    <i class="fa-solid fa-fire fire-icon"></i>
+                    <div>
+                        <span class="streak-title">Current Streak</span>
+                        <span id="streak-count" class="streak-value">0 Days</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase Navigation Links -->
+            <nav class="phase-navigation" id="phase-list">
+                <!-- Phases will be dynamically loaded here -->
+            </nav>
+            
+            <div class="sidebar-footer">
+                <p>Designed for Dinesh</p>
+                <span class="version-tag">Job-Ready v1.0</span>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard View -->
+        <main class="main-content">
+            <!-- Header bar -->
+            <header class="main-header">
+                <div class="header-welcome">
+                    <h2>Welcome, Future Data Scientist! 👋</h2>
+                    <p>Track your daily learning progress, save custom notes, and review structured exercises.</p>
+                </div>
+                
+                <!-- Controls and Search -->
+                <div class="header-controls">
+                    <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="search-input" placeholder="Search days, topics, algorithms...">
+                    </div>
+                    <button class="reset-btn" id="reset-progress-btn" title="Reset All Progress">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Active Phase Display Banner -->
+            <div class="phase-banner" id="active-phase-banner">
+                <div class="phase-banner-content">
+                    <span class="banner-tag">Current Target</span>
+                    <h3 id="banner-phase-name">Loading Phase...</h3>
+                    <div class="banner-progress-container">
+                        <div class="banner-progress-bar">
+                            <div id="banner-progress-fill" class="banner-progress-fill"></div>
+                        </div>
+                        <span id="banner-progress-text">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Grid View -->
+            <div class="dashboard-grid">
+                <!-- Left Panel: Card List for active days -->
+                <section class="days-column">
+                    <div class="column-header">
+                        <h3 id="days-column-title">Challenge Days</h3>
+                        <div class="filter-pills">
+                            <button class="filter-pill active" data-filter="all">All</button>
+                            <button class="filter-pill" data-filter="todo">To Do</button>
+                            <button class="filter-pill" data-filter="completed">Completed</button>
+                        </div>
+                    </div>
+                    <div class="days-list" id="days-list-container">
+                        <!-- Daily cards dynamically loaded here -->
+                    </div>
+                </section>
+
+                <!-- Right Panel: Day Detailed View / Workspace -->
+                <section class="detail-column" id="detail-pane">
+                    <!-- Placeholder when no day is selected -->
+                    <div class="empty-state" id="detail-empty-state">
+                        <i class="fa-solid fa-arrow-left empty-icon"></i>
+                        <h3>Select a Challenge Day</h3>
+                        <p>Click on any day from the list to view tasks, study resources, coding exercises, and log your notes.</p>
+                    </div>
+
+                    <!-- Dynamic Detailed Day View -->
+                    <div class="day-details hidden" id="day-details-container">
+                        <div class="detail-header">
+                            <div>
+                                <span class="detail-day-tag" id="detail-day-number">DAY 1</span>
+                                <h2 id="detail-day-title">Data Science Overview & Python Setup</h2>
+                            </div>
+                            <button class="complete-toggle-btn" id="detail-complete-toggle">
+                                <i class="fa-regular fa-circle-check"></i> Mark Complete
+                            </button>
+                        </div>
+
+                        <!-- Progress indicator for tasks -->
+                        <div class="task-progress-box">
+                            <span class="progress-title">Day Checklist Progress</span>
+                            <div class="progress-bar-wrapper">
+                                <div class="progress-bar-fill" id="detail-task-progress-fill"></div>
+                            </div>
+                        </div>
+
+                        <!-- Tab Navigation -->
+                        <div class="detail-tabs">
+                            <button class="detail-tab active" data-tab="content">
+                                <i class="fa-solid fa-book-open"></i> Syllabus & Tasks
+                            </button>
+                            <button class="detail-tab" data-tab="notes">
+                                <i class="fa-solid fa-pen-to-square"></i> Study Notes & Code
+                            </button>
+                        </div>
+
+                        <!-- Tab Content 1: Syllabus and Reading -->
+                        <div class="tab-content" id="tab-content">
+                            <div class="detail-section">
+                                <h3>Description</h3>
+                                <p id="detail-day-description">Understand what a data scientist does, set up your development environment, and run your first Python script.</p>
+                            </div>
+
+                            <div class="detail-section">
+                                <h3>Daily Tasks Checklist</h3>
+                                <ul class="tasks-list" id="detail-tasks-list">
+                                    <!-- Dynamic Checkboxes -->
+                                </ul>
+                            </div>
+
+                            <div class="detail-section">
+                                <h3>Recommended Learning Resources</h3>
+                                <div class="resources-grid" id="detail-resources-grid">
+                                    <!-- Dynamic Resources Links -->
+                                </div>
+                            </div>
+
+                            <div class="detail-section exercise-box">
+                                <h3><i class="fa-solid fa-code"></i> Coding Exercise</h3>
+                                <p id="detail-day-exercise">Write a Python script that takes user input for their name and age, and prints a greeting...</p>
+                                <div class="template-instructions">
+                                    <p>💻 Use the files in your workspace templates to complete this:</p>
+                                    <code class="code-path">templates/daily_template.py</code> or <code>templates/daily_template.ipynb</code>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab Content 2: Notes & Writing -->
+                        <div class="tab-content hidden" id="tab-notes">
+                            <div class="notes-container">
+                                <div class="notes-header">
+                                    <h3>Write Your Notes / Code Log</h3>
+                                    <span class="auto-save-tag"><i class="fa-solid fa-cloud-arrow-up"></i> Auto-saved</span>
+                                </div>
+                                <textarea id="notes-textarea" placeholder="Summarize your learnings, key code blocks, or math formulas here. Persists automatically..."></textarea>
+                                
+                                <div class="notes-preview-section">
+                                    <h4>Preview</h4>
+                                    <div class="markdown-preview" id="notes-preview">
+                                        <p class="preview-placeholder">Notes preview will render here...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Script file -->
+    <script src="app.js"></script>
+</body>
+</html>

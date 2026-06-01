@@ -1,0 +1,1820 @@
+{
+  "phases": [
+    {
+      "id": 1,
+      "name": "Phase 1: Python & Programming Fundamentals",
+      "days": [
+        {
+          "day": 1,
+          "title": "Data Science Overview & Python Setup",
+          "description": "Understand what a data scientist does, set up your development environment, and run your first Python script.",
+          "tasks": [
+            "Install Anaconda or Python 3.10+",
+            "Set up VS Code with Python and Jupyter extensions",
+            "Understand variables, print statement, and basic syntax",
+            "Run your first 'Hello, World!' script"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - Python Installation",
+              "url": "https://realpython.com/installing-python/"
+            },
+            {
+              "name": "VS Code Python Tutorial",
+              "url": "https://code.visualstudio.com/docs/python/python-tutorial"
+            }
+          ],
+          "exercise": "Write a Python script that takes user input for their name and age, and prints a greeting stating the year they will turn 100."
+        },
+        {
+          "day": 2,
+          "title": "Basic Data Types & Arithmetic Operations",
+          "description": "Learn about integers, floats, strings, booleans, and how to perform operations on them.",
+          "tasks": [
+            "Study integer and float arithmetic operations",
+            "Learn about string concatenation, slicing, and methods",
+            "Understand boolean values and comparison operators (==, !=, <, >, <=, >=)"
+          ],
+          "resources": [
+            {
+              "name": "W3Schools - Python Data Types",
+              "url": "https://www.w3schools.com/python/python_datatypes.asp"
+            },
+            {
+              "name": "Python Strings Guide",
+              "url": "https://realpython.com/python-strings/"
+            }
+          ],
+          "exercise": "Create variables of different types. Perform arithmetic calculations and string formatting using f-strings."
+        },
+        {
+          "day": 3,
+          "title": "Control Flow & Conditional Logic",
+          "description": "Learn to write decisions in Python using if, elif, and else statements, along with logical operators.",
+          "tasks": [
+            "Study if, elif, and else statements",
+            "Learn logical operators: and, or, not",
+            "Understand nested conditions and ternary operators"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - Conditional Statements",
+              "url": "https://realpython.com/python-conditional-statements/"
+            }
+          ],
+          "exercise": "Write a program that takes a score (0-100) and prints the letter grade (A, B, C, D, F) based on standard boundaries."
+        },
+        {
+          "day": 4,
+          "title": "Loops (For & While)",
+          "description": "Master iteration in Python using loops to execute code blocks repeatedly.",
+          "tasks": [
+            "Learn `for` loops and iteration over ranges",
+            "Learn `while` loops and avoid infinite loop traps",
+            "Understand control statements: break, continue, pass"
+          ],
+          "resources": [
+            {
+              "name": "W3Schools - Python Loops",
+              "url": "https://www.w3schools.com/python/python_for_loops.asp"
+            }
+          ],
+          "exercise": "Write a script that prints all prime numbers between 1 and 50 using a nested loop."
+        },
+        {
+          "day": 5,
+          "title": "Lists & List Comprehensions",
+          "description": "Dive deep into Python's most common sequence type: Lists.",
+          "tasks": [
+            "Understand list creation, indexing, and slicing",
+            "Learn list methods: append, extend, insert, remove, pop, sort",
+            "Master List Comprehensions for writing clean, efficient code"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - Lists & Tuples",
+              "url": "https://realpython.com/python-lists-tuples/"
+            },
+            {
+              "name": "Python List Comprehensions",
+              "url": "https://realpython.com/list-comprehension-python/"
+            }
+          ],
+          "exercise": "Given a list of numbers, use a list comprehension to create a new list containing only the squares of the even numbers."
+        },
+        {
+          "day": 6,
+          "title": "Dictionaries & Sets",
+          "description": "Explore key-value pairs (dictionaries) and unique collections (sets).",
+          "tasks": [
+            "Learn dictionary syntax, key-value access, and modification",
+            "Study dictionary methods: keys(), values(), items(), get(), pop()",
+            "Understand sets, set uniqueness, and operations (union, intersection, difference)"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - Dictionaries",
+              "url": "https://realpython.com/python-dicts/"
+            },
+            {
+              "name": "Python Sets Guide",
+              "url": "https://realpython.com/python-sets/"
+            }
+          ],
+          "exercise": "Write a program that counts the occurrences of each word in a given paragraph and stores the counts in a dictionary."
+        },
+        {
+          "day": 7,
+          "title": "Tuples & Mutability vs Immutability",
+          "description": "Understand tuples and the core concept of mutability in Python data structures.",
+          "tasks": [
+            "Learn tuple creation, indexing, and unpacking",
+            "Understand why and when to use tuples instead of lists",
+            "Deep dive into mutable vs immutable data types and memory reference"
+          ],
+          "resources": [
+            {
+              "name": "GeeksforGeeks - Tuples",
+              "url": "https://www.geeksforgeeks.org/python-tuples/"
+            }
+          ],
+          "exercise": "Write a function that returns the minimum, maximum, and average of a list of numbers as a tuple, and unpack them."
+        },
+        {
+          "day": 8,
+          "title": "Functions, Scope & Lambda Expressions",
+          "description": "Learn to write reusable code blocks with functions, understand scope, and use anonymous lambda functions.",
+          "tasks": [
+            "Define functions using `def`, parameters, and return statements",
+            "Understand Local vs Global scope (LEGB rule)",
+            "Write anonymous functions using `lambda`"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - Defining Functions",
+              "url": "https://realpython.com/defining-your-own-python-functions/"
+            }
+          ],
+          "exercise": "Create a lambda function that takes a number and returns its square, and a regular function that applies a mathematical formula to a list using custom inputs."
+        },
+        {
+          "day": 9,
+          "title": "Error & Exception Handling",
+          "description": "Learn to make your code robust by handling errors and exceptions gracefullly.",
+          "tasks": [
+            "Understand try, except, else, and finally blocks",
+            "Learn about common built-in exceptions (ValueError, TypeError, IndexError)",
+            "Practice raising custom exceptions using `raise`"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - Exceptions",
+              "url": "https://realpython.com/python-exceptions/"
+            }
+          ],
+          "exercise": "Write a function that divides two numbers, catches ZeroDivisionError and TypeError, and prints appropriate error messages."
+        },
+        {
+          "day": 10,
+          "title": "File Input / Output (I/O)",
+          "description": "Learn to read and write text files, CSV files, and JSON documents using Python.",
+          "tasks": [
+            "Use the `open()` function and context managers (`with` statement)",
+            "Learn to read and write lines to a txt file",
+            "Learn to parse and dump JSON using the `json` module"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - Reading and Writing Files",
+              "url": "https://realpython.com/read-write-files-python/"
+            }
+          ],
+          "exercise": "Create a JSON file containing student details, read it, update one student's grade, and write the modifications back to the file."
+        },
+        {
+          "day": 11,
+          "title": "Object-Oriented Programming (OOP): Classes & Objects",
+          "description": "Understand the OOP paradigm in Python, including defining classes, attributes, methods, and instantiation.",
+          "tasks": [
+            "Understand what a class is and how to instantiate objects",
+            "Learn about the `__init__` constructor and `self` keyword",
+            "Understand instance attributes vs class attributes, and instance methods"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - OOP in Python",
+              "url": "https://realpython.com/python3-object-oriented-programming/"
+            }
+          ],
+          "exercise": "Define a `Student` class with attributes name, grades (a list), and a method to calculate their average grade."
+        },
+        {
+          "day": 12,
+          "title": "OOP: Inheritance, Polymorphism & Encapsulation",
+          "description": "Deepen your OOP skills by implementing inheritance, polymorphism, and encapsulation (private attributes).",
+          "tasks": [
+            "Implement subclassing (inheritance) and use `super()`",
+            "Understand polymorphism by overriding methods",
+            "Implement encapsulation using single (_) and double (__) underscores for private attributes"
+          ],
+          "resources": [
+            {
+              "name": "GeeksforGeeks - Inheritance in Python",
+              "url": "https://www.geeksforgeeks.org/inheritance-in-python/"
+            }
+          ],
+          "exercise": "Create a base class `Employee` and a derived class `Manager`. Implement private attributes for salary and methods to calculate bonuses."
+        },
+        {
+          "day": 13,
+          "title": "Functional Programming: map, filter, & reduce",
+          "description": "Learn functional programming utilities that make sequence transformations clean and fast.",
+          "tasks": [
+            "Master the `map()` function to apply operations to iterables",
+            "Master the `filter()` function to selectively keep elements",
+            "Learn `reduce()` from the `functools` module for aggregations",
+            "Understand `zip()` and `enumerate()`"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - map() and filter()",
+              "url": "https://realpython.com/python-map-function/"
+            }
+          ],
+          "exercise": "Use `filter` and `map` to take a list of strings, filter out those shorter than 5 characters, and convert the remaining strings to uppercase."
+        },
+        {
+          "day": 14,
+          "title": "Modules, Packages & Virtual Environments",
+          "description": "Learn how to structure code into files and folders, use pip to install third-party libraries, and manage virtual environments.",
+          "tasks": [
+            "Create a custom module and import it into another file",
+            "Learn about virtual environments (`python -m venv` or conda)",
+            "Install and manage external libraries using `pip install` and `requirements.txt`"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - Virtual Environments",
+              "url": "https://realpython.com/python-virtual-environments-a-primer/"
+            }
+          ],
+          "exercise": "Create a virtual environment, install the `requests` library, write a script to fetch weather/JSON data from a public API, and freeze requirements."
+        },
+        {
+          "day": 15,
+          "title": "Phase 1 Review & Coding Challenge",
+          "description": "Consolidate all Phase 1 concepts and solve algorithmic challenges to prepare for Data Science coding assessments.",
+          "tasks": [
+            "Review variables, loops, lists, dicts, OOP, and file I/O",
+            "Solve coding challenges on HackerRank/LeetCode (Strings, Arrays, Dicts)",
+            "Write clean, documented code following PEP 8 guidelines"
+          ],
+          "resources": [
+            {
+              "name": "HackerRank - Python Practice",
+              "url": "https://www.hackerrank.com/domains/python"
+            }
+          ],
+          "exercise": "Complete a mini-project: Build a simple command-line Contacts Management System using OOP, saving data in JSON."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Phase 2: Data Manipulation & Visualization",
+      "days": [
+        {
+          "day": 16,
+          "title": "Introduction to NumPy & Arrays",
+          "description": "Begin working with NumPy, the core library for numerical computation in Python, and learn about ndarrays.",
+          "tasks": [
+            "Install NumPy and understand its importance in Data Science",
+            "Create NumPy arrays from lists and using built-in methods (arange, zeros, ones, linspace)",
+            "Understand array attributes: shape, ndim, dtype, size"
+          ],
+          "resources": [
+            {
+              "name": "NumPy Quickstart Tutorial",
+              "url": "https://numpy.org/doc/stable/user/quickstart.html"
+            },
+            {
+              "name": "Real Python - NumPy Guide",
+              "url": "https://realpython.com/numpy-tutorial/"
+            }
+          ],
+          "exercise": "Create a 3x3 matrix with values ranging from 2 to 10. Check its dimensions, shape, and data type."
+        },
+        {
+          "day": 17,
+          "title": "NumPy Indexing, Slicing & Masking",
+          "description": "Learn to retrieve specific elements and subarrays from NumPy arrays using slicing and conditional filters.",
+          "tasks": [
+            "Perform 1D and 2D array indexing and slicing",
+            "Understand boolean masking / conditional indexing",
+            "Learn about copy vs view in array slicing"
+          ],
+          "resources": [
+            {
+              "name": "W3Schools - NumPy Array Slicing",
+              "url": "https://www.w3schools.com/python/numpy/numpy_array_slicing.asp"
+            }
+          ],
+          "exercise": "Create a 5x5 random integer array. Extract the middle 3x3 submatrix. Filter out and print all values greater than 50."
+        },
+        {
+          "day": 18,
+          "title": "Vectorized Operations & Broadcasting",
+          "description": "Understand vectorization, which avoids writing explicit loops, and learning NumPy broadcasting rules.",
+          "tasks": [
+            "Perform element-wise arithmetic operations on arrays",
+            "Understand Broadcasting rules (adding vectors of different dimensions)",
+            "Learn Universal Functions (ufuncs) like np.sin, np.exp, np.log"
+          ],
+          "resources": [
+            {
+              "name": "NumPy Broadcasting Guide",
+              "url": "https://numpy.org/doc/stable/user/basics.broadcasting.html"
+            }
+          ],
+          "exercise": "Create a 4x3 matrix and a 1x3 vector. Add them together to demonstrate broadcasting, then compute the exponential of the resulting matrix."
+        },
+        {
+          "day": 19,
+          "title": "NumPy Mathematical & Statistical Functions",
+          "description": "Learn to calculate descriptive statistics and mathematical values across arrays and specific axes.",
+          "tasks": [
+            "Use sum, mean, median, std, var, min, max on arrays",
+            "Understand calculations along specific axes (axis=0 for columns, axis=1 for rows)",
+            "Learn indexing functions like argmin, argmax, and where"
+          ],
+          "resources": [
+            {
+              "name": "GeeksforGeeks - NumPy Statistics",
+              "url": "https://www.geeksforgeeks.org/numpy-mathematical-function/"
+            }
+          ],
+          "exercise": "Create a 4x4 matrix representing exam grades (students as rows, subjects as columns). Find the average score for each subject, and the top-performing student index."
+        },
+        {
+          "day": 20,
+          "title": "NumPy Matrix Operations & Linear Algebra",
+          "description": "Master matrix multiplication, transposing, and basic linear algebra functions using NumPy.",
+          "tasks": [
+            "Perform matrix multiplication using `@` or `np.dot`",
+            "Transpose matrices and calculate determinants",
+            "Solve systems of linear equations using `np.linalg.solve`"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - NumPy Linear Algebra",
+              "url": "https://realpython.com/numpy-linear-algebra/"
+            }
+          ],
+          "exercise": "Solve the system of equations: 2x + y = 5 and x - 3y = -1 using `np.linalg.solve`."
+        },
+        {
+          "day": 21,
+          "title": "Introduction to Pandas: Series & DataFrames",
+          "description": "Step into Pandas, the most important library for data analysis, and learn about its two main structures: Series and DataFrames.",
+          "tasks": [
+            "Understand Pandas Series creation, indexing, and operations",
+            "Understand Pandas DataFrames, creating them from dicts, lists, and loading CSVs",
+            "View dataset summaries using head(), tail(), info(), describe()"
+          ],
+          "resources": [
+            {
+              "name": "Pandas Getting Started Tutorial",
+              "url": "https://pandas.pydata.org/docs/getting_started/index.html"
+            },
+            {
+              "name": "Kaggle - Pandas Course",
+              "url": "https://www.kaggle.com/learn/pandas"
+            }
+          ],
+          "exercise": "Load a sample CSV file (or create a DataFrame of 10 rows), display its shape, inspect columns, and view basic descriptive statistics."
+        },
+        {
+          "day": 22,
+          "title": "Selecting & Filtering Data in DataFrames",
+          "description": "Learn to access specific columns, rows, and slices of data using label and integer-based indexing.",
+          "tasks": [
+            "Master label-based indexing with `.loc[]`",
+            "Master index-position indexing with `.iloc[]`",
+            "Filter rows based on complex boolean conditions (AND, OR, NOT) and the `.query()` method"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - Pandas Indexing",
+              "url": "https://realpython.com/pandas-indexing-selecting/"
+            }
+          ],
+          "exercise": "From a customer dataset, extract columns 'Name' and 'Spend' for customers who are aged over 30 and have a spend greater than $500."
+        },
+        {
+          "day": 23,
+          "title": "Data Cleaning: Missing Values & Duplicates",
+          "description": "Master methods to handle messy real-world datasets, including identifying and repairing missing values and duplicate rows.",
+          "tasks": [
+            "Detect missing values using `.isnull()` and `.sum()`",
+            "Impute missing values using `.fillna()` or drop rows/columns using `.dropna()`",
+            "Detect and drop duplicates using `.duplicated()` and `.drop_duplicates()`"
+          ],
+          "resources": [
+            {
+              "name": "DataCamp - Data Cleaning in Python",
+              "url": "https://www.datacamp.com/tutorial/data-cleaning-python"
+            }
+          ],
+          "exercise": "Load a dataset with missing data. Impute missing numeric values with the column mean, missing categorical values with 'Unknown', and drop duplicate rows."
+        },
+        {
+          "day": 24,
+          "title": "Data Transformations & Custom Mapping",
+          "description": "Learn to rename columns, change data types, and apply custom functions to transform DataFrame columns.",
+          "tasks": [
+            "Rename columns using `.rename()` and change types using `.astype()`",
+            "Apply custom functions using `.apply()`, `.map()`, and `.applymap()`",
+            "Create new columns dynamically based on operations of existing columns"
+          ],
+          "resources": [
+            {
+              "name": "Pandas Custom Functions Guide",
+              "url": "https://pandas.pydata.org/docs/user_guide/enhancingperf.html"
+            }
+          ],
+          "exercise": "Write a custom function that categorizes income into Low, Medium, and High. Apply this function to create a new column in your DataFrame."
+        },
+        {
+          "day": 25,
+          "title": "Data Aggregation & Grouping",
+          "description": "Learn to group rows of data together and compute summary statistics for each group using split-apply-combine.",
+          "tasks": [
+            "Understand the GroupBy mechanism",
+            "Compute basic metrics (mean, sum, count) per group",
+            "Use `.agg()` to apply multiple custom aggregation functions to different columns"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - Pandas GroupBy",
+              "url": "https://realpython.com/pandas-groupby/"
+            }
+          ],
+          "exercise": "Group a sales dataset by Store and Department, and calculate the average, maximum, and total sales for each department."
+        },
+        {
+          "day": 26,
+          "title": "Merging, Joining & Concatenating",
+          "description": "Combine multiple datasets together using SQL-like joins and row/column concatenation.",
+          "tasks": [
+            "Concatenate DataFrames along rows or columns using `pd.concat()`",
+            "Merge datasets using `pd.merge()` (Inner, Left, Right, and Outer joins)",
+            "Understand merging on single vs multiple keys"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - Merging DataFrames",
+              "url": "https://realpython.com/pandas-merge-join-and-concat/"
+            }
+          ],
+          "exercise": "Create two DataFrames (Employees and Departments). Merge them using an Inner Join and a Left Join, then compare the outcomes."
+        },
+        {
+          "day": 27,
+          "title": "Pivot Tables & Cross-Tabulations",
+          "description": "Reshape your data to perform multidimensional analysis using pivot tables and crosstabs.",
+          "tasks": [
+            "Reshape DataFrames using `.pivot()` and `.pivot_table()`",
+            "Compute frequency tables of factors using `pd.crosstab()`",
+            "Understand melting / unpivoting data using `pd.melt()`"
+          ],
+          "resources": [
+            {
+              "name": "Pandas Pivot Tables Guide",
+              "url": "https://pandas.pydata.org/docs/user_guide/reshaping.html"
+            }
+          ],
+          "exercise": "Create a pivot table showing the average product sales, segmented by Region (rows) and Product Category (columns)."
+        },
+        {
+          "day": 28,
+          "title": "DateTime Data Handling in Pandas",
+          "description": "Learn to manipulate dates, times, and time-series indexes in Pandas datasets.",
+          "tasks": [
+            "Convert strings to datetime objects using `pd.to_datetime()`",
+            "Extract datetime properties (year, month, day, dayofweek)",
+            "Perform resample operations (aggregating hourly data to daily or monthly)"
+          ],
+          "resources": [
+            {
+              "name": "Real Python - Pandas Time Series",
+              "url": "https://realpython.com/pandas-time-series/"
+            }
+          ],
+          "exercise": "Given a dataset of transaction timestamps, extract the month and day name of each transaction, and calculate total sales per weekday."
+        },
+        {
+          "day": 29,
+          "title": "String Manipulation in DataFrames",
+          "description": "Learn to clean and manipulate textual data inside Pandas columns using vector string methods.",
+          "tasks": [
+            "Access string accessor `.str`",
+            "Perform string cleaning: `.str.lower()`, `.str.strip()`, `.str.replace()`",
+            "Extract substrings or check for patterns using regex and `.str.contains()`"
+          ],
+          "resources": [
+            {
+              "name": "Pandas String Methods Documentation",
+              "url": "https://pandas.pydata.org/docs/user_guide/text.html"
+            }
+          ],
+          "exercise": "Clean a column of messy email addresses: remove trailing whitespaces, convert to lowercase, and filter for rows ending in '@gmail.com'."
+        },
+        {
+          "day": 30,
+          "title": "Introduction to Matplotlib",
+          "description": "Begin plotting data visually using Matplotlib, the foundational plotting library in Python.",
+          "tasks": [
+            "Understand Matplotlib's anatomy of a figure",
+            "Create simple Line plots, Scatter plots, and Bar charts",
+            "Add labels, titles, and legends to your plots"
+          ],
+          "resources": [
+            {
+              "name": "Matplotlib Tutorials",
+              "url": "https://matplotlib.org/stable/users/explain/quick_start.html"
+            },
+            {
+              "name": "Real Python - Matplotlib",
+              "url": "https://realpython.com/python-matplotlib-guide/"
+            }
+          ],
+          "exercise": "Plot a sine wave using a line plot, and a scatter plot of random coordinates. Customize the color, markers, and line styles."
+        },
+        {
+          "day": 31,
+          "title": "Advanced Matplotlib & Subplots",
+          "description": "Learn to construct multi-panel figures and fine-tune plot layouts, ticks, and figure dimensions.",
+          "tasks": [
+            "Create multiple subplots in a single figure using `plt.subplots()`",
+            "Customize axes limits, ticks, grid lines, and figure size",
+            "Save figures to files using `plt.savefig()`"
+          ],
+          "resources": [
+            {
+              "name": "Matplotlib Subplots Guide",
+              "url": "https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.subplots.html"
+            }
+          ],
+          "exercise": "Generate a 2x2 grid of subplots showing different plot types (line, scatter, bar, histogram) for a dataset and save the figure as a PNG."
+        },
+        {
+          "day": 32,
+          "title": "Data Visualization with Seaborn",
+          "description": "Discover Seaborn, a high-level library built on Matplotlib that makes statistical plotting simple and beautiful.",
+          "tasks": [
+            "Understand Seaborn's integration with Pandas DataFrames",
+            "Create distribution plots: Histograms, KDE plots, and Box plots",
+            "Compare groups using Violin plots and Bar plots"
+          ],
+          "resources": [
+            {
+              "name": "Seaborn Official Tutorial",
+              "url": "https://seaborn.pydata.org/tutorial.html"
+            },
+            {
+              "name": "EliteDataScience - Seaborn Guide",
+              "url": "https://elitedatascience.com/python-seaborn-tutorial"
+            }
+          ],
+          "exercise": "Create a box plot and a violin plot of house prices grouped by the number of bedrooms using a Seaborn dataset."
+        },
+        {
+          "day": 33,
+          "title": "Advanced Seaborn: Pairplots, Jointplots & Heatmaps",
+          "description": "Learn to visualize relationships across multiple variables and plot correlation matrices using heatmaps.",
+          "tasks": [
+            "Visualize pairwise relationships in a dataset using `sns.pairplot()`",
+            "Analyze bivariate distributions using `sns.jointplot()`",
+            "Compute a correlation matrix and visualize it as a heatmap with annotations"
+          ],
+          "resources": [
+            {
+              "name": "Seaborn Heatmap Documentation",
+              "url": "https://seaborn.pydata.org/generated/seaborn.heatmap.html"
+            }
+          ],
+          "exercise": "Load the Iris dataset. Generate a pairplot colored by Species, and plot a annotated correlation heatmap of the numerical features."
+        },
+        {
+          "day": 34,
+          "title": "Exploratory Data Analysis (EDA): Part 1",
+          "description": "Perform the first part of an Exploratory Data Analysis: loading data, analyzing shapes, checking for missing values, and summarizing statistics.",
+          "tasks": [
+            "Formulate business questions for a real-world dataset (e.g., Titanic, House Prices)",
+            "Load dataset, check data types, shapes, and drop redundant features",
+            "Clean missing data and examine categorical value counts"
+          ],
+          "resources": [
+            {
+              "name": "Kaggle EDA Tutorial",
+              "url": "https://www.kaggle.com/code/spscientist/students-performance-in-exams-eda"
+            }
+          ],
+          "exercise": "Select a dataset. Write code to inspect columns, print count of nulls, impute missing values, and document your cleaning assumptions."
+        },
+        {
+          "day": 35,
+          "title": "Exploratory Data Analysis (EDA): Part 2",
+          "description": "Complete your EDA by visualizing data distributions, uncovering patterns, identifying correlations, and drafting findings.",
+          "tasks": [
+            "Plot distributions of target variables and major features",
+            "Analyze correlations and relationships between predictors and target variables",
+            "Write a markdown summary of key business insights gained from EDA"
+          ],
+          "resources": [
+            {
+              "name": "Towards Data Science - EDA Guide",
+              "url": "https://towardsdatascience.com/exploratory-data-analysis-eda-a-practical-guide-and-template-for-structured-data-abfbf3ee3bd9"
+            }
+          ],
+          "exercise": "For the dataset used in Day 34, produce 4 annotated visualizations (distributions, scatter plots, heatmaps) showing significant trends. Write 3 actionable insights."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Phase 3: Math & Statistics for Data Science",
+      "days": [
+        {
+          "day": 36,
+          "title": "Linear Algebra: Vectors & Matrices",
+          "description": "Understand vectors, matrices, dot products, and how they form the mathematical backbone of data representations.",
+          "tasks": [
+            "Learn vector operations: addition, scalar multiplication, dot product",
+            "Understand matrix representations, dimensions, and matrix multiplication",
+            "Study transposes and symmetric matrices"
+          ],
+          "resources": [
+            {
+              "name": "3Blue1Brown - Essence of Linear Algebra",
+              "url": "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab"
+            },
+            {
+              "name": "Khan Academy - Linear Algebra",
+              "url": "https://www.khanacademy.org/math/linear-algebra"
+            }
+          ],
+          "exercise": "Manually compute the dot product of two 1D vectors and the product of a 2x3 and 3x2 matrix, then verify in Python."
+        },
+        {
+          "day": 37,
+          "title": "Linear Algebra: Determinants & Matrix Inverses",
+          "description": "Learn about singular matrices, matrix determinants, inverses, and solving equations.",
+          "tasks": [
+            "Understand identity matrices and diagonal matrices",
+            "Learn how to calculate determinants (for 2x2 and 3x3 matrices) and their geometric meaning",
+            "Understand matrix inverses and conditions for invertibility (non-singular matrices)"
+          ],
+          "resources": [
+            {
+              "name": "Determinant & Inverse - Khan Academy",
+              "url": "https://www.khanacademy.org/math/precalculus/x9e81a4f505969222:matrices"
+            }
+          ],
+          "exercise": "Calculate the determinant and inverse of a given 2x2 matrix using NumPy. Verify that A multiplied by its inverse equals the Identity matrix."
+        },
+        {
+          "day": 38,
+          "title": "Calculus: Limits, Derivatives & Gradients",
+          "description": "Learn how derivatives measure rates of change, which is essential for understanding model optimization.",
+          "tasks": [
+            "Understand the concept of limits and continuous functions",
+            "Learn derivative rules (power, product, quotient, chain rules)",
+            "Understand partial derivatives and the Gradient vector for multivariate functions"
+          ],
+          "resources": [
+            {
+              "name": "3Blue1Brown - Essence of Calculus",
+              "url": "https://www.youtube.com/playlist?list=PLZHQObOWTQDMsr9K-rj53DwVRMYO3t5Yr"
+            },
+            {
+              "name": "Khan Academy - Calculus",
+              "url": "https://www.khanacademy.org/math/calculus-1"
+            }
+          ],
+          "exercise": "Find the derivative of f(x) = 3x^2 + 5x - 2, and the gradient of f(x, y) = x^2 * y + y^3 at point (1, 2)."
+        },
+        {
+          "day": 39,
+          "title": "Optimization: Gradient Descent",
+          "description": "Understand optimization, learning rates, and how models search for global minima.",
+          "tasks": [
+            "Understand cost/loss functions and local vs global minima",
+            "Learn the gradient descent update formula: x_new = x_old - learning_rate * gradient",
+            "Understand the role of the learning rate and common issues (overshooting, slow convergence)"
+          ],
+          "resources": [
+            {
+              "name": "Gradient Descent Video Tutorial",
+              "url": "https://www.youtube.com/watch?v=sDv4f4s2SB8"
+            }
+          ],
+          "exercise": "Implement a simple 1D gradient descent algorithm in Python to find the minimum of f(x) = x^2 - 4x + 4. Start at x=0, set learning rate = 0.1, and run for 20 iterations."
+        },
+        {
+          "day": 40,
+          "title": "Descriptive Statistics: Central Tendency & Dispersion",
+          "description": "Learn to summarize a dataset numerically using measures of central tendency and dispersion.",
+          "tasks": [
+            "Study Mean, Median, and Mode (when to use which)",
+            "Study Range, Variance, Standard Deviation, and Interquartile Range (IQR)",
+            "Understand skewness, kurtosis, and outliers detection using IQR"
+          ],
+          "resources": [
+            {
+              "name": "Khan Academy - Descriptive Statistics",
+              "url": "https://www.khanacademy.org/math/statistics-probability"
+            }
+          ],
+          "exercise": "Given a sample dataset of house prices, compute the mean, median, standard deviation, and identify outliers using the IQR rule (1.5 * IQR)."
+        },
+        {
+          "day": 41,
+          "title": "Probability Basics & Bayes' Theorem",
+          "description": "Understand core probability concepts, conditional probability, and the famous Bayes' Theorem.",
+          "tasks": [
+            "Define sample space, events, probability axioms",
+            "Understand independent and mutually exclusive events",
+            "Study Conditional Probability and Bayes' Theorem formula"
+          ],
+          "resources": [
+            {
+              "name": "Bayes Theorem Visualized",
+              "url": "https://www.youtube.com/watch?v=HZGCoVF3YvM"
+            }
+          ],
+          "exercise": "Solve a conditional probability problem: calculate the probability of a user having a disease given they tested positive, knowing test accuracy and disease base rate (Bayes' Theorem)."
+        },
+        {
+          "day": 42,
+          "title": "Probability Distributions",
+          "description": "Master probability density functions and study major continuous and discrete distributions.",
+          "tasks": [
+            "Understand Random Variables (discrete vs continuous)",
+            "Study Discrete Distributions: Binomial, Poisson",
+            "Study Continuous Distributions: Uniform, Normal (Gaussian) and the empirical 68-95-99.7 rule"
+          ],
+          "resources": [
+            {
+              "name": "Normal Distribution Guide",
+              "url": "https://www.statology.org/normal-distribution/"
+            }
+          ],
+          "exercise": "Use `scipy.stats` to plot a Normal distribution curve. Calculate the probability of a random variable being greater than 1.96 standard deviations from the mean."
+        },
+        {
+          "day": 43,
+          "title": "Sampling & The Central Limit Theorem",
+          "description": "Discover why the Normal distribution is ubiquitous in statistics using the Central Limit Theorem (CLT).",
+          "tasks": [
+            "Understand Population vs Sample, sampling bias, and parameters vs statistics",
+            "Study the Central Limit Theorem: distribution of sample means",
+            "Understand Standard Error of the mean"
+          ],
+          "resources": [
+            {
+              "name": "Central Limit Theorem Visual Demonstration",
+              "url": "https://www.youtube.com/watch?v=YAlJCEDH2uY"
+            }
+          ],
+          "exercise": "Write a Python simulation that takes 1000 samples of size n=30 from an exponential distribution, computes their means, and plots a histogram to show that the sample means are normally distributed."
+        },
+        {
+          "day": 44,
+          "title": "Confidence Intervals",
+          "description": "Learn to estimate population parameters with ranges of values and associated confidence levels.",
+          "tasks": [
+            "Define Point Estimates and Confidence Intervals",
+            "Understand Margin of Error and Critical Values (z-critical, t-critical)",
+            "Calculate confidence intervals for population means (known vs unknown variance)"
+          ],
+          "resources": [
+            {
+              "name": "Confidence Intervals - Khan Academy",
+              "url": "https://www.khanacademy.org/math/ap-statistics/estimating-population-parameters"
+            }
+          ],
+          "exercise": "Given a sample of 50 student exam scores, calculate a 95% confidence interval for the population average score in Python using `scipy.stats`."
+        },
+        {
+          "day": 45,
+          "title": "Hypothesis Testing Foundations",
+          "description": "Learn the scientific methodology for testing claims, setting hypotheses, and understanding p-values.",
+          "tasks": [
+            "Formulate Null Hypothesis (H0) and Alternative Hypothesis (Ha)",
+            "Understand Significance Level (alpha) and p-value decision rules",
+            "Distinguish Type I errors (false positive) and Type II errors (false negative)"
+          ],
+          "resources": [
+            {
+              "name": "Hypothesis Testing Explained",
+              "url": "https://www.youtube.com/watch?v=tTeMYuS87oU"
+            }
+          ],
+          "exercise": "Write a short summary defining: Null hypothesis, Alternative hypothesis, significance level, p-value, and power of a test."
+        },
+        {
+          "day": 46,
+          "title": "Z-Tests & T-Tests",
+          "description": "Learn to run statistical tests to compare sample means using Z-tests and T-tests in Python.",
+          "tasks": [
+            "Learn when to use Z-tests vs T-tests",
+            "Perform One-Sample T-test",
+            "Perform Independent (Two-Sample) T-test and Paired T-test using `scipy.stats`"
+          ],
+          "resources": [
+            {
+              "name": "T-Test Guide with Python",
+              "url": "https://realpython.com/python-scipy-stats/#t-test"
+            }
+          ],
+          "exercise": "Test whether the average height of a sample of 25 plants (mean=15cm, std=3cm) is significantly greater than the historical average of 14cm. Run a 1-sample t-test (alpha=0.05)."
+        },
+        {
+          "day": 47,
+          "title": "ANOVA & Chi-Square Tests",
+          "description": "Compare means across more than two groups (ANOVA) and analyze categorical variable independence (Chi-Square).",
+          "tasks": [
+            "Understand One-Way ANOVA and post-hoc tests",
+            "Learn Chi-Square Goodness-of-Fit and Chi-Square Test of Independence",
+            "Perform these tests in Python using `scipy.stats` or `statsmodels`"
+          ],
+          "resources": [
+            {
+              "name": "Chi-Square Test Python Guide",
+              "url": "https://machinelearningmastery.com/chi-squared-test-for-machine-learning/"
+            }
+          ],
+          "exercise": "Run a Chi-Square test of independence to determine if customer satisfaction (High, Med, Low) is associated with membership tier (Gold, Silver, Bronze)."
+        },
+        {
+          "day": 48,
+          "title": "Correlation: Pearson & Spearman",
+          "description": "Study statistical relationships between variables and understand the critical difference between correlation and causation.",
+          "tasks": [
+            "Compute Pearson product-moment correlation coefficient",
+            "Compute Spearman rank correlation coefficient for non-linear relationships",
+            "Understand confounding variables and why correlation does not imply causation"
+          ],
+          "resources": [
+            {
+              "name": "Correlation & Causation - Khan Academy",
+              "url": "https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap"
+            }
+          ],
+          "exercise": "Calculate the Pearson and Spearman correlations between study hours and exam grades in a small mock dataset. Explain what the coefficients mean."
+        },
+        {
+          "day": 49,
+          "title": "Simple Linear Regression (Statistical View)",
+          "description": "Study regression from a statistical standpoint: fit lines, check residuals, and inspect coefficients.",
+          "tasks": [
+            "Understand simple regression formula: y = beta0 + beta1 * x + error",
+            "Learn Ordinary Least Squares (OLS) estimation",
+            "Inspect residuals, R-squared, and p-values of coefficients using `statsmodels`"
+          ],
+          "resources": [
+            {
+              "name": "Statsmodels Regression Guide",
+              "url": "https://www.statsmodels.org/stable/regression.html"
+            }
+          ],
+          "exercise": "Use `statsmodels.api.OLS` to fit a line predicting house price from square footage. Print the summary report and interpret the coefficients and R-squared."
+        },
+        {
+          "day": 50,
+          "title": "Phase 3 Review & Case Study",
+          "description": "Consolidate your mathematical and statistical skills by conducting a complete statistical analysis on a dataset.",
+          "tasks": [
+            "Review linear algebra, optimization, probability, and hypothesis testing",
+            "Conduct EDA, check distributions, perform outlier removal, run t-tests/chi-square tests, and fit a statsmodels regression line",
+            "Document your statistical assumptions and results"
+          ],
+          "resources": [
+            {
+              "name": "Statistics Case Studies",
+              "url": "https://www.openintro.org/book/os/"
+            }
+          ],
+          "exercise": "Perform a complete statistical case study on an employee churn dataset. Determine if tenure, department, or salary class significantly affects churn (using t-test/chi-square)."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Phase 4: Machine Learning Fundamentals",
+      "days": [
+        {
+          "day": 51,
+          "title": "Introduction to Machine Learning",
+          "description": "Understand what machine learning is, classification of algorithms, and the lifecycle of building ML models.",
+          "tasks": [
+            "Learn differences between Supervised, Unsupervised, and Reinforcement Learning",
+            "Understand the typical pipeline: Ingest -> Clean -> Preprocess -> Feature Engineer -> Train -> Evaluate -> Deploy",
+            "Set up Scikit-Learn in your virtual environment"
+          ],
+          "resources": [
+            {
+              "name": "Scikit-Learn Introduction",
+              "url": "https://scikit-learn.org/stable/getting_started.html"
+            },
+            {
+              "name": "Machine Learning Mastery",
+              "url": "https://machinelearningmastery.com/"
+            }
+          ],
+          "exercise": "Draw a flowchart of the machine learning pipeline and explain the inputs/outputs of each stage."
+        },
+        {
+          "day": 52,
+          "title": "Supervised Learning: Linear & Multiple Regression",
+          "description": "Implement linear regression models with one or more predictor variables using Scikit-Learn.",
+          "tasks": [
+            "Understand regression concepts and coefficients",
+            "Fit a `LinearRegression` model using Scikit-Learn",
+            "Interpret coefficients and intercept in multiple regression"
+          ],
+          "resources": [
+            {
+              "name": "Scikit-Learn Linear Models",
+              "url": "https://scikit-learn.org/stable/modules/linear_model.html"
+            }
+          ],
+          "exercise": "Train a multiple linear regression model on the Scikit-Learn California housing dataset. Print the weights assigned to each feature."
+        },
+        {
+          "day": 53,
+          "title": "Regression Evaluation Metrics",
+          "description": "Learn to measure the performance of your regression models using different metrics.",
+          "tasks": [
+            "Study Mean Squared Error (MSE) and Root Mean Squared Error (RMSE)",
+            "Study Mean Absolute Error (MAE) and R-squared (Coefficient of Determination)",
+            "Understand Adjusted R-squared and residual plotting"
+          ],
+          "resources": [
+            {
+              "name": "Regression Metrics Guide",
+              "url": "https://scikit-learn.org/stable/modules/model_evaluation.html#regression-metrics"
+            }
+          ],
+          "exercise": "Compute the MAE, MSE, RMSE, and R2 score of your California housing regression model on a test split. Plot the residuals vs predicted values."
+        },
+        {
+          "day": 54,
+          "title": "Bias-Variance Tradeoff & Under/Overfitting",
+          "description": "Understand the central dilemma of machine learning: balancing bias and variance.",
+          "tasks": [
+            "Define Bias and Variance",
+            "Identify overfitting (high variance, low train error, high test error) and underfitting (high bias, high train/test error)",
+            "Learn standard ways to prevent overfitting (more data, regularization, model simplification)"
+          ],
+          "resources": [
+            {
+              "name": "Bias-Variance Tradeoff Visualized",
+              "url": "https://towardsdatascience.com/understanding-the-bias-variance-tradeoff-16b2e6815a1d"
+            }
+          ],
+          "exercise": "Plot a learning curve (training vs validation error across different training set sizes) for a model and diagnose if it has high bias or high variance."
+        },
+        {
+          "day": 55,
+          "title": "Regularization: Ridge, Lasso & ElasticNet",
+          "description": "Learn to prevent overfitting in linear models by penalizing large weights using L1 and L2 regularization.",
+          "tasks": [
+            "Understand L2 regularization (Ridge Regression) and its formulation",
+            "Understand L1 regularization (Lasso Regression) and its feature-selection properties",
+            "Learn ElasticNet (combining L1 and L2) and the penalty weight hyperparameter alpha"
+          ],
+          "resources": [
+            {
+              "name": "Lasso and Ridge Regression Explained",
+              "url": "https://www.analyticsvidhya.com/blog/2016/01/complete-tutorial-ridge-lasso-regression-python/"
+            }
+          ],
+          "exercise": "Compare performance (coefficients and test set MSE) of Linear, Ridge, and Lasso regression on a dataset with highly correlated features."
+        },
+        {
+          "day": 56,
+          "title": "Classification: Logistic Regression",
+          "description": "Learn how logistic regression uses the sigmoid function to map linear outputs to probabilities for classification.",
+          "tasks": [
+            "Understand the Sigmoid function and odds ratios",
+            "Study Binary vs Multinomial classification",
+            "Fit a `LogisticRegression` model in Scikit-Learn"
+          ],
+          "resources": [
+            {
+              "name": "Logistic Regression - Scikit-Learn",
+              "url": "https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression"
+            }
+          ],
+          "exercise": "Train a Logistic Regression model to classify if a patient has diabetes based on diagnostic measurements. Inspect prediction probabilities."
+        },
+        {
+          "day": 57,
+          "title": "Classification Evaluation Metrics",
+          "description": "Learn to evaluate classification models using confusion matrices, accuracy, precision, recall, F1-score, and ROC-AUC.",
+          "tasks": [
+            "Construct and interpret a Confusion Matrix",
+            "Define Accuracy, Precision, Recall (Sensitivity), and F1-score",
+            "Understand the precision-recall tradeoff and ROC-AUC curves"
+          ],
+          "resources": [
+            {
+              "name": "Classification Metrics Guide",
+              "url": "https://towardsdatascience.com/metrics-to-evaluate-your-machine-learning-algorithm-f10ba6e38234"
+            }
+          ],
+          "exercise": "For your diabetes classifier, print the classification report (precision, recall, f1) and the confusion matrix. Plot the ROC curve and calculate the AUC score."
+        },
+        {
+          "day": 58,
+          "title": "K-Nearest Neighbors (KNN)",
+          "description": "Master KNN, a simple instance-based algorithm used for both classification and regression.",
+          "tasks": [
+            "Understand distance metrics (Euclidean, Manhattan distances)",
+            "Learn how the 'K' hyperparameter impacts model boundaries (overfitting vs underfitting)",
+            "Implement `KNeighborsClassifier` and scaling requirements"
+          ],
+          "resources": [
+            {
+              "name": "KNN Guide - Scikit-Learn",
+              "url": "https://scikit-learn.org/stable/modules/neighbors.html"
+            }
+          ],
+          "exercise": "Train a KNN classifier on the Iris dataset. Experiment with different values of K (1, 5, 20) and observe how test accuracy changes."
+        },
+        {
+          "day": 59,
+          "title": "Decision Trees",
+          "description": "Learn how decision trees split data using Entropy, Information Gain, or Gini Impurity to make predictions.",
+          "tasks": [
+            "Understand tree splitting criteria (Gini Impurity, Entropy)",
+            "Learn tree hyperparameters: max_depth, min_samples_split, min_samples_leaf",
+            "Visualize a trained decision tree using `plot_tree`"
+          ],
+          "resources": [
+            {
+              "name": "Scikit-Learn Decision Trees",
+              "url": "https://scikit-learn.org/stable/modules/tree.html"
+            }
+          ],
+          "exercise": "Train a Decision Tree Classifier, limit `max_depth` to 3, plot the tree diagram, and identify which feature is chosen for the root split."
+        },
+        {
+          "day": 60,
+          "title": "Support Vector Machines (SVM)",
+          "description": "Master SVMs, which seek to find optimal separating hyperplanes, and learn about the kernel trick.",
+          "tasks": [
+            "Understand maximal margin classifier and support vectors",
+            "Learn soft margins (C hyperparameter)",
+            "Understand Kernels (Linear, RBF, Polynomial) for non-linear boundaries"
+          ],
+          "resources": [
+            {
+              "name": "SVM Guide - Scikit-Learn",
+              "url": "https://scikit-learn.org/stable/modules/svm.html"
+            }
+          ],
+          "exercise": "Train SVM models using Linear and RBF kernels on a non-linearly separable dataset. Plot decision boundaries to compare the models."
+        },
+        {
+          "day": 61,
+          "title": "Ensemble Learning: Random Forest",
+          "description": "Learn about bagging and implement Random Forests to improve stability and performance over single decision trees.",
+          "tasks": [
+            "Understand Bagging (Bootstrap Aggregating) concept",
+            "Learn how Random Forests combine multiple trees with feature bagging",
+            "Train `RandomForestClassifier` and extract feature importances"
+          ],
+          "resources": [
+            {
+              "name": "Random Forest Guide",
+              "url": "https://scikit-learn.org/stable/modules/ensemble.html#forests-of-randomized-trees"
+            }
+          ],
+          "exercise": "Train a Random Forest model on a dataset. Plot a bar chart showing feature importances to identify which variables are most predictive."
+        },
+        {
+          "day": 62,
+          "title": "Ensemble Learning: Gradient Boosting",
+          "description": "Learn about boosting, where trees are trained sequentially to correct previous errors.",
+          "tasks": [
+            "Understand Boosting concept (converting weak learners to strong)",
+            "Study AdaBoost (adaptive boosting weight updates)",
+            "Study Gradient Boosting (fitting models to residual errors)"
+          ],
+          "resources": [
+            {
+              "name": "Gradient Boosting Explained",
+              "url": "https://machinelearningmastery.com/gentle-introduction-gradient-boosting-algorithm-machine-learning/"
+            }
+          ],
+          "exercise": "Train a `GradientBoostingClassifier` on a dataset. Compare its accuracy and training speed with a Random Forest model."
+        },
+        {
+          "day": 63,
+          "title": "Advanced Boosting: XGBoost, LightGBM, CatBoost",
+          "description": "Explore the industry-standard boosting libraries used in Kaggle and corporate deployments.",
+          "tasks": [
+            "Install and import `xgboost`, `lightgbm`, or `catboost`",
+            "Understand why they are faster and often more accurate than standard gradient boosting",
+            "Learn about categorical feature handling in CatBoost"
+          ],
+          "resources": [
+            {
+              "name": "XGBoost Documentation",
+              "url": "https://xgboost.readthedocs.io/"
+            },
+            {
+              "name": "LightGBM Documentation",
+              "url": "https://lightgbm.readthedocs.io/"
+            }
+          ],
+          "exercise": "Train an XGBoost classifier on a tabular dataset. Tune its learning rate and depth, and measure the accuracy."
+        },
+        {
+          "day": 64,
+          "title": "Unsupervised Learning: K-Means Clustering",
+          "description": "Learn to group unlabelled data together using K-Means clustering.",
+          "tasks": [
+            "Understand the K-Means clustering algorithm steps",
+            "Determine optimal clusters using the Elbow Method (inertia) and Silhouette Score",
+            "Implement `KMeans` in Scikit-Learn"
+          ],
+          "resources": [
+            {
+              "name": "K-Means Clustering Guide",
+              "url": "https://scikit-learn.org/stable/modules/clustering.html#k-means"
+            }
+          ],
+          "exercise": "Perform K-Means clustering on a dataset. Plot the Elbow curve for K=1 to 10 and select the optimal number of clusters."
+        },
+        {
+          "day": 65,
+          "title": "Hierarchical Clustering & DBSCAN",
+          "description": "Explore alternative clustering algorithms that build hierarchies or group data by density.",
+          "tasks": [
+            "Understand Agglomerative Clustering and Dendrograms",
+            "Understand DBSCAN (Density-Based Spatial Clustering) and core/border/noise points",
+            "Learn when to use DBSCAN over K-Means (handling non-spherical clusters)"
+          ],
+          "resources": [
+            {
+              "name": "DBSCAN Clustering Guide",
+              "url": "https://scikit-learn.org/stable/modules/clustering.html#dbscan"
+            }
+          ],
+          "exercise": "Apply DBSCAN and K-Means to a concentric-circles dataset. Plot the clusters side-by-side to show why DBSCAN works better on complex geometries."
+        },
+        {
+          "day": 66,
+          "title": "Dimensionality Reduction: PCA",
+          "description": "Learn to reduce features, compress information, and visualize high-dimensional datasets using Principal Component Analysis.",
+          "tasks": [
+            "Understand dimensionality reduction and variance explanation",
+            "Study the mathematics of Principal Component Analysis (PCA)",
+            "Implement `PCA` and interpret the cumulative explained variance ratio"
+          ],
+          "resources": [
+            {
+              "name": "PCA Guide - Scikit-Learn",
+              "url": "https://scikit-learn.org/stable/modules/decomposition.html#pca"
+            }
+          ],
+          "exercise": "Apply PCA to a dataset with 10+ features. Reduce it to 2 components, plot the components on a scatter plot, and calculate the total variance captured."
+        },
+        {
+          "day": 67,
+          "title": "Feature Engineering: Scaling & Encoding",
+          "description": "Prepare your features for models by performing scaling, normalization, and categorical encoding.",
+          "tasks": [
+            "Study Standardization (`StandardScaler`) vs Min-Max Normalization (`MinMaxScaler`)",
+            "Encode categorical features using One-Hot Encoding (`OneHotEncoder`) and Label Encoding",
+            "Understand data leakage and why scaling must be fit ONLY on training data"
+          ],
+          "resources": [
+            {
+              "name": "Scikit-Learn Preprocessing",
+              "url": "https://scikit-learn.org/stable/modules/preprocessing.html"
+            }
+          ],
+          "exercise": "Create a dummy DataFrame with text labels and unscaled numbers. Transform the numbers using StandardScaler and encode text using One-Hot Encoding."
+        },
+        {
+          "day": 68,
+          "title": "Feature Selection Techniques",
+          "description": "Learn to choose the most informative subset of features to simplify models and speed up training.",
+          "tasks": [
+            "Learn Filter methods (Correlation, Chi-Square, VarianceThreshold)",
+            "Learn Wrapper methods (Recursive Feature Elimination - RFE)",
+            "Learn Embedded methods (L1 Lasso regularization, Tree-based importances)"
+          ],
+          "resources": [
+            {
+              "name": "Scikit-Learn Feature Selection",
+              "url": "https://scikit-learn.org/stable/modules/feature_selection.html"
+            }
+          ],
+          "exercise": "Run RFE on a dataset with a RandomForest estimator to select the top 5 most important features."
+        },
+        {
+          "day": 69,
+          "title": "Handling Imbalanced Datasets",
+          "description": "Learn to handle class imbalance in classification datasets (e.g., fraud detection).",
+          "tasks": [
+            "Understand the danger of using accuracy on imbalanced data",
+            "Learn resampling methods: undersampling, oversampling (SMOTE)",
+            "Learn model-level solutions: adjusting decision thresholds and class weights"
+          ],
+          "resources": [
+            {
+              "name": "Imbalanced-Learn Documentation",
+              "url": "https://imbalanced-learn.org/stable/"
+            }
+          ],
+          "exercise": "Using a highly imbalanced mock dataset, apply SMOTE from the `imblearn` library and compare accuracy/F1 metrics before and after resampling."
+        },
+        {
+          "day": 70,
+          "title": "Cross-Validation & Hyperparameter Tuning",
+          "description": "Master robust validation techniques and automate hyperparameter search using Grid Search and Randomized Search.",
+          "tasks": [
+            "Understand K-Fold and Stratified K-Fold Cross-Validation",
+            "Search hyperparameter grids using `GridSearchCV`",
+            "Save time on large search spaces using `RandomizedSearchCV`"
+          ],
+          "resources": [
+            {
+              "name": "Tuning Hyperparameters - Scikit-Learn",
+              "url": "https://scikit-learn.org/stable/modules/grid_search.html"
+            }
+          ],
+          "exercise": "Use `GridSearchCV` to find the optimal hyperparameters (`n_estimators`, `max_depth`, `min_samples_split`) for a Random Forest classifier."
+        },
+        {
+          "day": 71,
+          "title": "Scikit-Learn ML Pipelines",
+          "description": "Assemble data cleaning, feature engineering, and modeling stages into a single robust pipeline to prevent data leakage.",
+          "tasks": [
+            "Understand Scikit-Learn `Pipeline` class",
+            "Incorporate preprocessors (`ColumnTransformer`) and classifiers into a pipeline",
+            "Fit, predict, and run cross-validation directly on the Pipeline object"
+          ],
+          "resources": [
+            {
+              "name": "Scikit-Learn Pipeline Guide",
+              "url": "https://scikit-learn.org/stable/modules/compose.html#pipeline"
+            }
+          ],
+          "exercise": "Create a Pipeline that takes raw tabular data, imputes missing values, scales numerical features, one-hot encodes categoricals, and applies a Logistic Regression model."
+        },
+        {
+          "day": 72,
+          "title": "End-to-End ML Project: Part 1",
+          "description": "Kick off a comprehensive end-to-end Machine Learning project: frame the problem, load the data, conduct detailed EDA, and split the data.",
+          "tasks": [
+            "Select a standard dataset (e.g., Telecom Customer Churn, Employee Attrition)",
+            "Write down the business problem statement and success metrics",
+            "Perform initial data loading, cleaning, and train-test splits (reserve test set)"
+          ],
+          "resources": [
+            {
+              "name": "Kaggle Guide to End-to-End Projects",
+              "url": "https://www.kaggle.com/code/ash316/eda-to-prediction-dietanic"
+            }
+          ],
+          "exercise": "Set up your project repository, write a script to load the data, clean it, split it, and write a summary of features."
+        },
+        {
+          "day": 73,
+          "title": "End-to-End ML Project: Part 2",
+          "description": "Build pipelines to preprocess training data, engineer new features, train baseline models, and evaluate performances.",
+          "tasks": [
+            "Build a preprocessor using `ColumnTransformer`",
+            "Train 3-4 candidate baseline models (e.g., Logistic Regression, Decision Tree, Random Forest, XGBoost)",
+            "Compare cross-validated performance metrics across candidate models"
+          ],
+          "resources": [
+            {
+              "name": "ML Model Comparison Tutorial",
+              "url": "https://machinelearningmastery.com/compare-machine-learning-algorithms-python-scikit-learn/"
+            }
+          ],
+          "exercise": "Write a python script that trains multiple models on your processed dataset, compiles cross-validation scores, and produces a comparison box plot."
+        },
+        {
+          "day": 74,
+          "title": "End-to-End ML Project: Part 3",
+          "description": "Finalize your ML project: tune the hyperparameters of the best model, evaluate it on the test set, and analyze feature importances.",
+          "tasks": [
+            "Run hyperparameter tuning (Grid/Random Search) on the best performing model from Day 73",
+            "Evaluate the final tuned model on the held-out test set to get realistic performance estimates",
+            "Extract and plot feature importances/SHAP values and write up recommendations"
+          ],
+          "resources": [
+            {
+              "name": "SHAP Values Explanation",
+              "url": "https://github.com/shap/shap"
+            }
+          ],
+          "exercise": "Write the final evaluation script. Output test classification reports and save your final model to a file using `joblib`."
+        },
+        {
+          "day": 75,
+          "title": "Phase 4 Review & ML Interview Prep",
+          "description": "Consolidate ML concepts and practice answering common machine learning theoretical and practical interview questions.",
+          "tasks": [
+            "Review linear vs logistic regression, decision trees, bias-variance, and ensemble algorithms",
+            "Practice explaining regularization (L1 vs L2) and evaluation metrics (Precision vs Recall)",
+            "Understand how to handle common edge-cases (data drift, missing values, outliers)"
+          ],
+          "resources": [
+            {
+              "name": "Machine Learning Interview Prep Guide",
+              "url": "https://github.com/andreis/interview/blob/master/machine-learning.md"
+            }
+          ],
+          "exercise": "Write down clear, concise answers to three common ML interview questions, explaining bias-variance tradeoff, random forests, and F1-score to a layperson."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Phase 5: Advanced Topics & Intro to Deep Learning",
+      "days": [
+        {
+          "day": 76,
+          "title": "Introduction to Deep Learning & ANNs",
+          "description": "Step into Neural Networks: understand artificial neurons, perceptrons, and the feedforward process.",
+          "tasks": [
+            "Understand biological vs artificial neurons",
+            "Learn about weight updates, bias, and the linear combination step",
+            "Understand the Feedforward neural network architecture (Input, Hidden, Output layers)"
+          ],
+          "resources": [
+            {
+              "name": "Neural Networks Part 1 - 3Blue1Brown",
+              "url": "https://www.youtube.com/watch?v=aircAruvnKk"
+            },
+            {
+              "name": "Deep Learning Book - Chapter 6",
+              "url": "https://www.deeplearningbook.org/"
+            }
+          ],
+          "exercise": "Draw the architecture of a 3-layer feedforward network with 4 input nodes, 3 hidden nodes, and 2 output nodes, showing weights."
+        },
+        {
+          "day": 77,
+          "title": "Activation Functions & Backpropagation",
+          "description": "Learn how activation functions introduce non-linearity and how backpropagation updates network parameters.",
+          "tasks": [
+            "Study Activation Functions: ReLU, Sigmoid, Tanh, Softmax",
+            "Understand Cost Functions (Cross-Entropy, MSE)",
+            "Learn how Backpropagation uses the chain rule to calculate gradients and update weights"
+          ],
+          "resources": [
+            {
+              "name": "Backpropagation Calculus - 3Blue1Brown",
+              "url": "https://www.youtube.com/watch?v=Ilg3gGewQ5U"
+            }
+          ],
+          "exercise": "Compute the derivative of the Sigmoid function. Explain why the ReLU function helps solve the vanishing gradient problem."
+        },
+        {
+          "day": 78,
+          "title": "Your First Neural Network in TensorFlow/Keras",
+          "description": "Implement and train a simple neural network classifier using TensorFlow/Keras or PyTorch.",
+          "tasks": [
+            "Install `tensorflow` or `torch` in your virtual environment",
+            "Define a sequential feedforward network",
+            "Compile the model (choose optimizer and loss function) and fit it on a dataset (e.g., MNIST or Iris)"
+          ],
+          "resources": [
+            {
+              "name": "TensorFlow Quickstart",
+              "url": "https://www.tensorflow.org/tutorials/quickstart/beginner"
+            },
+            {
+              "name": "PyTorch Tutorials",
+              "url": "https://pytorch.org/tutorials/"
+            }
+          ],
+          "exercise": "Write a Python script using Keras/PyTorch to train a simple neural network classifier on the MNIST handwritten digits dataset and plot training accuracy/loss curves."
+        },
+        {
+          "day": 79,
+          "title": "Preventing Overfitting in Deep Learning",
+          "description": "Learn deep learning regularization techniques, including Dropout, Batch Normalization, and Early Stopping.",
+          "tasks": [
+            "Understand Dropout layers and how they force redundant representations",
+            "Learn about Batch Normalization for stabilizing training",
+            "Implement Early Stopping based on validation loss curves"
+          ],
+          "resources": [
+            {
+              "name": "Keras Regularizers Guide",
+              "url": "https://keras.io/api/callbacks/early_stopping/"
+            }
+          ],
+          "exercise": "Modify your Day 78 script to include a Dropout layer and an EarlyStopping callback. Observe the changes in training epochs."
+        },
+        {
+          "day": 80,
+          "title": "Introduction to Convolutional Neural Networks (CNNs)",
+          "description": "Explore CNNs, the state-of-the-art architecture for processing grids of data like images.",
+          "tasks": [
+            "Understand why fully connected layers fail on large images (parameter explosion)",
+            "Learn about Convolutional layers, Filters (kernels), Strides, and Padding",
+            "Understand Pooling layers (MaxPooling) and flattening before classification"
+          ],
+          "resources": [
+            {
+              "name": "CNNs Explained - Stanford CS231n",
+              "url": "https://cs231n.github.io/convolutional-networks/"
+            }
+          ],
+          "exercise": "Build and train a simple CNN in Keras/PyTorch on the CIFAR-10 image dataset. Achieve a test set accuracy of >60%."
+        },
+        {
+          "day": 81,
+          "title": "Introduction to Natural Language Processing (NLP)",
+          "description": "Learn standard text preprocessing steps to clean textual data for downstream ML tasks.",
+          "tasks": [
+            "Learn about Tokenization (splitting sentences into words)",
+            "Perform Stopword removal, lowercasing, and punctuation cleaning",
+            "Understand stemming vs lemmatization (reducing words to root forms) using `nltk` or `spacy`"
+          ],
+          "resources": [
+            {
+              "name": "SpaCy 101 Guide",
+              "url": "https://spacy.io/usage/spacy-101"
+            },
+            {
+              "name": "NLTK Tutorial",
+              "url": "https://www.nltk.org/book/"
+            }
+          ],
+          "exercise": "Using SpaCy or NLTK, take a paragraph of messy text, clean it, tokenize it, remove stopwords, and lemmatize all remaining words."
+        },
+        {
+          "day": 82,
+          "title": "Text Representation: Bag of Words & TF-IDF",
+          "description": "Learn to convert text columns into numerical matrices using Bag-of-Words and Term Frequency-Inverse Document Frequency (TF-IDF).",
+          "tasks": [
+            "Understand the Bag-of-Words model and n-grams",
+            "Learn the mathematical formula for TF-IDF",
+            "Implement `CountVectorizer` and `TfidfVectorizer` in Scikit-Learn"
+          ],
+          "resources": [
+            {
+              "name": "Scikit-Learn Working with Text Data",
+              "url": "https://scikit-learn.org/stable/tutorial/text_analytics/working_with_text_data.html"
+            }
+          ],
+          "exercise": "Take a small list of sentences, generate their TF-IDF matrix in Scikit-Learn, and print the words with the highest TF-IDF scores in each document."
+        },
+        {
+          "day": 83,
+          "title": "Sentiment Analysis Case Study",
+          "description": "Build an end-to-end NLP classifier that predicts the sentiment of movie or product reviews.",
+          "tasks": [
+            "Load a dataset of text reviews (e.g., IMDB movie reviews)",
+            "Preprocess text, build a TF-IDF representation, and split into train/test",
+            "Train a Naive Bayes or Logistic Regression classifier and print evaluation metrics"
+          ],
+          "resources": [
+            {
+              "name": "Kaggle Sentiment Analysis Guide",
+              "url": "https://www.kaggle.com/code/lakshmi25npathi/sentiment-analysis-of-imdb-movie-reviews"
+            }
+          ],
+          "exercise": "Train a Sentiment Classifier using Naive Bayes. Test the model with 5 custom reviews you write, and inspect the predicted labels."
+        },
+        {
+          "day": 84,
+          "title": "Time Series Forecasting Basics",
+          "description": "Understand time-indexed data, trend, seasonality, stationary series, and basic forecasting methods.",
+          "tasks": [
+            "Identify Time Series components: Level, Trend, Seasonality, Noise",
+            "Understand Stationarity and why it matters (AdFuller unit root test)",
+            "Learn about autoregressive (AR) and moving average (MA) processes (ARIMA basics)"
+          ],
+          "resources": [
+            {
+              "name": "Forecasting: Principles and Practice",
+              "url": "https://otexts.com/fpp3/"
+            }
+          ],
+          "exercise": "Load a monthly sales dataset, check for stationarity using `statsmodels` adfuller test, perform differencing if needed, and plot the ACF and PACF graphs."
+        },
+        {
+          "day": 85,
+          "title": "Phase 5 Review & Advanced Interview Prep",
+          "description": "Consolidate Deep Learning, NLP, and Time Series concepts, and prepare for advanced data science technical interviews.",
+          "tasks": [
+            "Review neural networks, backpropagation, CNN layers, and text vectorization",
+            "Practice explaining the math behind TF-IDF and activation functions",
+            "Read up on modern Transformer models (BERT, GPT) at a conceptual level"
+          ],
+          "resources": [
+            {
+              "name": "The Illustrated Transformer",
+              "url": "https://jalammar.github.io/illustrated-transformer/"
+            }
+          ],
+          "exercise": "Write down a 2-paragraph explanation of how Transformer attention mechanisms work, suitable for explaining to a junior programmer."
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Phase 6: SQL, Git, & Production Tools",
+      "days": [
+        {
+          "day": 86,
+          "title": "SQL Basics: Retrieving & Filtering Data",
+          "description": "Master SQL, the primary language for querying databases, and learn to write SELECT queries.",
+          "tasks": [
+            "Understand Relational Databases and SQL syntax",
+            "Learn to query columns, filter rows (`WHERE`), and sort results (`ORDER BY`)",
+            "Use comparison, logical, and range operators (`IN`, `BETWEEN`, `LIKE`)"
+          ],
+          "resources": [
+            {
+              "name": "SQLZoo Tutorials",
+              "url": "https://sqlzoo.net/"
+            },
+            {
+              "name": "Mode Analytics SQL Tutorial",
+              "url": "https://mode.com/sql-tutorial/"
+            }
+          ],
+          "exercise": "Write queries on a mock database (or online sandbox) to select product names with stock < 10, ordered by price descending."
+        },
+        {
+          "day": 87,
+          "title": "SQL Aggregations & Grouping",
+          "description": "Learn to summarize database rows, compute group statistics, and filter grouped records using SQL.",
+          "tasks": [
+            "Master aggregation functions: `COUNT()`, `SUM()`, `AVG()`, `MIN()`, `MAX()`",
+            "Group rows by unique keys using `GROUP BY`",
+            "Filter grouped results using `HAVING` (and understand how it differs from `WHERE`)"
+          ],
+          "resources": [
+            {
+              "name": "W3Schools SQL Aggregate Functions",
+              "url": "https://www.w3schools.com/sql/sql_count_sum_avg.asp"
+            }
+          ],
+          "exercise": "Write a query to find the total sales and number of transactions for each store location, keeping only stores with sales > $10,000."
+        },
+        {
+          "day": 88,
+          "title": "SQL Joins: Combining Tables",
+          "description": "Learn to write relational queries that combine columns from multiple database tables.",
+          "tasks": [
+            "Learn `INNER JOIN` for matching keys across tables",
+            "Learn `LEFT JOIN` and `RIGHT JOIN` for matching keys while keeping unmatched rows",
+            "Understand `FULL OUTER JOIN` and `CROSS JOIN`"
+          ],
+          "resources": [
+            {
+              "name": "SQL Joins Visual Explanation",
+              "url": "https://stevestedman.com/2015/03/sql-joins-poster-v2/"
+            }
+          ],
+          "exercise": "Write a query that joins a 'Customers' table and an 'Orders' table, returning customer name, order date, and amount, including customers with no orders."
+        },
+        {
+          "day": 89,
+          "title": "Advanced SQL: Subqueries, CTEs, & Window Functions",
+          "description": "Learn to write complex analytical queries using subqueries, Common Table Expressions (CTEs), and Window functions.",
+          "tasks": [
+            "Write nested queries (subqueries) in WHERE and FROM clauses",
+            "Organize long queries using CTEs (`WITH` keyword)",
+            "Perform calculations relative to current rows using Window functions (`ROW_NUMBER()`, `RANK()`, `PARTITION BY`)"
+          ],
+          "resources": [
+            {
+              "name": "LearnSQL - Window Functions",
+              "url": "https://learnsql.com/blog/window-functions-tutorial-examples/"
+            }
+          ],
+          "exercise": "Write a query using a CTE and a window function to find the top 3 highest-earning employees in each department."
+        },
+        {
+          "day": 90,
+          "title": "Version Control with Git & GitHub",
+          "description": "Master Git, the industry-standard version control system, and learn to collaborate using GitHub.",
+          "tasks": [
+            "Initialize a git repository, check status, stage, and commit changes",
+            "Create, check out, and merge branches, and resolve conflicts",
+            "Set up a remote repository on GitHub, push local commits, and create Pull Requests (PRs)"
+          ],
+          "resources": [
+            {
+              "name": "GitHub Git Handbook",
+              "url": "https://guides.github.com/introduction/git-handbook/"
+            },
+            {
+              "name": "Git Flight Rules",
+              "url": "https://github.com/k88hudson/git-flight-rules"
+            }
+          ],
+          "exercise": "Create a new private repository on GitHub, clone it locally, make a change on a branch, merge it locally, and push the main branch to GitHub."
+        },
+        {
+          "day": 91,
+          "title": "Building APIs for ML Models: FastAPI",
+          "description": "Learn to write a fast, modern REST API to expose your trained models to other applications.",
+          "tasks": [
+            "Install `fastapi` and `uvicorn` in your virtual environment",
+            "Write basic GET and POST endpoints",
+            "Understand Pydantic models for request body validation"
+          ],
+          "resources": [
+            {
+              "name": "FastAPI Official Tutorial",
+              "url": "https://fastapi.tiangolo.com/tutorial/"
+            }
+          ],
+          "exercise": "Create a FastAPI application with a `/health` endpoint that returns API status, and a `/predict` endpoint that takes numerical values and returns a dummy prediction."
+        },
+        {
+          "day": 92,
+          "title": "Model Serialization & API Integration",
+          "description": "Serialize your trained machine learning pipelines to disk and load them dynamically in your FastAPI endpoints.",
+          "tasks": [
+            "Serialize Scikit-Learn models using `joblib` or `pickle`",
+            "Load model pipelines in the FastAPI startup event handler",
+            "Receive user inputs via API, feed them to the model, and return model predictions"
+          ],
+          "resources": [
+            {
+              "name": "Scikit-Learn Model Persistence",
+              "url": "https://scikit-learn.org/stable/model_persistence.html"
+            }
+          ],
+          "exercise": "Serialize your Day 74 Iris/Diabetes model. Write a FastAPI endpoint that parses inputs, runs predictions using the loaded model, and returns the result."
+        },
+        {
+          "day": 93,
+          "title": "Dockerizing Your Data Science Apps",
+          "description": "Learn to write a Dockerfile, package your FastAPI model, and run it inside an isolated container.",
+          "tasks": [
+            "Install Docker on your system",
+            "Write a `Dockerfile` specifying base image, copy files, pip install, and CMD",
+            "Build the image (`docker build`) and run the container (`docker run` mapping ports)"
+          ],
+          "resources": [
+            {
+              "name": "Docker for Beginners Guide",
+              "url": "https://docs.docker.com/get-started/"
+            },
+            {
+              "name": "FastAPI in Docker",
+              "url": "https://fastapi.tiangolo.com/deployment/docker/"
+            }
+          ],
+          "exercise": "Write a Dockerfile for your FastAPI prediction app from Day 92. Build the image, run it, and query the container's endpoints using curl."
+        },
+        {
+          "day": 94,
+          "title": "Cloud Platforms (AWS/GCP/Azure) Overview",
+          "description": "Learn about the cloud infrastructure offerings and specialized services for training and deploying ML models.",
+          "tasks": [
+            "Understand fundamental cloud concepts (IaaS, PaaS, SaaS, serverless)",
+            "Study AWS ecosystem for ML (S3 for storage, EC2 for servers, SageMaker for ML)",
+            "Study GCP equivalents (Cloud Storage, Compute Engine, Vertex AI)"
+          ],
+          "resources": [
+            {
+              "name": "AWS Cloud Practitioner Essentials",
+              "url": "https://aws.amazon.com/training/digital/aws-cloud-practitioner-essentials/"
+            }
+          ],
+          "exercise": "Write a brief comparative cheat-sheet mapping storage, compute, database, and machine learning services between AWS, GCP, and Azure."
+        },
+        {
+          "day": 95,
+          "title": "Phase 6 Review & SQL/Deployment Interview Prep",
+          "description": "Review SQL aggregations, window functions, Git workflows, Docker isolation, and REST API deployment interview questions.",
+          "tasks": [
+            "Practice complex SQL join and aggregation questions",
+            "Review Docker containerization benefits, volumes, and ports mapping",
+            "Understand continuous integration/continuous deployment (CI/CD) pipelines"
+          ],
+          "resources": [
+            {
+              "name": "LeetCode - Database Problems",
+              "url": "https://leetcode.com/problemset/database/"
+            }
+          ],
+          "exercise": "Complete 3 medium-level database problems on LeetCode/HackerRank or write SQL solutions for customer transaction scenarios."
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Phase 7: Capstone Projects & Job Readiness",
+      "days": [
+        {
+          "day": 96,
+          "title": "Capstone Project: Design & Setup",
+          "description": "Choose a substantial capstone project, plan its architecture, set up the repo, and organize data ingestion.",
+          "tasks": [
+            "Select a unique domain (e.g., Credit Card Fraud, Uber Fare Prediction, Airbnb Price Estimator)",
+            "Outline the pipeline: Ingestion -> Training -> API -> Docker -> Documentation",
+            "Set up GitHub repository and structure directories"
+          ],
+          "resources": [
+            {
+              "name": "Data Science Portfolio Ideas",
+              "url": "https://www.freecodecamp.org/news/data-science-portfolio-project-ideas/"
+            }
+          ],
+          "exercise": "Create a one-page design document for your Capstone project, including database structure, model candidates, and deployment options."
+        },
+        {
+          "day": 97,
+          "title": "Capstone Project: Model & API Implementation",
+          "description": "Develop features, train the final model, package the pipeline, and expose it via FastAPI endpoints.",
+          "tasks": [
+            "Write preprocessing scripts and train/tune your final model",
+            "Implement a FastAPI application that serves this model",
+            "Add automated validation scripts to test model boundaries"
+          ],
+          "resources": [
+            {
+              "name": "Production Grade ML Pipelines",
+              "url": "https://towardsdatascience.com/production-ready-machine-learning-nlp-api-development-and-deployment-ebb16fa4f86d"
+            }
+          ],
+          "exercise": "Write complete training and server code. Ensure your API works locally, responding correctly to invalid inputs."
+        },
+        {
+          "day": 98,
+          "title": "Portfolio & GitHub Documentation",
+          "description": "Document your projects on GitHub and present them in a clean, professional manner for hiring managers.",
+          "tasks": [
+            "Write a professional, comprehensive README.md for your Capstone and other major projects",
+            "Include architecture diagrams, instructions on running code, and key performance metrics/plots",
+            "Clean up repositories: delete draft notebooks, add `.gitignore`, and format code (using black/flake8)"
+          ],
+          "resources": [
+            {
+              "name": "How to Write a Great README",
+              "url": "https://github.com/othneildrew/Best-README-Template"
+            }
+          ],
+          "exercise": "Complete a detailed README.md for your Capstone project, adding sections for problem statement, methodology, results, and quickstart."
+        },
+        {
+          "day": 99,
+          "title": "Resume Polishing & Portfolio Site Setup",
+          "description": "Format your resume for Applicant Tracking Systems (ATS), highlight key projects, and set up a portfolio website.",
+          "tasks": [
+            "Review resumes of successful entry-level data scientists",
+            "Structure your resume: projects first, highlighting tools, metrics, and business impact",
+            "Create a portfolio site (using GitHub Pages or a single HTML/CSS page) linking your repositories"
+          ],
+          "resources": [
+            {
+              "name": "Data Science Resume Guide",
+              "url": "https://towardsdatascience.com/how-to-write-a-data-science-resume-that-stands-out-2a4c6a95f9e2"
+            }
+          ],
+          "exercise": "Refactor your resume or draft one. Highlight 3 projects using the STAR method (Situation, Task, Action, Result) with quantitative metrics."
+        },
+        {
+          "day": 100,
+          "title": "Mock Interviews & Strategy",
+          "description": "Finalize your learning journey by studying interview strategies, behavioral question patterns, and negotiation.",
+          "tasks": [
+            "Practice answering behavioral questions using the STAR method",
+            "Prepare questions to ask the interviewers about team structure, tech stack, and roadmap",
+            "Develop a daily application strategy: sending personalized notes, leveraging LinkedIn, and networking"
+          ],
+          "resources": [
+            {
+              "name": "Data Science Interview Guide",
+              "url": "https://www.datascienceprep.com/"
+            }
+          ],
+          "exercise": "Record yourself answering 3 core questions: 'Tell me about yourself', 'Explain a complex project you built', and 'How do you handle messy data?'"
+        }
+      ]
+    }
+  ]
+}
