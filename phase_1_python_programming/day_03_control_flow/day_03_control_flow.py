@@ -44,8 +44,19 @@ def calculate_grade(score):
     
     Must handle invalid input (scores less than 0 or greater than 100).
     """
-    # TODO: Implement the grade calculation logic using if, elif, else
-    pass
+    if score < 0 or score > 100:
+        raise ValueError("Score must be between 0 and 100.")
+    
+    if score >= 90:
+        return "A"
+    elif score >= 80:
+        return "B"
+    elif score >= 70:
+        return "C"
+    elif score >= 60:
+        return "D"
+    else:
+        return "F"
 
 
 def main():
@@ -62,8 +73,11 @@ def main():
         
         grade = calculate_grade(score)
         print(f"The letter grade for score {score} is: {grade}")
-    except ValueError:
-        print("Invalid input! Please enter a valid number.")
+    except ValueError as e:
+        if str(e):
+            print(f"Error: {e}")
+        else:
+            print("Invalid input! Please enter a valid number.")
 
 if __name__ == "__main__":
     main()
