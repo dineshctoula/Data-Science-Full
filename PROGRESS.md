@@ -6,9 +6,9 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 
 ## 📈 Summary Statistics
 * **Current Phase**: Phase 1: Python & Programming Fundamentals (Days 1–15)
-* **Days Completed**: 5 / 100
-* **Progress Percentage**: 5%
-* **Current Streak**: 5 Days
+* **Days Completed**: 6 / 100
+* **Progress Percentage**: 6%
+* **Current Streak**: 6 Days
 
 ---
 
@@ -21,6 +21,7 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 | **Day 3** | 2026-06-16 | Phase 1 | Control Flow & Conditional Logic | Conditional logic, nested checks, ternary operators. Built grade calculator script. | ✅ Completed |
 | **Day 4** | 2026-06-17 | Phase 1 | Loops (For & While) | Iteration, ranges, nested loops, break/continue statements, guessing game. | ✅ Completed |
 | **Day 5** | 2026-06-18 | Phase 1 | Lists & List Comprehensions | List indexing, slicing, methods, shallow/deep copying, list comprehensions. Created even squares exercise script and notebook. | ✅ Completed |
+| **Day 6** | 2026-06-20 | Phase 1 | Dictionaries & Sets | Key-value mapping, dict methods, set uniqueness, set operations, word frequency count script and notebook. | ✅ Completed |
 
 ---
 
