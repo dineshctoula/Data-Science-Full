@@ -6,9 +6,9 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 
 ## 📈 Summary Statistics
 * **Current Phase**: Phase 1: Python & Programming Fundamentals (Days 1–15)
-* **Days Completed**: 6 / 100
-* **Progress Percentage**: 6%
-* **Current Streak**: 6 Days
+* **Days Completed**: 7 / 100
+* **Progress Percentage**: 7%
+* **Current Streak**: 7 Days
 
 ---
 
@@ -22,11 +22,12 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 | **Day 4** | 2026-06-17 | Phase 1 | Loops (For & While) | Iteration, ranges, nested loops, break/continue statements, guessing game. | ✅ Completed |
 | **Day 5** | 2026-06-18 | Phase 1 | Lists & List Comprehensions | List indexing, slicing, methods, shallow/deep copying, list comprehensions. Created even squares exercise script and notebook. | ✅ Completed |
 | **Day 6** | 2026-06-20 | Phase 1 | Dictionaries & Sets | Key-value mapping, dict methods, set uniqueness, set operations, word frequency count script and notebook. | ✅ Completed |
+| **Day 7** | 2026-06-21 | Phase 1 | Tuples, Mutability & Memory References | Tuples syntax, unpacking, mutability vs immutability, memory references, shallow vs deep copying. Created demo script and notebook. | ✅ Completed |
 
 ---
 
 ## 🚀 Future Goals
-* [ ] **Days 6–7**: Dictionaries, Sets, Tuples, Mutability & memory references.
+* [x] **Days 6–7**: Dictionaries, Sets, Tuples, Mutability & memory references.
 * [ ] **Days 8–10**: Functions, Scope, Lambda expressions, Exception handling, File I/O.
 * [ ] **Days 11–13**: OOP (Classes, inheritance, polymorphism, encapsulation), Functional programming.
 * [ ] **Days 14–15**: Modules, virtual environments, Phase 1 review, and Contacts Management System project.
