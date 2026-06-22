@@ -6,9 +6,9 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 
 ## 📈 Summary Statistics
 * **Current Phase**: Phase 1: Python & Programming Fundamentals (Days 1–15)
-* **Days Completed**: 7 / 100
-* **Progress Percentage**: 7%
-* **Current Streak**: 7 Days
+* **Days Completed**: 8 / 100
+* **Progress Percentage**: 8%
+* **Current Streak**: 8 Days
 
 ---
 
@@ -23,6 +23,7 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 | **Day 5** | 2026-06-18 | Phase 1 | Lists & List Comprehensions | List indexing, slicing, methods, shallow/deep copying, list comprehensions. Created even squares exercise script and notebook. | ✅ Completed |
 | **Day 6** | 2026-06-20 | Phase 1 | Dictionaries & Sets | Key-value mapping, dict methods, set uniqueness, set operations, word frequency count script and notebook. | ✅ Completed |
 | **Day 7** | 2026-06-21 | Phase 1 | Tuples, Mutability & Memory References | Tuples syntax, unpacking, mutability vs immutability, memory references, shallow vs deep copying. Created demo script and notebook. | ✅ Completed |
+| **Day 8** | 2026-06-22 | Phase 1 | Functions, Scope & Lambda Expressions | Function definition, parameters, *args, **kwargs, LEGB scope rules, lambda functions. Created exercise script and notebook. | ✅ Completed |
 
 ---
 
