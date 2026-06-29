@@ -6,9 +6,9 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 
 ## 📈 Summary Statistics
 * **Current Phase**: Phase 1: Python & Programming Fundamentals (Days 1–15)
-* **Days Completed**: 8 / 100
-* **Progress Percentage**: 8%
-* **Current Streak**: 8 Days
+* **Days Completed**: 10 / 100
+* **Progress Percentage**: 10%
+* **Current Streak**: 10 Days
 
 ---
 
@@ -24,11 +24,13 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 | **Day 6** | 2026-06-20 | Phase 1 | Dictionaries & Sets | Key-value mapping, dict methods, set uniqueness, set operations, word frequency count script and notebook. | ✅ Completed |
 | **Day 7** | 2026-06-21 | Phase 1 | Tuples, Mutability & Memory References | Tuples syntax, unpacking, mutability vs immutability, memory references, shallow vs deep copying. Created demo script and notebook. | ✅ Completed |
 | **Day 8** | 2026-06-22 | Phase 1 | Functions, Scope & Lambda Expressions | Function definition, parameters, *args, **kwargs, LEGB scope rules, lambda functions. Created exercise script and notebook. | ✅ Completed |
+| **Day 9** | 2026-06-25 | Phase 1 | Exception Handling | Learned basic exception handling with try, except, else, finally blocks, raising custom exceptions, and cleaning raw datasets. | ✅ Completed |
+| **Day 10** | 2026-06-29 | Phase 1 | File I/O (Input/Output) | Covered reading/writing text, CSV, and JSON files, context managers, file exception handling, and parsing data. | ✅ Completed |
 
 ---
 
 ## 🚀 Future Goals
 * [x] **Days 6–7**: Dictionaries, Sets, Tuples, Mutability & memory references.
-* [ ] **Days 8–10**: Functions, Scope, Lambda expressions, Exception handling, File I/O.
+* [x] **Days 8–10**: Functions, Scope, Lambda expressions, Exception handling, File I/O.
 * [ ] **Days 11–13**: OOP (Classes, inheritance, polymorphism, encapsulation), Functional programming.
 * [ ] **Days 14–15**: Modules, virtual environments, Phase 1 review, and Contacts Management System project.
