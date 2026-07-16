@@ -5,10 +5,10 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 ---
 
 ## 📈 Summary Statistics
-* **Current Phase**: Phase 1: Python & Programming Fundamentals (Days 1–15)
-* **Days Completed**: 13 / 100
-* **Progress Percentage**: 13%
-* **Current Streak**: 13 Days
+* **Current Phase**: Phase 2: Data Manipulation & Visualization (Days 16–35)
+* **Days Completed**: 16 / 100
+* **Progress Percentage**: 16%
+* **Current Streak**: 16 Days
 
 ---
 
@@ -29,6 +29,9 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 | **Day 11** | 2026-07-08 | Phase 1 | NumPy Fundamentals | Introduced NumPy array creation, attributes, basic math and statistics, reshaping, random numbers, and student marks analysis. | ✅ Completed |
 | **Day 12** | 2026-07-09 | Phase 1 | NumPy Arrays & Iteration | Explored array indexing, slicing, multi-dimensional arrays, flattening, and array iteration using np.nditer. | ✅ Completed |
 | **Day 13** | 2026-07-10 | Phase 1 | NumPy Indexing & Slicing | Hands-on practice with 2D slicing, array copies vs views, boolean masking/filtering, and fancy indexing. | ✅ Completed |
+| **Day 14** | 2026-07-11 | Phase 1 | Vectorized Operations & Broadcasting | Vectorized vs loop speed benchmarking, broadcasting rules demonstration, and exponential calculations. | ✅ Completed |
+| **Day 15** | 2026-07-12 | Phase 1 | NumPy Math & Statistical Functions | Row and column-wise statistics, searching/locating elements (argmin, argmax, np.where), and exam grades analysis. | ✅ Completed |
+| **Day 16** | 2026-07-13 | Phase 2 | NumPy Matrix Operations & Linear Algebra | Matrix multiplication, transpose, determinants, inverses, and solving systems of linear equations. | ✅ Completed |
 
 ---
 
@@ -36,4 +39,5 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 * [x] **Days 6–7**: Dictionaries, Sets, Tuples, Mutability & memory references.
 * [x] **Days 8–10**: Functions, Scope, Lambda expressions, Exception handling, File I/O.
 * [x] **Days 11–13**: NumPy Fundamentals, Arrays, Indexing, Slicing & Masking.
-* [ ] **Days 14–16**: NumPy Vectorized Operations, Broadcasting, Math/Stats Functions, and Matrix Operations/Linear Algebra.
+* [x] **Days 14–16**: NumPy Vectorized Operations, Broadcasting, Math/Stats Functions, and Matrix Operations/Linear Algebra.
+* [ ] **Days 17–19**: Introduction to Pandas, Series & DataFrames, Selecting/Filtering, Data Cleaning (missing values, duplicates).
