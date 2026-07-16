@@ -6,9 +6,9 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 
 ## 📈 Summary Statistics
 * **Current Phase**: Phase 1: Python & Programming Fundamentals (Days 1–15)
-* **Days Completed**: 10 / 100
-* **Progress Percentage**: 10%
-* **Current Streak**: 10 Days
+* **Days Completed**: 13 / 100
+* **Progress Percentage**: 13%
+* **Current Streak**: 13 Days
 
 ---
 
@@ -26,11 +26,14 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 | **Day 8** | 2026-06-22 | Phase 1 | Functions, Scope & Lambda Expressions | Function definition, parameters, *args, **kwargs, LEGB scope rules, lambda functions. Created exercise script and notebook. | ✅ Completed |
 | **Day 9** | 2026-06-25 | Phase 1 | Exception Handling | Learned basic exception handling with try, except, else, finally blocks, raising custom exceptions, and cleaning raw datasets. | ✅ Completed |
 | **Day 10** | 2026-06-29 | Phase 1 | File I/O (Input/Output) | Covered reading/writing text, CSV, and JSON files, context managers, file exception handling, and parsing data. | ✅ Completed |
+| **Day 11** | 2026-07-08 | Phase 1 | NumPy Fundamentals | Introduced NumPy array creation, attributes, basic math and statistics, reshaping, random numbers, and student marks analysis. | ✅ Completed |
+| **Day 12** | 2026-07-09 | Phase 1 | NumPy Arrays & Iteration | Explored array indexing, slicing, multi-dimensional arrays, flattening, and array iteration using np.nditer. | ✅ Completed |
+| **Day 13** | 2026-07-10 | Phase 1 | NumPy Indexing & Slicing | Hands-on practice with 2D slicing, array copies vs views, boolean masking/filtering, and fancy indexing. | ✅ Completed |
 
 ---
 
 ## 🚀 Future Goals
 * [x] **Days 6–7**: Dictionaries, Sets, Tuples, Mutability & memory references.
 * [x] **Days 8–10**: Functions, Scope, Lambda expressions, Exception handling, File I/O.
-* [ ] **Days 11–13**: OOP (Classes, inheritance, polymorphism, encapsulation), Functional programming.
-* [ ] **Days 14–15**: Modules, virtual environments, Phase 1 review, and Contacts Management System project.
+* [x] **Days 11–13**: NumPy Fundamentals, Arrays, Indexing, Slicing & Masking.
+* [ ] **Days 14–16**: NumPy Vectorized Operations, Broadcasting, Math/Stats Functions, and Matrix Operations/Linear Algebra.
