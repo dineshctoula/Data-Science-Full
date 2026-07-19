@@ -136,3 +136,79 @@ print("\nMarks > 80 AND Age > 20")
 print(df[(df["Marks"] > 80) & (df["Age"] > 20)])
 
 print("\nCommit 2 Complete!")
+
+
+
+
+
+
+
+
+
+
+
+print("\n" + "=" * 60)
+print("SORTING AND DATA ANALYSIS")
+print("=" * 60)
+
+# ----------------------------------------
+# Add New Column
+# ----------------------------------------
+
+df["Passed"] = df["Marks"] >= 80
+
+print("\nAdded Passed Column")
+print(df)
+
+# ----------------------------------------
+# Bonus Marks
+# ----------------------------------------
+
+df["Final Marks"] = df["Marks"] + 5
+
+print("\nFinal Marks")
+print(df)
+
+# ----------------------------------------
+# Sort by Marks
+# ----------------------------------------
+
+print("\nSorted by Marks")
+print(df.sort_values("Marks"))
+
+# ----------------------------------------
+# Sort Descending
+# ----------------------------------------
+
+print("\nSorted Descending")
+print(df.sort_values("Marks", ascending=False))
+
+# ----------------------------------------
+# Statistical Summary
+# ----------------------------------------
+
+print("\nStatistics")
+print(df.describe())
+
+# ----------------------------------------
+# Average Marks
+# ----------------------------------------
+
+print("\nAverage Marks")
+print(df["Marks"].mean())
+
+# ----------------------------------------
+# Maximum Marks
+# ----------------------------------------
+
+print("\nHighest Marks")
+print(df["Marks"].max())
+
+# ----------------------------------------
+# Minimum Marks
+# ----------------------------------------
+
+print("\nLowest Marks")
+print(df["Marks"].min())
+
+print("\nDAY 19 COMPLETED SUCCESSFULLY!")
