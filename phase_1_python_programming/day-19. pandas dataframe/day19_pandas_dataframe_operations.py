@@ -79,3 +79,60 @@ print("\nInformation")
 df.info()
 
 print("\nCommit 1 Complete!")
+
+
+
+print("\n" + "=" * 60)
+print("SELECTING AND FILTERING DATA")
+print("=" * 60)
+
+# ----------------------------------------
+# Select One Column
+# ----------------------------------------
+
+print("\nNames")
+print(df["Name"])
+
+# ----------------------------------------
+# Multiple Columns
+# ----------------------------------------
+
+print("\nName and Marks")
+print(df[["Name", "Marks"]])
+
+# ----------------------------------------
+# Row using loc
+# ----------------------------------------
+
+print("\nRow Index 1")
+print(df.loc[1])
+
+# ----------------------------------------
+# Row using iloc
+# ----------------------------------------
+
+print("\nRow Index 2")
+print(df.iloc[2])
+
+# ----------------------------------------
+# Filter Marks Greater Than 80
+# ----------------------------------------
+
+print("\nStudents with Marks > 80")
+print(df[df["Marks"] > 80])
+
+# ----------------------------------------
+# Filter Age Greater Than 21
+# ----------------------------------------
+
+print("\nAge > 21")
+print(df[df["Age"] > 21])
+
+# ----------------------------------------
+# Multiple Conditions
+# ----------------------------------------
+
+print("\nMarks > 80 AND Age > 20")
+print(df[(df["Marks"] > 80) & (df["Age"] > 20)])
+
+print("\nCommit 2 Complete!")
