@@ -1,14 +1,7 @@
-# =========================
-# DATA LOADING & EXPLORATION
-# =========================
-
 import pandas as pd
 
 
 def load_data(path):
-    """
-    Load dataset from CSV file
-    """
     try:
         df = pd.read_csv(path)
         print("✅ Data loaded successfully\n")
@@ -19,9 +12,6 @@ def load_data(path):
 
 
 def explore_data(df):
-    """
-    Basic data exploration
-    """
     print("🔍 First 5 rows:\n", df.head())
 
     print("\n📊 Dataset Info:")

@@ -3,6 +3,7 @@
 # =========================
 
 from src.data_loader import load_data, explore_data
+from src.preprocess import clean_data
 
 
 def main():
@@ -11,6 +12,11 @@ def main():
     
     # Explore dataset
     explore_data(df)
+
+    # Clean dataset
+    df = clean_data(df)
+
+    print("\n✅ Data preprocessing completed!")
 
 
 if __name__ == "__main__":
