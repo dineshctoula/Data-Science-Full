@@ -72,3 +72,49 @@ if __name__ == "__main__":
     explore_data(df)
     
     X_train, X_test, y_train, y_test = preprocess_data(df)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# =========================
+# COMMIT 3: MODEL TRAINING & EVALUATION
+# =========================
+
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
+
+def train_model(X_train, y_train):
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    print("✅ Model training completed\n")
+    return model
+
+def evaluate_model(model, X_test, y_test):
+    predictions = model.predict(X_test)
+    mse = mean_squared_error(y_test, predictions)
+    
+    print("📊 Model Evaluation:")
+    print("Mean Squared Error:", mse)
+
+
+# Final main update
+if __name__ == "__main__":
+    df = load_data("housing.csv")
+    explore_data(df)
+    
+    X_train, X_test, y_train, y_test = preprocess_data(df)
+    
+    model = train_model(X_train, y_train)
+    evaluate_model(model, X_test, y_test)
