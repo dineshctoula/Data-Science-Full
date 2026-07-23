@@ -1,99 +1,66 @@
-# =========================
-# COMMIT 1: DATA LOADING & EXPLORATION
-# =========================
-
 import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
-# Load dataset
+# =========================
+# STEP 1: DATA LOADING & EXPLORATION
+# =========================
+
 def load_data(path):
     try:
         df = pd.read_csv(path)
         print("✅ Data loaded successfully\n")
         return df
     except Exception as e:
-        print("❌ Error:", e)
+        print("❌ Error loading dataset:", e)
+        return None
 
-# Explore dataset
 def explore_data(df):
+    if df is None:
+        return
     print("🔹 First 5 rows:\n", df.head(), "\n")
-    
     print("🔹 Dataset Info:\n")
-    print(df.info(), "\n")
-    
-    print("🔹 Summary Statistics:\n", df.describe(), "\n")
-    
+    df.info()
+    print("\n🔹 Summary Statistics:\n", df.describe(), "\n")
     print("🔹 Missing Values:\n", df.isnull().sum(), "\n")
 
-# Main execution
-if __name__ == "__main__":
-    df = load_data("housing.csv")
-    explore_data(df)
-
-
-
-
-
 # =========================
-# COMMIT 2: DATA PREPROCESSING
+# STEP 2: DATA PREPROCESSING
 # =========================
 
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+def preprocess_data(df, target_col="median_house_value"):
+    # 1. Drop rows with missing target values
+    df = df.dropna(subset=[target_col]).copy()
 
-def preprocess_data(df):
-    # Fill missing values
-    df = df.fillna(df.median(numeric_only=True))
+    # 2. Separate features (X) and target (y)
+    X = df.drop(target_col, axis=1)
+    y = df[target_col]
 
-    # Convert categorical columns
-    df = pd.get_dummies(df)
+    # 3. Handle missing values in numerical features
+    num_cols = X.select_dtypes(include=["float64", "int64"]).columns
+    X[num_cols] = X[num_cols].fillna(X[num_cols].median())
 
-    # Split features and target
-    X = df.drop("median_house_value", axis=1)
-    y = df["median_house_value"]
+    # 4. Convert categorical variables (returns integers 0/1 instead of booleans)
+    X = pd.get_dummies(X, drop_first=True, dtype=int)
 
-    # Train-test split
+    # 5. Train-test split
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
 
-    # Scaling
+    # 6. Scaling numerical features
     scaler = StandardScaler()
     X_train = scaler.fit_transform(X_train)
     X_test = scaler.transform(X_test)
 
     print("✅ Data preprocessing completed\n")
-
     return X_train, X_test, y_train, y_test
 
-
-# Update main
-if __name__ == "__main__":
-    df = load_data("housing.csv")
-    explore_data(df)
-    
-    X_train, X_test, y_train, y_test = preprocess_data(df)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # =========================
-# COMMIT 3: MODEL TRAINING & EVALUATION
+# STEP 3: MODEL TRAINING & EVALUATION
 # =========================
-
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
 
 def train_model(X_train, y_train):
     model = LinearRegression()
@@ -104,17 +71,26 @@ def train_model(X_train, y_train):
 def evaluate_model(model, X_test, y_test):
     predictions = model.predict(X_test)
     mse = mean_squared_error(y_test, predictions)
+    rmse = mse ** 0.5
+    r2 = r2_score(y_test, predictions)
     
-    print("📊 Model Evaluation:")
-    print("Mean Squared Error:", mse)
+    print("📊 Model Evaluation Metrics:")
+    print(f" - Mean Squared Error (MSE) : {mse:,.2f}")
+    print(f" - Root Mean Squared Error  : ${rmse:,.2f}")
+    print(f" - R² Score                : {r2:.4f}\n")
 
+# =========================
+# MAIN EXECUTION
+# =========================
 
-# Final main update
 if __name__ == "__main__":
-    df = load_data("housing.csv")
-    explore_data(df)
+    filepath = "housing.csv"
     
-    X_train, X_test, y_train, y_test = preprocess_data(df)
-    
-    model = train_model(X_train, y_train)
-    evaluate_model(model, X_test, y_test)
+    df = load_data(filepath)
+    if df is not None:
+        explore_data(df)
+        
+        X_train, X_test, y_train, y_test = preprocess_data(df)
+        
+        model = train_model(X_train, y_train)
+        evaluate_model(model, X_test, y_test)
