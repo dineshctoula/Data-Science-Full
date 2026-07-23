@@ -1,23 +1,30 @@
 # =========================
-# MAIN ENTRY POINT
+# COMMIT 1: DATA LOADING & EXPLORATION
 # =========================
 
-from src.data_loader import load_data, explore_data
-from src.preprocess import clean_data
+import pandas as pd
 
+# Load dataset
+def load_data(path):
+    try:
+        df = pd.read_csv(path)
+        print("✅ Data loaded successfully\n")
+        return df
+    except Exception as e:
+        print("❌ Error:", e)
 
-def main():
-    # Load dataset
-    df = load_data("data/data.csv")
+# Explore dataset
+def explore_data(df):
+    print("🔹 First 5 rows:\n", df.head(), "\n")
     
-    # Explore dataset
-    explore_data(df)
+    print("🔹 Dataset Info:\n")
+    print(df.info(), "\n")
+    
+    print("🔹 Summary Statistics:\n", df.describe(), "\n")
+    
+    print("🔹 Missing Values:\n", df.isnull().sum(), "\n")
 
-    # Clean dataset
-    df = clean_data(df)
-
-    print("\n✅ Data preprocessing completed!")
-
-
+# Main execution
 if __name__ == "__main__":
-    main()
+    df = load_data("housing.csv")
+    explore_data(df)
