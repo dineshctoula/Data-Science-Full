@@ -1,8 +1,12 @@
+import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeRegressor
 
 # =========================
 # STEP 1: DATA LOADING & EXPLORATION
@@ -27,7 +31,30 @@ def explore_data(df):
     print("🔹 Missing Values:\n", df.isnull().sum(), "\n")
 
 # =========================
-# STEP 2: DATA PREPROCESSING
+# STEP 2: DATA VISUALIZATION
+# =========================
+
+def visualize_data(df):
+    print("📊 Generating visualizations...")
+    
+    # Select numeric columns to avoid string conversion errors
+    numeric_df = df.select_dtypes(include=["float64", "int64"])
+
+    # Correlation heatmap
+    plt.figure(figsize=(10, 8))
+    sns.heatmap(numeric_df.corr(), annot=True, cmap="coolwarm", fmt=".2f")
+    plt.title("Correlation Heatmap")
+    plt.tight_layout()
+    plt.show()
+
+    # Pairplot (for subset of key numerical columns to keep render fast)
+    key_cols = numeric_df.columns[:5] if len(numeric_df.columns) > 5 else numeric_df.columns
+    sns.pairplot(df[key_cols])
+    plt.title("Pairplot of Key Features")
+    plt.show()
+
+# =========================
+# STEP 3: DATA PREPROCESSING
 # =========================
 
 def preprocess_data(df, target_col="median_house_value"):
@@ -42,7 +69,7 @@ def preprocess_data(df, target_col="median_house_value"):
     num_cols = X.select_dtypes(include=["float64", "int64"]).columns
     X[num_cols] = X[num_cols].fillna(X[num_cols].median())
 
-    # 4. Convert categorical variables (returns integers 0/1 instead of booleans)
+    # 4. Convert categorical variables to binary indicators (0/1)
     X = pd.get_dummies(X, drop_first=True, dtype=int)
 
     # 5. Train-test split
@@ -52,32 +79,38 @@ def preprocess_data(df, target_col="median_house_value"):
 
     # 6. Scaling numerical features
     scaler = StandardScaler()
-    X_train = scaler.fit_transform(X_train)
-    X_test = scaler.transform(X_test)
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
 
     print("✅ Data preprocessing completed\n")
-    return X_train, X_test, y_train, y_test
+    return X_train_scaled, X_test_scaled, y_train, y_test
 
 # =========================
-# STEP 3: MODEL TRAINING & EVALUATION
+# STEP 4: MODEL TRAINING & EVALUATION
 # =========================
 
-def train_model(X_train, y_train):
-    model = LinearRegression()
-    model.fit(X_train, y_train)
-    print("✅ Model training completed\n")
-    return model
-
-def evaluate_model(model, X_test, y_test):
-    predictions = model.predict(X_test)
+def evaluate_predictions(y_test, predictions, model_name):
     mse = mean_squared_error(y_test, predictions)
     rmse = mse ** 0.5
     r2 = r2_score(y_test, predictions)
     
-    print("📊 Model Evaluation Metrics:")
+    print(f"📊 {model_name} Evaluation Metrics:")
     print(f" - Mean Squared Error (MSE) : {mse:,.2f}")
     print(f" - Root Mean Squared Error  : ${rmse:,.2f}")
     print(f" - R² Score                : {r2:.4f}\n")
+
+def train_and_evaluate_all_models(X_train, X_test, y_train, y_test):
+    models = {
+        "Linear Regression": LinearRegression(),
+        "Decision Tree Regressor": DecisionTreeRegressor(random_state=42),
+        "Random Forest Regressor": RandomForestRegressor(random_state=42, n_estimators=100)
+    }
+
+    for name, model in models.items():
+        print(f"🚀 Training {name}...")
+        model.fit(X_train, y_train)
+        preds = model.predict(X_test)
+        evaluate_predictions(y_test, preds, name)
 
 # =========================
 # MAIN EXECUTION
@@ -86,85 +119,16 @@ def evaluate_model(model, X_test, y_test):
 if __name__ == "__main__":
     filepath = "housing.csv"
     
-    df = load_data(filepath)
-    if df is not None:
-        explore_data(df)
+    # 1. Load Data
+    raw_df = load_data(filepath)
+    
+    if raw_df is not None:
+        # 2. Explore & Visualize Raw Data
+        explore_data(raw_df)
+        visualize_data(raw_df)
         
-        X_train, X_test, y_train, y_test = preprocess_data(df)
+        # 3. Preprocess & Split Data
+        X_train, X_test, y_train, y_test = preprocess_data(raw_df)
         
-        model = train_model(X_train, y_train)
-        evaluate_model(model, X_test, y_test)
-
-
-
-
-
-
-# =========================
-# COMMIT 4: DATA VISUALIZATION
-# =========================
-
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-def visualize_data(df):
-    print("📊 Generating visualizations...")
-
-    # Correlation heatmap
-    plt.figure(figsize=(8,6))
-    sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
-    plt.title("Correlation Heatmap")
-    plt.show()
-
-    # Pairplot (for small datasets)
-    sns.pairplot(df)
-    plt.show()
-
-# Update main
-if __name__ == "__main__":
-    df = load_data("housing.csv")
-    explore_data(df)
-    df = preprocess_data(df)
-    visualize_data(df)
-    train_model(df)
-
-
-
-
-
-
-# =========================
-# COMMIT 5: ADVANCED MODELS
-# =========================
-
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.ensemble import RandomForestRegressor
-
-def train_advanced_models(df):
-    X = df.iloc[:, :-1]
-    y = df.iloc[:, -1]
-
-    from sklearn.model_selection import train_test_split
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.2, random_state=42
-    )
-
-    # Decision Tree
-    dt = DecisionTreeRegressor()
-    dt.fit(X_train, y_train)
-    dt_pred = dt.predict(X_test)
-
-    # Random Forest
-    rf = RandomForestRegressor()
-    rf.fit(X_train, y_train)
-    rf_pred = rf.predict(X_test)
-
-    from sklearn.metrics import mean_squared_error, r2_score
-
-    print("\n🌳 Decision Tree:")
-    print("MSE:", mean_squared_error(y_test, dt_pred))
-    print("R2:", r2_score(y_test, dt_pred))
-
-    print("\n🌲 Random Forest:")
-    print("MSE:", mean_squared_error(y_test, rf_pred))
-    print("R2:", r2_score(y_test, rf_pred))
+        # 4. Train & Compare Models
+        train_and_evaluate_all_models(X_train, X_test, y_train, y_test)
