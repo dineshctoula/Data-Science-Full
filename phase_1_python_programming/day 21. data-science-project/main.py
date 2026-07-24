@@ -94,3 +94,36 @@ if __name__ == "__main__":
         
         model = train_model(X_train, y_train)
         evaluate_model(model, X_test, y_test)
+
+
+
+
+
+
+# =========================
+# COMMIT 4: DATA VISUALIZATION
+# =========================
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+def visualize_data(df):
+    print("📊 Generating visualizations...")
+
+    # Correlation heatmap
+    plt.figure(figsize=(8,6))
+    sns.heatmap(df.corr(), annot=True, cmap='coolwarm')
+    plt.title("Correlation Heatmap")
+    plt.show()
+
+    # Pairplot (for small datasets)
+    sns.pairplot(df)
+    plt.show()
+
+# Update main
+if __name__ == "__main__":
+    df = load_data("housing.csv")
+    explore_data(df)
+    df = preprocess_data(df)
+    visualize_data(df)
+    train_model(df)
