@@ -202,3 +202,25 @@ def load_model(filename="model.pkl"):
         model = pickle.load(f)
     print("📂 Model loaded successfully")
     return model
+
+
+
+
+
+
+
+
+# =========================
+# COMMIT 8: FEATURE IMPORTANCE
+# =========================
+
+import matplotlib.pyplot as plt
+
+def feature_importance(model, df):
+    importances = model.feature_importances_
+    features = df.columns[:-1]
+
+    plt.figure()
+    plt.barh(features, importances)
+    plt.title("Feature Importance")
+    plt.show()
