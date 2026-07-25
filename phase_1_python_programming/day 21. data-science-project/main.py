@@ -179,3 +179,26 @@ def tune_model(df):
     print("🔥 Best Score:", grid.best_score_)
 
     return grid.best_estimator_
+
+
+
+
+
+
+
+# =========================
+# COMMIT 7: SAVE & LOAD MODEL
+# =========================
+
+import pickle
+
+def save_model(model, filename="model.pkl"):
+    with open(filename, "wb") as f:
+        pickle.dump(model, f)
+    print("💾 Model saved successfully")
+
+def load_model(filename="model.pkl"):
+    with open(filename, "rb") as f:
+        model = pickle.load(f)
+    print("📂 Model loaded successfully")
+    return model
