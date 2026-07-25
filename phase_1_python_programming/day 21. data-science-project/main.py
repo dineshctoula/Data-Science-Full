@@ -132,3 +132,50 @@ if __name__ == "__main__":
         
         # 4. Train & Compare Models
         train_and_evaluate_all_models(X_train, X_test, y_train, y_test)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# =========================
+# COMMIT 6: HYPERPARAMETER TUNING
+# =========================
+
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import RandomForestRegressor
+
+def tune_model(df):
+    X = df.iloc[:, :-1]
+    y = df.iloc[:, -1]
+
+    from sklearn.model_selection import train_test_split
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
+
+    # Parameter grid
+    param_grid = {
+        'n_estimators': [50, 100],
+        'max_depth': [None, 10, 20]
+    }
+
+    rf = RandomForestRegressor()
+
+    grid = GridSearchCV(rf, param_grid, cv=3, scoring='r2')
+    grid.fit(X_train, y_train)
+
+    print("✅ Best Parameters:", grid.best_params_)
+    print("🔥 Best Score:", grid.best_score_)
+
+    return grid.best_estimator_
