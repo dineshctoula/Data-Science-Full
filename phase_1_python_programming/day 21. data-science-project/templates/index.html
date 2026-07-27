@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ML House Price Predictor</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin-top: 50px; }
+        input { padding: 10px; margin: 5px; width: 200px; }
+        button { padding: 10px 20px; }
+    </style>
+</head>
+<body>
+
+    <h2>🏠 House Price Prediction</h2>
+
+    <form action="/predict" method="post">
+        <input type="text" name="f1" placeholder="Feature 1"><br>
+        <input type="text" name="f2" placeholder="Feature 2"><br>
+        <input type="text" name="f3" placeholder="Feature 3"><br>
+        <input type="text" name="f4" placeholder="Feature 4"><br>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    <h3>{{ prediction_text }}</h3>
+
+</body>
+</html>
