@@ -15,6 +15,7 @@ from sklearn.tree import DecisionTreeRegressor
 # =========================
 
 def load_data(path):
+    """Loads CSV dataset and handles exceptions."""
     try:
         df = pd.read_csv(path)
         print("✅ Data loaded successfully\n")
@@ -24,6 +25,7 @@ def load_data(path):
         return None
 
 def explore_data(df):
+    """Prints overview, structure, summary stats, and missing value counts."""
     if df is None:
         return
     print("🔹 First 5 rows:\n", df.head(), "\n")
@@ -37,17 +39,21 @@ def explore_data(df):
 # =========================
 
 def visualize_data(df):
+    """Generates correlation heatmap and pairplot for numerical features."""
     print("📊 Generating visualizations...")
     numeric_df = df.select_dtypes(include=["float64", "int64"])
 
+    # Correlation Heatmap
     plt.figure(figsize=(10, 8))
     sns.heatmap(numeric_df.corr(), annot=True, cmap="coolwarm", fmt=".2f")
     plt.title("Correlation Heatmap")
     plt.tight_layout()
     plt.show()
 
+    # Pairplot for numerical columns
     key_cols = numeric_df.columns[:5] if len(numeric_df.columns) > 5 else numeric_df.columns
     sns.pairplot(df[key_cols])
+    plt.suptitle("Pairplot of Key Numerical Features", y=1.02)
     plt.show()
 
 # =========================
@@ -55,21 +61,30 @@ def visualize_data(df):
 # =========================
 
 def preprocess_data(df, target_col="median_house_value"):
+    """
+    Cleans dataset, imputes missing values, encodes categorical features,
+    splits data into train/test sets, and standardizes features.
+    """
+    # Drop rows missing the target column
     df = df.dropna(subset=[target_col]).copy()
 
     X = df.drop(target_col, axis=1)
     y = df[target_col]
 
+    # Impute missing numerical values using median
     num_cols = X.select_dtypes(include=["float64", "int64"]).columns
     X[num_cols] = X[num_cols].fillna(X[num_cols].median())
 
+    # One-hot encode categorical features
     X = pd.get_dummies(X, drop_first=True, dtype=int)
     feature_names = X.columns.tolist()
 
+    # Split train and test sets
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=42
     )
 
+    # Feature scaling
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
@@ -78,10 +93,12 @@ def preprocess_data(df, target_col="median_house_value"):
     return X_train_scaled, X_test_scaled, y_train, y_test, feature_names
 
 # =========================
-# STEP 4: MODEL TRAINING & EVALUATION
+# STEP 4: MODEL EVALUATION
 # =========================
 
-def evaluate_predictions(y_test, predictions, model_name):
+def evaluate_model(model, X_test, y_test, model_name="Model"):
+    """Predicts test targets and prints MSE, RMSE, and R2 score metrics."""
+    predictions = model.predict(X_test)
     mse = mean_squared_error(y_test, predictions)
     rmse = mse ** 0.5
     r2 = r2_score(y_test, predictions)
@@ -90,12 +107,14 @@ def evaluate_predictions(y_test, predictions, model_name):
     print(f" - Mean Squared Error (MSE) : {mse:,.2f}")
     print(f" - Root Mean Squared Error  : ${rmse:,.2f}")
     print(f" - R² Score                : {r2:.4f}\n")
+    return {"rmse": rmse, "r2": r2}
 
 # =========================
 # STEP 5: HYPERPARAMETER TUNING
 # =========================
 
 def tune_random_forest(X_train, y_train):
+    """Performs grid search to find optimal hyperparameters for Random Forest."""
     print("🔍 Tuning Random Forest Regressor...")
     param_grid = {
         'n_estimators': [50, 100],
@@ -113,12 +132,14 @@ def tune_random_forest(X_train, y_train):
 # STEP 6: MODEL PERSISTENCE
 # =========================
 
-def save_model(model, filename="model.pkl"):
+def save_model(model, filename="best_rf_model.pkl"):
+    """Serializes and saves trained model to disk using pickle."""
     with open(filename, "wb") as f:
         pickle.dump(model, f)
     print(f"💾 Model saved successfully to {filename}\n")
 
-def load_model(filename="model.pkl"):
+def load_model(filename="best_rf_model.pkl"):
+    """Loads and returns serialized model from disk."""
     with open(filename, "rb") as f:
         model = pickle.load(f)
     print(f"📂 Model loaded successfully from {filename}\n")
@@ -129,6 +150,7 @@ def load_model(filename="model.pkl"):
 # =========================
 
 def plot_feature_importance(model, feature_names):
+    """Plots horizontal bar chart of relative feature importances."""
     if not hasattr(model, "feature_importances_"):
         print("⚠️ Selected model does not support feature importances.")
         return
@@ -151,25 +173,26 @@ def plot_feature_importance(model, feature_names):
 if __name__ == "__main__":
     filepath = "housing.csv"
     
-    # 1. Load & Explore
+    # 1. Load Data
     raw_df = load_data(filepath)
+    
     if raw_df is not None:
+        # 2. Explore & Visualize
         explore_data(raw_df)
         visualize_data(raw_df)
         
-        # 2. Preprocess & Split
+        # 3. Preprocess & Split Data
         X_train, X_test, y_train, y_test, feature_names = preprocess_data(raw_df)
         
-        # 3. Hyperparameter Tuning
+        # 4. Tune & Train Model
         best_rf = tune_random_forest(X_train, y_train)
         
-        # 4. Evaluate Tuned Model
-        preds = best_rf.predict(X_test)
-        evaluate_predictions(y_test, preds, "Tuned Random Forest")
+        # 5. Evaluate Performance
+        evaluate_model(best_rf, X_test, y_test, model_name="Tuned Random Forest")
         
-        # 5. Model Persistence
+        # 6. Save & Load Model
         save_model(best_rf, "best_rf_model.pkl")
         loaded_rf = load_model("best_rf_model.pkl")
         
-        # 6. Feature Importance
+        # 7. Plot Feature Importances
         plot_feature_importance(loaded_rf, feature_names)
