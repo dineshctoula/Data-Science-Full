@@ -1,10 +1,12 @@
 import sqlite3
 
+# Connect to database (creates file if it doesn't exist)
 conn = sqlite3.connect("housing.db")
 cursor = conn.cursor()
 
+# 1. Create table safely (prevents crashing on repeat runs)
 cursor.execute("""
-CREATE TABLE housing (
+CREATE TABLE IF NOT EXISTS housing (
     income REAL,
     age INTEGER,
     rooms INTEGER,
@@ -12,7 +14,7 @@ CREATE TABLE housing (
 )
 """)
 
-
+# 2. Insert sample data
 cursor.executemany("""
 INSERT INTO housing VALUES (?, ?, ?, ?)
 """, [
@@ -21,15 +23,18 @@ INSERT INTO housing VALUES (?, ?, ?, ?)
     (45000, 20, 2, 150000)
 ])
 
+# Save changes
 conn.commit()
 
-
-
-
-# Select all
+# 3. Retrieve all records
+print("=== All Housing Records ===")
 cursor.execute("SELECT * FROM housing")
 print(cursor.fetchall())
 
-# Filter
+# 4. Filter records
+print("\n=== Properties with Price > 180,000 ===")
 cursor.execute("SELECT * FROM housing WHERE price > 180000")
 print(cursor.fetchall())
+
+# Clean up connection
+conn.close()
