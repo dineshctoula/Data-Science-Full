@@ -22,3 +22,14 @@ INSERT INTO housing VALUES (?, ?, ?, ?)
 ])
 
 conn.commit()
+
+
+
+
+# Select all
+cursor.execute("SELECT * FROM housing")
+print(cursor.fetchall())
+
+# Filter
+cursor.execute("SELECT * FROM housing WHERE price > 180000")
+print(cursor.fetchall())
