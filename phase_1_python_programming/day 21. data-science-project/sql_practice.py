@@ -38,3 +38,8 @@ print(cursor.fetchall())
 
 # Clean up connection
 conn.close()
+
+
+print("\n📌 Selected Columns:")
+cursor.execute("SELECT income, price FROM housing")
+print(cursor.fetchall())
