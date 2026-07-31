@@ -43,3 +43,17 @@ conn.close()
 print("\n📌 Selected Columns:")
 cursor.execute("SELECT income, price FROM housing")
 print(cursor.fetchall())
+
+
+
+print("\n📊 Average Price:")
+cursor.execute("SELECT AVG(price) FROM housing")
+print(cursor.fetchone())
+
+print("\n💰 Total Income:")
+cursor.execute("SELECT SUM(income) FROM housing")
+print(cursor.fetchone())
+
+print("\n🔢 Total Rows:")
+cursor.execute("SELECT COUNT(*) FROM housing")
+print(cursor.fetchone())
