@@ -57,3 +57,14 @@ print(cursor.fetchone())
 print("\n🔢 Total Rows:")
 cursor.execute("SELECT COUNT(*) FROM housing")
 print(cursor.fetchone())
+
+
+
+
+print("\n🏠 Avg Price per Room Count:")
+cursor.execute("""
+SELECT rooms, AVG(price)
+FROM housing
+GROUP BY rooms
+""")
+print(cursor.fetchall())
