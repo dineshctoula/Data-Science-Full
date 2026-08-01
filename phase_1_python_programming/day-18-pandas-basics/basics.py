@@ -47,9 +47,29 @@ def demonstrate_selection():
     print("\nSelect first 3 rows and first 2 columns using .iloc:")
     print(df.iloc[0:3, 0:2])
 
+# -----------------------------------
+# 2. FILTERING DATA
+# -----------------------------------
+def demonstrate_filtering():
+    """Demonstrate boolean indexing for data filtering"""
+    print("\n" + "=" * 60)
+    print("2. FILTERING DATA (Boolean Indexing)")
+    print("=" * 60)
+
+    df = get_sample_dataframe()
+
+    # Filter employees older than 30
+    older_than_30 = df[df['Age'] > 30]
+    print("Employees older than 30:\n", older_than_30)
+
+    # Multiple conditions: IT department AND salary > 60000
+    high_earning_it = df[(df['Department'] == 'IT') & (df['Salary'] > 60000)]
+    print("\nHigh earning IT employees:\n", high_earning_it)
+
 def main():
     print("=== Day 18: Pandas Basics - Data Manipulation ===")
     demonstrate_selection()
+    demonstrate_filtering()
 
 if __name__ == "__main__":
     main()
