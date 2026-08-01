@@ -66,10 +66,38 @@ def demonstrate_filtering():
     high_earning_it = df[(df['Department'] == 'IT') & (df['Salary'] > 60000)]
     print("\nHigh earning IT employees:\n", high_earning_it)
 
+# -----------------------------------
+# 3. HANDLING MISSING VALUES
+# -----------------------------------
+def demonstrate_handling_missing():
+    """Demonstrate handling of NaN/missing values"""
+    print("\n" + "=" * 60)
+    print("3. HANDLING MISSING VALUES")
+    print("=" * 60)
+
+    df = get_sample_dataframe()
+    
+    # Check for missing values
+    print("Missing values per column:\n", df.isna().sum())
+
+    # Drop rows with any missing values
+    df_dropped = df.dropna()
+    print("\nDataFrame after dropna():\n", df_dropped)
+
+    # Fill missing values
+    # We will fill missing Age with the mean age, and Salary with 0
+    df_filled = df.copy()
+    mean_age = df_filled['Age'].mean()
+    df_filled['Age'] = df_filled['Age'].fillna(mean_age)
+    df_filled['Salary'] = df_filled['Salary'].fillna(0)
+    
+    print("\nDataFrame after filling missing values:\n", df_filled)
+
 def main():
     print("=== Day 18: Pandas Basics - Data Manipulation ===")
     demonstrate_selection()
     demonstrate_filtering()
+    demonstrate_handling_missing()
 
 if __name__ == "__main__":
     main()
