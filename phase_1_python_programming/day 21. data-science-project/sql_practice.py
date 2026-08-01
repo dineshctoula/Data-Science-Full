@@ -66,5 +66,26 @@ GROUP BY rooms
 """)
 print(cursor.fetchall())
 
+# -----------------------------------
+# 8. PANDAS INTEGRATION: Read from SQL
+# -----------------------------------
+print("\n🐼 Loading SQLite data into Pandas DataFrame:")
+import pandas as pd
+df_housing = pd.read_sql_query("SELECT * FROM housing", conn)
+print(df_housing.head())
+
+print("\n🐼 Pandas Describe on SQL Data:")
+print(df_housing.describe())
+
+# -----------------------------------
+# 9. PANDAS INTEGRATION: Write to SQL
+# -----------------------------------
+print("\n🐼 Writing modified Pandas DataFrame back to SQLite:")
+df_housing['price_per_room'] = df_housing['price'] / df_housing['rooms']
+# Write the new dataframe to a new table
+df_housing.to_sql("housing_enhanced", conn, if_exists="replace", index=False)
+
+print("✅ Data successfully saved to 'housing_enhanced' table.")
+
 # Clean up connection AT THE VERY END
 conn.close()
