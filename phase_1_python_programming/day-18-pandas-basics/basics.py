@@ -93,11 +93,32 @@ def demonstrate_handling_missing():
     
     print("\nDataFrame after filling missing values:\n", df_filled)
 
+# -----------------------------------
+# 4. ADDING AND REMOVING COLUMNS
+# -----------------------------------
+def demonstrate_adding_removing_columns():
+    """Demonstrate adding and removing columns from a DataFrame"""
+    print("\n" + "=" * 60)
+    print("4. ADDING AND REMOVING COLUMNS")
+    print("=" * 60)
+
+    df = get_sample_dataframe()
+    
+    # Adding a new column (e.g. bonus, 10% of salary)
+    df['Bonus'] = df['Salary'] * 0.10
+    print("DataFrame after adding 'Bonus' column:\n", df)
+
+    # Removing a column
+    # axis=1 specifies we are dropping a column, not a row
+    df_dropped_col = df.drop('Department', axis=1)
+    print("\nDataFrame after removing 'Department' column:\n", df_dropped_col)
+
 def main():
     print("=== Day 18: Pandas Basics - Data Manipulation ===")
     demonstrate_selection()
     demonstrate_filtering()
     demonstrate_handling_missing()
+    demonstrate_adding_removing_columns()
 
 if __name__ == "__main__":
     main()
