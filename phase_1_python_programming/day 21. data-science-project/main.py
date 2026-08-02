@@ -84,10 +84,18 @@ def preprocess_data(df, target_col="median_house_value"):
         X, y, test_size=0.2, random_state=42
     )
 
-    # Feature scaling
+    # Feature scaling - Initialize the StandardScaler
     scaler = StandardScaler()
+    # Fit the scaler on training data and transform it
     X_train_scaled = scaler.fit_transform(X_train)
+    # Transform test data using the fitted scaler
     X_test_scaled = scaler.transform(X_test)
+    
+    # Save the scaler for inference in app.py
+    import pickle
+    with open("scaler.pkl", "wb") as f:
+        pickle.dump(scaler, f)
+    print("💾 Scaler saved successfully to scaler.pkl")
 
     print("✅ Data preprocessing completed\n")
     return X_train_scaled, X_test_scaled, y_train, y_test, feature_names
