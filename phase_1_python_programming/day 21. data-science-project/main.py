@@ -1,3 +1,17 @@
+"""
+Data Science Project - End-to-End Machine Learning Pipeline
+---------------------------------------------------------
+This script performs an end-to-end machine learning pipeline for housing price prediction.
+The steps included in this pipeline are:
+  1. Data Loading & Exploration: Reads the dataset and outputs summary statistics.
+  2. Data Visualization: Generates correlation heatmaps and pairplots to understand features.
+  3. Data Preprocessing: Handles missing values, removes outliers (using IQR), and scales features.
+  4. Model Evaluation: Trains Random Forest and Gradient Boosting regressors.
+  5. Hyperparameter Tuning: Uses GridSearchCV to find the optimal model hyperparameters.
+  6. Model Persistence: Saves the best model and preprocessing scaler to disk for inference.
+  7. Feature Importance: Visualizes which features are most predictive of housing prices.
+"""
+
 import pickle
 import matplotlib.pyplot as plt
 import numpy as np
