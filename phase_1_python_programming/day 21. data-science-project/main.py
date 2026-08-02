@@ -127,6 +127,16 @@ def evaluate_model(model, X_test, y_test, model_name="Model"):
     print(f" - R² Score                : {r2:.4f}\n")
     return {"rmse": rmse, "r2": r2}
 
+def save_predictions(model, X_test, y_test, filename="predictions.csv"):
+    """Saves the actual vs predicted values to a CSV file."""
+    predictions = model.predict(X_test)
+    df_results = pd.DataFrame({
+        "Actual": y_test,
+        "Predicted": predictions
+    })
+    df_results.to_csv(filename, index=False)
+    print(f"💾 Predictions saved successfully to {filename}\n")
+
 # =========================
 # STEP 5: HYPERPARAMETER TUNING
 # =========================
