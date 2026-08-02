@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import GridSearchCV, train_test_split
@@ -156,6 +156,22 @@ def tune_random_forest(X_train, y_train):
     print(f"🔥 Best Cross-Validation R² Score: {grid.best_score_:.4f}\n")
     return grid.best_estimator_
 
+def tune_gradient_boosting(X_train, y_train):
+    """Performs grid search to find optimal hyperparameters for Gradient Boosting."""
+    print("🔍 Tuning Gradient Boosting Regressor...")
+    param_grid = {
+        'n_estimators': [50, 100],
+        'learning_rate': [0.05, 0.1],
+        'max_depth': [3, 5]
+    }
+    gb = GradientBoostingRegressor(random_state=42)
+    grid = GridSearchCV(gb, param_grid, cv=3, scoring='r2', n_jobs=-1)
+    grid.fit(X_train, y_train)
+
+    print("✅ Best Parameters:", grid.best_params_)
+    print(f"🔥 Best Cross-Validation R² Score: {grid.best_score_:.4f}\n")
+    return grid.best_estimator_
+
 # =========================
 # STEP 6: MODEL PERSISTENCE
 # =========================
@@ -212,15 +228,20 @@ if __name__ == "__main__":
         # 3. Preprocess & Split Data
         X_train, X_test, y_train, y_test, feature_names = preprocess_data(raw_df)
         
-        # 4. Tune & Train Model
+        # 4. Tune & Train Models
         best_rf = tune_random_forest(X_train, y_train)
+        best_gb = tune_gradient_boosting(X_train, y_train)
         
         # 5. Evaluate Performance
         evaluate_model(best_rf, X_test, y_test, model_name="Tuned Random Forest")
+        evaluate_model(best_gb, X_test, y_test, model_name="Tuned Gradient Boosting")
         
-        # 6. Save & Load Model
-        save_model(best_rf, "best_rf_model.pkl")
-        loaded_rf = load_model("best_rf_model.pkl")
+        # 6. Save Predictions for the best model (using Gradient Boosting as an example)
+        save_predictions(best_gb, X_test, y_test, "gb_predictions.csv")
         
-        # 7. Plot Feature Importances
-        plot_feature_importance(loaded_rf, feature_names)
+        # 7. Save & Load Model
+        save_model(best_gb, "best_gb_model.pkl")
+        loaded_gb = load_model("best_gb_model.pkl")
+        
+        # 8. Plot Feature Importances
+        plot_feature_importance(loaded_gb, feature_names)
