@@ -71,8 +71,18 @@ def preprocess_data(df, target_col="median_house_value"):
     X = df.drop(target_col, axis=1)
     y = df[target_col]
 
-    # Impute missing numerical values using median
+    # Handle Outliers using IQR for numerical features
     num_cols = X.select_dtypes(include=["float64", "int64"]).columns
+    for col in num_cols:
+        Q1 = X[col].quantile(0.25)
+        Q3 = X[col].quantile(0.75)
+        IQR = Q3 - Q1
+        lower_bound = Q1 - 1.5 * IQR
+        upper_bound = Q3 + 1.5 * IQR
+        X[col] = np.clip(X[col], lower_bound, upper_bound)
+    print("✅ Outliers handled using IQR method")
+
+    # Impute missing numerical values using median
     X[num_cols] = X[num_cols].fillna(X[num_cols].median())
 
     # One-hot encode categorical features
