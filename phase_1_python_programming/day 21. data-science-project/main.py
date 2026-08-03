@@ -12,6 +12,7 @@ The steps included in this pipeline are:
   7. Feature Importance: Visualizes which features are most predictive of housing prices.
 """
 
+import logging
 import pickle
 import matplotlib.pyplot as plt
 import numpy as np
@@ -265,20 +266,25 @@ def save_feature_importances(df_importances, filename="feature_importances.csv")
 # =========================
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     filepath = "housing.csv"
     
     # 1. Load Data
+    logging.info("Starting ML Pipeline. Loading data...")
     raw_df = load_data(filepath)
     
     if raw_df is not None:
         # 2. Explore & Visualize
+        logging.info("Exploring and visualizing data...")
         explore_data(raw_df)
         visualize_data(raw_df)
         
         # 3. Preprocess & Split Data
+        logging.info("Preprocessing data...")
         X_train, X_test, y_train, y_test, feature_names = preprocess_data(raw_df)
         
         # 4. Tune & Train Models
+        logging.info("Tuning and training models...")
         best_ridge = tune_ridge(X_train, y_train)
         best_rf = tune_random_forest(X_train, y_train)
         best_gb = tune_gradient_boosting(X_train, y_train)
