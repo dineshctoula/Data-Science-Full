@@ -18,9 +18,9 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.model_selection import GridSearchCV, train_test_split, cross_val_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeRegressor
 
@@ -186,6 +186,21 @@ def tune_gradient_boosting(X_train, y_train):
     print(f"🔥 Best Cross-Validation R² Score: {grid.best_score_:.4f}\n")
     return grid.best_estimator_
 
+def tune_ridge(X_train, y_train):
+    """Performs grid search to find optimal hyperparameters for Ridge Regression."""
+    print("🔍 Tuning Ridge Regressor...")
+    param_grid = {
+        'alpha': [0.1, 1.0, 10.0, 100.0]
+    }
+    ridge = Ridge(random_state=42)
+    grid = GridSearchCV(ridge, param_grid, cv=3, scoring='r2', n_jobs=-1)
+    grid.fit(X_train, y_train)
+
+    print("✅ Best Parameters:", grid.best_params_)
+    print(f"🔥 Best Cross-Validation R² Score: {grid.best_score_:.4f}\n")
+    return grid.best_estimator_
+
+
 # =========================
 # STEP 6: MODEL PERSISTENCE
 # =========================
@@ -243,10 +258,12 @@ if __name__ == "__main__":
         X_train, X_test, y_train, y_test, feature_names = preprocess_data(raw_df)
         
         # 4. Tune & Train Models
+        best_ridge = tune_ridge(X_train, y_train)
         best_rf = tune_random_forest(X_train, y_train)
         best_gb = tune_gradient_boosting(X_train, y_train)
         
         # 5. Evaluate Performance
+        evaluate_model(best_ridge, X_test, y_test, model_name="Tuned Ridge")
         evaluate_model(best_rf, X_test, y_test, model_name="Tuned Random Forest")
         evaluate_model(best_gb, X_test, y_test, model_name="Tuned Gradient Boosting")
         
