@@ -220,12 +220,28 @@ def save_model(model, filename="best_rf_model.pkl"):
         pickle.dump(model, f)
     print(f"💾 Model saved successfully to {filename}\n")
 
-def load_model(filename="best_rf_model.pkl"):
+def load_model(filename="best_gb_model.pkl"):
     """Loads and returns serialized model from disk."""
     with open(filename, "rb") as f:
         model = pickle.load(f)
     print(f"📂 Model loaded successfully from {filename}\n")
     return model
+
+def predict_single_sample(model_path="best_gb_model.pkl", scaler_path="scaler.pkl", sample_features=None):
+    """Loads model and scaler to perform inference on a single sample."""
+    if sample_features is None:
+        # Example dummy sample (e.g., 8 numerical features as used in California housing dataset)
+        sample_features = np.array([[ -122.23, 37.88, 41.0, 880.0, 129.0, 322.0, 126.0, 8.3252 ]])
+    
+    with open(model_path, "rb") as f:
+        model = pickle.load(f)
+    with open(scaler_path, "rb") as f:
+        scaler = pickle.load(f)
+        
+    sample_scaled = scaler.transform(sample_features)
+    prediction = model.predict(sample_scaled)
+    print(f"🔮 Predicted House Price: ${prediction[0]:,.2f}\n")
+    return prediction[0]
 
 # =========================
 # STEP 7: FEATURE IMPORTANCE
@@ -307,3 +323,7 @@ if __name__ == "__main__":
         # 8. Plot and Save Feature Importances
         df_importances = plot_feature_importance(loaded_gb, feature_names)
         save_feature_importances(df_importances, "gb_feature_importances.csv")
+        
+        # 9. Test Single Sample Inference
+        logging.info("Testing inference on a single sample...")
+        predict_single_sample("best_gb_model.pkl", "scaler.pkl")
