@@ -141,6 +141,14 @@ def evaluate_model(model, X_test, y_test, model_name="Model"):
     print(f" - R² Score                : {r2:.4f}\n")
     return {"rmse": rmse, "r2": r2}
 
+def evaluate_cv(model, X_train, y_train, cv=5):
+    """Evaluates model performance using cross-validation."""
+    print(f"📊 Evaluating Cross-Validation (cv={cv})...")
+    scores = cross_val_score(model, X_train, y_train, cv=cv, scoring='r2')
+    print(f" - CV R² Scores : {scores}")
+    print(f" - Mean CV R²   : {scores.mean():.4f} (+/- {scores.std() * 2:.4f})\n")
+    return scores.mean()
+
 def save_predictions(model, X_test, y_test, filename="predictions.csv"):
     """Saves the actual vs predicted values to a CSV file."""
     predictions = model.predict(X_test)
@@ -267,6 +275,9 @@ if __name__ == "__main__":
         evaluate_model(best_rf, X_test, y_test, model_name="Tuned Random Forest")
         evaluate_model(best_gb, X_test, y_test, model_name="Tuned Gradient Boosting")
         
+        # 5.1 Cross-Validation on best model
+        evaluate_cv(best_gb, X_train, y_train)
+
         # 6. Save Predictions for the best model (using Gradient Boosting as an example)
         save_predictions(best_gb, X_test, y_test, "gb_predictions.csv")
         
