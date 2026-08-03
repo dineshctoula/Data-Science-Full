@@ -231,10 +231,10 @@ def load_model(filename="best_rf_model.pkl"):
 # =========================
 
 def plot_feature_importance(model, feature_names):
-    """Plots horizontal bar chart of relative feature importances."""
+    """Plots horizontal bar chart of relative feature importances and returns a DataFrame."""
     if not hasattr(model, "feature_importances_"):
         print("⚠️ Selected model does not support feature importances.")
-        return
+        return None
 
     importances = model.feature_importances_
     indices = np.argsort(importances)
@@ -246,6 +246,19 @@ def plot_feature_importance(model, feature_names):
     plt.xlabel("Relative Importance")
     plt.tight_layout()
     plt.show()
+
+    # Create and return a DataFrame of feature importances
+    df_importances = pd.DataFrame({
+        "Feature": [feature_names[i] for i in reversed(indices)],
+        "Importance": importances[reversed(indices)]
+    })
+    return df_importances
+
+def save_feature_importances(df_importances, filename="feature_importances.csv"):
+    """Saves the feature importances to a CSV file."""
+    if df_importances is not None:
+        df_importances.to_csv(filename, index=False)
+        print(f"💾 Feature importances saved successfully to {filename}\n")
 
 # =========================
 # MAIN EXECUTION
@@ -285,5 +298,6 @@ if __name__ == "__main__":
         save_model(best_gb, "best_gb_model.pkl")
         loaded_gb = load_model("best_gb_model.pkl")
         
-        # 8. Plot Feature Importances
-        plot_feature_importance(loaded_gb, feature_names)
+        # 8. Plot and Save Feature Importances
+        df_importances = plot_feature_importance(loaded_gb, feature_names)
+        save_feature_importances(df_importances, "gb_feature_importances.csv")
