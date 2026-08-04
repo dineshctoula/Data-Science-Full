@@ -101,6 +101,75 @@ def plot_line_chart():
 
 
 # ===========================================================
+# SECTION 2 – BAR CHARTS (Categorical Comparison)
+# ===========================================================
+
+def plot_bar_chart():
+    """
+    Demonstrates vertical and horizontal bar charts for comparing
+    categorical data (e.g., sales by region or department scores).
+
+    Key concepts:
+      - ax.bar()     → vertical bars; pass x positions + heights
+      - ax.barh()    → horizontal bars; useful when category labels are long
+      - ax.bar_label() → annotate bars with their exact values
+      - fig.suptitle() → shared title across multiple subplots
+    """
+    print("\n📊 Plotting Bar Charts …")
+
+    # ── Sample data: quarterly sales by region ──────────────────────────
+    regions = ["North", "South", "East", "West", "Central"]
+    q1_sales = [12_500, 9_800, 14_200, 11_000, 8_600]   # Q1 figures
+    q2_sales = [13_100, 10_500, 13_800, 12_400, 9_200]  # Q2 figures
+
+    # x positions for the bars; we'll offset Q1 & Q2 side by side
+    x = np.arange(len(regions))   # [0, 1, 2, 3, 4]
+    bar_width = 0.35               # width of each bar
+
+    # ── Create a 1×2 grid: vertical bar (left) | horizontal bar (right) ─
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+    fig.suptitle("Quarterly Sales by Region", fontsize=15, fontweight="bold")
+
+    # ── LEFT: Grouped vertical bar chart ─────────────────────────────────
+    bars1 = ax1.bar(x - bar_width / 2, q1_sales, bar_width,
+                    color=PALETTE[0], label="Q1")
+    bars2 = ax1.bar(x + bar_width / 2, q2_sales, bar_width,
+                    color=PALETTE[1], label="Q2")
+
+    # Annotate each bar with its numeric value above the bar
+    ax1.bar_label(bars1, fmt="$%,.0f", fontsize=8, padding=3)
+    ax1.bar_label(bars2, fmt="$%,.0f", fontsize=8, padding=3)
+
+    ax1.set_title("Grouped Bar Chart (Vertical)")
+    ax1.set_xlabel("Region")
+    ax1.set_ylabel("Sales ($)")
+    ax1.set_xticks(x)
+    ax1.set_xticklabels(regions)
+    ax1.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"${v:,.0f}"))
+    ax1.legend()
+
+    # ── RIGHT: Horizontal bar chart (good for long category names) ────────
+    # Compute the percentage growth between Q1 and Q2 for each region
+    growth_pct = [(q2 - q1) / q1 * 100 for q1, q2 in zip(q1_sales, q2_sales)]
+
+    # Colour bars green if growth > 0, red if negative (for visual clarity)
+    colours = [PALETTE[2] if g > 0 else PALETTE[3] for g in growth_pct]
+    bars3 = ax2.barh(regions, growth_pct, color=colours)
+
+    # Annotate each bar with the percentage value
+    ax2.bar_label(bars3, fmt="%.1f%%", padding=4, fontsize=9)
+
+    ax2.set_title("Q1→Q2 Growth (Horizontal Bar)")
+    ax2.set_xlabel("Growth (%)")
+    ax2.axvline(0, color="black", linewidth=0.8, linestyle="--")  # zero reference line
+
+    plt.tight_layout()
+    plt.savefig("bar_chart.png", dpi=150)
+    plt.show()
+    print("   ✅ bar_chart.png saved")
+
+
+# ===========================================================
 # ENTRY POINT
 # ===========================================================
 
@@ -109,7 +178,10 @@ if __name__ == "__main__":
     print("  Day 22 – Advanced Data Visualization")
     print("=" * 55)
 
-    # Section 1
+    # Section 1 – Line chart
     plot_line_chart()
+
+    # Section 2 – Bar charts
+    plot_bar_chart()
 
     print("\n✅ All charts rendered successfully!")
