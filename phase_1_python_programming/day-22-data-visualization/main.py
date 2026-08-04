@@ -424,6 +424,136 @@ def plot_seaborn_stats():
 
 
 # ===========================================================
+# SECTION 6 – MULTI-PANEL DASHBOARD
+# ===========================================================
+
+def plot_dashboard():
+    """
+    Combines multiple chart types into a single figure using
+    plt.subplot2grid() for flexible, non-uniform grid layouts.
+
+    This demonstrates the "dashboard" pattern common in data science
+    reports: one figure that tells the full data story at a glance.
+
+    Key concepts:
+      - plt.subplot2grid(shape, loc, colspan, rowspan)
+            → place axes at specific grid position; span multiple cells
+      - fig.add_gridspec() (alternative approach — documented in comments)
+      - plt.subplots_adjust() → fine-tune spacing between panels
+      - Mixing plot types in the same figure for a complete narrative
+    """
+    print("\n🗂️  Building Multi-Panel Dashboard …")
+
+    # ── Re-generate consistent data for the dashboard ─────────────────────
+    rng = np.random.default_rng(seed=55)
+    months = np.arange(1, 13)
+    month_labels = ["Jan","Feb","Mar","Apr","May","Jun",
+                    "Jul","Aug","Sep","Oct","Nov","Dec"]
+
+    # Time-series: two KPI metrics over 12 months
+    kpi_a = 5_000 + np.cumsum(rng.integers(200, 600, size=12))  # Revenue
+    kpi_b = 3_000 + np.cumsum(rng.integers(100, 400, size=12))  # Profit
+
+    # Categorical: market share by region
+    regions      = ["North", "South", "East", "West", "Central"]
+    market_share = rng.dirichlet(np.ones(5)) * 100   # sums to 100%
+
+    # Numerical: customer satisfaction scores (distribution)
+    csat_scores  = rng.normal(loc=78, scale=12, size=500)
+    csat_scores  = np.clip(csat_scores, 20, 100)
+
+    # Scatter: ad spend vs conversions
+    ad_spend     = rng.uniform(500, 10_000, size=150)
+    conversions  = 10 + ad_spend * 0.08 + rng.normal(0, 80, size=150)
+    conversions  = np.clip(conversions, 0, None)
+
+    # ── Create a 2×3 grid layout using subplot2grid ────────────────────────
+    # subplot2grid(shape, loc) places an Axes at (row, col) within the grid.
+    # colspan/rowspan let one panel span multiple columns or rows.
+    fig = plt.figure(figsize=(18, 10))
+    fig.suptitle("Business Intelligence Dashboard — Q4 2024",
+                 fontsize=16, fontweight="bold", y=1.01)
+
+    # Row 0, Col 0–1: Line chart spanning 2 columns (wide trend panel)
+    ax_line = plt.subplot2grid((2, 3), (0, 0), colspan=2)
+
+    # Row 0, Col 2: Pie chart (1×1 cell)
+    ax_pie  = plt.subplot2grid((2, 3), (0, 2))
+
+    # Row 1, Col 0: Histogram (1×1 cell)
+    ax_hist = plt.subplot2grid((2, 3), (1, 0))
+
+    # Row 1, Col 1: Scatter (1×1 cell)
+    ax_scat = plt.subplot2grid((2, 3), (1, 1))
+
+    # Row 1, Col 2: Horizontal bar (1×1 cell)
+    ax_bar  = plt.subplot2grid((2, 3), (1, 2))
+
+    # ── Panel 1: Revenue vs Profit trend line ─────────────────────────────
+    ax_line.plot(months, kpi_a, marker="o", color=PALETTE[0],
+                 label="Revenue", linewidth=2)
+    ax_line.plot(months, kpi_b, marker="s", color=PALETTE[1],
+                 label="Profit", linewidth=2, linestyle="--")
+    ax_line.fill_between(months, kpi_b, kpi_a,
+                         alpha=0.12, color=PALETTE[0],
+                         label="Margin")   # shade the gap between them
+    ax_line.set_title("Monthly Revenue vs Profit")
+    ax_line.set_xticks(months)
+    ax_line.set_xticklabels(month_labels, fontsize=8)
+    ax_line.yaxis.set_major_formatter(
+        mticker.FuncFormatter(lambda v, _: f"${v:,.0f}"))
+    ax_line.legend(fontsize=9)
+
+    # ── Panel 2: Market share pie chart ───────────────────────────────────
+    # 'explode' pulls the largest slice out slightly for emphasis
+    explode = [0.05 if s == max(market_share) else 0 for s in market_share]
+    ax_pie.pie(market_share, labels=regions, autopct="%1.1f%%",
+               colors=PALETTE, explode=explode, startangle=90)
+    ax_pie.set_title("Market Share by Region")
+
+    # ── Panel 3: CSAT score histogram with KDE overlay ────────────────────
+    ax_hist.hist(csat_scores, bins=25, density=True,
+                 color=PALETTE[2], alpha=0.6, edgecolor="white")
+    sns.kdeplot(csat_scores, ax=ax_hist, color=PALETTE[2], linewidth=2)
+    ax_hist.axvline(csat_scores.mean(), color="red", linestyle="--",
+                    linewidth=1.5, label=f"Mean {csat_scores.mean():.1f}")
+    ax_hist.set_title("CSAT Score Distribution")
+    ax_hist.set_xlabel("Score")
+    ax_hist.legend(fontsize=8)
+
+    # ── Panel 4: Ad Spend vs Conversions scatter ──────────────────────────
+    ax_scat.scatter(ad_spend, conversions, color=PALETTE[4],
+                    alpha=0.5, s=25, edgecolors="none")
+    # Add linear trend
+    coeffs = np.polyfit(ad_spend, conversions, deg=1)
+    x_fit  = np.linspace(ad_spend.min(), ad_spend.max(), 200)
+    ax_scat.plot(x_fit, np.poly1d(coeffs)(x_fit),
+                 color="red", linewidth=1.8, linestyle="--")
+    ax_scat.set_title("Ad Spend vs Conversions")
+    ax_scat.set_xlabel("Ad Spend ($)")
+    ax_scat.set_ylabel("Conversions")
+    ax_scat.xaxis.set_major_formatter(
+        mticker.FuncFormatter(lambda v, _: f"${v/1e3:.0f}K"))
+
+    # ── Panel 5: Market share horizontal bar ─────────────────────────────
+    # Sorted descending so the largest bar is at the top
+    sorted_idx   = np.argsort(market_share)[::-1]
+    sorted_reg   = [regions[i] for i in sorted_idx]
+    sorted_share = market_share[sorted_idx]
+    bars = ax_bar.barh(sorted_reg, sorted_share,
+                       color=[PALETTE[i % len(PALETTE)] for i in range(5)])
+    ax_bar.bar_label(bars, fmt="%.1f%%", padding=3, fontsize=8)
+    ax_bar.set_title("Market Share Ranking")
+    ax_bar.set_xlabel("Share (%)")
+    ax_bar.invert_yaxis()   # largest share at the top
+
+    plt.tight_layout()
+    plt.savefig("dashboard.png", dpi=150)
+    plt.show()
+    print("   ✅ dashboard.png saved")
+
+
+# ===========================================================
 # ENTRY POINT
 # ===========================================================
 
@@ -447,5 +577,7 @@ if __name__ == "__main__":
     # Section 5 – Seaborn statistical plots (box, violin, heatmap)
     plot_seaborn_stats()
 
-    print("\n✅ All charts rendered successfully!")
+    # Section 6 – Multi-panel dashboard (combining all chart types)
+    plot_dashboard()
 
+    print("\n✅ All Day 22 charts rendered successfully!")
