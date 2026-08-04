@@ -6,9 +6,9 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 
 ## 📈 Summary Statistics
 * **Current Phase**: Phase 2: Data Manipulation & Visualization (Days 16–35)
-* **Days Completed**: 16 / 100
-* **Progress Percentage**: 16%
-* **Current Streak**: 16 Days
+* **Days Completed**: 22 / 100
+* **Progress Percentage**: 22%
+* **Current Streak**: 22 Days
 
 ---
 
@@ -32,6 +32,12 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 | **Day 14** | 2026-07-11 | Phase 1 | Vectorized Operations & Broadcasting | Vectorized vs loop speed benchmarking, broadcasting rules demonstration, and exponential calculations. | ✅ Completed |
 | **Day 15** | 2026-07-12 | Phase 1 | NumPy Math & Statistical Functions | Row and column-wise statistics, searching/locating elements (argmin, argmax, np.where), and exam grades analysis. | ✅ Completed |
 | **Day 16** | 2026-07-13 | Phase 2 | NumPy Matrix Operations & Linear Algebra | Matrix multiplication, transpose, determinants, inverses, and solving systems of linear equations. | ✅ Completed |
+| **Day 17** | 2026-07-17 | Phase 2 | Pandas Series & DataFrames | Created Series/DataFrame from dicts/lists, explored dtypes, index alignment, and basic aggregation. | ✅ Completed |
+| **Day 18** | 2026-07-31 | Phase 2 | Pandas Basics & Data Selection | Boolean indexing, loc/iloc, column add/drop, missing value handling with fillna/dropna. | ✅ Completed |
+| **Day 19** | 2026-08-01 | Phase 2 | Pandas Data Cleaning | Duplicates, string normalisation, type casting, and writing cleaned data to CSV/SQLite. | ✅ Completed |
+| **Day 20** | 2026-08-02 | Phase 2 | House Price ML – EDA & Feature Eng. | Built housing dataset pipeline: EDA, feature engineering, SQLite integration via Pandas. | ✅ Completed |
+| **Day 21** | 2026-08-03 | Phase 2 | End-to-End ML Pipeline | Full pipeline: load→explore→preprocess→tune (GridSearchCV)→evaluate→save; RF, GB, Ridge models. | ✅ Completed |
+| **Day 22** | 2026-08-04 | Phase 2 | Advanced Data Visualization | Matplotlib (line, bar, histogram, scatter) + Seaborn (box, violin, heatmap) + subplot2grid dashboard. | ✅ Completed |
 
 ---
 
