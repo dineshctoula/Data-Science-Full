@@ -170,6 +170,159 @@ def plot_bar_chart():
 
 
 # ===========================================================
+# SECTION 3 – HISTOGRAMS & KDE (Distribution Analysis)
+# ===========================================================
+
+def plot_histogram():
+    """
+    Shows how to explore the distribution of a continuous variable
+    using histograms and Kernel Density Estimates (KDE).
+
+    Key concepts:
+      - ax.hist()          → frequency histogram; 'bins' controls bucket width
+      - density=True       → normalise so the y-axis shows probability density
+      - sns.kdeplot()      → smooth KDE curve drawn on the same Axes
+      - ax.axvline()       → vertical line to mark mean / median
+      - Overlaying KDE on hist lets us see both exact bins AND smooth shape
+    """
+    print("\n📉 Plotting Histograms & KDE …")
+
+    # ── Simulate exam scores for three student cohorts ──────────────────
+    rng = np.random.default_rng(seed=7)
+
+    # Group A: well-prepared students (higher mean, smaller spread)
+    scores_a = rng.normal(loc=72, scale=8, size=300)
+
+    # Group B: average preparation (medium mean, wider spread)
+    scores_b = rng.normal(loc=65, scale=12, size=300)
+
+    # Group C: mix of high and low scorers (bimodal distribution)
+    scores_c = np.concatenate([
+        rng.normal(loc=55, scale=6, size=150),   # lower mode
+        rng.normal(loc=85, scale=5, size=150),   # upper mode
+    ])
+
+    # Clip scores to the valid range [0, 100]
+    scores_a = np.clip(scores_a, 0, 100)
+    scores_b = np.clip(scores_b, 0, 100)
+    scores_c = np.clip(scores_c, 0, 100)
+
+    # ── Build a 1×3 subplot grid, one panel per cohort ──────────────────
+    fig, axes = plt.subplots(1, 3, figsize=(16, 5), sharey=False)
+    fig.suptitle("Exam Score Distributions by Cohort", fontsize=14, fontweight="bold")
+
+    datasets = [
+        (scores_a, "Group A (High Prep)",    PALETTE[0]),
+        (scores_b, "Group B (Average Prep)", PALETTE[1]),
+        (scores_c, "Group C (Bimodal)",      PALETTE[2]),
+    ]
+
+    for ax, (scores, label, colour) in zip(axes, datasets):
+        # ── Histogram: density=True normalises area under bars to 1 ──────
+        ax.hist(scores, bins=20, density=True, alpha=0.55,
+                color=colour, edgecolor="white", label="Histogram")
+
+        # ── KDE overlay from Seaborn (smooth probability density curve) ──
+        # Using the same Axes object so both plots share the coordinate space
+        sns.kdeplot(scores, ax=ax, color=colour, linewidth=2.5, label="KDE")
+
+        # ── Reference lines for mean and median ──────────────────────────
+        ax.axvline(scores.mean(),   color="red",    linestyle="--",
+                   linewidth=1.5, label=f"Mean  {scores.mean():.1f}")
+        ax.axvline(np.median(scores), color="black", linestyle=":",
+                   linewidth=1.5, label=f"Median {np.median(scores):.1f}")
+
+        ax.set_title(label, fontsize=11)
+        ax.set_xlabel("Score")
+        ax.set_ylabel("Density")
+        ax.legend(fontsize=8)
+
+    plt.tight_layout()
+    plt.savefig("histogram_kde.png", dpi=150)
+    plt.show()
+    print("   ✅ histogram_kde.png saved")
+
+
+# ===========================================================
+# SECTION 4 – SCATTER PLOTS (Relationship Analysis)
+# ===========================================================
+
+def plot_scatter():
+    """
+    Uses scatter plots to visualise relationships between two continuous
+    variables and adds a regression trend line for quick interpretation.
+
+    Key concepts:
+      - ax.scatter()    → plot (x, y) pairs as individual points
+      - 'c' parameter   → colour each point by a third variable (heat map style)
+      - 'alpha'         → transparency for dense data points (overplotting)
+      - np.polyfit()    → fit a degree-1 polynomial (linear regression line)
+      - np.poly1d()     → convert polynomial coefficients to a callable function
+    """
+    print("\n🔵 Plotting Scatter Plots …")
+
+    # ── Simulate house data: area (sqft) vs price ($) ───────────────────
+    rng = np.random.default_rng(seed=21)
+    n = 200
+
+    area = rng.uniform(500, 3_500, size=n)        # house area in sqft
+    rooms = rng.integers(1, 7, size=n)            # number of rooms (1–6)
+
+    # Price increases with area, with some added noise to simulate real data
+    # Larger houses have higher variance in price (heteroscedasticity)
+    noise = rng.normal(0, 20_000 + area * 8, size=n)
+    price = 80_000 + area * 120 + rooms * 15_000 + noise
+    price = np.clip(price, 50_000, None)          # no negative prices
+
+    # ── Build the figure ─────────────────────────────────────────────────
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+    fig.suptitle("House Area vs Price", fontsize=14, fontweight="bold")
+
+    # ── LEFT: Basic scatter coloured by number of rooms ──────────────────
+    sc = ax1.scatter(area, price, c=rooms, cmap="viridis",
+                     alpha=0.65, edgecolors="none", s=40)
+
+    # Add a colour bar so we know what each colour represents
+    cbar = fig.colorbar(sc, ax=ax1)
+    cbar.set_label("# Rooms", fontsize=9)
+
+    # Fit and plot a linear trend line using NumPy polynomial fitting
+    # np.polyfit returns [slope, intercept] for degree=1
+    coeffs = np.polyfit(area, price, deg=1)
+    trend_fn = np.poly1d(coeffs)             # callable trend function
+    x_line = np.linspace(area.min(), area.max(), 300)
+    ax1.plot(x_line, trend_fn(x_line), color="red", linewidth=2,
+             linestyle="--", label=f"Trend (slope={coeffs[0]:,.0f}$/sqft)")
+
+    ax1.set_title("Scatter + Linear Trend")
+    ax1.set_xlabel("Area (sqft)")
+    ax1.set_ylabel("Price ($)")
+    ax1.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"${v/1e3:.0f}K"))
+    ax1.legend(fontsize=9)
+
+    # ── RIGHT: Annotated scatter highlighting outliers ────────────────────
+    # Compute z-scores to detect price outliers (|z| > 2 is unusual)
+    z_scores = (price - price.mean()) / price.std()
+    is_outlier = np.abs(z_scores) > 2
+
+    ax2.scatter(area[~is_outlier], price[~is_outlier],
+                color=PALETTE[0], alpha=0.6, s=35, label="Normal")
+    ax2.scatter(area[is_outlier], price[is_outlier],
+                color=PALETTE[3], alpha=0.9, s=70, marker="*", label="Outlier")
+
+    ax2.set_title("Scatter with Outlier Highlighting")
+    ax2.set_xlabel("Area (sqft)")
+    ax2.set_ylabel("Price ($)")
+    ax2.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"${v/1e3:.0f}K"))
+    ax2.legend(fontsize=9)
+
+    plt.tight_layout()
+    plt.savefig("scatter_plot.png", dpi=150)
+    plt.show()
+    print("   ✅ scatter_plot.png saved")
+
+
+# ===========================================================
 # ENTRY POINT
 # ===========================================================
 
@@ -181,7 +334,13 @@ if __name__ == "__main__":
     # Section 1 – Line chart
     plot_line_chart()
 
-    # Section 2 – Bar charts
+    # Section 2 – Bar charts (categorical comparison)
     plot_bar_chart()
+
+    # Section 3 – Histograms & KDE (distribution analysis)
+    plot_histogram()
+
+    # Section 4 – Scatter plots (relationship + outliers)
+    plot_scatter()
 
     print("\n✅ All charts rendered successfully!")
