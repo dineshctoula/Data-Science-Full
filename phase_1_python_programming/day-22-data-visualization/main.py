@@ -323,6 +323,107 @@ def plot_scatter():
 
 
 # ===========================================================
+# SECTION 5 – SEABORN STATISTICAL PLOTS
+# ===========================================================
+
+def plot_seaborn_stats():
+    """
+    Demonstrates three high-level Seaborn chart types ideal for
+    statistical summaries and exploring multi-variable datasets.
+
+    Chart types:
+      1. Box Plot    → shows median, IQR, whiskers, and outliers per category
+      2. Violin Plot → combines box plot with KDE to show distribution shape
+      3. Heatmap     → visualises a correlation matrix with colour gradients
+
+    Key Seaborn functions:
+      - sns.boxplot()    → group-wise box-and-whisker summary
+      - sns.violinplot() → richer view of distribution shape per group
+      - sns.heatmap()    → coloured grid from a 2-D numerical array/DataFrame
+    """
+    print("\n🎻 Plotting Seaborn Statistical Charts …")
+
+    # ── Build a synthetic student performance DataFrame ──────────────────
+    rng = np.random.default_rng(seed=99)
+    n_students = 240
+
+    # 3 subject groups × 80 students each
+    subjects = ["Math", "Science", "English"] * 80
+    rng.shuffle(subjects)
+
+    # Score distributions differ per subject to make comparisons meaningful
+    scores = np.concatenate([
+        rng.normal(70, 10, 80),   # Math   – moderate mean, tight spread
+        rng.normal(75, 14, 80),   # Science – higher mean, wider spread
+        rng.normal(68, 8,  80),   # English – lowest mean, tightest spread
+    ])
+    scores = np.clip(scores, 40, 100)   # keep in realistic range
+
+    # Study hours positively correlated with scores (with noise)
+    study_hours = (scores - 50) / 5 + rng.normal(0, 1, n_students)
+    study_hours = np.clip(study_hours, 1, 10)
+
+    df = pd.DataFrame({
+        "Subject": subjects,
+        "Score":   np.round(scores, 1),
+        "Study_Hours": np.round(study_hours, 1),
+    })
+
+    # ── 1. Box Plot: one box per subject showing spread + outliers ────────
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6))
+    fig.suptitle("Seaborn Statistical Charts — Student Performance",
+                 fontsize=14, fontweight="bold")
+
+    sns.boxplot(
+        data=df,
+        x="Subject",
+        y="Score",
+        palette=PALETTE[:3],    # one colour per subject
+        ax=axes[0],
+    )
+    # The box spans Q1 to Q3 (IQR); the line inside is the median;
+    # whiskers extend to 1.5×IQR; dots beyond whiskers are outliers.
+    axes[0].set_title("Box Plot\n(median, IQR, outliers)")
+    axes[0].set_ylabel("Score")
+
+    # ── 2. Violin Plot: same data, but shows distribution shape via KDE ───
+    sns.violinplot(
+        data=df,
+        x="Subject",
+        y="Score",
+        palette=PALETTE[:3],
+        inner="quartile",   # draw quartile lines inside the violin body
+        ax=axes[1],
+    )
+    # 'inner="quartile"' draws three lines inside: Q1, median, Q3.
+    # The width of the violin at any point reflects data density there.
+    axes[1].set_title("Violin Plot\n(shape + quartile lines)")
+    axes[1].set_ylabel("")
+
+    # ── 3. Correlation Heatmap: how features relate to each other ─────────
+    # Select only numeric columns for correlation calculation
+    numeric_cols = df.select_dtypes(include="number")
+    corr_matrix = numeric_cols.corr()   # Pearson correlation (default)
+
+    sns.heatmap(
+        corr_matrix,
+        annot=True,          # print r-value inside each cell
+        fmt=".2f",           # 2 decimal places
+        cmap="coolwarm",     # diverging palette: blue=negative, red=positive
+        vmin=-1, vmax=1,     # fix colour scale to [-1, +1]
+        square=True,         # equal-width cells
+        linewidths=0.5,      # thin lines between cells for clarity
+        ax=axes[2],
+    )
+    axes[2].set_title("Correlation Heatmap\n(Pearson r)")
+
+    plt.tight_layout()
+    plt.savefig("seaborn_stats.png", dpi=150)
+    plt.show()
+    print("   ✅ seaborn_stats.png saved")
+
+
+# ===========================================================
 # ENTRY POINT
 # ===========================================================
 
@@ -343,4 +444,8 @@ if __name__ == "__main__":
     # Section 4 – Scatter plots (relationship + outliers)
     plot_scatter()
 
+    # Section 5 – Seaborn statistical plots (box, violin, heatmap)
+    plot_seaborn_stats()
+
     print("\n✅ All charts rendered successfully!")
+
