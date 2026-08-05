@@ -117,6 +117,89 @@ def make_sales_df(seed: int = 42) -> pd.DataFrame:
 
 
 # ===========================================================
+# SECTION 1 – GROUPBY BASICS (Split → Apply → Combine)
+# ===========================================================
+
+def groupby_basics(df: pd.DataFrame) -> None:
+    """
+    Introduces the three-step GroupBy paradigm in Pandas:
+      1. Split   – divide the DataFrame into groups by one column
+      2. Apply   – apply an aggregation function to each group
+      3. Combine – merge the per-group results into a new DataFrame
+
+    Key API:
+      - df.groupby("col")          → creates a DataFrameGroupBy object
+      - .size()                    → number of rows per group
+      - .sum() / .mean() / .min()  → scalar aggregate per group
+      - .agg("func")               → same but with a string shorthand
+      - as_index=False             → keeps group keys as columns (not index)
+    """
+    print("\n" + "─" * 55)
+    print("SECTION 1 – GroupBy Basics")
+    print("─" * 55)
+
+    # ── How many transactions does each region have? ──────────
+    # groupby("region") splits the df into 4 sub-DataFrames (one per region).
+    # .size() counts rows in each group and returns a Series indexed by region.
+    txn_count = df.groupby("region").size()
+    print("\n📌 Transaction count by region:")
+    print(txn_count.to_string())          # .to_string() prevents truncation
+
+    # ── Total revenue per region ──────────────────────────────
+    # .sum() is applied to every numeric column; we then select only 'revenue'.
+    rev_by_region = df.groupby("region")["revenue"].sum().sort_values(ascending=False)
+    print("\n📌 Total revenue by region (sorted descending):")
+    print(rev_by_region.apply(lambda v: f"${v:,.2f}").to_string())
+
+    # ── Average discount per product category ─────────────────
+    # as_index=False returns a regular DataFrame instead of a grouped Series,
+    # making it easier to pass to plotting functions downstream.
+    avg_discount = (
+        df.groupby("category", as_index=False)["discount"]
+        .mean()
+        .rename(columns={"discount": "avg_discount_pct"})
+        .sort_values("avg_discount_pct", ascending=False)
+    )
+    print("\n📌 Average discount (%) by category:")
+    print(avg_discount.to_string(index=False))
+
+    # ── Min and Max unit price per product ────────────────────
+    # You can chain multiple aggregation methods or use .agg() with a list.
+    # Here we use a list to compute both in a single pass over the data.
+    price_range = (
+        df.groupby("product")["unit_price"]
+        .agg(["min", "max"])            # returns a DataFrame with two columns
+        .rename(columns={"min": "min_price", "max": "max_price"})
+        .sort_values("max_price", ascending=False)
+    )
+    print("\n📌 Unit price range (min / max) by product:")
+    print(price_range.round(2).to_string())
+
+    # ── Visualise: Revenue by region (simple bar chart) ───────
+    fig, ax = plt.subplots(figsize=(8, 4))
+    colours = ["#4C72B0", "#DD8452", "#55A868", "#C44E52"]
+    ax.bar(rev_by_region.index, rev_by_region.values, color=colours)
+    ax.set_title("Total Revenue by Region (2024)", fontsize=13, fontweight="bold")
+    ax.set_xlabel("Region")
+    ax.set_ylabel("Revenue ($)")
+    ax.yaxis.set_major_formatter(
+        mticker.FuncFormatter(lambda v, _: f"${v/1_000:,.0f}K")
+    )
+    for bar in ax.patches:
+        # Annotate each bar with the exact dollar value above it
+        ax.text(
+            bar.get_x() + bar.get_width() / 2,
+            bar.get_height() + 500,
+            f"${bar.get_height():,.0f}",
+            ha="center", va="bottom", fontsize=9
+        )
+    plt.tight_layout()
+    plt.savefig("s1_revenue_by_region.png", dpi=150)
+    plt.show()
+    print("\n   ✅ s1_revenue_by_region.png saved")
+
+
+# ===========================================================
 # ENTRY POINT
 # ===========================================================
 
@@ -129,6 +212,9 @@ if __name__ == "__main__":
     df = make_sales_df()
     print(f"\n✅ Dataset created: {len(df):,} rows × {df.shape[1]} columns")
     print(df.head())
-    print(f"\nColumn dtypes:\n{df.dtypes}")
 
-    print("\n✅ Day 23 scaffold complete – dataset ready!")
+    # Section 1 – GroupBy basics: split → apply → combine
+    groupby_basics(df)
+
+    print("\n✅ Day 23 – Section 1 complete!")
+
