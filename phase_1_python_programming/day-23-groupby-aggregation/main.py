@@ -286,6 +286,98 @@ def multi_metric_agg(df: pd.DataFrame) -> None:
 
 
 # ===========================================================
+# SECTION 3 – MULTI-LEVEL GROUPBY (Group by Two+ Columns)
+# ===========================================================
+
+def multi_level_groupby(df: pd.DataFrame) -> None:
+    """
+    Demonstrates grouping by more than one column at the same time.
+    Multi-level GroupBy returns a hierarchically indexed (MultiIndex) result.
+
+    Key concepts:
+      - df.groupby(["col1", "col2"])  → creates a two-level group
+      - .unstack()                    → pivots the inner index to columns
+      - .swaplevel() + .sort_index()  → rearrange MultiIndex levels
+      - Useful pattern: group by (time period + category) for trend analysis
+    """
+    print("\n" + "─" * 55)
+    print("SECTION 3 – Multi-Level GroupBy")
+    print("─" * 55)
+
+    # ── Extract month from the date column for time-series grouping ──
+    # Pandas datetime accessor (.dt) gives access to year, month, day, etc.
+    df = df.copy()                          # avoid mutating the caller's df
+    df["month"] = df["date"].astype("datetime64[ns]").dt.month
+
+    # ── Group by region + category ───────────────────────────────────
+    # Result is a Series with a 2-level MultiIndex: (region, category)
+    regional_cat = (
+        df.groupby(["region", "category"])["revenue"]
+        .sum()
+        .round(2)
+    )
+    print("\n📌 Total revenue by region × category (MultiIndex Series):")
+    print(regional_cat.to_string())
+
+    # ── Unstack inner level → pivot MultiIndex into wide DataFrame ───
+    # .unstack() moves the innermost index level ("category") to columns.
+    # This makes it easy to compare categories side-by-side for each region.
+    wide = regional_cat.unstack(level="category").fillna(0).round(2)
+    print("\n📌 Wide-format (regions as rows, categories as columns):")
+    print(wide.to_string())
+
+    # ── Monthly revenue trend per category ──────────────────────────
+    # Grouping by month + category gives a 12×3 pivot-ready result.
+    monthly_cat = (
+        df.groupby(["month", "category"])["revenue"]
+        .sum()
+        .unstack("category")           # months as rows, categories as columns
+        .fillna(0)
+        .round(2)
+    )
+    print("\n📌 Monthly revenue by category (first 3 months shown):")
+    print(monthly_cat.head(3).to_string())
+
+    # ── Group by region + rep to rank individual performance ────────
+    rep_perf = (
+        df.groupby(["region", "rep"]).agg(
+            total_revenue = pd.NamedAgg("revenue",    "sum"),
+            deals         = pd.NamedAgg("revenue",    "count"),
+        )
+        .round(2)
+        .sort_values("total_revenue", ascending=False)
+    )
+    print("\n📌 Revenue by region → rep (MultiIndex, sorted by revenue):")
+    print(rep_perf.to_string())
+
+    # ── Visualise: monthly revenue trend per category ────────────────
+    fig, ax = plt.subplots(figsize=(11, 5))
+    month_labels = ["Jan","Feb","Mar","Apr","May","Jun",
+                    "Jul","Aug","Sep","Oct","Nov","Dec"]
+    colours = ["#4C72B0", "#DD8452", "#55A868"]
+
+    for col, colour in zip(monthly_cat.columns, colours):
+        ax.plot(monthly_cat.index, monthly_cat[col],
+                marker="o", linewidth=2, color=colour, label=col)
+
+    ax.set_title("Monthly Revenue Trend by Category (2024)",
+                 fontsize=13, fontweight="bold")
+    ax.set_xlabel("Month")
+    ax.set_ylabel("Revenue ($)")
+    ax.set_xticks(range(1, 13))
+    ax.set_xticklabels(month_labels)
+    ax.yaxis.set_major_formatter(
+        mticker.FuncFormatter(lambda v, _: f"${v/1_000:,.0f}K")
+    )
+    ax.legend(title="Category", fontsize=9)
+    ax.grid(True, linestyle="--", alpha=0.4)
+    plt.tight_layout()
+    plt.savefig("s3_monthly_trend.png", dpi=150)
+    plt.show()
+    print("\n   ✅ s3_monthly_trend.png saved")
+
+
+# ===========================================================
 # ENTRY POINT
 # ===========================================================
 
@@ -305,6 +397,10 @@ if __name__ == "__main__":
     # Section 2 – Multi-metric aggregation with agg() and NamedAgg
     multi_metric_agg(df)
 
-    print("\n✅ Day 23 – Sections 1–2 complete!")
+    # Section 3 – Multi-level GroupBy by two or more columns
+    multi_level_groupby(df)
+
+    print("\n✅ Day 23 – Sections 1–3 complete!")
+
 
 
