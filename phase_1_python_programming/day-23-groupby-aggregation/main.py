@@ -378,6 +378,99 @@ def multi_level_groupby(df: pd.DataFrame) -> None:
 
 
 # ===========================================================
+# SECTION 4 – TRANSFORM & FILTER (Group-Aware Row Operations)
+# ===========================================================
+
+def transform_and_filter(df: pd.DataFrame) -> None:
+    """
+    Shows two advanced GroupBy operations that work at the ROW level
+    rather than collapsing to a summary:
+
+      - transform(func) : applies 'func' per group but returns a Series
+                          with the SAME index/length as the original df.
+                          Perfect for adding group-level statistics as new
+                          columns (e.g. group mean, z-score normalisation).
+
+      - filter(func)    : keeps rows ONLY for groups where 'func' returns True.
+                          Useful for removing low-volume groups from analysis.
+
+    Key difference from agg():
+      agg()       → reduces df → 1 row per group
+      transform() → keeps df shape, aligns group result back to each row
+      filter()    → returns subset of original df (same columns)
+    """
+    print("\n" + "─" * 55)
+    print("SECTION 4 – transform() & filter()")
+    print("─" * 55)
+
+    df = df.copy()    # work on a fresh copy to avoid side effects
+
+    # ── transform(): add group mean as a column ─────────────────
+    # For each row we want to know the average revenue in that row's category.
+    # transform("mean") broadcasts the group mean back to every row in the group.
+    df["cat_avg_revenue"] = df.groupby("category")["revenue"].transform("mean")
+    print("\n📌 Sample rows after adding category mean (transform):")
+    print(df[["category", "revenue", "cat_avg_revenue"]].head(8).to_string(index=False))
+
+    # ── transform(): compute z-score within each category ───────
+    # Z-score = (value - group_mean) / group_std
+    # This normalises each transaction's revenue relative to its category peers.
+    # Values near 0 are average; +2 / -2 are two standard deviations out.
+    def z_score(series: pd.Series) -> pd.Series:
+        """Return standardised (z-scored) values for the given Series."""
+        return (series - series.mean()) / series.std()
+
+    df["revenue_zscore"] = df.groupby("category")["revenue"].transform(z_score)
+    print("\n📌 Z-score of revenue within category (first 5 rows):")
+    print(df[["category", "revenue", "revenue_zscore"]].head(5).round(3).to_string(index=False))
+
+    # ── transform(): percentage of group total ──────────────────
+    # Each transaction's share of its region's total revenue.
+    df["pct_of_region"] = (
+        df["revenue"]
+        / df.groupby("region")["revenue"].transform("sum")
+        * 100
+    ).round(2)
+    print("\n📌 Each transaction as % of its region's total revenue (sample):")
+    print(df[["region", "revenue", "pct_of_region"]].head(6).to_string(index=False))
+
+    # ── filter(): keep only reps with more than 60 transactions ─
+    # filter() evaluates a boolean function per group.
+    # Groups where the function returns False are entirely dropped.
+    active_reps = df.groupby("rep").filter(lambda g: len(g) > 60)
+    kept_reps   = active_reps["rep"].unique()
+    print(f"\n📌 filter() – reps with > 60 deals kept: {sorted(kept_reps)}")
+    print(f"   Rows before filter: {len(df):,}  |  after: {len(active_reps):,}")
+
+    # ── filter(): keep only high-revenue categories ──────────────
+    # Keep categories whose median deal revenue exceeds $200
+    high_value_cats = df.groupby("category").filter(
+        lambda g: g["revenue"].median() > 200
+    )
+    print(f"\n📌 filter() – categories with median revenue > $200:")
+    print(f"   Kept categories: {sorted(high_value_cats['category'].unique())}")
+
+    # ── Visualise: z-score distribution by category ──────────────
+    fig, ax = plt.subplots(figsize=(9, 4))
+    colours = {"Electronics": "#4C72B0", "Clothing": "#DD8452", "Food": "#55A868"}
+    for cat, grp in df.groupby("category"):
+        ax.hist(grp["revenue_zscore"].dropna(), bins=30, alpha=0.55,
+                color=colours[cat], label=cat, edgecolor="white")
+    ax.axvline(0,  color="black", linewidth=1.2, linestyle="--", label="Mean (z=0)")
+    ax.axvline(2,  color="red",   linewidth=1,   linestyle=":",  label="z = ±2")
+    ax.axvline(-2, color="red",   linewidth=1,   linestyle=":")
+    ax.set_title("Z-Score Distribution of Revenue by Category\n(transform normalisation)",
+                 fontsize=12, fontweight="bold")
+    ax.set_xlabel("Z-Score")
+    ax.set_ylabel("Frequency")
+    ax.legend(fontsize=9)
+    plt.tight_layout()
+    plt.savefig("s4_zscore_dist.png", dpi=150)
+    plt.show()
+    print("\n   ✅ s4_zscore_dist.png saved")
+
+
+# ===========================================================
 # ENTRY POINT
 # ===========================================================
 
@@ -400,7 +493,11 @@ if __name__ == "__main__":
     # Section 3 – Multi-level GroupBy by two or more columns
     multi_level_groupby(df)
 
-    print("\n✅ Day 23 – Sections 1–3 complete!")
+    # Section 4 – transform() for row-level group stats; filter() for exclusions
+    transform_and_filter(df)
+
+    print("\n✅ Day 23 – Sections 1–4 complete!")
+
 
 
 
