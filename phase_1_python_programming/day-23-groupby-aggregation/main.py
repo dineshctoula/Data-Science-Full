@@ -200,6 +200,92 @@ def groupby_basics(df: pd.DataFrame) -> None:
 
 
 # ===========================================================
+# SECTION 2 – AGGREGATION FUNCTIONS (agg with dicts)
+# ===========================================================
+
+def multi_metric_agg(df: pd.DataFrame) -> None:
+    """
+    Shows how to compute MULTIPLE aggregation metrics in a single
+    GroupBy call using the .agg() method with a dictionary.
+
+    Key concepts:
+      - .agg({"col": ["func1", "func2"]})  → dict-based multi-metric agg
+      - pd.NamedAgg(column=, aggfunc=)     → named aggregation for clean output
+      - Custom lambda inside .agg()        → apply any arbitrary function
+      - .round() chained on grouped result → round all numeric columns at once
+    """
+    print("\n" + "─" * 55)
+    print("SECTION 2 – Multi-Metric Aggregation with agg()")
+    print("─" * 55)
+
+    # ── Multi-metric agg on a single column ───────────────────
+    # Compute total revenue, average revenue, and transaction count per category.
+    # When given a list, .agg() returns a MultiIndex DataFrame.
+    rev_stats = (
+        df.groupby("category")["revenue"]
+        .agg(["sum", "mean", "count", "std"])
+        .rename(columns={
+            "sum":   "total_revenue",
+            "mean":  "avg_revenue",
+            "count": "transactions",
+            "std":   "std_revenue",
+        })
+        .round(2)
+        .sort_values("total_revenue", ascending=False)
+    )
+    print("\n📌 Revenue statistics by category:")
+    print(rev_stats.to_string())
+
+    # ── Named aggregation with pd.NamedAgg ────────────────────
+    # pd.NamedAgg gives each output column a clean, explicit name.
+    # This avoids MultiIndex columns and is the recommended modern approach.
+    rep_summary = df.groupby("rep").agg(
+        total_revenue  = pd.NamedAgg(column="revenue",    aggfunc="sum"),
+        deals_closed   = pd.NamedAgg(column="revenue",    aggfunc="count"),
+        avg_deal_size  = pd.NamedAgg(column="revenue",    aggfunc="mean"),
+        avg_discount   = pd.NamedAgg(column="discount",   aggfunc="mean"),
+        units_moved    = pd.NamedAgg(column="units_sold", aggfunc="sum"),
+    ).round(2).sort_values("total_revenue", ascending=False)
+    print("\n📌 Sales rep performance summary (NamedAgg):")
+    print(rep_summary.to_string())
+
+    # ── Custom lambda aggregation ─────────────────────────────
+    # Lambda functions let us compute any metric not covered by built-ins.
+    # Here: range (max-min) and coefficient of variation (std/mean * 100).
+    custom_stats = df.groupby("category")["revenue"].agg(
+        revenue_range = lambda s: s.max() - s.min(),     # peak-to-trough spread
+        coeff_of_var  = lambda s: s.std() / s.mean() * 100,  # relative variability
+    ).round(2)
+    print("\n📌 Custom agg – revenue range & coefficient of variation:")
+    print(custom_stats.to_string())
+
+    # ── Visualise: stacked bar – total revenue by category + region ──
+    # First create a pivot: rows = region, cols = category
+    pivot = df.pivot_table(
+        index="region", columns="category", values="revenue", aggfunc="sum"
+    )
+
+    fig, ax = plt.subplots(figsize=(9, 5))
+    pivot.plot(kind="bar", stacked=True, ax=ax,
+               color=["#4C72B0", "#DD8452", "#55A868"],
+               edgecolor="white", linewidth=0.5)
+    ax.set_title("Total Revenue by Region & Category (Stacked)",
+                 fontsize=13, fontweight="bold")
+    ax.set_xlabel("Region")
+    ax.set_ylabel("Revenue ($)")
+    ax.yaxis.set_major_formatter(
+        mticker.FuncFormatter(lambda v, _: f"${v/1_000:,.0f}K")
+    )
+    ax.legend(title="Category", bbox_to_anchor=(1.01, 1), loc="upper left",
+              fontsize=9)
+    plt.xticks(rotation=0)
+    plt.tight_layout()
+    plt.savefig("s2_stacked_bar.png", dpi=150)
+    plt.show()
+    print("\n   ✅ s2_stacked_bar.png saved")
+
+
+# ===========================================================
 # ENTRY POINT
 # ===========================================================
 
@@ -216,5 +302,9 @@ if __name__ == "__main__":
     # Section 1 – GroupBy basics: split → apply → combine
     groupby_basics(df)
 
-    print("\n✅ Day 23 – Section 1 complete!")
+    # Section 2 – Multi-metric aggregation with agg() and NamedAgg
+    multi_metric_agg(df)
+
+    print("\n✅ Day 23 – Sections 1–2 complete!")
+
 
