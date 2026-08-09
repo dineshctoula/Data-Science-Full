@@ -18,10 +18,13 @@ Learning Goals:
   - Combine GroupBy results with Matplotlib for labelled bar charts
 """
 
+import os
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import numpy as np
 import pandas as pd
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ──────────────────────────────────────────────────────────────
 # Shared Dataset – used throughout all sections of this module
@@ -194,7 +197,7 @@ def groupby_basics(df: pd.DataFrame) -> None:
             ha="center", va="bottom", fontsize=9
         )
     plt.tight_layout()
-    plt.savefig("s1_revenue_by_region.png", dpi=150)
+    plt.savefig(os.path.join(SCRIPT_DIR, "s1_revenue_by_region.png"), dpi=150)
     plt.show()
     print("\n   ✅ s1_revenue_by_region.png saved")
 
@@ -280,7 +283,7 @@ def multi_metric_agg(df: pd.DataFrame) -> None:
               fontsize=9)
     plt.xticks(rotation=0)
     plt.tight_layout()
-    plt.savefig("s2_stacked_bar.png", dpi=150)
+    plt.savefig(os.path.join(SCRIPT_DIR, "s2_stacked_bar.png"), dpi=150)
     plt.show()
     print("\n   ✅ s2_stacked_bar.png saved")
 
@@ -372,7 +375,7 @@ def multi_level_groupby(df: pd.DataFrame) -> None:
     ax.legend(title="Category", fontsize=9)
     ax.grid(True, linestyle="--", alpha=0.4)
     plt.tight_layout()
-    plt.savefig("s3_monthly_trend.png", dpi=150)
+    plt.savefig(os.path.join(SCRIPT_DIR, "s3_monthly_trend.png"), dpi=150)
     plt.show()
     print("\n   ✅ s3_monthly_trend.png saved")
 
@@ -465,9 +468,134 @@ def transform_and_filter(df: pd.DataFrame) -> None:
     ax.set_ylabel("Frequency")
     ax.legend(fontsize=9)
     plt.tight_layout()
-    plt.savefig("s4_zscore_dist.png", dpi=150)
+    plt.savefig(os.path.join(SCRIPT_DIR, "s4_zscore_dist.png"), dpi=150)
     plt.show()
     print("\n   ✅ s4_zscore_dist.png saved")
+
+
+# ===========================================================
+# ENTRY POINT
+# ===========================================================
+
+if __name__ == "__main__":
+    print("=" * 58)
+    print("  Day 23 – Pandas GroupBy & Aggregation")
+    print("=" * 58)
+
+    # Build the shared dataset once; pass it to each section
+    df = make_sales_df()
+    print(f"\n✅ Dataset created: {len(df):,} rows × {df.shape[1]} columns")
+    print(df.head())
+
+    # Section 1 – GroupBy basics: split → apply → combine
+    groupby_basics(df)
+
+    # Section 2 – Multi-metric aggregation with agg() and NamedAgg
+    multi_metric_agg(df)
+
+    # Section 3 – Multi-level GroupBy by two or more columns
+    multi_level_groupby(df)
+
+# ===========================================================
+# SECTION 5 – PIVOT TABLES & CROSS-TABULATION
+# ===========================================================
+
+def pivot_tables(df: pd.DataFrame) -> None:
+    """
+    Demonstrates pivot_table() and crosstab() for compact, executive-style
+    summaries that display two dimensions simultaneously.
+
+    Key concepts:
+      - pd.pivot_table(data, values, index, columns, aggfunc)
+            → cross-tabulation with a numeric aggregation (e.g. mean revenue)
+      - margins=True            → adds row/column totals (like Excel subtotals)
+      - fill_value=0            → replace NaN with 0 for missing combinations
+      - pd.crosstab(a, b)       → frequency count of categorical combinations
+      - Seaborn heatmap on pivot → instant visual summary of a 2-D table
+    """
+    print("\n" + "─" * 55)
+    print("SECTION 5 – Pivot Tables & Cross-Tabulation")
+    print("─" * 55)
+
+    # ── Pivot: mean revenue with rows=region, cols=category ─────
+    # Each cell shows the average deal size for that region-category pair.
+    pivot_mean = pd.pivot_table(
+        data      = df,
+        values    = "revenue",
+        index     = "region",        # rows of the pivot
+        columns   = "category",      # columns of the pivot
+        aggfunc   = "mean",          # value to display in each cell
+        margins   = True,            # add "All" row and column
+        fill_value= 0,               # treat missing combos as 0
+    ).round(2)
+    print("\n📌 Pivot table – Mean revenue per region × category:")
+    print(pivot_mean.to_string())
+
+    # ── Pivot: total units sold with rows=product, cols=region ──
+    # Shows which product sells most units in each region.
+    pivot_units = pd.pivot_table(
+        data      = df,
+        values    = "units_sold",
+        index     = "product",
+        columns   = "region",
+        aggfunc   = "sum",
+        fill_value= 0,
+        margins   = True,
+    )
+    print("\n📌 Pivot table – Total units sold per product × region:")
+    print(pivot_units.to_string())
+
+    # ── Pivot: average discount with custom aggfunc list ─────────
+    # Passing a list to aggfunc returns a multi-level column DataFrame.
+    pivot_discount = pd.pivot_table(
+        data    = df,
+        values  = "discount",
+        index   = "category",
+        columns = "region",
+        aggfunc = ["mean", "count"],   # two metrics in one table
+    ).round(1)
+    print("\n📌 Pivot table – Discount mean & count per category × region:")
+    print(pivot_discount.to_string())
+
+    # ── Cross-tabulation: frequency count ───────────────────────
+    # pd.crosstab counts how many transactions appear for each combination.
+    # normalize="index" converts counts to row percentages (sums to 1 per row).
+    ct = pd.crosstab(df["region"], df["category"])
+    ct_pct = pd.crosstab(df["region"], df["category"], normalize="index").round(3) * 100
+    print("\n📌 Crosstab – transaction count per region × category:")
+    print(ct.to_string())
+    print("\n📌 Crosstab – row % (share of each category within a region):")
+    print(ct_pct.round(1).to_string())
+
+    # ── Visualise: heatmap of mean revenue pivot ─────────────────
+    # Drop the "All" margins row/col before plotting to keep only real groups.
+    import seaborn as sns
+    pivot_plot = pd.pivot_table(
+        data      = df,
+        values    = "revenue",
+        index     = "region",
+        columns   = "category",
+        aggfunc   = "mean",
+        fill_value= 0,
+    ).round(0)
+
+    fig, ax = plt.subplots(figsize=(8, 4))
+    sns.heatmap(
+        pivot_plot,
+        annot     = True,          # show numeric value in each cell
+        fmt       = ",.0f",        # format as integer with comma separator
+        cmap      = "YlGnBu",      # sequential colour map (light → dark = low → high)
+        linewidths= 0.5,           # thin grid lines between cells
+        ax        = ax,
+    )
+    ax.set_title("Average Revenue Heatmap\n(Region × Category)",
+                 fontsize=12, fontweight="bold")
+    ax.set_xlabel("Category")
+    ax.set_ylabel("Region")
+    plt.tight_layout()
+    plt.savefig(os.path.join(SCRIPT_DIR, "s5_pivot_heatmap.png"), dpi=150)
+    plt.show()
+    print("\n   ✅ s5_pivot_heatmap.png saved")
 
 
 # ===========================================================
@@ -496,7 +624,14 @@ if __name__ == "__main__":
     # Section 4 – transform() for row-level group stats; filter() for exclusions
     transform_and_filter(df)
 
-    print("\n✅ Day 23 – Sections 1–4 complete!")
+    # Section 5 – Pivot tables and cross-tabulation for 2-D summaries
+    pivot_tables(df)
+
+    print("\n" + "=" * 58)
+    print("  ✅ Day 23 – All Sections Complete!")
+    print("  Topics: GroupBy, agg(), MultiLevel, transform/filter, Pivots")
+    print("=" * 58)
+
 
 
 
