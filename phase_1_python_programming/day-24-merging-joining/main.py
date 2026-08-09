@@ -303,6 +303,169 @@ def database_merges(orders_df: pd.DataFrame, customers_df: pd.DataFrame,
     return full_ledger
 
 
+
+# ===========================================================
+# SECTION 3 – MULTI-KEY MERGES, SUFFIXES & SELF-JOINS
+# ===========================================================
+
+def advanced_merges_and_self_joins(full_ledger: pd.DataFrame, returns_df: pd.DataFrame,
+                                   employees_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Demonstrates multi-key joins, suffix resolution, and self-joins.
+
+    Key concepts:
+      - on=['col1', 'col2']                 → multi-key join matching multiple criteria
+      - left_on='a', right_on='b'           → joining on differently named keys
+      - suffixes=('_order', '_return')      → resolve name collisions on shared columns
+      - Self-Join (df.merge(df, ...))       → join a table to itself to resolve hierarchical trees
+    """
+    print("\n" + "─" * 58)
+    print("SECTION 3 – Multi-Key Merges, Suffixes & Self-Joins")
+    print("─" * 58)
+
+    # ── 1. Suffix Disambiguation on Overlapping Column Names ────
+    # Both full_ledger and returns_df have date/id columns.
+    returns_merged = pd.merge(
+        full_ledger, returns_df, on="order_id", how="left", suffixes=("_order", "_return")
+    )
+    print(f"\n📌 Suffix Resolution (suffixes=('_order', '_return')):")
+    print(f"   Columns with suffixes: {[c for c in returns_merged.columns if '_order' in c or '_return' in c]}")
+    print(returns_merged[["order_id", "order_date", "return_date", "reason"]].dropna(subset=["return_date"]).head(3).to_string(index=False))
+
+    # ── 2. Multi-Key Join Example ──────────────────────────────
+    # Match transactions by both customer_id and region to find localized regional sales.
+    # We construct a regional promo budget DataFrame to join on (customer_id, region)
+    regional_promos = full_ledger[["customer_id", "region"]].drop_duplicates().copy()
+    regional_promos["promo_tier"] = np.random.choice(["Tier_A", "Tier_B"], size=len(regional_promos))
+
+    multi_key_df = pd.merge(full_ledger, regional_promos, on=["customer_id", "region"], how="left")
+    print(f"\n📌 Multi-Key Join (on=['customer_id', 'region']):")
+    print(f"   Total rows: {len(multi_key_df):,} | Sample promo tier assignment:")
+    print(multi_key_df[["order_id", "customer_id", "region", "promo_tier"]].head(3).to_string(index=False))
+
+    # ── 3. Self-Join on Employee Hierarchy ──────────────────────
+    # Maps employees to their respective direct managers within the same DataFrame.
+    org_chart = pd.merge(
+        employees_df,
+        employees_df[["emp_id", "emp_name", "salary", "department"]],
+        left_on="manager_id",
+        right_on="emp_id",
+        how="left",
+        suffixes=("_emp", "_mgr"),
+    )
+
+    # Compute salary differential between manager and employee
+    org_chart["salary_diff"] = org_chart["salary_mgr"] - org_chart["salary_emp"]
+
+    print(f"\n📌 Self-Join – Employee Organizational Tree:")
+    print(org_chart[["emp_name_emp", "department_emp", "salary_emp", "emp_name_mgr", "salary_mgr", "salary_diff"]].to_string(index=False))
+
+    # ── Visualise: Salary Distribution by Department & Manager Differential ──
+    fig, ax = plt.subplots(figsize=(8, 4))
+    dept_sal = org_chart.groupby("department_emp")["salary_emp"].mean()
+    
+    bars = ax.bar(dept_sal.index, dept_sal.values, color=["#E67E22", "#2980B9", "#27AE60"], width=0.5, edgecolor="black")
+    ax.set_title("Average Salary by Department (Resolved via Self-Join Hierarchy)", fontsize=11, fontweight="bold")
+    ax.set_ylabel("Average Salary ($)")
+    ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"${v/1_000:,.0f}K"))
+    ax.grid(axis="y", linestyle="--", alpha=0.5)
+
+    for bar in bars:
+        height = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width() / 2, height + 2000, f"${height:,.0f}", ha="center", va="bottom", fontsize=9)
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(SCRIPT_DIR, "s3_self_join_org.png"), dpi=150)
+    plt.show()
+    print("\n   ✅ s3_self_join_org.png saved")
+
+    return org_chart
+
+
+
+# ===========================================================
+# SECTION 4 – INDEX MERGING, COMBINE_FIRST & VALIDATION
+# ===========================================================
+
+def index_merges_and_validation(customers_df: pd.DataFrame, products_df: pd.DataFrame,
+                                full_ledger: pd.DataFrame) -> None:
+    """
+    Demonstrates index-based joins, combine_first patching, and merge validation.
+
+    Key concepts:
+      - left_index=True / right_index=True  → join using index keys instead of columns
+      - df.join(other_df, how=...)          → index-focused join convenience method
+      - df.combine_first(backup_df)         → patch missing values from a fallback dataset
+      - validate='1:m' / 'm:1' / '1:1'      → enforce relational schema integrity checks
+    """
+    print("\n" + "─" * 58)
+    print("SECTION 4 – Index Merging, combine_first() & Validation")
+    print("─" * 58)
+
+    # Prepare index-indexed DataFrames
+    cust_indexed = customers_df.set_index("customer_id")
+    prod_indexed = products_df.set_index("product_id")
+
+    # ── 1. Index-based Join using df.join() ────────────────────
+    # Join orders with indexed customer directory using customer_id key
+    orders_sample = full_ledger.head(5).copy()
+    joined_by_index = orders_sample.join(cust_indexed, on="customer_id", lsuffix="_ledger")
+    print(f"\n📌 Index Join via df.join(on='customer_id'):")
+    print(joined_by_index[["order_id", "customer_id", "name", "region", "gross_revenue"]].to_string(index=False))
+
+    # ── 2. combine_first() for Fallback Data Patching ───────────
+    # Simulate a main product catalog with missing unit prices, patched from a secondary backup
+    incomplete_catalog = prod_indexed[["product_name", "retail_price"]].copy()
+    incomplete_catalog.loc[["P10", "P30"], "retail_price"] = np.nan
+
+    backup_catalog = prod_indexed[["product_name", "retail_price"]].copy()
+
+    patched_catalog = incomplete_catalog.combine_first(backup_catalog)
+    print(f"\n📌 combine_first() Data Patching:")
+    print(f"   Missing values before patch: {incomplete_catalog['retail_price'].isna().sum()}")
+    print(f"   Missing values after patch:  {patched_catalog['retail_price'].isna().sum()}")
+
+    # ── 3. Merge Validation Rules (Data Integrity Enforcement) ─
+    # validate='1:m' ensures customer_id is unique on the left side (1 customer -> many orders)
+    try:
+        valid_merge = pd.merge(customers_df, full_ledger, on="customer_id", how="inner", validate="1:m")
+        print(f"\n📌 Merge Validation (validate='1:m'): Success ✅")
+        print(f"   Schema constraint verified: customer_id is unique in left DataFrame.")
+    except Exception as e:
+        print(f"\n❌ Merge Validation Failed: {e}")
+
+    # ── 4. Visualise: Executive Multi-Panel Revenue & Profit Dashboard ──
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4.5))
+
+    # Panel 1: Gross Revenue by Customer Tier
+    tier_revenue = full_ledger.groupby("tier")["gross_revenue"].sum().reindex(["Bronze", "Silver", "Gold", "Platinum"])
+    ax1.bar(tier_revenue.index, tier_revenue.values, color="#3498DB", edgecolor="black", width=0.5)
+    ax1.set_title("Gross Revenue by Customer Tier", fontsize=11, fontweight="bold")
+    ax1.set_ylabel("Revenue ($)")
+    ax1.yaxis.set_major_formatter(mticker.FuncFormatter(lambda v, _: f"${v/1_000:,.0f}K"))
+    ax1.grid(axis="y", linestyle="--", alpha=0.5)
+    for bar in ax1.patches:
+        h = bar.get_height()
+        ax1.text(bar.get_x() + bar.get_width()/2, h + 1000, f"${h/1_000:,.1f}K", ha="center", va="bottom", fontsize=8)
+
+    # Panel 2: Profit Margin % by Product Category
+    cat_financials = full_ledger.groupby("category")[["gross_revenue", "gross_profit"]].sum()
+    cat_financials["profit_margin_pct"] = (cat_financials["gross_profit"] / cat_financials["gross_revenue"]) * 100
+
+    ax2.bar(cat_financials.index, cat_financials["profit_margin_pct"], color="#E74C3C", edgecolor="black", width=0.45)
+    ax2.set_title("Gross Profit Margin (%) by Product Category", fontsize=11, fontweight="bold")
+    ax2.set_ylabel("Margin %")
+    ax2.grid(axis="y", linestyle="--", alpha=0.5)
+    for bar in ax2.patches:
+        h = bar.get_height()
+        ax2.text(bar.get_x() + bar.get_width()/2, h + 0.5, f"{h:.1f}%", ha="center", va="bottom", fontsize=8)
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(SCRIPT_DIR, "s4_executive_summary.png"), dpi=150)
+    plt.show()
+    print("\n   ✅ s4_executive_summary.png saved")
+
+
 # ===========================================================
 # ENTRY POINT
 # ===========================================================
@@ -325,3 +488,18 @@ if __name__ == "__main__":
     full_ledger_df = database_merges(
         all_orders_df, datasets["customers"], datasets["products"], datasets["returns"]
     )
+
+    # Section 3 – Multi-Key Merges, Suffixes & Self-Joins
+    org_chart_df = advanced_merges_and_self_joins(
+        full_ledger_df, datasets["returns"], datasets["employees"]
+    )
+
+    # Section 4 – Index Merging, combine_first() & Validation
+    index_merges_and_validation(
+        datasets["customers"], datasets["products"], full_ledger_df
+    )
+
+    print("\n" + "=" * 62)
+    print("  ✅ Day 24 – All Sections Complete!")
+    print("  Topics: pd.concat, pd.merge, Self-Joins, Index Joins, Validation")
+    print("=" * 62)
