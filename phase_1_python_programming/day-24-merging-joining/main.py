@@ -127,6 +127,87 @@ def make_enterprise_datasets(seed: int = 42) -> dict:
     }
 
 
+
+# ===========================================================
+# SECTION 1 – CONCATENATION (pd.concat)
+# ===========================================================
+
+def concatenation_basics(q1_df: pd.DataFrame, q2_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Demonstrates combining DataFrames using pd.concat().
+
+    Key concepts:
+      - pd.concat([df1, df2], axis=0)       → vertical stacking (rows)
+      - ignore_index=True                   → reindex from 0 to N-1
+      - keys=['Q1', 'Q2']                   → creates hierarchical MultiIndex
+      - axis=1                              → horizontal side-by-side join (columns)
+      - handling mismatched columns        → outer join keeps all, inner join keeps common
+    """
+    print("\n" + "─" * 58)
+    print("SECTION 1 – Concatenation with pd.concat()")
+    print("─" * 58)
+
+    # Simulate Q2 having an extra operational column 'promotion_code'
+    q2_enhanced = q2_df.copy()
+    q2_enhanced["promotion_code"] = np.random.choice(["SAVE10", "WELCOME5", None], size=len(q2_df))
+
+    # ── Vertical Stacking (Default: axis=0) ───────────────────
+    # Combine Q1 and Q2 order logs into a unified annual ledger.
+    # Without ignore_index=True, original index numbers (0..119, 0..129) are preserved.
+    raw_concat = pd.concat([q1_df, q2_enhanced], axis=0)
+    print(f"\n📌 Simple vertical concat (mismatched cols aligned, NaNs inserted):")
+    print(f"   Shape: {raw_concat.shape} | Duplicate index values present: {raw_concat.index.has_duplicates}")
+
+    # Reset index to maintain continuous integer index 0..249
+    all_orders = pd.concat([q1_df, q2_enhanced], axis=0, ignore_index=True)
+    print(f"\n📌 Clean vertical concat (ignore_index=True):")
+    print(f"   Shape: {all_orders.shape} | Continuous index: {all_orders.index.is_monotonic_increasing}")
+    print(all_orders.head(3).to_string())
+
+    # ── Hierarchical Indexing (keys parameter) ─────────────────
+    # Tag each batch with its period source to preserve origin provenance.
+    tagged_orders = pd.concat([q1_df, q2_df], keys=["Q1", "Q2"])
+    print(f"\n📌 MultiIndex Concat (keys=['Q1', 'Q2']):")
+    print(tagged_orders.loc[("Q1", 0):("Q1", 2)].to_string())
+
+    # ── Inner vs Outer Join on Concatenation ───────────────────
+    # inner join drops columns not present in both DataFrames
+    inner_concat = pd.concat([q1_df, q2_enhanced], axis=0, join="inner", ignore_index=True)
+    print(f"\n📌 Inner Concat (drops 'promotion_code' column present only in Q2):")
+    print(f"   Columns retained: {list(inner_concat.columns)}")
+
+    # ── Horizontal Concatenation (axis=1) ──────────────────────
+    # Combine summary statistics side-by-side by matching row index positions
+    q1_summary = q1_df.groupby("customer_id")["quantity"].sum().rename("q1_qty")
+    q2_summary = q2_df.groupby("customer_id")["quantity"].sum().rename("q2_qty")
+    
+    side_by_side = pd.concat([q1_summary, q2_summary], axis=1).fillna(0)
+    print(f"\n📌 Horizontal Concat (axis=1) – Q1 vs Q2 Customer Quantities (sample):")
+    print(side_by_side.head(5).to_string())
+
+    # ── Visualise: Monthly order batch volumes ─────────────────
+    all_orders["month_name"] = all_orders["order_date"].dt.strftime("%b %Y")
+    monthly_counts = all_orders.groupby("month_name", sort=False).size()
+
+    fig, ax = plt.subplots(figsize=(8, 4))
+    bars = ax.bar(monthly_counts.index, monthly_counts.values, color="#34495E", width=0.55, edgecolor="black")
+    ax.set_title("Concatenated Order Ledger – Monthly Batch Volume", fontsize=12, fontweight="bold")
+    ax.set_xlabel("Month")
+    ax.set_ylabel("Order Count")
+    ax.grid(axis="y", linestyle="--", alpha=0.5)
+
+    for bar in bars:
+        height = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width() / 2, height + 1, f"{height}", ha="center", va="bottom", fontsize=9)
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(SCRIPT_DIR, "s1_concat_batches.png"), dpi=150)
+    plt.show()
+    print("\n   ✅ s1_concat_batches.png saved")
+
+    return all_orders
+
+
 # ===========================================================
 # ENTRY POINT
 # ===========================================================
@@ -141,3 +222,6 @@ if __name__ == "__main__":
     print("\n✅ Enterprise Datasets Loaded:")
     for name, df in datasets.items():
         print(f"   • {name:<12}: {df.shape[0]:>3} rows × {df.shape[1]} columns")
+
+    # Section 1 – Concatenation (pd.concat)
+    all_orders_df = concatenation_basics(datasets["orders_q1"], datasets["orders_q2"])
