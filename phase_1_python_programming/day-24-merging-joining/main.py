@@ -208,6 +208,101 @@ def concatenation_basics(q1_df: pd.DataFrame, q2_df: pd.DataFrame) -> pd.DataFra
     return all_orders
 
 
+
+# ===========================================================
+# SECTION 2 – DATABASE-STYLE MERGES (pd.merge)
+# ===========================================================
+
+def database_merges(orders_df: pd.DataFrame, customers_df: pd.DataFrame,
+                    products_df: pd.DataFrame, returns_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Demonstrates SQL-style joins using pd.merge().
+
+    Key concepts:
+      - how='inner'   → keep keys present in BOTH DataFrames
+      - how='left'    → keep ALL rows from left DataFrame, match right
+      - how='right'   → keep ALL rows from right DataFrame, match left
+      - how='outer'   → keep ALL rows from BOTH DataFrames (fill missing with NaN)
+      - indicator=True → adds '_merge' column ('left_only', 'right_only', 'both')
+      - Chaining multi-table merges for financial revenue/profit analysis
+    """
+    print("\n" + "─" * 58)
+    print("SECTION 2 – Relational Joins with pd.merge()")
+    print("─" * 58)
+
+    # ── 1. Inner Join (orders + customers) ──────────────────────
+    # Only returns orders where customer_id exists in both datasets.
+    inner_df = pd.merge(orders_df, customers_df, on="customer_id", how="inner")
+    print(f"\n📌 Inner Join (Orders ⋈ Customers):")
+    print(f"   Total joined orders: {len(inner_df):,} | Columns: {list(inner_df.columns)}")
+
+    # ── 2. Left Join & Inactive Customer Discovery ─────────────
+    # Keep ALL customers regardless of whether they placed an order.
+    # NaNs in order_id indicate inactive customers who haven't bought yet.
+    cust_orders_left = pd.merge(customers_df, orders_df, on="customer_id", how="left", indicator=True)
+    inactive_custs = cust_orders_left[cust_orders_left["_merge"] == "left_only"]
+    print(f"\n📌 Left Join (Customers ⟕ Orders):")
+    print(f"   Total customer records: {len(cust_orders_left):,}")
+    print(f"   Active customers: {cust_orders_left['customer_id'].nunique() - len(inactive_custs)}")
+    print(f"   Inactive customers (0 purchases): {len(inactive_custs)} (e.g. IDs: {inactive_custs['customer_id'].head(3).tolist()})")
+
+    # ── 3. Outer Join with Merge Indicator ──────────────────────
+    # Reconcile orders log against returns log.
+    orders_returns_outer = pd.merge(
+        orders_df, returns_df, on="order_id", how="outer", indicator="return_status"
+    )
+    status_counts = orders_returns_outer["return_status"].value_counts()
+    print(f"\n📌 Outer Join with Indicator (Orders ⟗ Returns):")
+    print(f"   Status breakdown:")
+    print(f"   - Kept (Not Returned - left_only)  : {status_counts.get('left_only', 0):>3}")
+    print(f"   - Matched (Returned - both)        : {status_counts.get('both', 0):>3}")
+    print(f"   - Orphan Returns (right_only)       : {status_counts.get('right_only', 0):>3}")
+
+    # ── 4. Chained Multi-Table Merge (Orders → Products → Customers) ───
+    # Build complete business transaction view: calculates gross profit per order.
+    full_ledger = (
+        orders_df
+        .merge(products_df, on="product_id", how="left")
+        .merge(customers_df, on="customer_id", how="left")
+    )
+    
+    # Calculate computed financial metrics
+    full_ledger["gross_revenue"] = full_ledger["quantity"] * full_ledger["retail_price"]
+    full_ledger["total_cost"]    = full_ledger["quantity"] * full_ledger["unit_cost"]
+    full_ledger["gross_profit"]  = full_ledger["gross_revenue"] - full_ledger["total_cost"]
+
+    print(f"\n📌 Chained Multi-Table Ledger (Orders ⋈ Products ⋈ Customers):")
+    print(f"   Total Gross Revenue : ${full_ledger['gross_revenue'].sum():,.2f}")
+    print(f"   Total Gross Profit  : ${full_ledger['gross_profit'].sum():,.2f}")
+    print(full_ledger[["order_id", "name", "product_name", "quantity", "gross_revenue", "gross_profit"]].head(4).to_string(index=False))
+
+    # ── Visualise: Join Type Record Count Comparison ───────────
+    join_metrics = {
+        "Inner (Orders & Cust)": len(inner_df),
+        "Left (Cust & Orders)": len(cust_orders_left),
+        "Outer (Orders & Returns)": len(orders_returns_outer),
+        "Returns (Matched)": status_counts.get("both", 0),
+    }
+
+    fig, ax = plt.subplots(figsize=(8, 4))
+    colours = ["#2980B9", "#27AE60", "#8E44AD", "#C0392B"]
+    ax.bar(join_metrics.keys(), join_metrics.values(), color=colours, width=0.5, edgecolor="black")
+    ax.set_title("Record Count Comparison Across Join Types", fontsize=12, fontweight="bold")
+    ax.set_ylabel("Record Count")
+    ax.grid(axis="y", linestyle="--", alpha=0.5)
+
+    for bar in ax.patches:
+        height = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width() / 2, height + 3, f"{int(height)}", ha="center", va="bottom", fontsize=9)
+
+    plt.tight_layout()
+    plt.savefig(os.path.join(SCRIPT_DIR, "s2_join_types.png"), dpi=150)
+    plt.show()
+    print("\n   ✅ s2_join_types.png saved")
+
+    return full_ledger
+
+
 # ===========================================================
 # ENTRY POINT
 # ===========================================================
@@ -225,3 +320,8 @@ if __name__ == "__main__":
 
     # Section 1 – Concatenation (pd.concat)
     all_orders_df = concatenation_basics(datasets["orders_q1"], datasets["orders_q2"])
+
+    # Section 2 – Database-Style Merges (pd.merge)
+    full_ledger_df = database_merges(
+        all_orders_df, datasets["customers"], datasets["products"], datasets["returns"]
+    )
