@@ -6,9 +6,9 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 
 ## 📈 Summary Statistics
 * **Current Phase**: Phase 2: Data Manipulation & Visualization (Days 16–35)
-* **Days Completed**: 22 / 100
-* **Progress Percentage**: 22%
-* **Current Streak**: 22 Days
+* **Days Completed**: 23 / 100
+* **Progress Percentage**: 23%
+* **Current Streak**: 23 Days
 
 ---
 
@@ -38,6 +38,8 @@ This log tracks the progress of the 100-Day Data Science Challenge. Each day's a
 | **Day 20** | 2026-08-02 | Phase 2 | House Price ML – EDA & Feature Eng. | Built housing dataset pipeline: EDA, feature engineering, SQLite integration via Pandas. | ✅ Completed |
 | **Day 21** | 2026-08-03 | Phase 2 | End-to-End ML Pipeline | Full pipeline: load→explore→preprocess→tune (GridSearchCV)→evaluate→save; RF, GB, Ridge models. | ✅ Completed |
 | **Day 22** | 2026-08-04 | Phase 2 | Advanced Data Visualization | Matplotlib (line, bar, histogram, scatter) + Seaborn (box, violin, heatmap) + subplot2grid dashboard. | ✅ Completed |
+| **Day 23** | 2026-08-05 | Phase 2 | Pandas GroupBy & Aggregation | Split-apply-combine paradigm, agg() with dicts/NamedAgg, multi-level GroupBy, transform() normalisation, filter() group exclusions, pivot_table & crosstabs. | ✅ Completed |
+
 
 ---
 
