@@ -168,3 +168,80 @@ def random_demo():
     random_marks = np.random.randint(40, 101, 10)
 
     print("Random Marks:", random_marks)
+
+
+
+
+
+
+
+# ==================================================
+# 8. MINI PROJECT - STUDENT MARKS ANALYSIS
+# ==================================================
+
+def student_analysis():
+    """Analyze student marks using NumPy."""
+
+    print("\n" + "=" * 50)
+    print("8. MINI PROJECT - STUDENT MARKS ANALYSIS")
+    print("=" * 50)
+
+    students = np.array([
+        [78, 80, 75],
+        [92, 88, 95],
+        [65, 70, 60],
+        [85, 90, 84],
+        [72, 75, 70]
+    ])
+
+    # Calculate average marks for each student
+    student_averages = np.mean(students, axis=1)
+
+    # Find the index of the student with highest average
+    topper_index = np.argmax(student_averages)
+
+    # Calculate average marks for each subject
+    subject_averages = np.mean(students, axis=0)
+
+    print("\nStudent Marks:")
+    print(students)
+
+    print("\nAverage Marks of Each Student:")
+    print(student_averages)
+
+    print("\nTopper Student Index:", topper_index)
+    print("Highest Average:", student_averages[topper_index])
+
+    print("\nSubject-Wise Average:")
+    print(subject_averages)
+
+
+# ==================================================
+# MAIN FUNCTION
+# ==================================================
+
+def main():
+    """Run all Day 11 NumPy demonstrations."""
+
+    array_creation()
+    array_attributes()
+    indexing_and_slicing()
+    mathematical_operations()
+    statistical_functions()
+    reshape_demo()
+    random_demo()
+    student_analysis()
+
+    print("\n" + "=" * 50)
+    print("Day 11 Completed Successfully!")
+    print("=" * 50)
+
+
+# ==================================================
+# PROGRAM ENTRY POINT
+# ==================================================
+
+if __name__ == "__main__":
+    main()
+
+
