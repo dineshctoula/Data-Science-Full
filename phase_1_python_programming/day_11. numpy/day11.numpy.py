@@ -186,3 +186,80 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
+
+
+```python
+#!/usr/bin/env python3
+"""
+====================================================
+100 Days of Data Science - Day 11
+Topic: NumPy Fundamentals
+
+Commit 2:
+Add practical student marks analysis using NumPy.
+
+Author: Dinesh Sitoula
+====================================================
+"""
+
+import numpy as np
+
+
+def print_section(title):
+    """Display a formatted section heading."""
+    print("\n" + "=" * 50)
+    print(title)
+    print("=" * 50)
+
+
+def analyze_student_marks():
+    """Analyze student marks using NumPy."""
+
+    print_section("8. MINI PROJECT - STUDENT MARKS ANALYSIS")
+
+    students = np.array([
+        [78, 80, 75],
+        [92, 88, 95],
+        [65, 70, 60],
+        [85, 90, 84],
+        [72, 75, 70]
+    ])
+
+    # Calculate average marks for each student.
+    student_averages = np.mean(students, axis=1)
+
+    # Find the student with the highest average.
+    topper_index = np.argmax(student_averages)
+    topper_average = student_averages[topper_index]
+
+    # Calculate average marks for each subject.
+    subject_averages = np.mean(students, axis=0)
+
+    print("\nStudent Marks:")
+    print(students)
+
+    print("\nAverage Marks of Each Student:")
+    print(student_averages)
+
+    print("\nTopper Student Index:", topper_index)
+    print("Highest Average:", topper_average)
+
+    print("\nSubject-Wise Average:")
+    print(subject_averages)
+
+
+def main():
+    """Run the student marks analysis."""
+
+    analyze_student_marks()
+
+    print("\n" + "=" * 50)
+    print("Student Analysis Completed Successfully!")
+    print("=" * 50)
+
+
+if __name__ == "__main__":
+    main()
+```
+
