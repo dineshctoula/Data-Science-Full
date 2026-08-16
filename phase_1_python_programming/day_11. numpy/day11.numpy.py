@@ -1,12 +1,11 @@
-```python
 #!/usr/bin/env python3
 """
 ====================================================
 100 Days of Data Science - Day 11
 Topic: NumPy Fundamentals
 
-Commit 1:
-Refactor core NumPy demonstrations.
+Commit 3:
+Improve and integrate the NumPy student analysis.
 
 Topics Covered
 --------------
@@ -25,6 +24,10 @@ Author: Dinesh Sitoula
 
 import numpy as np
 
+
+# ==================================================
+# UTILITY FUNCTION
+# ==================================================
 
 def print_section(title):
     """Display a formatted section heading."""
@@ -164,59 +167,13 @@ def demonstrate_random_numbers():
 
 
 # ==================================================
-# MAIN FUNCTION
+# 8. MINI PROJECT - STUDENT MARKS ANALYSIS
 # ==================================================
-
-def main():
-    """Run all NumPy demonstrations."""
-
-    demonstrate_array_creation()
-    demonstrate_array_attributes()
-    demonstrate_indexing_and_slicing()
-    demonstrate_mathematical_operations()
-    demonstrate_statistics()
-    demonstrate_reshape()
-    demonstrate_random_numbers()
-
-    print("\n" + "=" * 50)
-    print("Core NumPy Demonstrations Completed!")
-    print("=" * 50)
-
-
-if __name__ == "__main__":
-    main()
-```
-
-
-
-```python
-#!/usr/bin/env python3
-"""
-====================================================
-100 Days of Data Science - Day 11
-Topic: NumPy Fundamentals
-
-Commit 2:
-Add practical student marks analysis using NumPy.
-
-Author: Dinesh Sitoula
-====================================================
-"""
-
-import numpy as np
-
-
-def print_section(title):
-    """Display a formatted section heading."""
-    print("\n" + "=" * 50)
-    print(title)
-    print("=" * 50)
-
 
 def analyze_student_marks():
     """Analyze student marks using NumPy."""
 
-    print_section("8. MINI PROJECT - STUDENT MARKS ANALYSIS")
+    print_section("8. STUDENT MARKS ANALYSIS")
 
     students = np.array([
         [78, 80, 75],
@@ -226,40 +183,50 @@ def analyze_student_marks():
         [72, 75, 70]
     ])
 
-    # Calculate average marks for each student.
     student_averages = np.mean(students, axis=1)
+    subject_averages = np.mean(students, axis=0)
 
-    # Find the student with the highest average.
     topper_index = np.argmax(student_averages)
     topper_average = student_averages[topper_index]
 
-    # Calculate average marks for each subject.
-    subject_averages = np.mean(students, axis=0)
-
-    print("\nStudent Marks:")
+    print("Student Marks:")
     print(students)
 
     print("\nAverage Marks of Each Student:")
-    print(student_averages)
+    for index, average in enumerate(student_averages, start=1):
+        print(f"Student {index}: {average:.2f}")
 
-    print("\nTopper Student Index:", topper_index)
-    print("Highest Average:", topper_average)
+    print("\nTopper:")
+    print(f"Student {topper_index + 1}")
+    print(f"Average Marks: {topper_average:.2f}")
 
     print("\nSubject-Wise Average:")
-    print(subject_averages)
+    for index, average in enumerate(subject_averages, start=1):
+        print(f"Subject {index}: {average:.2f}")
 
+
+# ==================================================
+# MAIN FUNCTION
+# ==================================================
 
 def main():
-    """Run the student marks analysis."""
+    """Run all Day 11 NumPy demonstrations."""
 
+    demonstrate_array_creation()
+    demonstrate_array_attributes()
+    demonstrate_indexing_and_slicing()
+    demonstrate_mathematical_operations()
+    demonstrate_statistics()
+    demonstrate_reshape()
+    demonstrate_random_numbers()
     analyze_student_marks()
 
-    print("\n" + "=" * 50)
-    print("Student Analysis Completed Successfully!")
-    print("=" * 50)
+    print_section("DAY 11 COMPLETED SUCCESSFULLY!")
 
+
+# ==================================================
+# PROGRAM ENTRY POINT
+# ==================================================
 
 if __name__ == "__main__":
     main()
-```
-
