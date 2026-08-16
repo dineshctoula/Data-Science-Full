@@ -1,10 +1,12 @@
-
-
+```python
 #!/usr/bin/env python3
 """
 ====================================================
 100 Days of Data Science - Day 11
 Topic: NumPy Fundamentals
+
+Commit 1:
+Refactor core NumPy demonstrations.
 
 Topics Covered
 --------------
@@ -15,7 +17,7 @@ Topics Covered
 5. Statistical Functions
 6. Reshaping Arrays
 7. Random Numbers
-8. Practical Exercise
+8. Student Marks Analysis
 
 Author: Dinesh Sitoula
 ====================================================
@@ -24,111 +26,106 @@ Author: Dinesh Sitoula
 import numpy as np
 
 
+def print_section(title):
+    """Display a formatted section heading."""
+    print("\n" + "=" * 50)
+    print(title)
+    print("=" * 50)
+
+
 # ==================================================
 # 1. ARRAY CREATION
 # ==================================================
 
-def array_creation():
+def demonstrate_array_creation():
     """Demonstrate different ways to create NumPy arrays."""
 
-    print("=" * 50)
-    print("1. ARRAY CREATION")
-    print("=" * 50)
+    print_section("1. ARRAY CREATION")
 
-    arr1 = np.array([10, 20, 30, 40, 50])
-    arr2 = np.zeros((2, 3))
-    arr3 = np.ones((3, 3))
-    arr4 = np.arange(1, 11)
-    arr5 = np.linspace(0, 100, 5)
+    array = np.array([10, 20, 30, 40, 50])
+    zeros = np.zeros((2, 3))
+    ones = np.ones((3, 3))
+    range_array = np.arange(1, 11)
+    linear_array = np.linspace(0, 100, 5)
 
-    print("Array:", arr1)
-    print("\nZeros:\n", arr2)
-    print("\nOnes:\n", arr3)
-    print("\nRange:", arr4)
-    print("\nLinspace:", arr5)
+    print("Array:", array)
+    print("\nZeros:\n", zeros)
+    print("\nOnes:\n", ones)
+    print("\nRange:", range_array)
+    print("\nLinspace:", linear_array)
 
 
 # ==================================================
 # 2. ARRAY ATTRIBUTES
 # ==================================================
 
-def array_attributes():
+def demonstrate_array_attributes():
     """Demonstrate important NumPy array attributes."""
 
-    print("\n" + "=" * 50)
-    print("2. ARRAY ATTRIBUTES")
-    print("=" * 50)
+    print_section("2. ARRAY ATTRIBUTES")
 
-    arr = np.array([
+    array = np.array([
         [1, 2, 3],
         [4, 5, 6]
     ])
 
-    print("Array:\n", arr)
-
-    print("\nShape:", arr.shape)
-    print("Dimensions:", arr.ndim)
-    print("Size:", arr.size)
-    print("Data Type:", arr.dtype)
+    print("Array:\n", array)
+    print("\nShape:", array.shape)
+    print("Dimensions:", array.ndim)
+    print("Size:", array.size)
+    print("Data Type:", array.dtype)
 
 
 # ==================================================
 # 3. INDEXING AND SLICING
 # ==================================================
 
-def indexing_and_slicing():
-    """Demonstrate indexing and slicing operations."""
+def demonstrate_indexing_and_slicing():
+    """Demonstrate NumPy indexing and slicing."""
 
-    print("\n" + "=" * 50)
-    print("3. INDEXING & SLICING")
-    print("=" * 50)
+    print_section("3. INDEXING & SLICING")
 
-    arr = np.array([5, 10, 15, 20, 25, 30])
+    array = np.array([5, 10, 15, 20, 25, 30])
 
-    print("Array:", arr)
-    print("First Element:", arr[0])
-    print("Last Element:", arr[-1])
-    print("Slice:", arr[1:5])
+    print("Array:", array)
+    print("First Element:", array[0])
+    print("Last Element:", array[-1])
+    print("Slice:", array[1:5])
 
 
 # ==================================================
 # 4. MATHEMATICAL OPERATIONS
 # ==================================================
 
-def mathematical_operations():
+def demonstrate_mathematical_operations():
     """Demonstrate element-wise mathematical operations."""
 
-    print("\n" + "=" * 50)
-    print("4. MATHEMATICAL OPERATIONS")
-    print("=" * 50)
+    print_section("4. MATHEMATICAL OPERATIONS")
 
-    a = np.array([10, 20, 30])
-    b = np.array([2, 4, 5])
+    first_array = np.array([10, 20, 30])
+    second_array = np.array([2, 4, 5])
 
-    print("Array A:", a)
-    print("Array B:", b)
+    print("Array A:", first_array)
+    print("Array B:", second_array)
 
-    print("\nAddition:", a + b)
-    print("Subtraction:", a - b)
-    print("Multiplication:", a * b)
-    print("Division:", a / b)
+    print("\nAddition:", first_array + second_array)
+    print("Subtraction:", first_array - second_array)
+    print("Multiplication:", first_array * second_array)
+    print("Division:", first_array / second_array)
 
 
 # ==================================================
 # 5. STATISTICAL FUNCTIONS
 # ==================================================
 
-def statistical_functions():
+def demonstrate_statistics():
     """Demonstrate basic statistical functions."""
 
-    print("\n" + "=" * 50)
-    print("5. STATISTICAL FUNCTIONS")
-    print("=" * 50)
+    print_section("5. STATISTICAL FUNCTIONS")
 
     marks = np.array([78, 82, 91, 65, 88, 95])
 
     print("Marks:", marks)
-
     print("\nMean:", np.mean(marks))
     print("Median:", np.median(marks))
     print("Maximum:", np.max(marks))
@@ -140,17 +137,15 @@ def statistical_functions():
 # 6. RESHAPING ARRAYS
 # ==================================================
 
-def reshape_demo():
-    """Demonstrate how to reshape a NumPy array."""
+def demonstrate_reshape():
+    """Demonstrate reshaping a NumPy array."""
 
-    print("\n" + "=" * 50)
-    print("6. RESHAPING ARRAYS")
-    print("=" * 50)
+    print_section("6. RESHAPING ARRAYS")
 
-    arr = np.arange(1, 13)
-    matrix = arr.reshape(3, 4)
+    array = np.arange(1, 13)
+    matrix = array.reshape(3, 4)
 
-    print("Original Array:", arr)
+    print("Original Array:", array)
     print("\nReshaped Array:\n", matrix)
 
 
@@ -158,62 +153,14 @@ def reshape_demo():
 # 7. RANDOM NUMBERS
 # ==================================================
 
-def random_demo():
+def demonstrate_random_numbers():
     """Generate random student marks."""
 
-    print("\n" + "=" * 50)
-    print("7. RANDOM NUMBERS")
-    print("=" * 50)
+    print_section("7. RANDOM NUMBERS")
 
-    random_marks = np.random.randint(40, 101, 10)
+    random_marks = np.random.randint(40, 101, size=10)
 
     print("Random Marks:", random_marks)
-
-
-
-
-
-
-
-# ==================================================
-# 8. MINI PROJECT - STUDENT MARKS ANALYSIS
-# ==================================================
-
-def student_analysis():
-    """Analyze student marks using NumPy."""
-
-    print("\n" + "=" * 50)
-    print("8. MINI PROJECT - STUDENT MARKS ANALYSIS")
-    print("=" * 50)
-
-    students = np.array([
-        [78, 80, 75],
-        [92, 88, 95],
-        [65, 70, 60],
-        [85, 90, 84],
-        [72, 75, 70]
-    ])
-
-    # Calculate average marks for each student
-    student_averages = np.mean(students, axis=1)
-
-    # Find the index of the student with highest average
-    topper_index = np.argmax(student_averages)
-
-    # Calculate average marks for each subject
-    subject_averages = np.mean(students, axis=0)
-
-    print("\nStudent Marks:")
-    print(students)
-
-    print("\nAverage Marks of Each Student:")
-    print(student_averages)
-
-    print("\nTopper Student Index:", topper_index)
-    print("Highest Average:", student_averages[topper_index])
-
-    print("\nSubject-Wise Average:")
-    print(subject_averages)
 
 
 # ==================================================
@@ -221,27 +168,21 @@ def student_analysis():
 # ==================================================
 
 def main():
-    """Run all Day 11 NumPy demonstrations."""
+    """Run all NumPy demonstrations."""
 
-    array_creation()
-    array_attributes()
-    indexing_and_slicing()
-    mathematical_operations()
-    statistical_functions()
-    reshape_demo()
-    random_demo()
-    student_analysis()
+    demonstrate_array_creation()
+    demonstrate_array_attributes()
+    demonstrate_indexing_and_slicing()
+    demonstrate_mathematical_operations()
+    demonstrate_statistics()
+    demonstrate_reshape()
+    demonstrate_random_numbers()
 
     print("\n" + "=" * 50)
-    print("Day 11 Completed Successfully!")
+    print("Core NumPy Demonstrations Completed!")
     print("=" * 50)
 
 
-# ==================================================
-# PROGRAM ENTRY POINT
-# ==================================================
-
 if __name__ == "__main__":
     main()
-
-
+```
