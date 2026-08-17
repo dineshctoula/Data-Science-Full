@@ -244,6 +244,8 @@ def database_merges(orders_df: pd.DataFrame, customers_df: pd.DataFrame,
 
     # ── 2. Left Join & Inactive Customer Discovery ─────────────
     # Keep ALL customers regardless of whether they placed an order.
+    # A left join ensures that every row in the 'left' DataFrame (customers_df) 
+    # appears in the result. If there's no matching order, order-related columns will be NaN.
     # NaNs in order_id indicate inactive customers who haven't bought yet.
     cust_orders_left = pd.merge(customers_df, orders_df, on="customer_id", how="left", indicator=True)
     inactive_custs = cust_orders_left[cust_orders_left["_merge"] == "left_only"]
