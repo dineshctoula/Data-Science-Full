@@ -1,53 +1,118 @@
-# 📊 100-Day Data Science Challenge - Progress Log
+````markdown
+# 📊 100-Day Data Science Challenge — Progress Log
 
-This log tracks the progress of the 100-Day Data Science Challenge. Each day's accomplishments, topics, and code deliverables are documented here.
-
----
-
-## 📈 Summary Statistics
-* **Current Phase**: Phase 2: Data Manipulation & Visualization (Days 16–35)
-* **Days Completed**: 24 / 100
-* **Progress Percentage**: 24%
-* **Current Streak**: 24 Days
+A structured record of my progress through the **100-Day Data Science Challenge**, including daily topics, key accomplishments, and completed deliverables.
 
 ---
 
-## 📅 Daily Log
+## 📈 Progress Overview
+
+| Metric | Progress |
+| :--- | :--- |
+| **Current Phase** | Phase 2 — Data Manipulation & Visualization |
+| **Current Day** | Day 24 |
+| **Days Completed** | 24 / 100 |
+| **Progress** | 24% |
+| **Current Streak** | 24 Days |
+| **Latest Topic** | Pandas Merging, Joining & Concatenating |
+| **Status** | 🟢 On Track |
+
+---
+
+## 🗂️ Phase Overview
+
+| Phase | Days | Focus Area | Status |
+| :--- | :--- | :--- | :--- |
+| **Phase 1** | Days 1–15 | Python & NumPy Fundamentals | ✅ Completed |
+| **Phase 2** | Days 16–35 | Data Manipulation & Visualization | 🚀 In Progress |
+| **Phase 3** | Days 36–60 | Statistics & Machine Learning | ⏳ Upcoming |
+| **Phase 4** | Days 61–80 | Advanced Machine Learning | ⏳ Upcoming |
+| **Phase 5** | Days 81–100 | Projects & Portfolio Development | ⏳ Upcoming |
+
+---
+
+## 📅 Daily Progress
 
 | Day | Date | Phase | Topic | Key Accomplishments & Deliverables | Status |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Day 1** | 2026-06-15 | Phase 1 | Data Science Overview & Python Setup | Environment setup (Python, VS Code, Jupyter extensions), greeting script, study notes. | ✅ Completed |
-| **Day 2** | 2026-06-16 | Phase 1 | Basic Data Types & Arithmetic Operations | Numbers, float precision, string slicing/methods, booleans. Created bill & tip splitter. | ✅ Completed |
-| **Day 3** | 2026-06-16 | Phase 1 | Control Flow & Conditional Logic | Conditional logic, nested checks, ternary operators. Built grade calculator script. | ✅ Completed |
-| **Day 4** | 2026-06-17 | Phase 1 | Loops (For & While) | Iteration, ranges, nested loops, break/continue statements, guessing game. | ✅ Completed |
-| **Day 5** | 2026-06-18 | Phase 1 | Lists & List Comprehensions | List indexing, slicing, methods, shallow/deep copying, list comprehensions. Created even squares exercise script and notebook. | ✅ Completed |
-| **Day 6** | 2026-06-20 | Phase 1 | Dictionaries & Sets | Key-value mapping, dict methods, set uniqueness, set operations, word frequency count script and notebook. | ✅ Completed |
-| **Day 7** | 2026-06-21 | Phase 1 | Tuples, Mutability & Memory References | Tuples syntax, unpacking, mutability vs immutability, memory references, shallow vs deep copying. Created demo script and notebook. | ✅ Completed |
-| **Day 8** | 2026-06-22 | Phase 1 | Functions, Scope & Lambda Expressions | Function definition, parameters, *args, **kwargs, LEGB scope rules, lambda functions. Created exercise script and notebook. | ✅ Completed |
-| **Day 9** | 2026-06-25 | Phase 1 | Exception Handling | Learned basic exception handling with try, except, else, finally blocks, raising custom exceptions, and cleaning raw datasets. | ✅ Completed |
-| **Day 10** | 2026-06-29 | Phase 1 | File I/O (Input/Output) | Covered reading/writing text, CSV, and JSON files, context managers, file exception handling, and parsing data. | ✅ Completed |
-| **Day 11** | 2026-07-08 | Phase 1 | NumPy Fundamentals | Introduced NumPy array creation, attributes, basic math and statistics, reshaping, random numbers, and student marks analysis. | ✅ Completed |
-| **Day 12** | 2026-07-09 | Phase 1 | NumPy Arrays & Iteration | Explored array indexing, slicing, multi-dimensional arrays, flattening, and array iteration using np.nditer. | ✅ Completed |
-| **Day 13** | 2026-07-10 | Phase 1 | NumPy Indexing & Slicing | Hands-on practice with 2D slicing, array copies vs views, boolean masking/filtering, and fancy indexing. | ✅ Completed |
-| **Day 14** | 2026-07-11 | Phase 1 | Vectorized Operations & Broadcasting | Vectorized vs loop speed benchmarking, broadcasting rules demonstration, and exponential calculations. | ✅ Completed |
-| **Day 15** | 2026-07-12 | Phase 1 | NumPy Math & Statistical Functions | Row and column-wise statistics, searching/locating elements (argmin, argmax, np.where), and exam grades analysis. | ✅ Completed |
-| **Day 16** | 2026-07-13 | Phase 2 | NumPy Matrix Operations & Linear Algebra | Matrix multiplication, transpose, determinants, inverses, and solving systems of linear equations. | ✅ Completed |
-| **Day 17** | 2026-07-17 | Phase 2 | Pandas Series & DataFrames | Created Series/DataFrame from dicts/lists, explored dtypes, index alignment, and basic aggregation. | ✅ Completed |
-| **Day 18** | 2026-07-31 | Phase 2 | Pandas Basics & Data Selection | Boolean indexing, loc/iloc, column add/drop, missing value handling with fillna/dropna. | ✅ Completed |
-| **Day 19** | 2026-08-01 | Phase 2 | Pandas Data Cleaning | Duplicates, string normalisation, type casting, and writing cleaned data to CSV/SQLite. | ✅ Completed |
-| **Day 20** | 2026-08-02 | Phase 2 | House Price ML – EDA & Feature Eng. | Built housing dataset pipeline: EDA, feature engineering, SQLite integration via Pandas. | ✅ Completed |
-| **Day 21** | 2026-08-03 | Phase 2 | End-to-End ML Pipeline | Full pipeline: load→explore→preprocess→tune (GridSearchCV)→evaluate→save; RF, GB, Ridge models. | ✅ Completed |
-| **Day 22** | 2026-08-04 | Phase 2 | Advanced Data Visualization | Matplotlib (line, bar, histogram, scatter) + Seaborn (box, violin, heatmap) + subplot2grid dashboard. | ✅ Completed |
-| **Day 23** | 2026-08-05 | Phase 2 | Pandas GroupBy & Aggregation | Split-apply-combine paradigm, agg() with dicts/NamedAgg, multi-level GroupBy, transform() normalisation, filter() group exclusions, pivot_table & crosstabs. | ✅ Completed |
-| **Day 24** | 2026-08-09 | Phase 2 | Pandas Merging, Joining & Concatenating | Vertical/horizontal pd.concat, relational pd.merge (inner/left/right/outer, indicator), multi-key joins, custom suffixes, employee self-joins, df.join, combine_first, validation constraints. | ✅ Completed |
-
-
+| :---: | :--- | :--- | :--- | :--- | :---: |
+| **01** | 2026-06-15 | Phase 1 | Data Science Overview & Python Setup | Set up Python, VS Code, and Jupyter extensions. Created a greeting script and study notes. | ✅ |
+| **02** | 2026-06-16 | Phase 1 | Basic Data Types & Arithmetic Operations | Practiced numbers, float precision, strings, slicing, methods, and booleans. Built a bill and tip splitter. | ✅ |
+| **03** | 2026-06-16 | Phase 1 | Control Flow & Conditional Logic | Practiced conditional statements, nested conditions, and ternary operators. Built a grade calculator. | ✅ |
+| **04** | 2026-06-17 | Phase 1 | Loops — For & While | Learned iteration, ranges, nested loops, break, and continue. Built a guessing game. | ✅ |
+| **05** | 2026-06-18 | Phase 1 | Lists & List Comprehensions | Covered indexing, slicing, list methods, shallow/deep copying, and comprehensions. Built an even-squares exercise. | ✅ |
+| **06** | 2026-06-20 | Phase 1 | Dictionaries & Sets | Practiced key-value mappings, dictionary methods, set uniqueness, and set operations. Built a word-frequency counter. | ✅ |
+| **07** | 2026-06-21 | Phase 1 | Tuples, Mutability & Memory References | Studied tuple syntax, unpacking, mutability, immutability, references, and shallow/deep copying. | ✅ |
+| **08** | 2026-06-22 | Phase 1 | Functions, Scope & Lambda Expressions | Learned functions, parameters, `*args`, `**kwargs`, LEGB scope rules, and lambda expressions. | ✅ |
+| **09** | 2026-06-25 | Phase 1 | Exception Handling | Practiced `try`, `except`, `else`, `finally`, custom exceptions, and basic data-cleaning workflows. | ✅ |
+| **10** | 2026-06-29 | Phase 1 | File I/O | Worked with text, CSV, and JSON files, context managers, file exceptions, and data parsing. | ✅ |
+| **11** | 2026-07-08 | Phase 1 | NumPy Fundamentals | Learned array creation, attributes, mathematical/statistical operations, reshaping, random numbers, and marks analysis. | ✅ |
+| **12** | 2026-07-09 | Phase 1 | NumPy Arrays & Iteration | Practiced indexing, slicing, multidimensional arrays, reshaping, flattening, and `np.nditer`. | ✅ |
+| **13** | 2026-07-10 | Phase 1 | NumPy Indexing & Slicing | Practiced 2D slicing, copies vs views, boolean masking, filtering, and fancy indexing. | ✅ |
+| **14** | 2026-07-11 | Phase 1 | Vectorized Operations & Broadcasting | Compared vectorized operations with loops, explored broadcasting rules, and performed exponential calculations. | ✅ |
+| **15** | 2026-07-12 | Phase 1 | NumPy Math & Statistical Functions | Practiced row/column statistics, `argmin`, `argmax`, `np.where`, and exam-grade analysis. | ✅ |
+| **16** | 2026-07-13 | Phase 2 | NumPy Matrix Operations & Linear Algebra | Covered matrix multiplication, transpose, determinants, inverses, and solving linear systems. | ✅ |
+| **17** | 2026-07-17 | Phase 2 | Pandas Series & DataFrames | Created Series/DataFrames from dictionaries and lists. Explored dtypes, index alignment, and aggregation. | ✅ |
+| **18** | 2026-07-31 | Phase 2 | Pandas Basics & Data Selection | Practiced boolean indexing, `loc`, `iloc`, column operations, `fillna`, and `dropna`. | ✅ |
+| **19** | 2026-08-01 | Phase 2 | Pandas Data Cleaning | Worked with duplicates, string normalization, type casting, and exporting cleaned data to CSV/SQLite. | ✅ |
+| **20** | 2026-08-02 | Phase 2 | House Price ML — EDA & Feature Engineering | Built a housing-data pipeline with EDA, feature engineering, and SQLite integration using Pandas. | ✅ |
+| **21** | 2026-08-03 | Phase 2 | End-to-End ML Pipeline | Built a complete load → explore → preprocess → tune → evaluate → save workflow using GridSearchCV, Random Forest, Gradient Boosting, and Ridge models. | ✅ |
+| **22** | 2026-08-04 | Phase 2 | Advanced Data Visualization | Created Matplotlib visualizations and Seaborn box plots, violin plots, heatmaps, and dashboard-style layouts. | ✅ |
+| **23** | 2026-08-05 | Phase 2 | Pandas GroupBy & Aggregation | Practiced split-apply-combine, `agg()`, NamedAgg, multi-level GroupBy, `transform()`, `filter()`, `pivot_table`, and crosstabs. | ✅ |
+| **24** | 2026-08-17 | Phase 2 | Pandas Merging, Joining & Concatenating | Practiced `concat`, relational `merge`, join types, indicators, multi-key joins, suffixes, self-joins, `join`, `combine_first`, and validation constraints. Added detailed inline code documentation. | ✅ |
 
 ---
 
-## 🚀 Future Goals
-* [x] **Days 6–7**: Dictionaries, Sets, Tuples, Mutability & memory references.
-* [x] **Days 8–10**: Functions, Scope, Lambda expressions, Exception handling, File I/O.
-* [x] **Days 11–13**: NumPy Fundamentals, Arrays, Indexing, Slicing & Masking.
-* [x] **Days 14–16**: NumPy Vectorized Operations, Broadcasting, Math/Stats Functions, and Matrix Operations/Linear Algebra.
-* [ ] **Days 17–19**: Introduction to Pandas, Series & DataFrames, Selecting/Filtering, Data Cleaning (missing values, duplicates).
+## 🎯 Learning Milestones
+
+### Phase 1 — Python & NumPy Fundamentals
+
+- [x] **Days 1–5** — Python setup, data types, control flow, loops, and lists
+- [x] **Days 6–10** — Dictionaries, sets, tuples, functions, exceptions, and File I/O
+- [x] **Days 11–13** — NumPy fundamentals, arrays, indexing, slicing, and masking
+- [x] **Days 14–16** — Vectorization, broadcasting, statistics, matrix operations, and linear algebra
+
+### Phase 2 — Data Manipulation & Visualization
+
+- [x] **Days 17–19** — Pandas Series/DataFrames, selection, filtering, and data cleaning
+- [x] **Days 20–21** — House-price EDA, feature engineering, and ML pipeline
+- [x] **Days 22–24** — Data visualization, GroupBy/aggregation, merging, joining, and concatenation
+- [ ] **Days 25–27** — Continue advanced Pandas and data manipulation
+- [ ] **Days 28–30** — Advanced visualization and exploratory data analysis
+- [ ] **Days 31–35** — Complete Phase 2 data manipulation and visualization goals
+
+---
+
+## 📊 Current Progress
+
+```text
+Completed: 24 / 100 Days
+
+████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 24%
+````
+
+### Current Position
+
+**Day 24 — Pandas Merging, Joining & Concatenating** ✅
+
+The challenge has progressed from Python fundamentals and NumPy into practical **Pandas data manipulation, visualization, exploratory analysis, and machine-learning workflows**.
+
+---
+
+## 🚀 Next Goals
+
+1. Continue **Day 25** with the next Pandas/data-manipulation topic.
+2. Maintain the daily learning streak.
+3. Commit each day's work with clear and professional Git messages.
+4. Keep code, notes, and exercises organized.
+5. Complete **Phase 2 (Days 16–35)** before moving into the next phase.
+
+---
+
+## 🏆 Challenge Status
+
+> **24 / 100 Days Completed — 24% Progress**
+
+**Keep learning. Keep building. Keep committing. 🚀**
+
+```
+```
