@@ -158,11 +158,13 @@ def concatenation_basics(q1_df: pd.DataFrame, q2_df: pd.DataFrame) -> pd.DataFra
     # ── Vertical Stacking (Default: axis=0) ───────────────────
     # Combine Q1 and Q2 order logs into a unified annual ledger.
     # Without ignore_index=True, original index numbers (0..119, 0..129) are preserved.
+    # This might lead to duplicate index values, which can cause issues during lookups.
     raw_concat = pd.concat([q1_df, q2_enhanced], axis=0)
     print(f"\n📌 Simple vertical concat (mismatched cols aligned, NaNs inserted):")
     print(f"   Shape: {raw_concat.shape} | Duplicate index values present: {raw_concat.index.has_duplicates}")
 
     # Reset index to maintain continuous integer index 0..249
+    # Setting ignore_index=True ensures a clean, unique sequential index for the new DataFrame.
     all_orders = pd.concat([q1_df, q2_enhanced], axis=0, ignore_index=True)
     print(f"\n📌 Clean vertical concat (ignore_index=True):")
     print(f"   Shape: {all_orders.shape} | Continuous index: {all_orders.index.is_monotonic_increasing}")
