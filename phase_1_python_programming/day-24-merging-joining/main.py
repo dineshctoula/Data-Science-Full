@@ -352,7 +352,10 @@ def advanced_merges_and_self_joins(full_ledger: pd.DataFrame, returns_df: pd.Dat
     print(multi_key_df[["order_id", "customer_id", "region", "promo_tier"]].head(3).to_string(index=False))
 
     # ── 3. Self-Join on Employee Hierarchy ──────────────────────
-    # Maps employees to their respective direct managers within the same DataFrame.
+    # A self-join is when a DataFrame is merged with itself.
+    # This is highly useful for resolving hierarchical or tree-structured data within the same table.
+    # Here, we map employees to their respective direct managers.
+    # The 'manager_id' in the left DataFrame matches 'emp_id' in the right DataFrame.
     org_chart = pd.merge(
         employees_df,
         employees_df[["emp_id", "emp_name", "salary", "department"]],
@@ -363,6 +366,7 @@ def advanced_merges_and_self_joins(full_ledger: pd.DataFrame, returns_df: pd.Dat
     )
 
     # Compute salary differential between manager and employee
+    # This helps identify pay gaps within reporting lines.
     org_chart["salary_diff"] = org_chart["salary_mgr"] - org_chart["salary_emp"]
 
     print(f"\n📌 Self-Join – Employee Organizational Tree:")
