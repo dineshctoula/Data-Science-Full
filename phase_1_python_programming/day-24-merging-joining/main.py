@@ -438,7 +438,10 @@ def index_merges_and_validation(customers_df: pd.DataFrame, products_df: pd.Data
     print(f"   Missing values after patch:  {patched_catalog['retail_price'].isna().sum()}")
 
     # ── 3. Merge Validation Rules (Data Integrity Enforcement) ─
-    # validate='1:m' ensures customer_id is unique on the left side (1 customer -> many orders)
+    # The 'validate' parameter acts as a strict schema integrity check.
+    # validate='1:m' ensures that the join key ('customer_id') is strictly unique in the left DataFrame.
+    # If the left DataFrame has duplicate keys, a MergeError is raised, preventing silent data duplication.
+    # Other options include '1:1' (unique in both), 'm:1' (unique in right), and 'm:m' (no uniqueness check).
     try:
         valid_merge = pd.merge(customers_df, full_ledger, on="customer_id", how="inner", validate="1:m")
         print(f"\n📌 Merge Validation (validate='1:m'): Success ✅")
