@@ -50,14 +50,18 @@ def make_enterprise_datasets(seed: int = 42) -> dict:
     rng = np.random.default_rng(seed)
 
     # 1. Customer Directory (100 customers, IDs 101-200)
+    # We use numpy's arange to generate sequential IDs.
     customer_ids = np.arange(101, 201)
+    # Define possible regions and loyalty tiers for random assignment
     regions = ["North", "South", "East", "West"]
     tiers = ["Bronze", "Silver", "Gold", "Platinum"]
     
+    # Create the customers DataFrame
     customers_df = pd.DataFrame({
         "customer_id": customer_ids,
         "name": [f"Customer_{cid}" for cid in customer_ids],
         "region": rng.choice(regions, size=len(customer_ids)),
+        # Tiers are weighted to simulate a typical distribution (mostly Bronze/Silver)
         "tier": rng.choice(tiers, size=len(customer_ids), p=[0.4, 0.3, 0.2, 0.1]),
         "signup_year": rng.choice([2021, 2022, 2023, 2024], size=len(customer_ids)),
     })
