@@ -297,9 +297,105 @@ def demonstrate_time_series_resampling_and_rolling():
     print("\n[✓] Time series resampling, rolling windows, and shifting completed successfully.")
 
 
-if __name__ == "__main__":
+# ------------------------------------------------------------------------------
+# 5. REAL-WORLD CASE STUDY: TIME SERIES TRANSACTION ANALYTICS PIPELINE
+# ------------------------------------------------------------------------------
+def demonstrate_time_series_case_study():
+    """
+    Executes an end-to-end Time Series Transaction Analytics Pipeline:
+    1. Multi-store wide transaction log reshaping.
+    2. DatetimeIndex business-day resampling.
+    3. Exponential Moving Average (EMA) and 14-Day Bollinger Bands calculation.
+    4. Anomaly detection for revenue spikes above upper volatility threshold.
+    """
+    print("\n" + "=" * 80)
+    print("5. REAL-WORLD CASE STUDY: TIME SERIES TRANSACTION ANALYTICS PIPELINE")
+    print("=" * 80)
+
+    # 1. Generate daily transactions across 120 business days in 2026
+    np.random.seed(101)
+    b_dates = pd.date_range(start='2026-01-01', periods=120, freq='B')
+
+    # Store revenues with simulated trend and noise
+    trend = np.linspace(5000, 12000, 120)
+    noise_s1 = np.random.normal(0, 400, 120)
+    noise_s2 = np.random.normal(0, 600, 120)
+
+    # Inject specific revenue spike anomalies
+    noise_s1[35] += 3500  # Feb spike
+    noise_s2[75] += 4200  # Apr spike
+
+    store_df = pd.DataFrame({
+        'Store_Alpha': np.round(trend + noise_s1, 2),
+        'Store_Beta': np.round(trend * 1.15 + noise_s2, 2)
+    }, index=b_dates)
+    store_df.index.name = 'Business_Date'
+
+    print("--- First 5 Business Days of Multi-Store Revenue ---")
+    print(store_df.head())
+
+    # 2. Reshape to long format using pd.melt()
+    store_long = store_df.reset_index().melt(
+        id_vars=['Business_Date'],
+        var_name='Store',
+        value_name='Revenue'
+    )
+
+    print("\n--- Reshaped Store Data (Long Format Sample) ---")
+    print(store_long.head(4))
+
+    # 3. Monthly Business Resampling and Aggregate Pivot
+    monthly_pivot = store_long.pivot_table(
+        index=pd.Grouper(key='Business_Date', freq='ME'),
+        columns='Store',
+        values='Revenue',
+        aggfunc=['sum', 'mean']
+    )
+
+    print("\n--- Monthly Revenue Summary Pivot Table ---")
+    print(monthly_pivot)
+
+    # 4. Technical Indicators: 14-Day SMA, EMA, and Bollinger Bands for Store Alpha
+    alpha_series = store_df[['Store_Alpha']].copy()
+    alpha_series['SMA_14'] = alpha_series['Store_Alpha'].rolling(window=14, min_periods=1).mean()
+    alpha_series['EMA_14'] = alpha_series['Store_Alpha'].ewm(span=14, adjust=False).mean()
+    alpha_series['STD_14'] = alpha_series['Store_Alpha'].rolling(window=14, min_periods=1).std().fillna(0)
+
+    alpha_series['Bollinger_Upper'] = alpha_series['SMA_14'] + (2 * alpha_series['STD_14'])
+    alpha_series['Bollinger_Lower'] = alpha_series['SMA_14'] - (2 * alpha_series['STD_14'])
+
+    # 5. Anomaly Detection: Flag days where revenue > Bollinger Upper Band
+    anomalies = alpha_series[alpha_series['Store_Alpha'] > alpha_series['Bollinger_Upper']]
+
+    print("\n--- Detected Store Alpha Revenue Anomalies (Spikes above Bollinger Upper Band) ---")
+    print(anomalies[['Store_Alpha', 'SMA_14', 'Bollinger_Upper']])
+
+    assert len(anomalies) >= 1, "At least 1 high-volatility anomaly should be flagged!"
+
+    print("\n[✓] End-to-end time series transaction analytics pipeline executed successfully.")
+
+
+# ------------------------------------------------------------------------------
+# MAIN ENTRY POINT
+# ------------------------------------------------------------------------------
+def main():
+    """Runs all Day 25 module demonstrations."""
+    print("=" * 80)
+    print("DAY 25: ADVANCED PANDAS RESHAPING, PIVOTING, MELTING & TIME SERIES ANALYSIS")
+    print("=" * 80)
+
     demonstrate_melt_and_pivot()
     demonstrate_stack_and_unstack()
     demonstrate_datetime_parsing_and_extraction()
     demonstrate_time_series_resampling_and_rolling()
+    demonstrate_time_series_case_study()
+
+    print("\n" + "=" * 80)
+    print("ALL DAY 25 DEMONSTRATIONS COMPLETED SUCCESSFULLY! 🚀")
+    print("=" * 80)
+
+
+if __name__ == "__main__":
+    main()
+
 
