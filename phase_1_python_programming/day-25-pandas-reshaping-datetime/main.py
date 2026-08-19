@@ -95,5 +95,74 @@ def demonstrate_melt_and_pivot():
     print("\n[✓] Melt and Pivot operations completed successfully.")
 
 
+# ------------------------------------------------------------------------------
+# 2. HIERARCHICAL RESHAPING: STACK AND UNSTACK
+# ------------------------------------------------------------------------------
+def demonstrate_stack_and_unstack():
+    """
+    Demonstrates Multi-Index DataFrame Reshaping using `.stack()` and `.unstack()`.
+
+    - stack(): Pivots column level(s) to row index level(s). Moves wide headers to rows.
+    - unstack(): Pivots row index level(s) to column level(s). Moves row index levels to columns.
+    """
+    print("\n" + "=" * 80)
+    print("2. HIERARCHICAL RESHAPING: MULTI-INDEX STACK & UNSTACK")
+    print("=" * 80)
+
+    # Create Multi-Index columns (Financial Metrics x Departments)
+    cols = pd.MultiIndex.from_tuples([
+        ('2025', 'Revenue'), ('2025', 'Profit'),
+        ('2026', 'Revenue'), ('2026', 'Profit')
+    ], names=['Year', 'Metric'])
+
+    # Create Multi-Index rows (Region x Product Branch)
+    index = pd.MultiIndex.from_tuples([
+        ('North', 'Electronics'), ('North', 'Apparel'),
+        ('South', 'Electronics'), ('South', 'Apparel')
+    ], names=['Region', 'Branch'])
+
+    # Synthetic performance data matrix
+    data = [
+        [500, 120, 620, 150],
+        [300, 80,  350, 95],
+        [450, 110, 510, 130],
+        [280, 65,  310, 75]
+    ]
+
+    df_multi = pd.DataFrame(data, index=index, columns=cols)
+
+    print("--- Original Multi-Index DataFrame ---")
+    print(df_multi)
+
+    # --------------------------------------------------------------------------
+    # .stack(): Move outermost column level ('Metric' or level=1) into row index
+    # --------------------------------------------------------------------------
+    stacked_df = df_multi.stack(level='Metric', future_stack=True)
+    print("\n--- Stacked DataFrame (Metric column level moved to Row Index) ---")
+    print(stacked_df)
+
+    # Verify structure: Row index now has 3 levels: Region, Branch, Metric
+    assert stacked_df.index.nlevels == 3, "Stacked DataFrame should have 3 index levels!"
+
+    # --------------------------------------------------------------------------
+    # .unstack(): Move row index level ('Branch' or level=1) into column header
+    # --------------------------------------------------------------------------
+    unstacked_df = stacked_df.unstack(level='Branch')
+    print("\n--- Unstacked DataFrame (Branch row index level moved back to Columns) ---")
+    print(unstacked_df)
+
+    # --------------------------------------------------------------------------
+    # Verify reversibility: Stacking then Unstacking preserves original shape & values
+    # --------------------------------------------------------------------------
+    fully_unstacked = stacked_df.unstack(level='Metric').reindex(index=df_multi.index, columns=df_multi.columns)
+    assert np.array_equal(fully_unstacked.values, df_multi.values), "Stacking then unstacking preserves exact original data!"
+
+
+    print("\n[✓] Stack and Unstack operations completed successfully.")
+
+
+
 if __name__ == "__main__":
     demonstrate_melt_and_pivot()
+    demonstrate_stack_and_unstack()
+
