@@ -161,8 +161,76 @@ def demonstrate_stack_and_unstack():
     print("\n[✓] Stack and Unstack operations completed successfully.")
 
 
+# ------------------------------------------------------------------------------
+# 3. DATETIME OPERATIONS & TEMPORAL FEATURE EXTRACTION
+# ------------------------------------------------------------------------------
+def demonstrate_datetime_parsing_and_extraction():
+    """
+    Demonstrates string-to-datetime conversion (`pd.to_datetime`),
+    DatetimeIndex creation, and feature extraction via the `.dt` accessor.
+    """
+    print("\n" + "=" * 80)
+    print("3. DATETIME PARSING, INDEXING, AND TEMPORAL FEATURE EXTRACTION")
+    print("=" * 80)
+
+    # Synthetic transactional timestamp string data with varying formats
+    raw_transactions = pd.DataFrame({
+        'transaction_id': [101, 102, 103, 104, 105, 106],
+        'timestamp_str': [
+            '2026-01-15 08:30:00',
+            '2026-01-31 23:45:00',
+            '2026-02-14 12:15:30',
+            '2026-02-28 18:00:00',
+            '2026-03-15 09:20:10',
+            '2026-03-31 21:10:00'
+        ],
+        'amount': [250.50, 1200.00, 450.75, 890.00, 310.20, 1500.00]
+    })
+
+    print("--- Original Raw Transactions DataFrame ---")
+    print(raw_transactions)
+
+    # --------------------------------------------------------------------------
+    # pd.to_datetime(): Convert string column to Pandas datetime64[ns] dtype
+    # --------------------------------------------------------------------------
+    raw_transactions['datetime'] = pd.to_datetime(raw_transactions['timestamp_str'])
+
+    # --------------------------------------------------------------------------
+    # Temporal Feature Extraction using .dt Accessor
+    # --------------------------------------------------------------------------
+    df = raw_transactions.copy()
+    df['year'] = df['datetime'].dt.year
+    df['month'] = df['datetime'].dt.month
+    df['month_name'] = df['datetime'].dt.month_name()
+    df['day'] = df['datetime'].dt.day
+    df['day_name'] = df['datetime'].dt.day_name()
+    df['quarter'] = df['datetime'].dt.quarter
+    df['hour'] = df['datetime'].dt.hour
+    df['is_month_end'] = df['datetime'].dt.is_month_end
+
+    print("\n--- Extracted Temporal Features DataFrame ---")
+    print(df[['transaction_id', 'datetime', 'month_name', 'day_name', 'quarter', 'is_month_end']])
+
+    # Verify extracted features
+    assert df.loc[1, 'is_month_end'] == True, "Jan 31 transaction should register is_month_end=True!"
+    assert df.loc[3, 'day_name'] == 'Saturday', "Feb 28 2026 is a Saturday!"
+
+    # --------------------------------------------------------------------------
+    # DatetimeIndex Slicing and Filtering
+    # --------------------------------------------------------------------------
+    df_indexed = df.set_index('datetime').sort_index()
+
+    # Slice transactions occurring specifically in February 2026
+    feb_transactions = df_indexed.loc['2026-02-01':'2026-02-28']
+    print("\n--- Filtered Transactions for February 2026 using DatetimeIndex Slicing ---")
+    print(feb_transactions[['transaction_id', 'amount', 'day_name']])
+
+    assert len(feb_transactions) == 2, "Should return exactly 2 transactions in February 2026!"
+
+    print("\n[✓] Datetime parsing and feature extraction completed successfully.")
+
 
 if __name__ == "__main__":
     demonstrate_melt_and_pivot()
     demonstrate_stack_and_unstack()
-
+    demonstrate_datetime_parsing_and_extraction()
