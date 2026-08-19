@@ -7,9 +7,9 @@ Topic: NumPy Matrix Operations & Linear Algebra
 Topics Covered
 --------------
 1. Matrix Creation, Multiplication, & Transpose
-2. Determinants & Inverses (np.linalg.det, np.linalg.inv)
-3. Solving Systems of Linear Equations (np.linalg.solve)
-4. Practical Exercise (Solving 2x + y = 5, x - 3y = -1)
+2. Determinants & Matrix Inverses
+3. Solving Systems of Linear Equations
+4. Practical Exercise
 
 Author: Dinesh Sitoula
 ====================================================
@@ -17,148 +17,241 @@ Author: Dinesh Sitoula
 
 import numpy as np
 
-# -----------------------------------
+
+# --------------------------------------------------
 # 1. MATRIX MULTIPLICATION & TRANSPOSE
-# -----------------------------------
+# --------------------------------------------------
 def matrix_multiplication_transpose():
+    """Demonstrate matrix creation, multiplication, and transpose."""
+
     print("=" * 60)
     print("1. MATRIX MULTIPLICATION & TRANSPOSE")
     print("=" * 60)
 
-    # Creating matrices A (2x3) and B (3x2)
+    # Create matrices
     A = np.array([
         [1, 2, 3],
         [4, 5, 6]
     ])
+
     B = np.array([
         [7, 8],
         [9, 10],
         [11, 12]
     ])
 
-    print("Matrix A (2x3):\n", A)
-    print("Matrix B (3x2):\n", B)
+    print("Matrix A (2x3):")
+    print(A)
 
-    # Transpose of A
-    print("\nTranspose of A (A.T):\n", A.T)
+    print("\nMatrix B (3x2):")
+    print(B)
 
-    # Matrix Multiplication (A @ B)
-    # Result is a (2x2) matrix
-    C1 = A @ B
-    C2 = np.dot(A, B)
+    # Transpose of matrix A
+    print("\nTranspose of A:")
+    print(A.T)
 
-    print("\nMatrix Multiplication (A @ B):\n", C1)
-    print("Matrix Multiplication (np.dot(A, B)):\n", C2)
+    # Matrix multiplication using @ operator
+    result_at = A @ B
+
+    print("\nMatrix Multiplication (A @ B):")
+    print(result_at)
+
+    # Matrix multiplication using np.dot()
+    result_dot = np.dot(A, B)
+
+    print("\nMatrix Multiplication (np.dot(A, B)):")
+    print(result_dot)
 
     # Verify both methods produce the same result
-    assert np.array_equal(C1, C2), "Matrix multiplication methods must yield identical results!"
+    assert np.array_equal(result_at, result_dot)
+
+    print("\nMatrix multiplication verified successfully.")
 
 
-# -----------------------------------
-# 2. DETERMINANTS & INVERSES
-# -----------------------------------
+# --------------------------------------------------
+# 2. DETERMINANT & MATRIX INVERSE
+# --------------------------------------------------
 def determinant_and_inverse():
+    """Calculate determinant and inverse of a square matrix."""
+
     print("\n" + "=" * 60)
-    print("2. DETERMINANTS & MATRIX INVERSES")
+    print("2. DETERMINANT & MATRIX INVERSE")
     print("=" * 60)
 
-    # Define a square 2x2 matrix
+    # Create a square matrix
     A = np.array([
         [4, 7],
         [2, 6]
     ])
-    print("Matrix A:\n", A)
 
-    # Determinant: det(A) = ad - bc = (4*6) - (7*2) = 24 - 14 = 10
-    det_A = np.linalg.det(A)
-    print(f"\nDeterminant of A: {det_A:.2f}")
+    print("Matrix A:")
+    print(A)
 
-    # Check if invertible (determinant != 0)
-    if not np.isclose(det_A, 0.0):
-        # Inverse: A^-1
-        A_inv = np.linalg.inv(A)
-        print("\nInverse of A (A^-1):\n", A_inv)
+    # Calculate determinant
+    determinant = np.linalg.det(A)
 
-        # Verification: A @ A_inv should equal Identity Matrix (I)
-        identity = A @ A_inv
-        print("\nVerification A @ A^-1 (should be Identity Matrix):\n", np.round(identity, 2))
-    else:
-        print("\nMatrix is singular and cannot be inverted!")
+    print(f"\nDeterminant of A: {determinant:.2f}")
+
+    # A matrix can be inverted only if determinant is not zero
+    if np.isclose(determinant, 0):
+        print("\nMatrix is singular and cannot be inverted.")
+        return
+
+    # Calculate inverse
+    inverse = np.linalg.inv(A)
+
+    print("\nInverse of A:")
+    print(inverse)
+
+    # Verify A × A^-1 = Identity Matrix
+    identity = A @ inverse
+
+    print("\nA @ A^-1:")
+    print(np.round(identity, 2))
+
+    # Verify result
+    expected_identity = np.eye(A.shape[0])
+
+    assert np.allclose(identity, expected_identity)
+
+    print("\nInverse verified successfully.")
 
 
-# -----------------------------------
+# --------------------------------------------------
 # 3. SOLVING SYSTEMS OF LINEAR EQUATIONS
-# -----------------------------------
+# --------------------------------------------------
 def solving_linear_systems():
+    """Solve a system of linear equations using np.linalg.solve()."""
+
     print("\n" + "=" * 60)
     print("3. SOLVING SYSTEMS OF LINEAR EQUATIONS")
     print("=" * 60)
+
     print("Example system:")
     print("  3x + 2y = 8")
     print("   x - 2y = 0")
 
-    # In matrix form Ax = B
-    # A is coefficient matrix, B is ordinate vector
+    # Matrix form:
+    # A @ X = B
+    #
+    # A = coefficient matrix
+    # X = unknowns [x, y]
+    # B = constants vector
+
     A = np.array([
         [3, 2],
         [1, -2]
     ])
+
     B = np.array([8, 0])
 
-    print("\nCoefficient Matrix (A):\n", A)
-    print("Ordinate Vector (B):", B)
+    print("\nCoefficient Matrix A:")
+    print(A)
 
-    # Solve for x
-    x = np.linalg.solve(A, B)
-    print("\nSolution Vector (x, y):", x)
-    print(f"Verified: x = {x[0]:.2f}, y = {x[1]:.2f}")
+    print("\nConstants Vector B:")
+    print(B)
+
+    # Solve the system
+    solution = np.linalg.solve(A, B)
+
+    x, y = solution
+
+    print("\nSolution:")
+    print(f"  x = {x:.2f}")
+    print(f"  y = {y:.2f}")
+
+    # Verify the solution
+    verification = A @ solution
+
+    print("\nVerification:")
+    print("A @ solution =", verification)
+
+    assert np.allclose(verification, B)
+
+    print("Solution verified successfully.")
 
 
-# -----------------------------------
+# --------------------------------------------------
 # 4. PRACTICAL EXERCISE
-# -----------------------------------
+# --------------------------------------------------
 def practical_exercise():
-    print("\n" + "=" * 60)
-    print("4. PRACTICAL EXERCISE: SOLVING LINEAR EQUATIONS")
-    print("=" * 60)
-    print("Task: Solve the system of equations:")
-    print("      2x + y = 5")
-    print("      x - 3y = -1")
-    print("      using np.linalg.solve.")
+    """Solve and verify a system of two linear equations."""
 
-    # 1. Define coefficient matrix A and constants vector B
+    print("\n" + "=" * 60)
+    print("4. PRACTICAL EXERCISE")
+    print("=" * 60)
+
+    print("Task: Solve the following equations:")
+    print("  2x + y = 5")
+    print("  x - 3y = -1")
+
+    # Convert equations into matrix form:
+    #
+    # 2x + y  = 5
+    # x - 3y  = -1
+    #
+    # A @ X = B
+
     A = np.array([
         [2, 1],
         [1, -3]
     ])
+
     B = np.array([5, -1])
 
-    print("\nCoefficient Matrix (A):\n", A)
-    print("Constants Vector (B):", B)
+    print("\nCoefficient Matrix A:")
+    print(A)
 
-    # 2. Solve for solutions (x, y)
-    solutions = np.linalg.solve(A, B)
-    
+    print("\nConstants Vector B:")
+    print(B)
+
+    # Solve for x and y
+    solution = np.linalg.solve(A, B)
+
+    x, y = solution
+
     print("\nSolutions:")
-    print(f"  x = {solutions[0]:.4f}")
-    print(f"  y = {solutions[1]:.4f}")
+    print(f"  x = {x:.4f}")
+    print(f"  y = {y:.4f}")
 
-    # 3. Verify correctness by plugging back into equations
-    eq1_check = 2 * solutions[0] + solutions[1]
-    eq2_check = solutions[0] - 3 * solutions[1]
-    
+    # Verify the solution using the original equations
+    equation_1 = 2 * x + y
+    equation_2 = x - 3 * y
+
     print("\nVerification:")
-    print(f"  Equation 1 (2x + y) value: {eq1_check:.2f} (Expected: 5.00)")
-    print(f"  Equation 2 (x - 3y) value: {eq2_check:.2f} (Expected: -1.00)")
+    print(f"  2x + y = {equation_1:.2f}  (Expected: 5.00)")
+    print(f"  x - 3y = {equation_2:.2f}  (Expected: -1.00)")
+
+    # Confirm both equations are satisfied
+    assert np.isclose(equation_1, 5)
+    assert np.isclose(equation_2, -1)
+
+    print("\nPractical exercise verified successfully.")
 
 
+# --------------------------------------------------
+# MAIN PROGRAM
+# --------------------------------------------------
 def main():
-    print("=== Day 16: NumPy Matrix Operations & Linear Algebra ===")
+    """Run all Day 16 demonstrations."""
+
+    print("=" * 60)
+    print("DAY 16: NUMPY MATRIX OPERATIONS & LINEAR ALGEBRA")
+    print("=" * 60)
+
     matrix_multiplication_transpose()
     determinant_and_inverse()
     solving_linear_systems()
     practical_exercise()
-    print("\nDay 16 Completed Successfully!")
 
+    print("\n" + "=" * 60)
+    print("Day 16 Completed Successfully!")
+    print("=" * 60)
+
+
+# --------------------------------------------------
+# PROGRAM ENTRY POINT
+# --------------------------------------------------
 if __name__ == "__main__":
     main()
+
