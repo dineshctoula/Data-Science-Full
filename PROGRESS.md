@@ -3,18 +3,16 @@
 
 A structured record of my progress through the **100-Day Data Science Challenge**, including daily topics, key accomplishments, and completed deliverables.
 
----
-
 ## 📈 Progress Overview
 
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 2 — Data Manipulation & Visualization |
-| **Current Day** | Day 24 |
-| **Days Completed** | 24 / 100 |
-| **Progress** | 24% |
-| **Current Streak** | 24 Days |
-| **Latest Topic** | Pandas Merging, Joining & Concatenating |
+| **Current Day** | Day 25 |
+| **Days Completed** | 25 / 100 |
+| **Progress** | 25% |
+| **Current Streak** | 25 Days |
+| **Latest Topic** | Advanced Pandas Reshaping, Melting & Time Series Analysis |
 | **Status** | 🟢 On Track |
 
 ---
@@ -59,6 +57,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **22** | 2026-08-04 | Phase 2 | Advanced Data Visualization | Created Matplotlib visualizations and Seaborn box plots, violin plots, heatmaps, and dashboard-style layouts. | ✅ |
 | **23** | 2026-08-05 | Phase 2 | Pandas GroupBy & Aggregation | Practiced split-apply-combine, `agg()`, NamedAgg, multi-level GroupBy, `transform()`, `filter()`, `pivot_table`, and crosstabs. | ✅ |
 | **24** | 2026-08-17 | Phase 2 | Pandas Merging, Joining & Concatenating | Practiced `concat`, relational `merge`, join types, indicators, multi-key joins, suffixes, self-joins, `join`, `combine_first`, and validation constraints. Added detailed inline code documentation. | ✅ |
+| **25** | 2026-08-19 | Phase 2 | Advanced Pandas Reshaping, Melting & Time Series Analysis | Practiced `melt`, `pivot`, MultiIndex `stack`/`unstack`, `to_datetime`, `.dt` temporal extraction, `resample`, `rolling` windows, `shift`, EMA, and Bollinger Bands anomaly detection. Added detailed inline code documentation. | ✅ |
 
 ---
 
@@ -75,8 +74,8 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 
 - [x] **Days 17–19** — Pandas Series/DataFrames, selection, filtering, and data cleaning
 - [x] **Days 20–21** — House-price EDA, feature engineering, and ML pipeline
-- [x] **Days 22–24** — Data visualization, GroupBy/aggregation, merging, joining, and concatenation
-- [ ] **Days 25–27** — Continue advanced Pandas and data manipulation
+- [x] **Days 22–25** — Data visualization, GroupBy/aggregation, merging, joining, reshaping, and time-series analysis
+- [ ] **Days 26–27** — Continue advanced Pandas and data manipulation
 - [ ] **Days 28–30** — Advanced visualization and exploratory data analysis
 - [ ] **Days 31–35** — Complete Phase 2 data manipulation and visualization goals
 
@@ -85,22 +84,22 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 ## 📊 Current Progress
 
 ```text
-Completed: 24 / 100 Days
+Completed: 25 / 100 Days
 
-████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 24%
-````
+█████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 25%
+```
 
 ### Current Position
 
-**Day 24 — Pandas Merging, Joining & Concatenating** ✅
+**Day 25 — Advanced Pandas Reshaping, Melting & Time Series Analysis** ✅
 
-The challenge has progressed from Python fundamentals and NumPy into practical **Pandas data manipulation, visualization, exploratory analysis, and machine-learning workflows**.
+The challenge has progressed from Python fundamentals and NumPy into practical **Pandas data manipulation, visualization, exploratory analysis, time series analysis, and machine-learning workflows**.
 
 ---
 
 ## 🚀 Next Goals
 
-1. Continue **Day 25** with the next Pandas/data-manipulation topic.
+1. Continue **Day 26** with the next Pandas/data-manipulation topic.
 2. Maintain the daily learning streak.
 3. Commit each day's work with clear and professional Git messages.
 4. Keep code, notes, and exercises organized.
@@ -110,9 +109,10 @@ The challenge has progressed from Python fundamentals and NumPy into practical *
 
 ## 🏆 Challenge Status
 
-> **24 / 100 Days Completed — 24% Progress**
+> **25 / 100 Days Completed — 25% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
+
 
 ```
 ```
