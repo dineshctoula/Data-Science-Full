@@ -230,7 +230,76 @@ def demonstrate_datetime_parsing_and_extraction():
     print("\n[✓] Datetime parsing and feature extraction completed successfully.")
 
 
+# ------------------------------------------------------------------------------
+# 4. TIME SERIES RESAMPLING, ROLLING WINDOWS, AND SHIFT OPERATIONS
+# ------------------------------------------------------------------------------
+def demonstrate_time_series_resampling_and_rolling():
+    """
+    Demonstrates time series frequency conversion (`resample()`),
+    moving average calculation (`rolling()`), and lag analysis (`shift()`, `pct_change()`).
+    """
+    print("\n" + "=" * 80)
+    print("4. TIME SERIES RESAMPLING, ROLLING WINDOWS, AND SHIFT OPERATIONS")
+    print("=" * 80)
+
+    # Generate 90 days of synthetic daily revenue data starting Jan 1, 2026
+    np.random.seed(42)
+    date_range = pd.date_range(start='2026-01-01', periods=90, freq='D')
+    base_revenue = 1000 + np.cumsum(np.random.normal(loc=15, scale=50, size=90))
+
+    daily_series = pd.DataFrame({
+        'revenue': np.round(base_revenue, 2)
+    }, index=date_range)
+    daily_series.index.name = 'date'
+
+    print("--- First 5 Days of Daily Revenue Data ---")
+    print(daily_series.head())
+
+    # --------------------------------------------------------------------------
+    # Resampling: Frequency conversion and rollup
+    # 'W': Weekly frequency rollup
+    # 'ME': Month-end frequency rollup
+    # --------------------------------------------------------------------------
+    weekly_revenue = daily_series.resample('W').agg({
+        'revenue': ['sum', 'mean', 'count']
+    })
+    # Flatten MultiIndex columns created by agg
+    weekly_revenue.columns = ['total_revenue', 'avg_daily_revenue', 'days_count']
+
+    print("\n--- Weekly Resampled Summary (First 4 Weeks) ---")
+    print(weekly_revenue.head(4))
+
+    # --------------------------------------------------------------------------
+    # Rolling Windows: Moving Statistics (7-Day Moving Average & Volatility)
+    # window=7: 7-period trailing window
+    # min_periods=1: Allow initial window partial calculation
+    # --------------------------------------------------------------------------
+    daily_series['sma_7d'] = daily_series['revenue'].rolling(window=7, min_periods=1).mean()
+    daily_series['std_7d'] = daily_series['revenue'].rolling(window=7, min_periods=1).std().fillna(0)
+
+    # --------------------------------------------------------------------------
+    # Lag Analysis: Shifting & Daily Growth Rate (%)
+    # shift(1): Lag value by 1 day (previous day's revenue)
+    # pct_change(): (Current - Previous) / Previous
+    # --------------------------------------------------------------------------
+    daily_series['prev_day_revenue'] = daily_series['revenue'].shift(1)
+    daily_series['daily_growth_pct'] = daily_series['revenue'].pct_change() * 100
+
+    print("\n--- Daily Series with Rolling Windows & Shift Indicators (Days 6 to 12) ---")
+    print(daily_series.iloc[5:12])
+
+    # Assertions for mathematical consistency
+    day7_rev = daily_series.iloc[6]['revenue']
+    day6_rev = daily_series.iloc[6]['prev_day_revenue']
+    expected_pct = ((day7_rev - day6_rev) / day6_rev) * 100
+    assert np.isclose(daily_series.iloc[6]['daily_growth_pct'], expected_pct), "Daily growth % matches exact formula!"
+
+    print("\n[✓] Time series resampling, rolling windows, and shifting completed successfully.")
+
+
 if __name__ == "__main__":
     demonstrate_melt_and_pivot()
     demonstrate_stack_and_unstack()
     demonstrate_datetime_parsing_and_extraction()
+    demonstrate_time_series_resampling_and_rolling()
+
