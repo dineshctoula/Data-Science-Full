@@ -277,6 +277,68 @@ def demonstrate_transformation_and_scaling(df: pd.DataFrame) -> pd.DataFrame:
     return data
 
 
+# ------------------------------------------------------------------------------
+# 4. CATEGORICAL NORMALIZATION & FEATURE ENCODING STRATEGIES
+# ------------------------------------------------------------------------------
+def demonstrate_categorical_encoding(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Demonstrates text normalization, regex cleaning, Ordinal Encoding,
+    One-Hot Encoding (`pd.get_dummies`), and Frequency Encoding.
+    """
+    print("\n" + "=" * 80)
+    print("4. CATEGORICAL NORMALIZATION & FEATURE ENCODING STRATEGIES")
+    print("=" * 80)
+
+    data = df.copy()
+
+    # --------------------------------------------------------------------------
+    # 1. Text Normalization: Whitespace Stripping & Casing Harmonization
+    # --------------------------------------------------------------------------
+    print("--- Categorical Values Before Cleaning ---")
+    print("Raw Tier Levels:", data['membership_tier'].unique())
+    print("Raw Locations:  ", data['location'].unique())
+
+    # Standardize membership tier string format
+    data['membership_tier_clean'] = data['membership_tier'].str.strip().str.title()
+    # Standardize location string format
+    data['location_clean'] = data['location'].str.strip().str.title()
+
+    print("\n--- Categorical Values After Cleaning ---")
+    print("Clean Tier Levels:", data['membership_tier_clean'].unique())
+    print("Clean Locations:  ", data['location_clean'].unique())
+
+    # --------------------------------------------------------------------------
+    # 2. Ordinal Encoding (Explicit Mapping for Ordered Categories)
+    # Standard = 1, Premium = 2, VIP = 3
+    # --------------------------------------------------------------------------
+    tier_mapping = {'Standard': 1, 'Premium': 2, 'Vip': 3}
+    data['membership_tier_encoded'] = data['membership_tier_clean'].map(tier_mapping)
+
+    # --------------------------------------------------------------------------
+    # 3. Frequency Encoding (High Cardinality Alternative)
+    # Maps categories to their relative proportions in the dataset
+    # --------------------------------------------------------------------------
+    location_freq = data['location_clean'].value_counts(normalize=True)
+    data['location_freq_encoded'] = data['location_clean'].map(location_freq)
+
+    # --------------------------------------------------------------------------
+    # 4. One-Hot Encoding (pd.get_dummies) for Nominal Features
+    # --------------------------------------------------------------------------
+    location_dummies = pd.get_dummies(data['location_clean'], prefix='loc', dtype=int)
+    data = pd.concat([data, location_dummies], axis=1)
+
+    print("\n--- Encoding Outputs Sample ---")
+    print(data[['customer_id', 'membership_tier_clean', 'membership_tier_encoded', 'location_clean', 'location_freq_encoded']].head(6))
+
+    # Assertions for encoding correctness
+    assert set(data['membership_tier_clean'].unique()) == {'Standard', 'Premium', 'Vip'}, "Should have exactly 3 clean tier levels!"
+    assert data['membership_tier_encoded'].isna().sum() == 0, "Ordinal encoding should have 0 unmapped NaNs!"
+    assert 'loc_New York' in data.columns, "One-Hot dummy columns must be present!"
+
+    print("\n[✓] Categorical normalization and feature encoding completed successfully.")
+    return data
+
+
 if __name__ == "__main__":
     df_raw = generate_messy_customer_dataset()
     print("--- Initial Messy Dataset Head ---")
@@ -286,6 +348,8 @@ if __name__ == "__main__":
     df_imputed = demonstrate_missing_data_imputation(df_raw)
     df_capped = demonstrate_outlier_detection_and_capping(df_imputed)
     df_scaled = demonstrate_transformation_and_scaling(df_capped)
+    df_encoded = demonstrate_categorical_encoding(df_scaled)
+
 
 
 
