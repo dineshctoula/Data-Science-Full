@@ -144,6 +144,75 @@ def demonstrate_missing_data_imputation(df: pd.DataFrame) -> pd.DataFrame:
     return data
 
 
+# ------------------------------------------------------------------------------
+# 2. OUTLIER DETECTION & TREATMENT TECHNIQUES (IQR & Z-SCORE)
+# ------------------------------------------------------------------------------
+def demonstrate_outlier_detection_and_capping(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Demonstrates statistical outlier detection using IQR and Z-score methods,
+    and applies Winsorization (capping/flooring) to treat extreme values.
+    """
+    print("\n" + "=" * 80)
+    print("2. OUTLIER DETECTION & TREATMENT (IQR, Z-SCORE & WINSORIZATION)")
+    print("=" * 80)
+
+    data = df.copy()
+    income_col = 'annual_income_imputed'
+
+    # First, handle impossible negative income values (domain rule validation)
+    negative_count = (data[income_col] < 0).sum()
+    data[income_col] = data[income_col].clip(lower=0)
+    print(f"Domain Validation: Floor-adjusted {negative_count} negative income values to 0.")
+
+    # --------------------------------------------------------------------------
+    # 1. Interquartile Range (IQR) Method
+    # Q1 = 25th percentile, Q3 = 75th percentile
+    # IQR = Q3 - Q1
+    # Lower Bound = Q1 - 1.5 * IQR, Upper Bound = Q3 + 1.5 * IQR
+    # --------------------------------------------------------------------------
+    q1 = data[income_col].quantile(0.25)
+    q3 = data[income_col].quantile(0.75)
+    iqr = q3 - q1
+
+    lower_iqr_bound = q1 - 1.5 * iqr
+    upper_iqr_bound = q3 + 1.5 * iqr
+
+    iqr_outliers = data[(data[income_col] < lower_iqr_bound) | (data[income_col] > upper_iqr_bound)]
+    print(f"\n--- IQR Outlier Detection ---")
+    print(f"Q1 (25%): ${q1:,.2f} | Q3 (75%): ${q3:,.2f} | IQR: ${iqr:,.2f}")
+    print(f"IQR Lower Bound: ${lower_iqr_bound:,.2f} | Upper Bound: ${upper_iqr_bound:,.2f}")
+    print(f"Number of IQR Outliers Detected: {len(iqr_outliers)}")
+
+    # --------------------------------------------------------------------------
+    # 2. Z-Score Method (|Z| > 3.0)
+    # Z = (X - Mean) / Std
+    # --------------------------------------------------------------------------
+    mean_inc = data[income_col].mean()
+    std_inc = data[income_col].std()
+    data['income_zscore'] = (data[income_col] - mean_inc) / std_inc
+
+    z_outliers = data[data['income_zscore'].abs() > 3.0]
+    print(f"\n--- Z-Score Outlier Detection (|Z| > 3.0) ---")
+    print(f"Mean Income: ${mean_inc:,.2f} | Std Dev: ${std_inc:,.2f}")
+    print(f"Number of Z-Score Outliers (|Z| > 3.0): {len(z_outliers)}")
+
+    # --------------------------------------------------------------------------
+    # 3. Outlier Treatment: Winsorization (Capping & Flooring)
+    # --------------------------------------------------------------------------
+    data['income_capped'] = data[income_col].clip(lower=max(0, lower_iqr_bound), upper=upper_iqr_bound)
+
+    print("\n--- Post-Winsorization Comparison ---")
+    print(f"Max Income Before Capping: ${data[income_col].max():,.2f}")
+    print(f"Max Income After Capping:  ${data['income_capped'].max():,.2f}")
+
+    # Assertions to verify outlier capping logic
+    assert data['income_capped'].max() <= upper_iqr_bound + 1e-5, "Income post-capping must not exceed IQR upper bound!"
+    assert data['income_capped'].min() >= 0, "Income post-capping must be non-negative!"
+
+    print("\n[✓] Outlier detection and Winsorization capping completed successfully.")
+    return data
+
+
 if __name__ == "__main__":
     df_raw = generate_messy_customer_dataset()
     print("--- Initial Messy Dataset Head ---")
@@ -151,4 +220,6 @@ if __name__ == "__main__":
     print(f"Shape of messy dataset: {df_raw.shape}")
 
     df_imputed = demonstrate_missing_data_imputation(df_raw)
+    df_capped = demonstrate_outlier_detection_and_capping(df_imputed)
+
 
