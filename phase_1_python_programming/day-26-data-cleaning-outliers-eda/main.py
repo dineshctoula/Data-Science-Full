@@ -213,6 +213,70 @@ def demonstrate_outlier_detection_and_capping(df: pd.DataFrame) -> pd.DataFrame:
     return data
 
 
+# ------------------------------------------------------------------------------
+# 3. FEATURE TRANSFORMATION & NORMALIZATION (SKEWNESS REDUCTION & SCALING)
+# ------------------------------------------------------------------------------
+def demonstrate_transformation_and_scaling(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Demonstrates distribution skewness analysis, log transformation (`np.log1p`),
+    Min-Max Scaling [0, 1], and Standard Z-score Normalization (mean=0, std=1).
+    """
+    print("\n" + "=" * 80)
+    print("3. FEATURE TRANSFORMATION & NORMALIZATION (LOG TRANSFORMS & SCALING)")
+    print("=" * 80)
+
+    data = df.copy()
+    income_raw = data['annual_income_imputed']
+
+    # --------------------------------------------------------------------------
+    # 1. Skewness and Kurtosis Analysis
+    # Skewness > 1 indicate heavy right-skewed distribution.
+    # --------------------------------------------------------------------------
+    skew_raw = income_raw.skew()
+    kurt_raw = income_raw.kurt()
+    print(f"Original Income Skewness: {skew_raw:.4f} | Kurtosis: {kurt_raw:.4f}")
+
+    # --------------------------------------------------------------------------
+    # 2. Log Transformation: np.log1p(x) = log(1 + x)
+    # Reduces variance and stabilizes right-skewed feature distributions
+    # --------------------------------------------------------------------------
+    data['income_log1p'] = np.log1p(data['annual_income_imputed'].clip(lower=0))
+    skew_log = data['income_log1p'].skew()
+    kurt_log = data['income_log1p'].kurt()
+
+    print(f"Log-Transformed Income Skewness: {skew_log:.4f} | Kurtosis: {kurt_log:.4f}")
+    print(f"Skewness Reduction: {abs(skew_raw) - abs(skew_log):.4f} reduction achieved.")
+
+    # --------------------------------------------------------------------------
+    # 3. Feature Scaling: Min-Max Scaling [0, 1]
+    # Formula: (X - X_min) / (X_max - X_min)
+    # --------------------------------------------------------------------------
+    min_val = data['income_capped'].min()
+    max_val = data['income_capped'].max()
+    data['income_minmax'] = (data['income_capped'] - min_val) / (max_val - min_val)
+
+    # --------------------------------------------------------------------------
+    # 4. Feature Scaling: Standardization / Z-score Normalization (Mean=0, Std=1)
+    # Formula: (X - Mean) / Std
+    # --------------------------------------------------------------------------
+    mean_capped = data['income_capped'].mean()
+    std_capped = data['income_capped'].std()
+    data['income_standardized'] = (data['income_capped'] - mean_capped) / std_capped
+
+    print("\n--- Scaling Verification Statistics ---")
+    print(f"Min-Max Range: [{data['income_minmax'].min():.4f}, {data['income_minmax'].max():.4f}]")
+    print(f"Standardized Mean: {data['income_standardized'].mean():.6f} (Expected ≈ 0)")
+    print(f"Standardized Std:  {data['income_standardized'].std():.6f} (Expected ≈ 1)")
+
+    # Mathematical assertions
+    assert data['income_minmax'].min() == 0.0 and data['income_minmax'].max() == 1.0, "Min-Max scaling must map to [0, 1]!"
+    assert np.isclose(data['income_standardized'].mean(), 0.0, atol=1e-5), "Standardized mean must be zero!"
+    assert np.isclose(data['income_standardized'].std(), 1.0, atol=1e-5), "Standardized std must be one!"
+
+    print("\n[✓] Feature transformation and scaling completed successfully.")
+    return data
+
+
 if __name__ == "__main__":
     df_raw = generate_messy_customer_dataset()
     print("--- Initial Messy Dataset Head ---")
@@ -221,5 +285,7 @@ if __name__ == "__main__":
 
     df_imputed = demonstrate_missing_data_imputation(df_raw)
     df_capped = demonstrate_outlier_detection_and_capping(df_imputed)
+    df_scaled = demonstrate_transformation_and_scaling(df_capped)
+
 
 
