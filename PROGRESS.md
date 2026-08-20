@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 2 — Data Manipulation & Visualization |
-| **Current Day** | Day 25 |
-| **Days Completed** | 25 / 100 |
-| **Progress** | 25% |
-| **Current Streak** | 25 Days |
-| **Latest Topic** | Advanced Pandas Reshaping, Melting & Time Series Analysis |
+| **Current Day** | Day 26 |
+| **Days Completed** | 26 / 100 |
+| **Progress** | 26% |
+| **Current Streak** | 26 Days |
+| **Latest Topic** | Advanced Data Cleaning, Outlier Detection, Imputation & EDA Profiling |
 | **Status** | 🟢 On Track |
 
 ---
@@ -58,6 +58,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **23** | 2026-08-05 | Phase 2 | Pandas GroupBy & Aggregation | Practiced split-apply-combine, `agg()`, NamedAgg, multi-level GroupBy, `transform()`, `filter()`, `pivot_table`, and crosstabs. | ✅ |
 | **24** | 2026-08-17 | Phase 2 | Pandas Merging, Joining & Concatenating | Practiced `concat`, relational `merge`, join types, indicators, multi-key joins, suffixes, self-joins, `join`, `combine_first`, and validation constraints. Added detailed inline code documentation. | ✅ |
 | **25** | 2026-08-19 | Phase 2 | Advanced Pandas Reshaping, Melting & Time Series Analysis | Practiced `melt`, `pivot`, MultiIndex `stack`/`unstack`, `to_datetime`, `.dt` temporal extraction, `resample`, `rolling` windows, `shift`, EMA, and Bollinger Bands anomaly detection. Added detailed inline code documentation. | ✅ |
+| **26** | 2026-08-20 | Phase 2 | Advanced Data Cleaning, Outlier Detection, Imputation & EDA Profiling | Implemented MCAR/MAR missingness analysis, grouped median imputation, IQR/Z-score outlier detection with Winsorization, log1p transform, Min-Max & Standard scaling, regex text cleaning, ordinal/one-hot encoding, automated EDA report generation, and CSV export pipeline. | ✅ |
 
 ---
 
@@ -74,9 +75,8 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 
 - [x] **Days 17–19** — Pandas Series/DataFrames, selection, filtering, and data cleaning
 - [x] **Days 20–21** — House-price EDA, feature engineering, and ML pipeline
-- [x] **Days 22–25** — Data visualization, GroupBy/aggregation, merging, joining, reshaping, and time-series analysis
-- [ ] **Days 26–27** — Continue advanced Pandas and data manipulation
-- [ ] **Days 28–30** — Advanced visualization and exploratory data analysis
+- [x] **Days 22–26** — Data visualization, GroupBy/aggregation, merging, joining, reshaping, time-series analysis, outlier detection & data cleaning
+- [ ] **Days 27–30** — Advanced visualization and exploratory data analysis
 - [ ] **Days 31–35** — Complete Phase 2 data manipulation and visualization goals
 
 ---
@@ -84,22 +84,22 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 ## 📊 Current Progress
 
 ```text
-Completed: 25 / 100 Days
+Completed: 26 / 100 Days
 
-█████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 25%
+██████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 26%
 ```
 
 ### Current Position
 
-**Day 25 — Advanced Pandas Reshaping, Melting & Time Series Analysis** ✅
+**Day 26 — Advanced Data Cleaning, Outlier Detection, Imputation & EDA Profiling** ✅
 
-The challenge has progressed from Python fundamentals and NumPy into practical **Pandas data manipulation, visualization, exploratory analysis, time series analysis, and machine-learning workflows**.
+The challenge has progressed from Python fundamentals and NumPy into practical **Pandas data manipulation, data quality auditing, outlier treatment, feature encoding, time series analysis, and machine-learning workflows**.
 
 ---
 
 ## 🚀 Next Goals
 
-1. Continue **Day 26** with the next Pandas/data-manipulation topic.
+1. Continue **Day 27** with the next advanced EDA and data manipulation topic.
 2. Maintain the daily learning streak.
 3. Commit each day's work with clear and professional Git messages.
 4. Keep code, notes, and exercises organized.
@@ -109,9 +109,10 @@ The challenge has progressed from Python fundamentals and NumPy into practical *
 
 ## 🏆 Challenge Status
 
-> **25 / 100 Days Completed — 25% Progress**
+> **26 / 100 Days Completed — 26% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
+
 
 
 ```

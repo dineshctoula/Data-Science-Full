@@ -392,17 +392,106 @@ def demonstrate_automated_eda_profiling(df: pd.DataFrame) -> pd.DataFrame:
     return eda_report_df
 
 
-if __name__ == "__main__":
+# ------------------------------------------------------------------------------
+# 6. END-TO-END CUSTOMER DATA CLEANING PIPELINE CASE STUDY & EXPORT
+# ------------------------------------------------------------------------------
+def execute_end_to_end_cleaning_pipeline(df_raw: pd.DataFrame) -> pd.DataFrame:
+    """
+    Executes a complete, production-ready data cleaning and feature engineering pipeline:
+    1. Deduplication based on customer ID.
+    2. Heterogeneous date format parsing and ISO standardization.
+    3. Missing data conditional median/interpolation imputation.
+    4. Outlier capping via IQR Winsorization.
+    5. Categorical text normalization and encoding.
+    6. Export clean dataset to CSV.
+    """
+    print("\n" + "=" * 80)
+    print("6. REAL-WORLD END-TO-END DATA CLEANING PIPELINE CASE STUDY")
+    print("=" * 80)
+
+    # 1. Deduplication
+    initial_rows = len(df_raw)
+    df_clean = df_raw.drop_duplicates(subset=['customer_id'], keep='first').copy()
+    deduped_rows = len(df_clean)
+    print(f"Deduplication Step: Removed {initial_rows - deduped_rows} duplicate customer records ({initial_rows} -> {deduped_rows} rows).")
+
+    # 2. Date Parsing and ISO Standardization
+    df_clean['join_date_clean'] = pd.to_datetime(df_clean['join_date'], format='mixed').dt.strftime('%Y-%m-%d')
+
+    # 3. Missing Value Imputation
+    df_clean['age_clean'] = df_clean['age'].fillna(df_clean['age'].median())
+    
+    # Conditional grouped income imputation
+    temp_loc = df_clean['location'].str.strip().str.title()
+    group_income = df_clean.groupby(temp_loc)['annual_income'].transform('median')
+    df_clean['annual_income_clean'] = df_clean['annual_income'].fillna(group_income).fillna(df_clean['annual_income'].median())
+    df_clean['annual_income_clean'] = df_clean['annual_income_clean'].clip(lower=0)
+
+    df_clean['spending_score_clean'] = df_clean['spending_score'].ffill().bfill()
+
+    # 4. Outlier Winsorization Capping on Income
+    q1 = df_clean['annual_income_clean'].quantile(0.25)
+    q3 = df_clean['annual_income_clean'].quantile(0.75)
+    iqr = q3 - q1
+    upper_bound = q3 + 1.5 * iqr
+    df_clean['annual_income_capped'] = df_clean['annual_income_clean'].clip(upper=upper_bound)
+
+    # 5. Categorical Normalization and Encoding
+    df_clean['membership_tier_clean'] = df_clean['membership_tier'].str.strip().str.title()
+    df_clean['location_clean'] = df_clean['location'].str.strip().str.title()
+
+    tier_map = {'Standard': 1, 'Premium': 2, 'Vip': 3}
+    df_clean['membership_tier_code'] = df_clean['membership_tier_clean'].map(tier_map)
+
+    # Assemble Final Tidy Matrix
+    final_cols = [
+        'customer_id', 'join_date_clean', 'location_clean', 'membership_tier_clean',
+        'membership_tier_code', 'age_clean', 'annual_income_capped', 'spending_score_clean'
+    ]
+    df_final = df_clean[final_cols].copy()
+
+    # Export to CSV
+    output_path = 'phase_1_python_programming/day-26-data-cleaning-outliers-eda/cleaned_customer_data.csv'
+    df_final.to_csv(output_path, index=False)
+    print(f"\nSaved Cleaned Dataset ({len(df_final)} rows, {len(final_cols)} cols) to: {output_path}")
+
+    # Final Quality Verification Assertions
+    assert df_final.isna().sum().sum() == 0, "Final cleaned dataset must have 0 missing values!"
+    assert len(df_final) == 95, "Should have exactly 95 unique customer rows post-deduplication!"
+
+    print("\n[✓] End-to-end data cleaning pipeline executed and exported successfully.")
+    return df_final
+
+
+# ------------------------------------------------------------------------------
+# MAIN ENTRY POINT
+# ------------------------------------------------------------------------------
+def main():
+    """Runs all Day 26 data cleaning and EDA demonstrations."""
+    print("=" * 80)
+    print("DAY 26: ADVANCED DATA CLEANING, OUTLIER DETECTION, IMPUTATION & EDA PROFILING")
+    print("=" * 80)
+
     df_raw = generate_messy_customer_dataset()
     print("--- Initial Messy Dataset Head ---")
-    print(df_raw.head(10))
-    print(f"Shape of messy dataset: {df_raw.shape}")
+    print(df_raw.head(8))
+    print(f"Initial raw shape: {df_raw.shape}")
 
     df_imputed = demonstrate_missing_data_imputation(df_raw)
     df_capped = demonstrate_outlier_detection_and_capping(df_imputed)
     df_scaled = demonstrate_transformation_and_scaling(df_capped)
     df_encoded = demonstrate_categorical_encoding(df_scaled)
-    df_report = demonstrate_automated_eda_profiling(df_encoded)
+    demonstrate_automated_eda_profiling(df_encoded)
+    execute_end_to_end_cleaning_pipeline(df_raw)
+
+    print("\n" + "=" * 80)
+    print("ALL DAY 26 DEMONSTRATIONS COMPLETED SUCCESSFULLY! 🚀")
+    print("=" * 80)
+
+
+if __name__ == "__main__":
+    main()
+
 
 
 
