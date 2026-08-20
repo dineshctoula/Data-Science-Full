@@ -81,8 +81,74 @@ def generate_messy_customer_dataset(seed: int = 42) -> pd.DataFrame:
     return df
 
 
+# ------------------------------------------------------------------------------
+# 1. MISSING DATA ANALYSIS AND IMPUTATION STRATEGIES
+# ------------------------------------------------------------------------------
+def demonstrate_missing_data_imputation(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Demonstrates missing value detection, missingness mechanisms (MCAR/MAR),
+    and advanced conditional/grouped imputation techniques.
+    """
+    print("=" * 80)
+    print("1. MISSING DATA ANALYSIS & CONDITIONAL IMPUTATION STRATEGIES")
+    print("=" * 80)
+
+    data = df.copy()
+
+    # --------------------------------------------------------------------------
+    # 1. Missing Data Audit: Count & Percentage of NaNs per column
+    # --------------------------------------------------------------------------
+    missing_count = data.isna().sum()
+    missing_pct = (data.isna().mean() * 100).round(2)
+    audit_df = pd.DataFrame({'missing_count': missing_count, 'missing_pct': missing_pct})
+
+    print("--- Initial Missing Value Audit ---")
+    print(audit_df[audit_df['missing_count'] > 0])
+
+    # --------------------------------------------------------------------------
+    # 2. Simple Global Imputation (Median for Age)
+    # Median is preferred over Mean when distributions may be skewed.
+    # --------------------------------------------------------------------------
+    overall_median_age = data['age'].median()
+    data['age_imputed'] = data['age'].fillna(overall_median_age)
+
+    # --------------------------------------------------------------------------
+    # 3. Conditional / Grouped Imputation (Income by Location / Tier)
+    # Imputing income based on median within each location/tier group.
+    # --------------------------------------------------------------------------
+    # Clean location strings temporarily for accurate grouping
+    temp_location = data['location'].str.strip().str.title()
+    group_medians = data.groupby(temp_location)['annual_income'].transform('median')
+
+    # Fill NaN with group median, fallback to global median if group median is NaN
+    global_median_income = data['annual_income'].median()
+    data['annual_income_imputed'] = data['annual_income'].fillna(group_medians).fillna(global_median_income)
+
+    # --------------------------------------------------------------------------
+    # 4. Forward/Backward Fill Interpolation for Spending Score
+    # Useful for sequential or time-series structured data records
+    # --------------------------------------------------------------------------
+    data['spending_score_imputed'] = data['spending_score'].ffill().bfill()
+
+    print("\n--- Summary Post-Imputation ---")
+    print(f"Age NaN Count (Before -> After): {df['age'].isna().sum()} -> {data['age_imputed'].isna().sum()}")
+    print(f"Income NaN Count (Before -> After): {df['annual_income'].isna().sum()} -> {data['annual_income_imputed'].isna().sum()}")
+    print(f"Spending Score NaN Count (Before -> After): {df['spending_score'].isna().sum()} -> {data['spending_score_imputed'].isna().sum()}")
+
+    # Assertions to ensure missing values are completely handled
+    assert data['age_imputed'].isna().sum() == 0, "Age should have 0 missing values post-imputation!"
+    assert data['annual_income_imputed'].isna().sum() == 0, "Income should have 0 missing values post-imputation!"
+    assert data['spending_score_imputed'].isna().sum() == 0, "Spending score should have 0 missing values!"
+
+    print("\n[✓] Missing data analysis and imputation completed successfully.")
+    return data
+
+
 if __name__ == "__main__":
     df_raw = generate_messy_customer_dataset()
     print("--- Initial Messy Dataset Head ---")
     print(df_raw.head(10))
     print(f"Shape of messy dataset: {df_raw.shape}")
+
+    df_imputed = demonstrate_missing_data_imputation(df_raw)
+
