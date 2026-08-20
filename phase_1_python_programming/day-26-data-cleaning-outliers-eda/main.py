@@ -339,6 +339,59 @@ def demonstrate_categorical_encoding(df: pd.DataFrame) -> pd.DataFrame:
     return data
 
 
+# ------------------------------------------------------------------------------
+# 5. AUTOMATED EDA & DATA QUALITY AUDIT REPORT GENERATION
+# ------------------------------------------------------------------------------
+def demonstrate_automated_eda_profiling(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Generates an automated, structured Data Quality Audit & Profiling Report
+    computing completeness, cardinality, skewness, and outlier flags per column.
+    """
+    print("\n" + "=" * 80)
+    print("5. AUTOMATED EDA & DATA QUALITY AUDIT REPORT GENERATION")
+    print("=" * 80)
+
+    report_list = []
+
+    for col in df.columns:
+        dtype = str(df[col].dtype)
+        unique_cnt = df[col].nunique()
+        missing_cnt = df[col].isna().sum()
+        missing_pct = (missing_cnt / len(df)) * 100
+
+        skewness = np.nan
+        outlier_cnt = 0
+
+        if pd.api.types.is_numeric_dtype(df[col]):
+            skewness = round(df[col].skew(), 3)
+            q1 = df[col].quantile(0.25)
+            q3 = df[col].quantile(0.75)
+            iqr = q3 - q1
+            outlier_cnt = ((df[col] < (q1 - 1.5 * iqr)) | (df[col] > (q3 + 1.5 * iqr))).sum()
+
+        report_list.append({
+            'Column': col,
+            'DataType': dtype,
+            'UniqueCount': unique_cnt,
+            'MissingCount': missing_cnt,
+            'MissingPct': f"{missing_pct:.1f}%",
+            'Skewness': skewness if not np.isnan(skewness) else 'N/A',
+            'IQROutliers': outlier_cnt
+        })
+
+    eda_report_df = pd.DataFrame(report_list)
+
+    print("--- Automated Data Health Audit Summary ---")
+    print(eda_report_df.to_string(index=False))
+
+    # Verification assertions
+    assert len(eda_report_df) == len(df.columns), "EDA audit report must contain metrics for all columns!"
+    assert (eda_report_df['MissingCount'] >= 0).all(), "Missing count must be non-negative!"
+
+    print("\n[✓] Automated EDA profiling report generated successfully.")
+    return eda_report_df
+
+
 if __name__ == "__main__":
     df_raw = generate_messy_customer_dataset()
     print("--- Initial Messy Dataset Head ---")
@@ -349,6 +402,8 @@ if __name__ == "__main__":
     df_capped = demonstrate_outlier_detection_and_capping(df_imputed)
     df_scaled = demonstrate_transformation_and_scaling(df_capped)
     df_encoded = demonstrate_categorical_encoding(df_scaled)
+    df_report = demonstrate_automated_eda_profiling(df_encoded)
+
 
 
 
