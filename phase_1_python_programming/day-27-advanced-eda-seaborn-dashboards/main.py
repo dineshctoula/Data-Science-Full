@@ -101,7 +101,93 @@ def generate_customer_analytics_dataset(seed: int = 42) -> pd.DataFrame:
     return df
 
 
+# ------------------------------------------------------------------------------
+# 1. UNIVARIATE DISTRIBUTION PROFILING VISUALIZATIONS
+# ------------------------------------------------------------------------------
+def demonstrate_univariate_distributions(df: pd.DataFrame, output_dir: str) -> None:
+    """
+    Plots univariate statistical distributions including KDEs, ECDFs, Histograms
+    with rug plots, and Skewness/Kurtosis annotations.
+
+    Parameters:
+    -----------
+    df : pd.DataFrame
+        Dataset containing numerical variables.
+    output_dir : str
+        Directory path to save generated visual artifact.
+    """
+    print("\n" + "=" * 80)
+    print("1. UNIVARIATE DISTRIBUTION PROFILING & SKEWNESS ANALYSIS")
+    print("=" * 80)
+
+    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+    fig.suptitle("Univariate Statistical Distributions & Feature Profiling", fontsize=16, fontweight='bold', y=0.98)
+
+    # --------------------------------------------------------------------------
+    # Subplot 1: Annual Income Distribution (Histogram + KDE + Skewness Annotation)
+    # Right-skewed distribution analysis with rug plot
+    # --------------------------------------------------------------------------
+    ax1 = axes[0, 0]
+    sns.histplot(df['annual_income'], kde=True, bins=25, color='teal', ax=ax1, stat="density", line_kws={'linewidth': 2})
+    sns.rugplot(df['annual_income'], color='darkslategrey', ax=ax1, height=0.04)
+
+    income_skew = df['annual_income'].skew()
+    income_kurt = df['annual_income'].kurt()
+    ax1.set_title(f"Annual Income (Lognormal Distribution)\nSkewness: {income_skew:.2f} | Kurtosis: {income_kurt:.2f}", fontsize=11, fontweight='bold')
+    ax1.set_xlabel("Annual Income ($)", fontweight='bold')
+    ax1.set_ylabel("Density", fontweight='bold')
+    # Draw vertical mean and median lines for skewness visualization
+    ax1.axvline(df['annual_income'].mean(), color='crimson', linestyle='--', linewidth=1.5, label=f"Mean (${df['annual_income'].mean():,.0f})")
+    ax1.axvline(df['annual_income'].median(), color='darkgreen', linestyle='-', linewidth=1.5, label=f"Median (${df['annual_income'].median():,.0f})")
+    ax1.legend(loc='upper right', frameon=True)
+
+    # --------------------------------------------------------------------------
+    # Subplot 2: Age Distribution (Gaussian/Normal Distribution Analysis)
+    # Symmetric bell-shaped distribution with kernel density curve
+    # --------------------------------------------------------------------------
+    ax2 = axes[0, 1]
+    sns.kdeplot(df['age'], shade=True, color='indigo', ax=ax2, bw_adjust=0.8)
+    sns.rugplot(df['age'], color='purple', ax=ax2, height=0.05)
+
+    age_skew = df['age'].skew()
+    ax2.set_title(f"Customer Age Distribution\nSkewness: {age_skew:.2f} (Symmetric)", fontsize=11, fontweight='bold')
+    ax2.set_xlabel("Age (Years)", fontweight='bold')
+    ax2.set_ylabel("Density", fontweight='bold')
+
+    # --------------------------------------------------------------------------
+    # Subplot 3: Credit Score Empirical Cumulative Distribution Function (ECDF)
+    # ECDF avoids binning bias and directly shows percentiles & cumulative probabilities
+    # --------------------------------------------------------------------------
+    ax3 = axes[1, 0]
+    sns.ecdfplot(data=df, x='credit_score', color='darkorange', linewidth=2.5, ax=ax3)
+    ax3.set_title("Credit Score Empirical CDF (Cumulative Probability)", fontsize=11, fontweight='bold')
+    ax3.set_xlabel("Credit Score", fontweight='bold')
+    ax3.set_ylabel("Cumulative Probability P(X <= x)", fontweight='bold')
+    # Highlight 50th percentile (Median)
+    median_credit = df['credit_score'].median()
+    ax3.axvline(median_credit, color='red', linestyle=':', label=f"Median Score ({median_credit:.0f})")
+    ax3.axhline(0.5, color='red', linestyle=':')
+    ax3.legend(loc='lower right', frameon=True)
+
+    # --------------------------------------------------------------------------
+    # Subplot 4: Total Spend Box Plot with Outlier Indicators
+    # 5-number summary (Min, Q1, Median, Q3, Max) with IQR whisker bounds
+    # --------------------------------------------------------------------------
+    ax4 = axes[1, 1]
+    sns.boxplot(x=df['total_spend'], color='seagreen', ax=ax4, flierprops={'marker':'o', 'markerfacecolor':'red', 'markersize':6})
+    sns.stripplot(x=df['total_spend'], color='black', alpha=0.3, jitter=0.2, size=3, ax=ax4)
+    ax4.set_title("Total Spend Distribution & Outliers (Box + Strip Overlay)", fontsize=11, fontweight='bold')
+    ax4.set_xlabel("Total Spend ($)", fontweight='bold')
+
+    plt.tight_layout()
+    plot_path = os.path.join(output_dir, "01_univariate_distributions.png")
+    plt.savefig(plot_path)
+    plt.close()
+    print(f"[✓] Univariate distribution artifact saved to: {plot_path}")
+
+
 if __name__ == "__main__":
     df = generate_customer_analytics_dataset()
     print("Dataset generated successfully. Shape:", df.shape)
     print(df.head())
+
