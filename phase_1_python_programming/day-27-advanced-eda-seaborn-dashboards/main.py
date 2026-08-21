@@ -266,9 +266,84 @@ def demonstrate_bivariate_relational_plots(df: pd.DataFrame, output_dir: str) ->
     print(f"[✓] JointPlot marginal density artifact saved to: {joint_path}")
 
 
+# ------------------------------------------------------------------------------
+# 3. CATEGORICAL STATISTICAL COMPARISONS (VIOLIN, SWARM & CONFIDENCE INTERVALS)
+# ------------------------------------------------------------------------------
+def demonstrate_categorical_comparisons(df: pd.DataFrame, output_dir: str) -> None:
+    """
+    Plots categorical distributions, kernel density violins, individual data swarm overlays,
+    and bootstrapped 95% confidence interval estimation point plots.
+
+    Parameters:
+    -----------
+    df : pd.DataFrame
+        Dataset containing categorical and continuous variables.
+    output_dir : str
+        Directory path to save generated visual artifacts.
+    """
+    print("\n" + "=" * 80)
+    print("3. CATEGORICAL STATISTICAL COMPARISONS & INFERENTIAL PLOTS")
+    print("=" * 80)
+
+    fig, axes = plt.subplots(2, 2, figsize=(16, 11))
+    fig.suptitle("Categorical Feature Distributions & Inferential Statistical Estimations", fontsize=16, fontweight='bold', y=0.98)
+
+    # --------------------------------------------------------------------------
+    # Subplot 1: Violin Plot with Inner Boxplot (Income by Account Type)
+    # Displays full probability density shape across discrete categorical levels
+    # --------------------------------------------------------------------------
+    ax1 = axes[0, 0]
+    sns.violinplot(data=df, x='account_type', y='annual_income', order=['Basic', 'Standard', 'Premium', 'Enterprise'],
+                   palette='Blues_d', inner='box', cut=0, ax=ax1)
+    ax1.set_title("Annual Income Density by Account Tier (Violin + Inner Box)", fontsize=11, fontweight='bold')
+    ax1.set_xlabel("Account Tier", fontweight='bold')
+    ax1.set_ylabel("Annual Income ($)", fontweight='bold')
+
+    # --------------------------------------------------------------------------
+    # Subplot 2: Strip/Jitter Overlay on Box Plot (Total Spend by Region)
+    # Combines summary statistics with actual raw sample observations
+    # --------------------------------------------------------------------------
+    ax2 = axes[0, 1]
+    sns.boxplot(data=df, x='region', y='total_spend', palette='Set2', boxprops=dict(alpha=0.6), ax=ax2)
+    sns.stripplot(data=df, x='region', y='total_spend', color='black', alpha=0.5, jitter=0.2, size=4, ax=ax2)
+    ax2.set_title("Total Spend by Geographic Region (Box + Raw Observation Jitter)", fontsize=11, fontweight='bold')
+    ax2.set_xlabel("Geographic Region", fontweight='bold')
+    ax2.set_ylabel("Total Spend ($)", fontweight='bold')
+
+    # --------------------------------------------------------------------------
+    # Subplot 3: Point Plot displaying Mean & 95% Confidence Intervals
+    # Uses bootstrapping to estimate sample mean uncertainty across subgroups
+    # --------------------------------------------------------------------------
+    ax3 = axes[1, 0]
+    sns.pointplot(data=df, x='satisfaction_score', y='total_spend', hue='account_type',
+                  markers=['o', 's', '^', 'D'], linestyles=['-', '--', '-.', ':'],
+                  errorbar=('ci', 95), palette='tab10', capsize=0.15, ax=ax3)
+    ax3.set_title("Total Spend vs Satisfaction (Mean + 95% CI by Tier)", fontsize=11, fontweight='bold')
+    ax3.set_xlabel("Satisfaction Score (1-5)", fontweight='bold')
+    ax3.set_ylabel("Mean Total Spend ($)", fontweight='bold')
+    ax3.legend(title="Account Tier", loc='upper left', frameon=True)
+
+    # --------------------------------------------------------------------------
+    # Subplot 4: Categorical Bar Plot of Churn Rate (%) with Bootstrapped CIs
+    # --------------------------------------------------------------------------
+    ax4 = axes[1, 1]
+    sns.barplot(data=df, x='region', y='churned', hue='account_type', errorbar=('ci', 95), palette='mako', ax=ax4)
+    ax4.set_title("Customer Churn Proportion by Region & Account Tier", fontsize=11, fontweight='bold')
+    ax4.set_xlabel("Geographic Region", fontweight='bold')
+    ax4.set_ylabel("Mean Churn Rate (Proportion)", fontweight='bold')
+    ax4.legend(title="Account Tier", loc='upper right', frameon=True)
+
+    plt.tight_layout()
+    cat_path = os.path.join(output_dir, "03_categorical_comparisons.png")
+    plt.savefig(cat_path)
+    plt.close()
+    print(f"[✓] Categorical statistical comparison artifact saved to: {cat_path}")
+
+
 if __name__ == "__main__":
     df = generate_customer_analytics_dataset()
     print("Dataset generated successfully. Shape:", df.shape)
     print(df.head())
+
 
 
