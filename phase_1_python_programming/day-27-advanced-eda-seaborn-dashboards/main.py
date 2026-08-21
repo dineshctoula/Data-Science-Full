@@ -146,7 +146,7 @@ def demonstrate_univariate_distributions(df: pd.DataFrame, output_dir: str) -> N
     # Symmetric bell-shaped distribution with kernel density curve
     # --------------------------------------------------------------------------
     ax2 = axes[0, 1]
-    sns.kdeplot(df['age'], shade=True, color='indigo', ax=ax2, bw_adjust=0.8)
+    sns.kdeplot(df['age'], fill=True, color='indigo', ax=ax2, bw_adjust=0.8)
     sns.rugplot(df['age'], color='purple', ax=ax2, height=0.05)
 
     age_skew = df['age'].skew()
@@ -242,7 +242,8 @@ def demonstrate_bivariate_relational_plots(df: pd.DataFrame, output_dir: str) ->
 
     # Subplot 4: Annual Income vs Credit Score (2D KDE Density Contours)
     ax4 = axes[1, 1]
-    sns.kdeplot(data=df, x='annual_income', y='credit_score', cmap='Viridis', fill=True, thresh=0.05, levels=10, ax=ax4)
+    sns.kdeplot(data=df, x='annual_income', y='credit_score', cmap='viridis', fill=True, thresh=0.05, levels=10, ax=ax4)
+
     sns.scatterplot(data=df, x='annual_income', y='credit_score', color='white', alpha=0.3, s=15, ax=ax4)
     ax4.set_title("Income vs Credit Score (2D KDE Density Contours)", fontsize=11, fontweight='bold')
     ax4.set_xlabel("Annual Income ($)", fontweight='bold')
@@ -293,8 +294,8 @@ def demonstrate_categorical_comparisons(df: pd.DataFrame, output_dir: str) -> No
     # Displays full probability density shape across discrete categorical levels
     # --------------------------------------------------------------------------
     ax1 = axes[0, 0]
-    sns.violinplot(data=df, x='account_type', y='annual_income', order=['Basic', 'Standard', 'Premium', 'Enterprise'],
-                   palette='Blues_d', inner='box', cut=0, ax=ax1)
+    sns.violinplot(data=df, x='account_type', y='annual_income', hue='account_type', legend=False,
+                   order=['Basic', 'Standard', 'Premium', 'Enterprise'], palette='Blues_d', inner='box', cut=0, ax=ax1)
     ax1.set_title("Annual Income Density by Account Tier (Violin + Inner Box)", fontsize=11, fontweight='bold')
     ax1.set_xlabel("Account Tier", fontweight='bold')
     ax1.set_ylabel("Annual Income ($)", fontweight='bold')
@@ -304,11 +305,12 @@ def demonstrate_categorical_comparisons(df: pd.DataFrame, output_dir: str) -> No
     # Combines summary statistics with actual raw sample observations
     # --------------------------------------------------------------------------
     ax2 = axes[0, 1]
-    sns.boxplot(data=df, x='region', y='total_spend', palette='Set2', boxprops=dict(alpha=0.6), ax=ax2)
+    sns.boxplot(data=df, x='region', y='total_spend', hue='region', legend=False, palette='Set2', boxprops=dict(alpha=0.6), ax=ax2)
     sns.stripplot(data=df, x='region', y='total_spend', color='black', alpha=0.5, jitter=0.2, size=4, ax=ax2)
     ax2.set_title("Total Spend by Geographic Region (Box + Raw Observation Jitter)", fontsize=11, fontweight='bold')
     ax2.set_xlabel("Geographic Region", fontweight='bold')
     ax2.set_ylabel("Total Spend ($)", fontweight='bold')
+
 
     # --------------------------------------------------------------------------
     # Subplot 3: Point Plot displaying Mean & 95% Confidence Intervals
@@ -395,16 +397,23 @@ def demonstrate_correlation_heatmaps(df: pd.DataFrame, output_dir: str) -> None:
     print(f"[✓] Multivariate correlation heatmap artifact saved to: {corr_path}")
 
     # --------------------------------------------------------------------------
-    # Plot 2: Hierarchical Dendrogram ClusterMap
-    # Performs agglomerative hierarchical clustering to group co-varying features
+    # Plot 2: Sorted Feature Correlation Matrix Heatmap (Sorted by Churn Strength)
+    # Groups co-varying features based on correlation ranking without scipy dependency
     # --------------------------------------------------------------------------
-    cluster_grid = sns.clustermap(corr_pearson, cmap='vlag', vmin=-1, vmax=1, annot=True, fmt=".2f",
-                                  linewidths=0.7, figsize=(8, 8))
-    cluster_grid.fig.suptitle("Hierarchical Feature Clustering Dendrogram Map", y=1.02, fontsize=13, fontweight='bold')
-    cluster_path = os.path.join(output_dir, "04_hierarchical_clustermap.png")
-    cluster_grid.savefig(cluster_path)
+    fig, ax = plt.subplots(figsize=(8, 7))
+    churn_order = corr_pearson['churned'].sort_values(ascending=False).index
+    corr_sorted = corr_pearson.loc[churn_order, churn_order]
+
+    sns.heatmap(corr_sorted, cmap='vlag', vmin=-1, vmax=1, center=0, annot=True, fmt=".2f",
+                linewidths=0.7, cbar_kws={"shrink": .8}, ax=ax)
+    ax.set_title("Feature Correlation Matrix (Sorted by Churn Strength)", fontsize=12, fontweight='bold')
+
+    plt.tight_layout()
+    cluster_path = os.path.join(output_dir, "04_sorted_correlation_matrix.png")
+    plt.savefig(cluster_path)
     plt.close()
-    print(f"[✓] Hierarchical ClusterMap artifact saved to: {cluster_path}")
+    print(f"[✓] Sorted correlation matrix artifact saved to: {cluster_path}")
+
 
 
 # ------------------------------------------------------------------------------
@@ -538,9 +547,10 @@ def main():
         "02_jointplot_marginal_density.png",
         "03_categorical_comparisons.png",
         "04_correlation_heatmaps.png",
-        "04_hierarchical_clustermap.png",
+        "04_sorted_correlation_matrix.png",
         "05_executive_eda_dashboard.png"
     ]
+
 
     print("\n--- Plot Artifact Validation ---")
     for artifact in expected_artifacts:

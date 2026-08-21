@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 2 — Data Manipulation & Visualization |
-| **Current Day** | Day 26 |
-| **Days Completed** | 26 / 100 |
-| **Progress** | 26% |
-| **Current Streak** | 26 Days |
-| **Latest Topic** | Advanced Data Cleaning, Outlier Detection, Imputation & EDA Profiling |
+| **Current Day** | Day 27 |
+| **Days Completed** | 27 / 100 |
+| **Progress** | 27% |
+| **Current Streak** | 27 Days |
+| **Latest Topic** | Advanced Statistical Data Visualization, Multi-Panel Dashboards & Seaborn EDA |
 | **Status** | 🟢 On Track |
 
 ---
@@ -59,6 +59,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **24** | 2026-08-17 | Phase 2 | Pandas Merging, Joining & Concatenating | Practiced `concat`, relational `merge`, join types, indicators, multi-key joins, suffixes, self-joins, `join`, `combine_first`, and validation constraints. Added detailed inline code documentation. | ✅ |
 | **25** | 2026-08-19 | Phase 2 | Advanced Pandas Reshaping, Melting & Time Series Analysis | Practiced `melt`, `pivot`, MultiIndex `stack`/`unstack`, `to_datetime`, `.dt` temporal extraction, `resample`, `rolling` windows, `shift`, EMA, and Bollinger Bands anomaly detection. Added detailed inline code documentation. | ✅ |
 | **26** | 2026-08-20 | Phase 2 | Advanced Data Cleaning, Outlier Detection, Imputation & EDA Profiling | Implemented MCAR/MAR missingness analysis, grouped median imputation, IQR/Z-score outlier detection with Winsorization, log1p transform, Min-Max & Standard scaling, regex text cleaning, ordinal/one-hot encoding, automated EDA report generation, and CSV export pipeline. | ✅ |
+| **27** | 2026-08-21 | Phase 2 | Advanced Statistical Data Visualization & Seaborn Dashboards | Built synthetic customer analytics dataset, univariate KDE/ECDF skewness plots, bivariate regression fits, categorical violin/swarm/95% CI plots, multivariate correlation matrices, and a 2x3 executive EDA dashboard artifact export pipeline. | ✅ |
 
 ---
 
@@ -75,8 +76,8 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 
 - [x] **Days 17–19** — Pandas Series/DataFrames, selection, filtering, and data cleaning
 - [x] **Days 20–21** — House-price EDA, feature engineering, and ML pipeline
-- [x] **Days 22–26** — Data visualization, GroupBy/aggregation, merging, joining, reshaping, time-series analysis, outlier detection & data cleaning
-- [ ] **Days 27–30** — Advanced visualization and exploratory data analysis
+- [x] **Days 22–27** — Data visualization, GroupBy/aggregation, merging, joining, reshaping, time-series analysis, outlier detection & Seaborn dashboards
+- [ ] **Days 28–30** — Advanced visualization and exploratory data analysis
 - [ ] **Days 31–35** — Complete Phase 2 data manipulation and visualization goals
 
 ---
@@ -84,22 +85,22 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 ## 📊 Current Progress
 
 ```text
-Completed: 26 / 100 Days
+Completed: 27 / 100 Days
 
-██████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 26%
+███████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 27%
 ```
 
 ### Current Position
 
-**Day 26 — Advanced Data Cleaning, Outlier Detection, Imputation & EDA Profiling** ✅
+**Day 27 — Advanced Statistical Data Visualization & Seaborn Dashboards** ✅
 
-The challenge has progressed from Python fundamentals and NumPy into practical **Pandas data manipulation, data quality auditing, outlier treatment, feature encoding, time series analysis, and machine-learning workflows**.
+The challenge has progressed from Python fundamentals and NumPy into practical **Pandas data manipulation, data quality auditing, outlier treatment, feature encoding, time series analysis, advanced statistical visualization, and Seaborn executive dashboards**.
 
 ---
 
 ## 🚀 Next Goals
 
-1. Continue **Day 27** with the next advanced EDA and data manipulation topic.
+1. Continue **Day 28** with the next advanced EDA and data manipulation topic.
 2. Maintain the daily learning streak.
 3. Commit each day's work with clear and professional Git messages.
 4. Keep code, notes, and exercises organized.
@@ -109,9 +110,10 @@ The challenge has progressed from Python fundamentals and NumPy into practical *
 
 ## 🏆 Challenge Status
 
-> **26 / 100 Days Completed — 26% Progress**
+> **27 / 100 Days Completed — 27% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
+
 
 
 
