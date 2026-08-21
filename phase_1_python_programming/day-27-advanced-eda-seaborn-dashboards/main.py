@@ -340,10 +340,78 @@ def demonstrate_categorical_comparisons(df: pd.DataFrame, output_dir: str) -> No
     print(f"[✓] Categorical statistical comparison artifact saved to: {cat_path}")
 
 
+# ------------------------------------------------------------------------------
+# 4. MULTIVARIATE CORRELATION HEATMAPS & HIERARCHICAL CLUSTERMAPS
+# ------------------------------------------------------------------------------
+def demonstrate_correlation_heatmaps(df: pd.DataFrame, output_dir: str) -> None:
+    """
+    Computes Pearson/Spearman feature correlation matrices, applies upper-triangular
+    masks, plots annotated heatmaps, and builds hierarchical dendrogram ClusterMaps.
+
+    Parameters:
+    -----------
+    df : pd.DataFrame
+        Dataset containing numerical continuous variables.
+    output_dir : str
+        Directory path to save generated visual artifacts.
+    """
+    print("\n" + "=" * 80)
+    print("4. MULTIVARIATE CORRELATION HEATMAPS & HIERARCHICAL CLUSTERMAPS")
+    print("=" * 80)
+
+    # Extract continuous numerical variables for correlation matrix computation
+    num_cols = ['age', 'annual_income', 'credit_score', 'purchase_count', 'total_spend', 'satisfaction_score', 'churned']
+    corr_pearson = df[num_cols].corr(method='pearson')
+    corr_spearman = df[num_cols].corr(method='spearman')
+
+    fig, axes = plt.subplots(1, 2, figsize=(16, 7))
+    fig.suptitle("Multivariate Feature Correlation Analysis", fontsize=16, fontweight='bold', y=0.98)
+
+    # --------------------------------------------------------------------------
+    # Subplot 1: Pearson Correlation Matrix with Upper-Triangular Mask
+    # Upper triangular mask removes symmetric redundancy (r(X,Y) == r(Y,X))
+    # --------------------------------------------------------------------------
+    ax1 = axes[0]
+    mask = np.triu(np.ones_like(corr_pearson, dtype=bool))
+    cmap_diverging = sns.diverging_palette(230, 20, as_cmap=True)
+
+    sns.heatmap(corr_pearson, mask=mask, cmap=cmap_diverging, vmin=-1.0, vmax=1.0, center=0,
+                annot=True, fmt=".2f", square=True, linewidths=.8, cbar_kws={"shrink": .8}, ax=ax1)
+    ax1.set_title("Pearson Correlation Matrix (Linear Relationships)", fontsize=11, fontweight='bold')
+
+    # --------------------------------------------------------------------------
+    # Subplot 2: Spearman Rank Correlation Matrix (Monotonic Relationships)
+    # Spearman is robust to non-linear monotonic trends and extreme outliers
+    # --------------------------------------------------------------------------
+    ax2 = axes[1]
+    sns.heatmap(corr_spearman, mask=mask, cmap='coolwarm', vmin=-1.0, vmax=1.0, center=0,
+                annot=True, fmt=".2f", square=True, linewidths=.8, cbar_kws={"shrink": .8}, ax=ax2)
+    ax2.set_title("Spearman Rank Correlation Matrix (Monotonic Trends)", fontsize=11, fontweight='bold')
+
+    plt.tight_layout()
+    corr_path = os.path.join(output_dir, "04_correlation_heatmaps.png")
+    plt.savefig(corr_path)
+    plt.close()
+    print(f"[✓] Multivariate correlation heatmap artifact saved to: {corr_path}")
+
+    # --------------------------------------------------------------------------
+    # Plot 2: Hierarchical Dendrogram ClusterMap
+    # Performs agglomerative hierarchical clustering to group co-varying features
+    # --------------------------------------------------------------------------
+    cluster_grid = sns.clustermap(corr_pearson, cmap='vlag', vmin=-1, vmax=1, annot=True, fmt=".2f",
+                                  linewidths=0.7, figsize=(8, 8))
+    cluster_grid.fig.suptitle("Hierarchical Feature Clustering Dendrogram Map", y=1.02, fontsize=13, fontweight='bold')
+    cluster_path = os.path.join(output_dir, "04_hierarchical_clustermap.png")
+    cluster_grid.savefig(cluster_path)
+    plt.close()
+    print(f"[✓] Hierarchical ClusterMap artifact saved to: {cluster_path}")
+
+
 if __name__ == "__main__":
     df = generate_customer_analytics_dataset()
     print("Dataset generated successfully. Shape:", df.shape)
     print(df.head())
+
 
 
 
