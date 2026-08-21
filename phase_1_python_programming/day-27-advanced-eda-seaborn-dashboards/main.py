@@ -186,8 +186,89 @@ def demonstrate_univariate_distributions(df: pd.DataFrame, output_dir: str) -> N
     print(f"[✓] Univariate distribution artifact saved to: {plot_path}")
 
 
+# ------------------------------------------------------------------------------
+# 2. BIVARIATE RELATIONAL PLOTTING & REGRESSION ANALYSIS
+# ------------------------------------------------------------------------------
+def demonstrate_bivariate_relational_plots(df: pd.DataFrame, output_dir: str) -> None:
+    """
+    Plots bivariate relationships, linear/polynomial regression fits, joint
+    marginal distributions, and multi-variable PairGrids.
+
+    Parameters:
+    -----------
+    df : pd.DataFrame
+        Dataset containing numerical continuous variables.
+    output_dir : str
+        Directory path to save generated visual artifacts.
+    """
+    print("\n" + "=" * 80)
+    print("2. BIVARIATE RELATIONAL PLOTTING & REGRESSION ANALYSIS")
+    print("=" * 80)
+
+    # --------------------------------------------------------------------------
+    # Plot 1: 2x2 Grid of Relational Visualizations
+    # --------------------------------------------------------------------------
+    fig, axes = plt.subplots(2, 2, figsize=(15, 11))
+    fig.suptitle("Bivariate Relational Patterns & Statistical Regression Fits", fontsize=16, fontweight='bold', y=0.98)
+
+    # Subplot 1: Annual Income vs Total Spend by Churn Status (Hue Semantic)
+    ax1 = axes[0, 0]
+    sns.scatterplot(data=df, x='annual_income', y='total_spend', hue='churned', palette={0: 'navy', 1: 'crimson'},
+                    style='churned', alpha=0.7, s=70, ax=ax1)
+    # Add OLS regression line overlay
+    sns.regplot(data=df, x='annual_income', y='total_spend', scatter=False, color='black',
+                line_kws={'linestyle':'--', 'linewidth':1.8, 'label':'Linear Trend (OLS)'}, ax=ax1)
+    ax1.set_title("Income vs Total Spend (Hue: Churned)", fontsize=11, fontweight='bold')
+    ax1.set_xlabel("Annual Income ($)", fontweight='bold')
+    ax1.set_ylabel("Total Spend ($)", fontweight='bold')
+    ax1.legend(title="Customer Churned", frameon=True)
+
+    # Subplot 2: Purchase Count vs Total Spend with Polynomial Regression (order=2)
+    ax2 = axes[0, 1]
+    sns.regplot(data=df, x='purchase_count', y='total_spend', order=2, color='darkgreen',
+                scatter_kws={'alpha': 0.6, 's': 40}, line_kws={'linewidth': 2, 'label': '2nd Order Poly Fit'}, ax=ax2)
+    ax2.set_title("Purchase Count vs Total Spend (Polynomial Fit)", fontsize=11, fontweight='bold')
+    ax2.set_xlabel("Purchase Count", fontweight='bold')
+    ax2.set_ylabel("Total Spend ($)", fontweight='bold')
+    ax2.legend(loc='upper left', frameon=True)
+
+    # Subplot 3: Age vs Credit Score (Bivariate Hexbin Density Plot)
+    ax3 = axes[1, 0]
+    hb = ax3.hexbin(df['age'], df['credit_score'], gridsize=20, cmap='Blues', mincnt=1)
+    fig.colorbar(hb, ax=ax3, label='Customer Density Count')
+    ax3.set_title("Age vs Credit Score (Bivariate Hexbin Density)", fontsize=11, fontweight='bold')
+    ax3.set_xlabel("Age (Years)", fontweight='bold')
+    ax3.set_ylabel("Credit Score", fontweight='bold')
+
+    # Subplot 4: Annual Income vs Credit Score (2D KDE Density Contours)
+    ax4 = axes[1, 1]
+    sns.kdeplot(data=df, x='annual_income', y='credit_score', cmap='Viridis', fill=True, thresh=0.05, levels=10, ax=ax4)
+    sns.scatterplot(data=df, x='annual_income', y='credit_score', color='white', alpha=0.3, s=15, ax=ax4)
+    ax4.set_title("Income vs Credit Score (2D KDE Density Contours)", fontsize=11, fontweight='bold')
+    ax4.set_xlabel("Annual Income ($)", fontweight='bold')
+    ax4.set_ylabel("Credit Score", fontweight='bold')
+
+    plt.tight_layout()
+    bivariate_path = os.path.join(output_dir, "02_bivariate_relational_plots.png")
+    plt.savefig(bivariate_path)
+    plt.close()
+    print(f"[✓] Bivariate relational plot artifact saved to: {bivariate_path}")
+
+    # --------------------------------------------------------------------------
+    # Plot 2: JointPlot with Marginal Kernel Density Distributions
+    # Combines bivariate scatter density with univariate KDE marginals
+    # --------------------------------------------------------------------------
+    joint_grid = sns.jointplot(data=df, x='age', y='purchase_count', hue='account_type', kind='kde', fill=False, height=8)
+    joint_grid.fig.suptitle("Age vs Purchase Count Joint Density Plot (By Account Type)", y=1.02, fontsize=13, fontweight='bold')
+    joint_path = os.path.join(output_dir, "02_jointplot_marginal_density.png")
+    joint_grid.savefig(joint_path)
+    plt.close()
+    print(f"[✓] JointPlot marginal density artifact saved to: {joint_path}")
+
+
 if __name__ == "__main__":
     df = generate_customer_analytics_dataset()
     print("Dataset generated successfully. Shape:", df.shape)
     print(df.head())
+
 
