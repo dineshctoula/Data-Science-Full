@@ -198,6 +198,89 @@ def demonstrate_datetime_timezone_and_calendars(df: pd.DataFrame) -> pd.DataFram
     return transformed_df
 
 
+# ------------------------------------------------------------------------------
+# 3. VECTORIZED TEXT & REGEX PROCESSING PIPELINE
+# ------------------------------------------------------------------------------
+def demonstrate_vectorized_string_and_regex(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Demonstrates vectorized string cleaning, regex pattern extraction using capture groups,
+    phone number standardization, and keyword search flags.
+
+    Parameters:
+        df (pd.DataFrame): DataFrame containing raw customer logs.
+
+    Returns:
+        pd.DataFrame: DataFrame augmented with extracted text features.
+    """
+    print("\n" + "=" * 80)
+    print("3. VECTORIZED TEXT & REGEX PROCESSING PIPELINE")
+    print("=" * 80)
+
+    transformed_df = df.copy()
+
+    # --------------------------------------------------------------------------
+    # 3.1 String Normalization (.str.strip & .str.lower)
+    # --------------------------------------------------------------------------
+    transformed_df["cleaned_email"] = transformed_df["customer_email"].astype(str).str.strip().str.lower()
+
+    # --------------------------------------------------------------------------
+    # 3.2 Regex Capture Group Extraction (.str.extract)
+    # Extract Email Username and Email Domain using named regex capture groups
+    # --------------------------------------------------------------------------
+    email_regex = r"^(?P<email_username>[a-zA-Z0-9._%+-]+)@(?P<email_domain>[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$"
+    extracted_email_components = transformed_df["cleaned_email"].str.extract(email_regex)
+
+    transformed_df["email_username"] = extracted_email_components["email_username"]
+    transformed_df["email_domain"] = extracted_email_components["email_domain"]
+
+    print("--- 3.2 Email Regex Capture Group Extraction ---")
+    print(transformed_df[["customer_email", "cleaned_email", "email_username", "email_domain"]].head(6))
+
+    # Assert email domain extraction for valid emails
+    valid_domains = transformed_df["email_domain"].dropna()
+    assert (valid_domains.str.contains(r"\.")).all(), "Extracted email domains must contain a valid TLD dot!"
+
+    # --------------------------------------------------------------------------
+    # 3.3 Phone Number Standardization (.str.replace)
+    # Strip all non-digit characters using regex \D
+    # --------------------------------------------------------------------------
+    transformed_df["clean_phone_digits"] = (
+        transformed_df["phone_number"].astype(str).str.replace(r"\D", "", regex=True)
+    )
+
+    print("\n--- 3.3 Phone Number Digit Standardization ---")
+    print(transformed_df[["phone_number", "clean_phone_digits"]].head(6))
+
+    # --------------------------------------------------------------------------
+    # 3.4 Tracking Number Regex Extraction (#TRK-XXXX)
+    # --------------------------------------------------------------------------
+    tracking_regex = r"(#?TRK-\d{4})"
+    transformed_df["tracking_number"] = transformed_df["user_query"].str.extract(tracking_regex, expand=False)
+
+    # --------------------------------------------------------------------------
+    # 3.5 Urgent Keyword Search (.str.contains)
+    # --------------------------------------------------------------------------
+    urgent_pattern = r"URGENT|HIGH PRIORITY|REFUND|REPLACEMENT"
+    transformed_df["is_urgent_query"] = (
+        transformed_df["user_query"].str.contains(urgent_pattern, case=False, na=False)
+    )
+
+    # Token split and word count calculation
+    transformed_df["query_word_count"] = transformed_df["user_query"].str.split(r"\s+").str.len()
+
+    print("\n--- 3.5 Query Intent Flags & Word Count Summary ---")
+    print(transformed_df[["user_query", "tracking_number", "is_urgent_query", "query_word_count"]].head(6))
+
+    # Assert tracking number matches format when present
+    trk_series = transformed_df["tracking_number"].dropna()
+    assert (trk_series.str.startswith("#TRK-") | trk_series.str.startswith("TRK-")).all(), (
+        "Tracking numbers must match pattern TRK-XXXX!"
+    )
+
+    print("\n[✓] Vectorized string cleaning and regex extraction pipeline completed.")
+    return transformed_df
+
+
 def main():
     """Runs Day 28 module demonstrations."""
     print("=" * 80)
@@ -211,7 +294,11 @@ def main():
     # 2. Advanced DateTime Analytics
     parsed_logs_df = demonstrate_datetime_timezone_and_calendars(logs_df)
 
+    # 3. Vectorized Text & Regex Processing
+    text_processed_df = demonstrate_vectorized_string_and_regex(parsed_logs_df)
+
 
 if __name__ == "__main__":
     main()
+
 
