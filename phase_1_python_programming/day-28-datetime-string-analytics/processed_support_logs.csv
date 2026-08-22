@@ -1,0 +1,51 @@
+ticket_id,parsed_utc_dt,resolution_utc_dt,resolution_duration_hours,cleaned_email,email_domain,clean_phone_digits,priority,customer_rating,is_urgent_query,top_tfidf_keyword,is_sla_violated,escalation_tier
+TCK-1000,2026-08-01 08:30:15+00:00,2026-08-04 00:17:11.224885666+00:00,63.78,john.doe@gmail.com,gmail.com,15552345678,Low,5,False,200,False,Tier 3 - Standard Resolution
+TCK-1001,,,,alice_smith99@yahoo.co.uk,yahoo.co.uk,5559876543,Critical,5,False,buy,False,Tier 4 - Invalid Data
+TCK-1002,2026-08-03 16:45:00+00:00,2026-08-05 17:47:46.578981289+00:00,49.05,bob.marley@company.org,company.org,5553456789,High,5,False,10ft,False,Tier 3 - Standard Resolution
+TCK-1003,2026-08-04 23:10:05+00:00,2026-08-08 03:12:27.610122339+00:00,76.04,charlie.brown@corp.net,corp.net,5558765432,Medium,5,False,4k,True,Tier 2 - Manager SLA Escalation
+TCK-1004,,,,invalid_email_at_domain,,15554567890,Low,4,False,battery,False,Tier 4 - Invalid Data
+TCK-1005,2026-08-06 16:00:00+00:00,2026-08-07 04:30:56.559636374+00:00,12.52,eva.green@gmail.com,gmail.com,5551112222104,Low,5,True,flickering,False,Tier 3 - Standard Resolution
+TCK-1006,2026-08-07 16:50:20+00:00,2026-08-10 19:28:58.389449076+00:00,74.64,frank.wright@tech-hub.io,tech-hub.io,15553334444,Low,2,False,bass,True,Tier 2 - Manager SLA Escalation
+TCK-1007,,,,grace.hopper@mit.edu,mit.edu,5556667777,High,3,False,black,False,Tier 4 - Invalid Data
+TCK-1008,2026-08-08 12:00:00+00:00,2026-08-10 19:14:57.816847831+00:00,55.25,helen.keller@foundation.org,foundation.org,,Medium,1,True,high,False,Tier 1 - Emergency
+TCK-1009,2026-08-09 20:30:45+00:00,2026-08-11 06:19:20.279626737+00:00,33.81,ian.fleming@mi6.gov.uk,mi6.gov.uk,15559990000,High,4,False,71,False,Tier 3 - Standard Resolution
+TCK-1010,2026-08-01 08:30:15+00:00,2026-08-01 22:14:23.367506001+00:00,13.74,john.doe@gmail.com,gmail.com,15552345678,Low,4,False,200,False,Tier 3 - Standard Resolution
+TCK-1011,,,,alice_smith99@yahoo.co.uk,yahoo.co.uk,5559876543,Critical,3,False,buy,False,Tier 4 - Invalid Data
+TCK-1012,2026-08-03 16:45:00+00:00,2026-08-07 10:00:00.691047590+00:00,89.25,bob.marley@company.org,company.org,5553456789,High,5,False,10ft,True,Tier 2 - Manager SLA Escalation
+TCK-1013,2026-08-04 23:10:05+00:00,2026-08-05 09:42:50.811116571+00:00,10.55,charlie.brown@corp.net,corp.net,5558765432,Low,4,False,4k,False,Tier 3 - Standard Resolution
+TCK-1014,,,,invalid_email_at_domain,,15554567890,Low,3,False,battery,False,Tier 4 - Invalid Data
+TCK-1015,2026-08-06 16:00:00+00:00,2026-08-09 15:35:00.392118702+00:00,71.58,eva.green@gmail.com,gmail.com,5551112222104,Low,4,True,flickering,False,Tier 3 - Standard Resolution
+TCK-1016,2026-08-07 16:50:20+00:00,2026-08-10 14:34:48.925086358+00:00,69.74,frank.wright@tech-hub.io,tech-hub.io,15553334444,Low,2,False,bass,False,Tier 2 - Manager SLA Escalation
+TCK-1017,,,,grace.hopper@mit.edu,mit.edu,5556667777,Medium,5,False,black,False,Tier 4 - Invalid Data
+TCK-1018,2026-08-08 12:00:00+00:00,2026-08-10 04:11:42.413664469+00:00,40.2,helen.keller@foundation.org,foundation.org,,Medium,2,True,high,False,Tier 1 - Emergency
+TCK-1019,2026-08-09 20:30:45+00:00,2026-08-11 22:02:39.466245400+00:00,49.53,ian.fleming@mi6.gov.uk,mi6.gov.uk,15559990000,Low,5,False,71,False,Tier 3 - Standard Resolution
+TCK-1020,2026-08-01 08:30:15+00:00,2026-08-04 20:49:12.136923525+00:00,84.32,john.doe@gmail.com,gmail.com,15552345678,Medium,5,False,200,True,Tier 2 - Manager SLA Escalation
+TCK-1021,,,,alice_smith99@yahoo.co.uk,yahoo.co.uk,5559876543,Low,3,False,buy,False,Tier 4 - Invalid Data
+TCK-1022,2026-08-03 16:45:00+00:00,2026-08-05 10:23:10.764771597+00:00,41.64,bob.marley@company.org,company.org,5553456789,Low,1,False,10ft,False,Tier 2 - Manager SLA Escalation
+TCK-1023,2026-08-04 23:10:05+00:00,2026-08-08 15:05:04.413486741+00:00,87.92,charlie.brown@corp.net,corp.net,5558765432,Low,5,False,4k,True,Tier 2 - Manager SLA Escalation
+TCK-1024,,,,invalid_email_at_domain,,15554567890,Medium,5,False,battery,False,Tier 4 - Invalid Data
+TCK-1025,2026-08-06 16:00:00+00:00,2026-08-08 19:57:11.438028068+00:00,51.95,eva.green@gmail.com,gmail.com,5551112222104,High,5,True,flickering,False,Tier 3 - Standard Resolution
+TCK-1026,2026-08-07 16:50:20+00:00,2026-08-08 10:19:40.570869752+00:00,17.49,frank.wright@tech-hub.io,tech-hub.io,15553334444,Low,5,False,bass,False,Tier 3 - Standard Resolution
+TCK-1027,,,,grace.hopper@mit.edu,mit.edu,5556667777,Medium,2,False,black,False,Tier 4 - Invalid Data
+TCK-1028,2026-08-08 12:00:00+00:00,2026-08-11 15:03:52.822881252+00:00,75.06,helen.keller@foundation.org,foundation.org,,Medium,4,True,high,True,Tier 2 - Manager SLA Escalation
+TCK-1029,2026-08-09 20:30:45+00:00,2026-08-10 23:26:50.794249736+00:00,26.93,ian.fleming@mi6.gov.uk,mi6.gov.uk,15559990000,Low,2,False,71,False,Tier 2 - Manager SLA Escalation
+TCK-1030,2026-08-01 08:30:15+00:00,2026-08-03 14:51:06.585962118+00:00,54.35,john.doe@gmail.com,gmail.com,15552345678,Medium,5,False,200,False,Tier 3 - Standard Resolution
+TCK-1031,,,,alice_smith99@yahoo.co.uk,yahoo.co.uk,5559876543,Low,4,False,buy,False,Tier 4 - Invalid Data
+TCK-1032,2026-08-03 16:45:00+00:00,2026-08-05 02:07:53.505396238+00:00,33.38,bob.marley@company.org,company.org,5553456789,Low,4,False,10ft,False,Tier 3 - Standard Resolution
+TCK-1033,2026-08-04 23:10:05+00:00,2026-08-08 02:27:33.999676309+00:00,75.29,charlie.brown@corp.net,corp.net,5558765432,Critical,2,False,4k,True,Tier 1 - Emergency
+TCK-1034,,,,invalid_email_at_domain,,15554567890,Critical,4,False,battery,False,Tier 4 - Invalid Data
+TCK-1035,2026-08-06 16:00:00+00:00,2026-08-09 20:14:36.259067562+00:00,76.24,eva.green@gmail.com,gmail.com,5551112222104,High,4,True,flickering,True,Tier 2 - Manager SLA Escalation
+TCK-1036,2026-08-07 16:50:20+00:00,2026-08-08 20:33:54.283058117+00:00,27.73,frank.wright@tech-hub.io,tech-hub.io,15553334444,Low,5,False,bass,False,Tier 3 - Standard Resolution
+TCK-1037,,,,grace.hopper@mit.edu,mit.edu,5556667777,Low,4,False,black,False,Tier 4 - Invalid Data
+TCK-1038,2026-08-08 12:00:00+00:00,2026-08-11 01:35:12.394061754+00:00,61.59,helen.keller@foundation.org,foundation.org,,Medium,5,True,high,False,Tier 3 - Standard Resolution
+TCK-1039,2026-08-09 20:30:45+00:00,2026-08-10 14:07:37.307116855+00:00,17.61,ian.fleming@mi6.gov.uk,mi6.gov.uk,15559990000,Medium,4,False,71,False,Tier 3 - Standard Resolution
+TCK-1040,2026-08-01 08:30:15+00:00,2026-08-03 03:26:14.012786766+00:00,42.93,john.doe@gmail.com,gmail.com,15552345678,Low,2,False,200,False,Tier 2 - Manager SLA Escalation
+TCK-1041,,,,alice_smith99@yahoo.co.uk,yahoo.co.uk,5559876543,Medium,5,False,buy,False,Tier 4 - Invalid Data
+TCK-1042,2026-08-03 16:45:00+00:00,2026-08-04 10:29:57.195243646+00:00,17.75,bob.marley@company.org,company.org,5553456789,Low,5,False,10ft,False,Tier 3 - Standard Resolution
+TCK-1043,2026-08-04 23:10:05+00:00,2026-08-05 20:41:20.167685414+00:00,21.52,charlie.brown@corp.net,corp.net,5558765432,Critical,4,False,4k,False,Tier 1 - Emergency
+TCK-1044,,,,invalid_email_at_domain,,15554567890,Low,5,False,battery,False,Tier 4 - Invalid Data
+TCK-1045,2026-08-06 16:00:00+00:00,2026-08-07 18:58:32.498490882+00:00,26.98,eva.green@gmail.com,gmail.com,5551112222104,Medium,4,True,flickering,False,Tier 3 - Standard Resolution
+TCK-1046,2026-08-07 16:50:20+00:00,2026-08-09 16:58:16.972483288+00:00,48.13,frank.wright@tech-hub.io,tech-hub.io,15553334444,Low,4,False,bass,False,Tier 3 - Standard Resolution
+TCK-1047,,,,grace.hopper@mit.edu,mit.edu,5556667777,Medium,4,False,black,False,Tier 4 - Invalid Data
+TCK-1048,2026-08-08 12:00:00+00:00,2026-08-09 04:12:32.784940803+00:00,16.21,helen.keller@foundation.org,foundation.org,,Medium,1,True,high,False,Tier 1 - Emergency
+TCK-1049,2026-08-09 20:30:45+00:00,2026-08-11 01:18:57.609079066+00:00,28.8,ian.fleming@mi6.gov.uk,mi6.gov.uk,15559990000,Low,2,False,71,False,Tier 2 - Manager SLA Escalation

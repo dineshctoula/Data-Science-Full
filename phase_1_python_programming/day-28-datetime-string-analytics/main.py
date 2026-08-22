@@ -379,6 +379,103 @@ def demonstrate_text_feature_engineering_and_tfidf(df: pd.DataFrame) -> tuple[pd
     return transformed_df, tfidf_df
 
 
+# ------------------------------------------------------------------------------
+# 5. REAL-WORLD CASE STUDY: SUPPORT LOG ANALYTICS & ESCALATION PIPELINE
+# ------------------------------------------------------------------------------
+def demonstrate_customer_log_analytics_case_study(df: pd.DataFrame, csv_output_path: str) -> pd.DataFrame:
+    """
+    Executes an end-to-end Customer Support Analytics & Escalation Pipeline:
+    1. Simulates actual ticket resolution timestamps with random operational delays.
+    2. Calculates resolution duration in hours and flags SLA breaches.
+    3. Segments tickets into escalation levels based on priority, rating, and regex urgency.
+    4. Computes multi-level GroupBy summary metrics.
+    5. Exports processed logs to CSV disk artifact.
+
+    Parameters:
+        df (pd.DataFrame): Augmented log DataFrame from previous sections.
+        csv_output_path (str): Target filesystem path to export processed CSV.
+
+    Returns:
+        pd.DataFrame: Finalized analytics DataFrame.
+    """
+    print("\n" + "=" * 80)
+    print("5. REAL-WORLD CASE STUDY: SUPPORT LOG ANALYTICS & ESCALATION PIPELINE")
+    print("=" * 80)
+
+    final_df = df.copy()
+
+    # 5.1 Simulate Resolution Timestamp (Adding 10 to 90 hours to creation time)
+    np.random.seed(99)
+    valid_mask = final_df["parsed_utc_dt"].notna()
+
+    random_delay_hours = np.random.uniform(10.0, 90.0, size=valid_mask.sum())
+    resolution_timestamps = final_df.loc[valid_mask, "parsed_utc_dt"] + pd.to_timedelta(random_delay_hours, unit="h")
+
+    final_df.loc[valid_mask, "resolution_utc_dt"] = resolution_timestamps
+    final_df["resolution_duration_hours"] = np.round(
+        (final_df["resolution_utc_dt"] - final_df["parsed_utc_dt"]).dt.total_seconds() / 3600.0, 2
+    )
+
+    # 5.2 Flag SLA Violations (Target SLA is 72 business/calendar hours)
+    final_df["is_sla_violated"] = final_df["resolution_duration_hours"] > 72.0
+
+    print("--- 5.2 Resolution Duration & SLA Violation Flags ---")
+    print(
+        final_df[["ticket_id", "parsed_utc_dt", "resolution_utc_dt", "resolution_duration_hours", "is_sla_violated"]]
+        .dropna()
+        .head(6)
+    )
+
+    # 5.3 Multi-Criteria Escalation Rules
+    # Tier 1 (Emergency): Critical priority OR (High priority AND urgent query AND rating <= 2)
+    # Tier 2 (Standard Escalation): SLA violated OR rating <= 2
+    # Tier 3 (Normal): Routine processing
+    def assign_escalation_tier(row):
+        if pd.isna(row["parsed_utc_dt"]):
+            return "Tier 4 - Invalid Data"
+        if row["priority"] == "Critical" or (row["is_urgent_query"] and row["customer_rating"] <= 2):
+            return "Tier 1 - Emergency"
+        elif row["is_sla_violated"] or row["customer_rating"] <= 2:
+            return "Tier 2 - Manager SLA Escalation"
+        else:
+            return "Tier 3 - Standard Resolution"
+
+    final_df["escalation_tier"] = final_df.apply(assign_escalation_tier, axis=1)
+
+    print("\n--- 5.3 Ticket Distribution across Escalation Tiers ---")
+    tier_counts = final_df["escalation_tier"].value_counts()
+    print(tier_counts)
+
+    # 5.4 Domain SLA Performance GroupBy Summary
+    domain_summary = final_df.groupby("email_domain").agg(
+        total_tickets=("ticket_id", "count"),
+        avg_resolution_hours=("resolution_duration_hours", "mean"),
+        sla_breach_rate=("is_sla_violated", "mean"),
+        low_rating_count=("customer_rating", lambda s: (s <= 2).sum()),
+    )
+    domain_summary["avg_resolution_hours"] = domain_summary["avg_resolution_hours"].round(2)
+    domain_summary["sla_breach_rate"] = (domain_summary["sla_breach_rate"] * 100).round(1)
+
+    print("\n--- 5.4 Domain SLA & Rating Performance Summary ---")
+    print(domain_summary)
+
+    # 5.5 Export Processed Dataset to CSV
+    export_cols = [
+        "ticket_id", "parsed_utc_dt", "resolution_utc_dt", "resolution_duration_hours",
+        "cleaned_email", "email_domain", "clean_phone_digits", "priority",
+        "customer_rating", "is_urgent_query", "top_tfidf_keyword", "is_sla_violated", "escalation_tier"
+    ]
+    final_df[export_cols].to_csv(csv_output_path, index=False)
+    print(f"\n[✓] Exported cleaned customer support log dataset to CSV: '{csv_output_path}'")
+
+    # Assertions for pipeline execution
+    assert len(final_df) == len(df), "Record count must remain identical throughout pipeline!"
+    assert (final_df.loc[valid_mask, "resolution_duration_hours"] > 0).all(), "Resolution duration must be positive!"
+
+    print("\n[✓] Real-world support log analytics case study executed successfully.")
+    return final_df
+
+
 def main():
     """Runs Day 28 module demonstrations."""
     print("=" * 80)
@@ -398,9 +495,18 @@ def main():
     # 4. Custom TF-IDF Feature Engineering
     df_with_tfidf, tfidf_matrix_df = demonstrate_text_feature_engineering_and_tfidf(text_processed_df)
 
+    # 5. Support Log Analytics Case Study
+    csv_path = "phase_1_python_programming/day-28-datetime-string-analytics/processed_support_logs.csv"
+    final_df = demonstrate_customer_log_analytics_case_study(df_with_tfidf, csv_path)
+
+    print("\n" + "=" * 80)
+    print("ALL DAY 28 DEMONSTRATIONS COMPLETED SUCCESSFULLY! 🚀")
+    print("=" * 80)
+
 
 if __name__ == "__main__":
     main()
+
 
 
 
