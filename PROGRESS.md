@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 2 — Data Manipulation & Visualization |
-| **Current Day** | Day 27 |
-| **Days Completed** | 27 / 100 |
-| **Progress** | 27% |
-| **Current Streak** | 27 Days |
-| **Latest Topic** | Advanced Statistical Data Visualization, Multi-Panel Dashboards & Seaborn EDA |
+| **Current Day** | Day 28 |
+| **Days Completed** | 28 / 100 |
+| **Progress** | 28% |
+| **Current Streak** | 28 Days |
+| **Latest Topic** | Advanced DateTime Analytics, Timezone Conversion & Vectorized Text Regex Pipelines |
 | **Status** | 🟢 On Track |
 
 ---
@@ -60,6 +60,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **25** | 2026-08-19 | Phase 2 | Advanced Pandas Reshaping, Melting & Time Series Analysis | Practiced `melt`, `pivot`, MultiIndex `stack`/`unstack`, `to_datetime`, `.dt` temporal extraction, `resample`, `rolling` windows, `shift`, EMA, and Bollinger Bands anomaly detection. Added detailed inline code documentation. | ✅ |
 | **26** | 2026-08-20 | Phase 2 | Advanced Data Cleaning, Outlier Detection, Imputation & EDA Profiling | Implemented MCAR/MAR missingness analysis, grouped median imputation, IQR/Z-score outlier detection with Winsorization, log1p transform, Min-Max & Standard scaling, regex text cleaning, ordinal/one-hot encoding, automated EDA report generation, and CSV export pipeline. | ✅ |
 | **27** | 2026-08-21 | Phase 2 | Advanced Statistical Data Visualization & Seaborn Dashboards | Built synthetic customer analytics dataset, univariate KDE/ECDF skewness plots, bivariate regression fits, categorical violin/swarm/95% CI plots, multivariate correlation matrices, and a 2x3 executive EDA dashboard artifact export pipeline. | ✅ |
+| **28** | 2026-08-22 | Phase 2 | Advanced DateTime Handling, Timezone Analytics & Vectorized Text Regex Pipelines | Parsed heterogeneous timestamp logs, localized UTC to US/Eastern & Asia/Kathmandu timezones, applied BDay(3) SLA offsets, extracted email/phone regex capture groups, built custom TF-IDF vectorizer from scratch in Pandas, and exported support log escalation CSV pipeline artifact. | ✅ |
 
 ---
 
@@ -76,8 +77,8 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 
 - [x] **Days 17–19** — Pandas Series/DataFrames, selection, filtering, and data cleaning
 - [x] **Days 20–21** — House-price EDA, feature engineering, and ML pipeline
-- [x] **Days 22–27** — Data visualization, GroupBy/aggregation, merging, joining, reshaping, time-series analysis, outlier detection & Seaborn dashboards
-- [ ] **Days 28–30** — Advanced visualization and exploratory data analysis
+- [x] **Days 22–28** — Data visualization, GroupBy/aggregation, merging, joining, reshaping, time-series analysis, outlier detection, Seaborn dashboards & vectorized datetime/text regex pipelines
+- [ ] **Days 29–30** — Advanced visualization and exploratory data analysis
 - [ ] **Days 31–35** — Complete Phase 2 data manipulation and visualization goals
 
 ---
@@ -85,22 +86,22 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 ## 📊 Current Progress
 
 ```text
-Completed: 27 / 100 Days
+Completed: 28 / 100 Days
 
-███████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 27%
+████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 28%
 ```
 
 ### Current Position
 
-**Day 27 — Advanced Statistical Data Visualization & Seaborn Dashboards** ✅
+**Day 28 — Advanced DateTime Handling, Timezone Analytics & Vectorized Text Regex Pipelines** ✅
 
-The challenge has progressed from Python fundamentals and NumPy into practical **Pandas data manipulation, data quality auditing, outlier treatment, feature encoding, time series analysis, advanced statistical visualization, and Seaborn executive dashboards**.
+The challenge has progressed from Python fundamentals and NumPy into practical **Pandas data manipulation, data quality auditing, outlier treatment, feature encoding, time series analysis, advanced statistical visualization, Seaborn executive dashboards, and vectorized text/datetime regex pipelines**.
 
 ---
 
 ## 🚀 Next Goals
 
-1. Continue **Day 28** with the next advanced EDA and data manipulation topic.
+1. Continue **Day 29** with the next advanced EDA and data manipulation topic.
 2. Maintain the daily learning streak.
 3. Commit each day's work with clear and professional Git messages.
 4. Keep code, notes, and exercises organized.
@@ -110,7 +111,7 @@ The challenge has progressed from Python fundamentals and NumPy into practical *
 
 ## 🏆 Challenge Status
 
-> **27 / 100 Days Completed — 27% Progress**
+> **28 / 100 Days Completed — 28% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
