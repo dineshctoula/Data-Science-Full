@@ -281,6 +281,104 @@ def demonstrate_vectorized_string_and_regex(df: pd.DataFrame) -> pd.DataFrame:
     return transformed_df
 
 
+# ------------------------------------------------------------------------------
+# 4. CUSTOM TF-IDF FEATURE VECTORIZER FROM SCRATCH IN PANDAS
+# ------------------------------------------------------------------------------
+def demonstrate_text_feature_engineering_and_tfidf(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Implements a custom Term Frequency-Inverse Document Frequency (TF-IDF)
+    vectorizer from scratch using pure Pandas and NumPy vectorized operations.
+
+    Parameters:
+        df (pd.DataFrame): Input log DataFrame containing text user queries.
+
+    Returns:
+        tuple[pd.DataFrame, pd.DataFrame]: (Updated log DataFrame, TF-IDF feature matrix DataFrame)
+    """
+    print("\n" + "=" * 80)
+    print("4. CUSTOM TF-IDF TEXT FEATURE VECTORIZER FROM SCRATCH IN PANDAS")
+    print("=" * 80)
+
+    transformed_df = df.copy()
+
+    # English stop-words set to filter out uninformative high-frequency words
+    stop_words = {
+        "the", "a", "an", "for", "and", "or", "in", "on", "at", "to", "under",
+        "with", "is", "issue", "needed", "sale", "of", "item", "by", "from"
+    }
+
+    # 4.1 Preprocess text: lowercase, remove non-alphanumeric punctuation, and tokenize
+    raw_queries = transformed_df["user_query"].astype(str)
+    cleaned_queries = raw_queries.str.lower().str.replace(r"[^\w\s]", "", regex=True)
+
+    tokenized_docs = [
+        [word for word in query.split() if word not in stop_words and len(word) > 1]
+        for query in cleaned_queries
+    ]
+
+    # 4.2 Build Unique Vocabulary Index
+    unique_words = sorted(list(set([word for doc in tokenized_docs for word in doc])))
+    word_to_idx = {word: i for i, word in enumerate(unique_words)}
+    n_docs = len(tokenized_docs)
+    n_vocab = len(unique_words)
+
+    print(f"Vocabulary Size: {n_vocab} unique terms across {n_docs} document queries.")
+    print(f"Sample Vocabulary Terms: {unique_words[:10]}")
+
+    # 4.3 Term Frequency (TF) Matrix Calculation
+    tf_matrix = np.zeros((n_docs, n_vocab), dtype=float)
+
+    for doc_idx, doc_tokens in enumerate(tokenized_docs):
+        if len(doc_tokens) == 0:
+            continue
+        token_counts = pd.Series(doc_tokens).value_counts()
+        for word, count in token_counts.items():
+            if word in word_to_idx:
+                # TF = count(word) / total_words_in_doc
+                tf_matrix[doc_idx, word_to_idx[word]] = count / float(len(doc_tokens))
+
+    # 4.4 Inverse Document Frequency (IDF) Vector Calculation
+    # IDF(t) = log( (1 + N) / (1 + DocumentFrequency(t)) ) + 1
+    doc_frequency = (tf_matrix > 0).sum(axis=0)
+    idf_vector = np.log((1.0 + n_docs) / (1.0 + doc_frequency)) + 1.0
+
+    # 4.5 Compute TF-IDF Matrix (Element-wise multiplication)
+    tfidf_matrix = tf_matrix * idf_vector
+
+    tfidf_df = pd.DataFrame(
+        np.round(tfidf_matrix, 4),
+        index=transformed_df["ticket_id"],
+        columns=unique_words
+    )
+
+    print("\n--- 4.5 Computed TF-IDF Document-Term Matrix (First 5 Tickets & Top Words) ---")
+    sample_cols = unique_words[:8]
+    print(tfidf_df[sample_cols].head(5))
+
+    # Extract top informative keyword for each query based on max TF-IDF score
+    top_keywords = []
+    for doc_idx in range(n_docs):
+        row_tfidf = tfidf_matrix[doc_idx]
+        if row_tfidf.max() > 0:
+            top_word_idx = row_tfidf.argmax()
+            top_keywords.append(unique_words[top_word_idx])
+        else:
+
+            top_keywords.append("N/A")
+
+    transformed_df["top_tfidf_keyword"] = top_keywords
+
+    print("\n--- Extracted Top TF-IDF Keywords per User Query ---")
+    print(transformed_df[["ticket_id", "user_query", "top_tfidf_keyword"]].head(6))
+
+    # Assertions for TF-IDF correctness
+    assert tfidf_matrix.shape == (n_docs, n_vocab), "TF-IDF matrix shape must match (n_docs, n_vocab)!"
+    assert (tfidf_matrix >= 0).all(), "TF-IDF scores must be non-negative!"
+
+    print("\n[✓] Custom TF-IDF text feature vectorization completed successfully.")
+    return transformed_df, tfidf_df
+
+
 def main():
     """Runs Day 28 module demonstrations."""
     print("=" * 80)
@@ -297,8 +395,12 @@ def main():
     # 3. Vectorized Text & Regex Processing
     text_processed_df = demonstrate_vectorized_string_and_regex(parsed_logs_df)
 
+    # 4. Custom TF-IDF Feature Engineering
+    df_with_tfidf, tfidf_matrix_df = demonstrate_text_feature_engineering_and_tfidf(text_processed_df)
+
 
 if __name__ == "__main__":
     main()
+
 
 
