@@ -113,18 +113,105 @@ def generate_synthetic_ecom_logs(n_samples: int = 100) -> pd.DataFrame:
     return df
 
 
+# ------------------------------------------------------------------------------
+# 2. ADVANCED DATETIME HANDLING, TIMEZONES & BUSINESS CALENDARS
+# ------------------------------------------------------------------------------
+def demonstrate_datetime_timezone_and_calendars(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Demonstrates heterogeneous timestamp parsing, UTC timezone localization,
+    multiregional timezone conversion, custom business calendars, and timedelta calculations.
+
+    Parameters:
+        df (pd.DataFrame): Raw synthetic log DataFrame.
+
+    Returns:
+        pd.DataFrame: Transformed DataFrame with parsed datetime features.
+    """
+    print("\n" + "=" * 80)
+    print("2. ADVANCED DATETIME ANALYTICS, TIMEZONES & BUSINESS CALENDARS")
+    print("=" * 80)
+
+    transformed_df = df.copy()
+
+    # --------------------------------------------------------------------------
+    # 2.1 Robust Timestamp Parsing with `errors='coerce'` & `utc=True`
+    # --------------------------------------------------------------------------
+    # `errors='coerce'` converts invalid string logs into NaT (Not a Time)
+    # `utc=True` standardizes timezone-naive and timezone-aware inputs into UTC
+    transformed_df["parsed_utc_dt"] = pd.to_datetime(
+        transformed_df["raw_timestamp"], format="ISO8601", errors="coerce", utc=True
+    )
+
+    print("--- 2.1 Raw Timestamp Parsing Output (First 6 Records) ---")
+    print(transformed_df[["ticket_id", "raw_timestamp", "parsed_utc_dt"]].head(6))
+
+    # Assert that invalid timestamp log was converted to NaT
+    nat_count = transformed_df["parsed_utc_dt"].isna().sum()
+    assert nat_count > 0, "Invalid timestamp strings should be coerced to NaT!"
+    print(f"[✓] Successfully handled {nat_count} invalid/corrupted timestamp records (converted to NaT).")
+
+    # --------------------------------------------------------------------------
+    # 2.2 Timezone Conversions (US/Eastern & Asia/Kathmandu)
+    # --------------------------------------------------------------------------
+    # Convert UTC timestamps to local operating timezones
+    transformed_df["dt_us_eastern"] = transformed_df["parsed_utc_dt"].dt.tz_convert("US/Eastern")
+    transformed_df["dt_asia_kathmandu"] = transformed_df["parsed_utc_dt"].dt.tz_convert("Asia/Kathmandu")
+
+    print("\n--- 2.2 Multi-Region Timezone Conversions ---")
+    print(transformed_df[["parsed_utc_dt", "dt_us_eastern", "dt_asia_kathmandu"]].dropna().head(4))
+
+    # --------------------------------------------------------------------------
+    # 2.3 Temporal Feature Extraction (.dt accessor)
+    # --------------------------------------------------------------------------
+    transformed_df["year"] = transformed_df["parsed_utc_dt"].dt.year
+    transformed_df["month_name"] = transformed_df["parsed_utc_dt"].dt.month_name()
+    transformed_df["day_name"] = transformed_df["parsed_utc_dt"].dt.day_name()
+    transformed_df["hour_utc"] = transformed_df["parsed_utc_dt"].dt.hour
+    transformed_df["is_weekend"] = transformed_df["parsed_utc_dt"].dt.dayofweek >= 5
+
+    # --------------------------------------------------------------------------
+    # 2.4 Custom Business Calendar Offsets (3 Business Days SLA Target)
+    # --------------------------------------------------------------------------
+    # Apply 3 Business Days offset (`pd.offsets.BDay(3)`) to calculate SLA deadline
+    transformed_df["sla_deadline_utc"] = transformed_df["parsed_utc_dt"] + pd.offsets.BDay(3)
+
+    print("\n--- 2.4 SLA Deadline Calculation (+3 Business Days) ---")
+    valid_sla = transformed_df[["parsed_utc_dt", "day_name", "sla_deadline_utc"]].dropna()
+    print(valid_sla.head(4))
+
+    # --------------------------------------------------------------------------
+    # 2.5 Elapsed Delta Calculation (Timedelta from reference audit date)
+    # --------------------------------------------------------------------------
+    audit_reference_time = pd.to_datetime("2026-08-10 00:00:00", utc=True)
+    transformed_df["elapsed_hours_to_audit"] = (
+        (audit_reference_time - transformed_df["parsed_utc_dt"]).dt.total_seconds() / 3600.0
+    )
+
+    print("\n--- 2.5 Elapsed Time Delta to System Audit Date ---")
+    print(transformed_df[["parsed_utc_dt", "elapsed_hours_to_audit"]].dropna().head(4))
+
+    # Assert SLA calculation logic (ensure SLA deadline is strictly after ticket creation timestamp)
+    valid_rows = transformed_df.dropna(subset=["parsed_utc_dt", "sla_deadline_utc"])
+    assert (valid_rows["sla_deadline_utc"] > valid_rows["parsed_utc_dt"]).all(), "SLA deadline must be in the future!"
+
+    print("\n[✓] Datetime parsing, timezone localization, and business calendar calculations completed.")
+    return transformed_df
+
+
 def main():
     """Runs Day 28 module demonstrations."""
     print("=" * 80)
     print("DAY 28: ADVANCED DATETIME HANDLING & VECTORIZED TEXT REGEX PIPELINES")
     print("=" * 80)
 
-    # Generate synthetic logs
+    # 1. Generate synthetic logs
     logs_df = generate_synthetic_ecom_logs(n_samples=50)
     print(f"\n[✓] Synthetic dataset generated with {len(logs_df)} records.")
-    print("Sample raw records:")
-    print(logs_df[["ticket_id", "raw_timestamp", "customer_email", "phone_number"]].head(4))
+
+    # 2. Advanced DateTime Analytics
+    parsed_logs_df = demonstrate_datetime_timezone_and_calendars(logs_df)
 
 
 if __name__ == "__main__":
     main()
+
