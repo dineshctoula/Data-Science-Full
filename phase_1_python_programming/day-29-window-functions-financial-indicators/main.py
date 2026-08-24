@@ -102,8 +102,63 @@ def generate_synthetic_ohlcv(tickers: list, start_date: str = "2025-01-01", peri
     return df
 
 
+def apply_rolling_and_expanding_transformations(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Computes Simple Moving Averages (SMA), Exponential Moving Averages (EMA),
+    rolling volatility, expanding peak equity, and drawdown metrics per asset group.
+
+    Parameters:
+        df (pd.DataFrame): Input DataFrame containing 'Ticker', 'Date', and 'Close' columns.
+
+    Returns:
+        pd.DataFrame: Augmented DataFrame with computed rolling and expanding columns.
+    """
+    print("\n[INFO] Computing rolling moving averages, EWMA, volatility, and drawdown analytics...")
+    
+    # Ensure dataset is properly sorted by Ticker and Date
+    df = df.sort_values(by=['Ticker', 'Date']).copy()
+    
+    # Group by ticker to isolate rolling windows per asset without data leakage across boundaries
+    grouped_close = df.groupby('Ticker')['Close']
+    
+    # 1. Simple Moving Averages (SMA)
+    df['SMA_20'] = grouped_close.transform(lambda s: s.rolling(window=20, min_periods=1).mean())
+    df['SMA_50'] = grouped_close.transform(lambda s: s.rolling(window=50, min_periods=1).mean())
+    df['SMA_200'] = grouped_close.transform(lambda s: s.rolling(window=200, min_periods=1).mean())
+    
+    # 2. Exponentially Weighted Moving Averages (EMA / EWMA)
+    # EMA_t = Alpha * Price_t + (1 - Alpha) * EMA_{t-1} where Alpha = 2 / (span + 1)
+    df['EMA_12'] = grouped_close.transform(lambda s: s.ewm(span=12, adjust=False).mean())
+    df['EMA_26'] = grouped_close.transform(lambda s: s.ewm(span=26, adjust=False).mean())
+    
+    # 3. Rolling Volatility and Higher-Order Statistical Moments
+    df['Rolling_Std_20'] = grouped_close.transform(lambda s: s.rolling(window=20, min_periods=1).std().fillna(0.0))
+    df['Rolling_Var_20'] = grouped_close.transform(lambda s: s.rolling(window=20, min_periods=1).var().fillna(0.0))
+    df['Rolling_Skew_30'] = grouped_close.transform(lambda s: s.rolling(window=30, min_periods=5).skew().fillna(0.0))
+    
+    # 4. Daily Returns and Cumulative Performance
+    df['Daily_Return'] = df.groupby('Ticker')['Close'].pct_change().fillna(0.0)
+    df['Cumulative_Return'] = df.groupby('Ticker')['Daily_Return'].transform(lambda s: (1 + s).cumprod() - 1.0)
+    
+    # 5. Expanding Windows: Peak Close Price and Max Drawdown %
+    # Peak Equity is the historical maximum closing price up to date t
+    df['Peak_Close'] = df.groupby('Ticker')['Close'].cummax()
+    
+    # Drawdown % = (Current Close - Peak Close) / Peak Close * 100
+    df['Drawdown_Pct'] = (df['Close'] - df['Peak_Close']) / df['Peak_Close'] * 100.0
+    
+    # Maximum Drawdown % to date t (Expanding Minimum of Drawdown_Pct)
+    df['Max_Drawdown_Pct'] = df.groupby('Ticker')['Drawdown_Pct'].cummin()
+    
+    print(f"[SUCCESS] Rolling and expanding window metrics successfully engineered.")
+    return df
+
+
 if __name__ == "__main__":
     tickers = ['AAPL', 'GOOGL', 'MSFT', 'NVDA']
     raw_df = generate_synthetic_ohlcv(tickers=tickers, start_date="2025-01-01", periods=365)
-    print("\n--- Raw OHLCV Sample ---")
-    print(raw_df.head(10))
+    transformed_df = apply_rolling_and_expanding_transformations(raw_df)
+    
+    print("\n--- Transformed Rolling & Drawdown Sample (AAPL) ---")
+    sample_cols = ['Date', 'Ticker', 'Close', 'SMA_20', 'EMA_12', 'Rolling_Std_20', 'Drawdown_Pct', 'Max_Drawdown_Pct']
+    print(transformed_df[transformed_df['Ticker'] == 'AAPL'][sample_cols].tail(10))
