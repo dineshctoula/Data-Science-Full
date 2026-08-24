@@ -224,6 +224,45 @@ def compute_technical_indicators(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def generate_signals_and_export(df: pd.DataFrame, output_dir: str = "output") -> None:
+    """
+    Executes cross-asset analytics, detects anomaly signals based on Z-score,
+    and exports the final dataset to a compressed CSV.
+
+    Parameters:
+        df (pd.DataFrame): Augmented DataFrame with all indicators.
+        output_dir (str): Directory to save the final CSV artifact.
+    """
+    print("\n[INFO] Running cross-asset analytics & anomaly detection...")
+    df = df.copy()
+    
+    # Cross-Asset Analytics: Rolling correlation against a benchmark proxy (AAPL)
+    pivot_close = df.pivot(index='Date', columns='Ticker', values='Close')
+    
+    if 'AAPL' in pivot_close.columns:
+        rolling_corr = pivot_close.rolling(window=30, min_periods=10).corr(pivot_close['AAPL'])
+        corr_melted = rolling_corr.reset_index().melt(id_vars='Date', value_name='Corr_vs_AAPL')
+        df = df.merge(corr_melted, on=['Date', 'Ticker'], how='left')
+
+    # Anomaly Signal Detection: Z-Score of Daily Returns
+    grouped = df.groupby('Ticker')
+    df['Return_Z_Score'] = grouped['Daily_Return'].transform(
+        lambda s: (s - s.rolling(window=20, min_periods=5).mean()) / s.rolling(window=20, min_periods=5).std().replace(0, np.nan)
+    )
+    
+    df['Anomaly_Signal'] = np.where(df['Return_Z_Score'].abs() > 3.0, True, False)
+    anomaly_count = df['Anomaly_Signal'].sum()
+    print(f"[INFO] Detected {anomaly_count} extreme volatility anomalies across all assets.")
+
+    os.makedirs(output_dir, exist_ok=True)
+    out_path = os.path.join(output_dir, "day29_financial_indicators.csv")
+    print(f"[INFO] Exporting pipeline results to {out_path} ...")
+    
+    export_df = df.groupby('Ticker').tail(100)
+    export_df.to_csv(out_path, index=False)
+    print("[SUCCESS] Data pipeline execution and export complete.")
+
+
 if __name__ == "__main__":
     tickers = ['AAPL', 'GOOGL', 'MSFT', 'NVDA']
     raw_df = generate_synthetic_ohlcv(tickers=tickers, start_date="2025-01-01", periods=365)
@@ -232,4 +271,6 @@ if __name__ == "__main__":
     
     print("\n--- Technical Indicators Sample (AAPL) ---")
     sample_cols = ['Date', 'Ticker', 'Close', 'RSI_14', 'MACD_Line', 'BB_Upper', 'ATR_14', 'Rolling_Sharpe_60']
-    print(tech_df[tech_df['Ticker'] == 'AAPL'][sample_cols].tail(10))
+    print(tech_df[tech_df['Ticker'] == 'AAPL'][sample_cols].tail(5))
+    
+    generate_signals_and_export(tech_df)
