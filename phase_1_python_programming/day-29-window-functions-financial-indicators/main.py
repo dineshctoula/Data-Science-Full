@@ -154,11 +154,82 @@ def apply_rolling_and_expanding_transformations(df: pd.DataFrame) -> pd.DataFram
     return df
 
 
+def compute_technical_indicators(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Calculates advanced quantitative financial indicators including 
+    RSI (Relative Strength Index), MACD (Moving Average Convergence Divergence), 
+    Bollinger Bands, ATR (Average True Range), and annualized Sharpe Ratio.
+
+    Parameters:
+        df (pd.DataFrame): Input DataFrame containing OHLC prices and moving averages.
+
+    Returns:
+        pd.DataFrame: Augmented DataFrame with quantitative technical indicators.
+    """
+    print("\n[INFO] Computing complex technical indicators (RSI, MACD, BB, ATR)...")
+    df = df.copy()
+    grouped = df.groupby('Ticker')
+
+    # 1. RSI (Relative Strength Index) - 14 Day
+    delta = grouped['Close'].diff()
+    gain = delta.where(delta > 0, 0.0)
+    loss = -delta.where(delta < 0, 0.0)
+    
+    # Use exponential moving average for smoothing RSI
+    avg_gain = gain.groupby(df['Ticker']).ewm(com=13, adjust=False).mean().reset_index(level=0, drop=True)
+    avg_loss = loss.groupby(df['Ticker']).ewm(com=13, adjust=False).mean().reset_index(level=0, drop=True)
+    
+    rs = avg_gain / avg_loss.replace(0, np.nan)
+    df['RSI_14'] = 100.0 - (100.0 / (1.0 + rs))
+    df['RSI_14'] = df['RSI_14'].fillna(50.0)  # Neutral RSI for early periods
+
+    # 2. MACD (Moving Average Convergence Divergence)
+    if 'EMA_12' not in df.columns or 'EMA_26' not in df.columns:
+        df['EMA_12'] = grouped['Close'].transform(lambda s: s.ewm(span=12, adjust=False).mean())
+        df['EMA_26'] = grouped['Close'].transform(lambda s: s.ewm(span=26, adjust=False).mean())
+        
+    df['MACD_Line'] = df['EMA_12'] - df['EMA_26']
+    df['MACD_Signal'] = grouped['MACD_Line'].transform(lambda s: s.ewm(span=9, adjust=False).mean())
+    df['MACD_Histogram'] = df['MACD_Line'] - df['MACD_Signal']
+
+    # 3. Bollinger Bands (20-day SMA +/- 2 * 20-day Std)
+    if 'SMA_20' not in df.columns or 'Rolling_Std_20' not in df.columns:
+        df['SMA_20'] = grouped['Close'].transform(lambda s: s.rolling(window=20, min_periods=1).mean())
+        df['Rolling_Std_20'] = grouped['Close'].transform(lambda s: s.rolling(window=20, min_periods=1).std().fillna(0.0))
+        
+    df['BB_Upper'] = df['SMA_20'] + (df['Rolling_Std_20'] * 2)
+    df['BB_Lower'] = df['SMA_20'] - (df['Rolling_Std_20'] * 2)
+    df['BB_Width'] = (df['BB_Upper'] - df['BB_Lower']) / df['SMA_20']
+
+    # 4. Average True Range (ATR) - 14 Day
+    prev_close = grouped['Close'].shift(1)
+    high_low = df['High'] - df['Low']
+    high_pc = (df['High'] - prev_close).abs()
+    low_pc = (df['Low'] - prev_close).abs()
+    
+    tr = pd.concat([high_low, high_pc, low_pc], axis=1).max(axis=1)
+    df['TR'] = tr
+    df['ATR_14'] = grouped['TR'].transform(lambda s: s.rolling(window=14, min_periods=1).mean())
+
+    # 5. Rolling Annualized Sharpe Ratio (Assuming Risk-Free Rate = 0.0)
+    if 'Daily_Return' not in df.columns:
+        df['Daily_Return'] = grouped['Close'].pct_change().fillna(0.0)
+        
+    df['Rolling_Sharpe_60'] = grouped['Daily_Return'].transform(
+        lambda s: (s.rolling(window=60, min_periods=10).mean() / 
+                   s.rolling(window=60, min_periods=10).std().replace(0, np.nan)) * np.sqrt(252)
+    ).fillna(0.0)
+
+    print("[SUCCESS] Complex technical indicators engineered successfully.")
+    return df
+
+
 if __name__ == "__main__":
     tickers = ['AAPL', 'GOOGL', 'MSFT', 'NVDA']
     raw_df = generate_synthetic_ohlcv(tickers=tickers, start_date="2025-01-01", periods=365)
     transformed_df = apply_rolling_and_expanding_transformations(raw_df)
+    tech_df = compute_technical_indicators(transformed_df)
     
-    print("\n--- Transformed Rolling & Drawdown Sample (AAPL) ---")
-    sample_cols = ['Date', 'Ticker', 'Close', 'SMA_20', 'EMA_12', 'Rolling_Std_20', 'Drawdown_Pct', 'Max_Drawdown_Pct']
-    print(transformed_df[transformed_df['Ticker'] == 'AAPL'][sample_cols].tail(10))
+    print("\n--- Technical Indicators Sample (AAPL) ---")
+    sample_cols = ['Date', 'Ticker', 'Close', 'RSI_14', 'MACD_Line', 'BB_Upper', 'ATR_14', 'Rolling_Sharpe_60']
+    print(tech_df[tech_df['Ticker'] == 'AAPL'][sample_cols].tail(10))
