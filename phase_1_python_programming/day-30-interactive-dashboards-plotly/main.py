@@ -41,7 +41,36 @@ def generate_e_commerce_data(rows: int = 1000) -> pd.DataFrame:
     print("[SUCCESS] Data generation complete.")
     return df
 
+def create_basic_visualizations(df: pd.DataFrame) -> None:
+    """
+    Creates fundamental Plotly Express visualizations.
+    """
+    print("[INFO] Creating basic Plotly Express visualizations...")
+    import plotly.express as px
+    
+    # Ensure 'Date' is set for grouping
+    df['Date'] = df['Timestamp'].dt.date
+    
+    # 1. Line Chart: Daily Revenue Trend
+    daily_revenue = df.groupby('Date')['Revenue'].sum().reset_index()
+    fig_line = px.line(daily_revenue, x='Date', y='Revenue', 
+                       title="Daily Total Revenue Trend",
+                       markers=True, line_shape="spline")
+    fig_line.write_html("output/daily_revenue_trend.html")
+    
+    # 2. Scatter Plot: Revenue vs Customer Satisfaction by Category
+    fig_scatter = px.scatter(df, x='Revenue', y='Customer_Satisfaction',
+                             color='Category', size='Quantity',
+                             hover_data=['Region'],
+                             title="Revenue vs Customer Satisfaction",
+                             opacity=0.7)
+    fig_scatter.write_html("output/revenue_vs_satisfaction.html")
+    print("[SUCCESS] Basic visualizations created and saved to 'output/'.")
+
 if __name__ == "__main__":
     df = generate_e_commerce_data(1000)
     print("\n--- Data Sample ---")
     print(df.head())
+    
+    os.makedirs("output", exist_ok=True)
+    create_basic_visualizations(df)
