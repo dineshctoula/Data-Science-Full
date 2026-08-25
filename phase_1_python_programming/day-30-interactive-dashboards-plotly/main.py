@@ -85,6 +85,55 @@ def create_advanced_visualizations(df: pd.DataFrame) -> None:
     fig_sunburst.write_html("output/revenue_sunburst.html")
     print("[SUCCESS] Advanced visualizations created and saved to 'output/'.")
 
+def create_interactive_dashboard(df: pd.DataFrame) -> None:
+    """
+    Creates an interactive Plotly Figure with dropdowns (updatemenus) to toggle data views.
+    """
+    print("[INFO] Creating interactive dashboard with dropdowns...")
+    import plotly.graph_objects as go
+    
+    # 4. Interactive Dropdown: Revenue by Region
+    regions = df['Region'].unique()
+    fig_interactive = go.Figure()
+    
+    for region in regions:
+        region_data = df[df['Region'] == region].groupby('Date')['Revenue'].sum().reset_index()
+        fig_interactive.add_trace(
+            go.Scatter(x=region_data['Date'], y=region_data['Revenue'],
+                       mode='lines+markers', name=region, visible=False)
+        )
+        
+    # Make first trace visible
+    fig_interactive.data[0].visible = True
+    
+    # Create dropdown buttons
+    buttons = []
+    for i, region in enumerate(regions):
+        visibility = [False] * len(regions)
+        visibility[i] = True
+        button = dict(
+            label=region,
+            method="update",
+            args=[{"visible": visibility},
+                  {"title": f"Daily Revenue Trend: {region} Region"}]
+        )
+        buttons.append(button)
+        
+    # Add 'All Regions' button
+    all_visibility = [True] * len(regions)
+    buttons.append(dict(label="All Regions", method="update",
+                        args=[{"visible": all_visibility},
+                              {"title": "Daily Revenue Trend: All Regions"}]))
+    
+    fig_interactive.update_layout(
+        updatemenus=[
+            dict(active=0, buttons=buttons, x=1.15, xanchor="right", y=1, yanchor="top")
+        ],
+        title=f"Daily Revenue Trend: {regions[0]} Region"
+    )
+    fig_interactive.write_html("output/interactive_dropdown_dashboard.html")
+    print("[SUCCESS] Interactive dashboard created and saved to 'output/'.")
+
 if __name__ == "__main__":
     df = generate_e_commerce_data(1000)
     print("\n--- Data Sample ---")
@@ -93,3 +142,4 @@ if __name__ == "__main__":
     os.makedirs("output", exist_ok=True)
     create_basic_visualizations(df)
     create_advanced_visualizations(df)
+    create_interactive_dashboard(df)
