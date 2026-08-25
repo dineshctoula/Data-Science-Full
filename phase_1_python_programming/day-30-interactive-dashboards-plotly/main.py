@@ -134,6 +134,53 @@ def create_interactive_dashboard(df: pd.DataFrame) -> None:
     fig_interactive.write_html("output/interactive_dropdown_dashboard.html")
     print("[SUCCESS] Interactive dashboard created and saved to 'output/'.")
 
+def create_dashboard_subplots(df: pd.DataFrame) -> None:
+    """
+    Combines multiple plots into a single executive dashboard view using Plotly subplots.
+    """
+    print("[INFO] Creating unified multi-panel executive dashboard...")
+    from plotly.subplots import make_subplots
+    import plotly.graph_objects as go
+    
+    # Pre-calculate data
+    daily_revenue = df.groupby('Date')['Revenue'].sum().reset_index()
+    cat_revenue = df.groupby('Category')['Revenue'].sum().reset_index()
+    
+    # 5. Dashboard Layout (2 rows, 2 columns)
+    fig_dash = make_subplots(
+        rows=2, cols=2,
+        specs=[[{"colspan": 2}, None],
+               [{"type": "domain"}, {"type": "xy"}]],
+        subplot_titles=("Overall Daily Revenue", "Revenue by Category", "Quantity vs Satisfaction")
+    )
+    
+    # Top Row (Colspan 2) - Line Chart
+    fig_dash.add_trace(
+        go.Scatter(x=daily_revenue['Date'], y=daily_revenue['Revenue'],
+                   mode='lines+markers', name="Daily Revenue",
+                   line=dict(color='blue', width=2)),
+        row=1, col=1
+    )
+    
+    # Bottom Left - Pie Chart
+    fig_dash.add_trace(
+        go.Pie(labels=cat_revenue['Category'], values=cat_revenue['Revenue'],
+               name="Revenue by Category"),
+        row=2, col=1
+    )
+    
+    # Bottom Right - Scatter Plot
+    fig_dash.add_trace(
+        go.Scatter(x=df['Quantity'], y=df['Customer_Satisfaction'],
+                   mode='markers', name="Qty vs Sat",
+                   marker=dict(color=df['Revenue'], colorscale='Viridis', showscale=True)),
+        row=2, col=2
+    )
+    
+    fig_dash.update_layout(height=800, width=1200, title_text="Executive E-Commerce Dashboard")
+    fig_dash.write_html("output/executive_dashboard_subplots.html")
+    print("[SUCCESS] Executive dashboard subplots created and saved to 'output/'.")
+
 if __name__ == "__main__":
     df = generate_e_commerce_data(1000)
     print("\n--- Data Sample ---")
@@ -143,3 +190,4 @@ if __name__ == "__main__":
     create_basic_visualizations(df)
     create_advanced_visualizations(df)
     create_interactive_dashboard(df)
+    create_dashboard_subplots(df)
