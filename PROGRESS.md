@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 2 — Data Manipulation & Visualization |
-| **Current Day** | Day 28 |
-| **Days Completed** | 28 / 100 |
-| **Progress** | 28% |
-| **Current Streak** | 28 Days |
-| **Latest Topic** | Advanced DateTime Analytics, Timezone Conversion & Vectorized Text Regex Pipelines |
+| **Current Day** | Day 30 |
+| **Days Completed** | 30 / 100 |
+| **Progress** | 30% |
+| **Current Streak** | 30 Days |
+| **Latest Topic** | Interactive Data Visualization Dashboards with Plotly |
 | **Status** | 🟢 On Track |
 
 ---
@@ -61,6 +61,8 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **26** | 2026-08-20 | Phase 2 | Advanced Data Cleaning, Outlier Detection, Imputation & EDA Profiling | Implemented MCAR/MAR missingness analysis, grouped median imputation, IQR/Z-score outlier detection with Winsorization, log1p transform, Min-Max & Standard scaling, regex text cleaning, ordinal/one-hot encoding, automated EDA report generation, and CSV export pipeline. | ✅ |
 | **27** | 2026-08-21 | Phase 2 | Advanced Statistical Data Visualization & Seaborn Dashboards | Built synthetic customer analytics dataset, univariate KDE/ECDF skewness plots, bivariate regression fits, categorical violin/swarm/95% CI plots, multivariate correlation matrices, and a 2x3 executive EDA dashboard artifact export pipeline. | ✅ |
 | **28** | 2026-08-22 | Phase 2 | Advanced DateTime Handling, Timezone Analytics & Vectorized Text Regex Pipelines | Parsed heterogeneous timestamp logs, localized UTC to US/Eastern & Asia/Kathmandu timezones, applied BDay(3) SLA offsets, extracted email/phone regex capture groups, built custom TF-IDF vectorizer from scratch in Pandas, and exported support log escalation CSV pipeline artifact. | ✅ |
+| **29** | 2026-08-24 | Phase 2 | Window Functions, Moving Averages & Financial Technical Indicators | Implemented GBM multi-asset financial simulation, rolling/expanding transformations, RSI, MACD, Bollinger Bands, ATR, Sharpe ratio, and anomaly signal detection. | ✅ |
+| **30** | 2026-08-25 | Phase 2 | Interactive Data Visualization Dashboards with Plotly | Built synthetic e-commerce data pipeline, created interactive Plotly Express scatter/line plots, Sunburst charts, Plotly Graph Objects dropdown menus (updatemenus), and complex 2x2 multi-metric executive dashboard subplots. | ✅ |
 
 ---
 
@@ -78,7 +80,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Days 17–19** — Pandas Series/DataFrames, selection, filtering, and data cleaning
 - [x] **Days 20–21** — House-price EDA, feature engineering, and ML pipeline
 - [x] **Days 22–28** — Data visualization, GroupBy/aggregation, merging, joining, reshaping, time-series analysis, outlier detection, Seaborn dashboards & vectorized datetime/text regex pipelines
-- [ ] **Days 29–30** — Advanced visualization and exploratory data analysis
+- [x] **Days 29–30** — Advanced visualization and exploratory data analysis
 - [ ] **Days 31–35** — Complete Phase 2 data manipulation and visualization goals
 
 ---
@@ -86,14 +88,14 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 ## 📊 Current Progress
 
 ```text
-Completed: 28 / 100 Days
+Completed: 30 / 100 Days
 
-████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 28%
+██████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 30%
 ```
 
 ### Current Position
 
-**Day 28 — Advanced DateTime Handling, Timezone Analytics & Vectorized Text Regex Pipelines** ✅
+**Day 30 — Interactive Data Visualization Dashboards with Plotly** ✅
 
 The challenge has progressed from Python fundamentals and NumPy into practical **Pandas data manipulation, data quality auditing, outlier treatment, feature encoding, time series analysis, advanced statistical visualization, Seaborn executive dashboards, and vectorized text/datetime regex pipelines**.
 
@@ -101,7 +103,7 @@ The challenge has progressed from Python fundamentals and NumPy into practical *
 
 ## 🚀 Next Goals
 
-1. Continue **Day 29** with the next advanced EDA and data manipulation topic.
+1. Continue **Day 31** with the next advanced Phase 2 topic.
 2. Maintain the daily learning streak.
 3. Commit each day's work with clear and professional Git messages.
 4. Keep code, notes, and exercises organized.
@@ -111,7 +113,7 @@ The challenge has progressed from Python fundamentals and NumPy into practical *
 
 ## 🏆 Challenge Status
 
-> **28 / 100 Days Completed — 28% Progress**
+> **30 / 100 Days Completed — 30% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
