@@ -67,6 +67,24 @@ def create_basic_visualizations(df: pd.DataFrame) -> None:
     fig_scatter.write_html("output/revenue_vs_satisfaction.html")
     print("[SUCCESS] Basic visualizations created and saved to 'output/'.")
 
+def create_advanced_visualizations(df: pd.DataFrame) -> None:
+    """
+    Creates advanced interactive charts using Plotly Express and Graph Objects.
+    """
+    print("[INFO] Creating advanced Plotly visualizations (Sunburst Chart)...")
+    import plotly.express as px
+    import plotly.graph_objects as go
+    
+    # 3. Sunburst Chart: Hierarchical View of Revenue by Region and Category
+    # We aggregate revenue for the hierarchy
+    hierarchy_df = df.groupby(['Region', 'Category'])['Revenue'].sum().reset_index()
+    fig_sunburst = px.sunburst(hierarchy_df, path=['Region', 'Category'], values='Revenue',
+                               title="Revenue Distribution by Region and Category",
+                               color='Revenue',
+                               color_continuous_scale='Blues')
+    fig_sunburst.write_html("output/revenue_sunburst.html")
+    print("[SUCCESS] Advanced visualizations created and saved to 'output/'.")
+
 if __name__ == "__main__":
     df = generate_e_commerce_data(1000)
     print("\n--- Data Sample ---")
@@ -74,3 +92,4 @@ if __name__ == "__main__":
     
     os.makedirs("output", exist_ok=True)
     create_basic_visualizations(df)
+    create_advanced_visualizations(df)
