@@ -80,11 +80,11 @@ def create_advanced_visualizations(df: pd.DataFrame) -> None:
     """
     Creates advanced interactive charts using Plotly Express and Graph Objects.
     """
-    print("[INFO] Creating advanced Plotly visualizations (Sunburst Chart)...")
+    print("[INFO] Creating advanced Plotly visualizations (Sunburst Chart & Heatmap)...")
     import plotly.express as px
     import plotly.graph_objects as go
     
-    # 3. Sunburst Chart: Hierarchical View of Revenue by Region and Category
+    # 4. Sunburst Chart: Hierarchical View of Revenue by Region and Category
     # We aggregate revenue for the hierarchy
     hierarchy_df = df.groupby(['Region', 'Category'])['Revenue'].sum().reset_index()
     fig_sunburst = px.sunburst(hierarchy_df, path=['Region', 'Category'], values='Revenue',
@@ -92,6 +92,14 @@ def create_advanced_visualizations(df: pd.DataFrame) -> None:
                                color='Revenue',
                                color_continuous_scale='Blues')
     fig_sunburst.write_html("output/revenue_sunburst.html")
+
+    # 5. Density Heatmap: Revenue vs Customer Satisfaction
+    # Shows the density of data points using a 2D histogram heatmap
+    fig_heatmap = px.density_heatmap(df, x='Customer_Satisfaction', y='Category', z='Revenue',
+                                     histfunc='sum', title='Revenue Heatmap by Category and Satisfaction',
+                                     color_continuous_scale='Viridis')
+    fig_heatmap.write_html("output/revenue_density_heatmap.html")
+    
     print("[SUCCESS] Advanced visualizations created and saved to 'output/'.")
 
 def create_interactive_dashboard(df: pd.DataFrame) -> None:
