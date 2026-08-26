@@ -109,10 +109,11 @@ def create_interactive_dashboard(df: pd.DataFrame) -> None:
     print("[INFO] Creating interactive dashboard with dropdowns...")
     import plotly.graph_objects as go
     
-    # 4. Interactive Dropdown: Revenue by Region
+    # 6. Interactive Dropdown: Revenue by Region
     regions = df['Region'].unique()
     fig_interactive = go.Figure()
     
+    # Iterate through regions and add a trace for each region's revenue
     for region in regions:
         region_data = df[df['Region'] == region].groupby('Date')['Revenue'].sum().reset_index()
         fig_interactive.add_trace(
@@ -142,11 +143,23 @@ def create_interactive_dashboard(df: pd.DataFrame) -> None:
                         args=[{"visible": all_visibility},
                               {"title": "Daily Revenue Trend: All Regions"}]))
     
+    # Update layout with dropdown menu and X-axis range slider
     fig_interactive.update_layout(
         updatemenus=[
             dict(active=0, buttons=buttons, x=1.15, xanchor="right", y=1, yanchor="top")
         ],
-        title=f"Daily Revenue Trend: {regions[0]} Region"
+        title=f"Daily Revenue Trend: {regions[0]} Region",
+        xaxis=dict(
+            rangeselector=dict(
+                buttons=list([
+                    dict(count=7, label="1w", step="day", stepmode="backward"),
+                    dict(count=1, label="1m", step="month", stepmode="backward"),
+                    dict(step="all")
+                ])
+            ),
+            rangeslider=dict(visible=True), # Add a range slider for interactive date filtering
+            type="date"
+        )
     )
     fig_interactive.write_html("output/interactive_dropdown_dashboard.html")
     print("[SUCCESS] Interactive dashboard created and saved to 'output/'.")

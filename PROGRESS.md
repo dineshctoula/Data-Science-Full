@@ -62,7 +62,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **27** | 2026-08-21 | Phase 2 | Advanced Statistical Data Visualization & Seaborn Dashboards | Built synthetic customer analytics dataset, univariate KDE/ECDF skewness plots, bivariate regression fits, categorical violin/swarm/95% CI plots, multivariate correlation matrices, and a 2x3 executive EDA dashboard artifact export pipeline. | ✅ |
 | **28** | 2026-08-22 | Phase 2 | Advanced DateTime Handling, Timezone Analytics & Vectorized Text Regex Pipelines | Parsed heterogeneous timestamp logs, localized UTC to US/Eastern & Asia/Kathmandu timezones, applied BDay(3) SLA offsets, extracted email/phone regex capture groups, built custom TF-IDF vectorizer from scratch in Pandas, and exported support log escalation CSV pipeline artifact. | ✅ |
 | **29** | 2026-08-24 | Phase 2 | Window Functions, Moving Averages & Financial Technical Indicators | Implemented GBM multi-asset financial simulation, rolling/expanding transformations, RSI, MACD, Bollinger Bands, ATR, Sharpe ratio, and anomaly signal detection. | ✅ |
-| **30** | 2026-08-25 | Phase 2 | Interactive Data Visualization Dashboards with Plotly | Built synthetic e-commerce data pipeline, created interactive Plotly Express scatter/line plots, Sunburst charts, Plotly Graph Objects dropdown menus (updatemenus), and complex 2x2 multi-metric executive dashboard subplots. | ✅ |
+| **30** | 2026-08-25 | Phase 2 | Interactive Data Visualization Dashboards with Plotly | Built synthetic e-commerce data pipeline, created interactive Plotly Express scatter/line plots, Sunburst charts, Plotly Graph Objects dropdown menus (updatemenus), histograms, density heatmaps, interactive range sliders, and complex multi-metric executive dashboard subplots. | ✅ |
 
 ---
 
@@ -97,7 +97,7 @@ Completed: 30 / 100 Days
 
 **Day 30 — Interactive Data Visualization Dashboards with Plotly** ✅
 
-The challenge has progressed from Python fundamentals and NumPy into practical **Pandas data manipulation, data quality auditing, outlier treatment, feature encoding, time series analysis, advanced statistical visualization, Seaborn executive dashboards, and vectorized text/datetime regex pipelines**.
+The challenge has progressed from Python fundamentals and NumPy into practical **Pandas data manipulation, data quality auditing, outlier treatment, feature encoding, time series analysis, advanced statistical visualization, Seaborn executive dashboards, vectorized text/datetime regex pipelines, and interactive Plotly visualization dashboards**.
 
 ---
 
