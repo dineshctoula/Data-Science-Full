@@ -65,6 +65,15 @@ def create_basic_visualizations(df: pd.DataFrame) -> None:
                              title="Revenue vs Customer Satisfaction",
                              opacity=0.7)
     fig_scatter.write_html("output/revenue_vs_satisfaction.html")
+
+    # 3. Histogram: Distribution of Revenue by Category
+    # Adding a histogram to visualize the frequency distribution of revenue
+    fig_hist = px.histogram(df, x='Revenue', color='Category',
+                            title="Revenue Distribution by Category",
+                            marginal="box", # Add box plot on margins to see outliers and quartiles
+                            opacity=0.8)
+    fig_hist.write_html("output/revenue_distribution.html")
+    
     print("[SUCCESS] Basic visualizations created and saved to 'output/'.")
 
 def create_advanced_visualizations(df: pd.DataFrame) -> None:
