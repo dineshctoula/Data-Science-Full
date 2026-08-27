@@ -15,6 +15,7 @@ import pandas as pd
 def generate_e_commerce_data(rows: int = 1000) -> pd.DataFrame:
     """
     Generates a synthetic e-commerce sales dataset for interactive visualization.
+    Includes temporal trends such as time-of-day and day-of-week effects.
     """
     print(f"[INFO] Generating {rows} rows of synthetic e-commerce data...")
     np.random.seed(42)
@@ -35,8 +36,15 @@ def generate_e_commerce_data(rows: int = 1000) -> pd.DataFrame:
     
     df = pd.DataFrame(data)
     
-    # Introduce time-of-day trend
+    # Introduce time-of-day trend (peak sales in the evening)
     df['Revenue'] = df['Revenue'] + (df['Timestamp'].dt.hour * 5)
+    
+    # Introduce day-of-week trend (higher sales on weekends)
+    weekend_mask = df['Timestamp'].dt.dayofweek >= 5
+    df.loc[weekend_mask, 'Revenue'] += np.random.uniform(20, 50, size=weekend_mask.sum())
+    
+    # Ensure revenue does not drop below 0
+    df['Revenue'] = df['Revenue'].clip(lower=0).round(2)
     
     print("[SUCCESS] Data generation complete.")
     return df
