@@ -82,6 +82,12 @@ def create_basic_visualizations(df: pd.DataFrame) -> None:
                             opacity=0.8)
     fig_hist.write_html("output/revenue_distribution.html")
     
+    # 4. Violin Plot: Customer Satisfaction by Category
+    # Adding a violin plot to see the distribution of customer satisfaction
+    fig_violin = px.violin(df, x='Category', y='Customer_Satisfaction', color='Category',
+                           box=True, points="all", title="Customer Satisfaction Distribution by Category")
+    fig_violin.write_html("output/customer_satisfaction_violin.html")
+    
     print("[SUCCESS] Basic visualizations created and saved to 'output/'.")
 
 def create_advanced_visualizations(df: pd.DataFrame) -> None:
