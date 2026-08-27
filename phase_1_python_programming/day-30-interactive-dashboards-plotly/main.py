@@ -114,6 +114,13 @@ def create_advanced_visualizations(df: pd.DataFrame) -> None:
                                      color_continuous_scale='Viridis')
     fig_heatmap.write_html("output/revenue_density_heatmap.html")
     
+    # 6. 3D Scatter Plot: Revenue vs Customer Satisfaction vs Quantity
+    # Visualizing 3 dimensions of data interactively
+    fig_3d = px.scatter_3d(df, x='Revenue', y='Customer_Satisfaction', z='Quantity',
+                           color='Category', size='Quantity', opacity=0.7,
+                           title="3D View: Revenue, Satisfaction, and Quantity")
+    fig_3d.write_html("output/revenue_satisfaction_qty_3d.html")
+    
     print("[SUCCESS] Advanced visualizations created and saved to 'output/'.")
 
 def create_interactive_dashboard(df: pd.DataFrame) -> None:
