@@ -41,7 +41,49 @@ def generate_large_dataset(rows: int = 1_000_000) -> pd.DataFrame:
     
     return df
 
+def test_query_performance(df: pd.DataFrame) -> None:
+    """
+    Benchmarks standard boolean masking vs pandas.query().
+    """
+    print("\n[INFO] Benchmarking Boolean Masking vs pd.query()...")
+    
+    # 1. Standard Boolean Masking
+    start_time = time.time()
+    result_mask = df[(df['value_a'] > 120) & (df['value_b'] < 40) & (df['is_active'] == True)]
+    mask_time = time.time() - start_time
+    print(f"  Standard Masking Time: {mask_time:.4f} seconds (Rows: {len(result_mask)})")
+    
+    # 2. Pandas Query
+    start_time = time.time()
+    result_query = df.query("value_a > 120 and value_b < 40 and is_active == True")
+    query_time = time.time() - start_time
+    print(f"  Pandas Query Time:     {query_time:.4f} seconds (Rows: {len(result_query)})")
+    print(f"  Speedup Factor:        {mask_time / query_time:.2f}x")
+
+def test_eval_performance(df: pd.DataFrame) -> None:
+    """
+    Benchmarks standard arithmetic operations vs pandas.eval().
+    """
+    print("\n[INFO] Benchmarking Standard Math vs pd.eval()...")
+    
+    # 1. Standard Arithmetic
+    start_time = time.time()
+    df['result_standard'] = df['value_a'] * 2 + df['value_b'] / 3 - 50
+    standard_time = time.time() - start_time
+    print(f"  Standard Math Time: {standard_time:.4f} seconds")
+    
+    # 2. Pandas Eval
+    start_time = time.time()
+    df.eval("result_eval = value_a * 2 + value_b / 3 - 50", inplace=True)
+    eval_time = time.time() - start_time
+    print(f"  Pandas Eval Time:   {eval_time:.4f} seconds")
+    print(f"  Speedup Factor:     {standard_time / eval_time:.2f}x")
+
 if __name__ == "__main__":
-    df = generate_large_dataset(1_000_000)
+    df = generate_large_dataset(5_000_000) # Increased to 5 million for better benchmarking
     print("\n--- Data Sample ---")
     print(df.head())
+    
+    test_query_performance(df)
+    test_eval_performance(df)
+
