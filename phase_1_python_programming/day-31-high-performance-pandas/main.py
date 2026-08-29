@@ -471,6 +471,77 @@ def generate_performance_report(
 
 
 # ---------------------------------------------------------------------------
+# 7. SORTING & INDEX-BASED LOOKUP BENCHMARKS
+# ---------------------------------------------------------------------------
+
+def benchmark_sorting_and_indexing(df: pd.DataFrame) -> Dict[str, float]:
+    """
+    Benchmarks three common pandas sorting and lookup patterns:
+      1. sort_values()              — standard pandas sort
+      2. np.argsort on raw values   — NumPy sort via underlying array
+      3. set_index + .loc lookup    — index-based O(log n) retrieval
+
+    Understanding sorting costs is critical for pipelines that repeatedly
+    order DataFrames before groupby or time-series operations.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame (uses value_a and id columns).
+
+    Returns:
+        Dict[str, float]: Timing results for each sorting/lookup pattern.
+    """
+    print("\n[INFO] Benchmark 6 — Sorting & Index-Based Lookups:")
+
+    sample = df.head(1_000_000).copy()
+
+    # ---- 1. sort_values (pandas default sort) ----
+    start = time.perf_counter()
+    _ = sample.sort_values('value_a')
+    sort_time = time.perf_counter() - start
+    print(f"  sort_values()         : {sort_time:.4f}s  (1M rows)")
+
+    # ---- 2. sort by numpy argsort on underlying array ----
+    start = time.perf_counter()
+    idx = np.argsort(sample['value_a'].values)
+    _ = sample.iloc[idx]
+    argsort_time = time.perf_counter() - start
+    print(f"  np.argsort + .iloc    : {argsort_time:.4f}s  (1M rows)")
+
+    # ---- 3. set_index then .loc lookup vs plain boolean filter ----
+    # Build an indexed copy once, then simulate 1000 random lookups
+    n_lookups = 1000
+    lookup_ids = np.random.randint(0, len(sample), n_lookups)
+
+    # Plain .iloc approach
+    start = time.perf_counter()
+    for lid in lookup_ids:
+        _ = sample.iloc[lid]
+    iloc_time = time.perf_counter() - start
+    print(f"  .iloc lookups x{n_lookups}     : {iloc_time:.4f}s")
+
+    # set_index + .loc approach
+    indexed = sample.set_index('id')
+    lookup_keys = sample['id'].values[lookup_ids]
+    start = time.perf_counter()
+    for key in lookup_keys:
+        _ = indexed.loc[key]
+    loc_time = time.perf_counter() - start
+    print(f"  .loc (indexed) x{n_lookups}    : {loc_time:.4f}s")
+
+    speedup_sort  = sort_time / argsort_time if argsort_time > 0 else float('inf')
+    speedup_loc   = iloc_time / loc_time     if loc_time > 0     else float('inf')
+    print(f"\n  np.argsort vs sort_values speedup : {speedup_sort:.2f}x")
+    print(f"  .loc vs .iloc lookup speedup      : {speedup_loc:.2f}x")
+
+    return {
+        'sort_values_time': sort_time,
+        'argsort_time'    : argsort_time,
+        'iloc_lookup_time': iloc_time,
+        'loc_lookup_time' : loc_time,
+    }
+
+
+# ---------------------------------------------------------------------------
 # MAIN ENTRY POINT
 # ---------------------------------------------------------------------------
 
@@ -495,6 +566,7 @@ if __name__ == "__main__":
     vec_stats     = benchmark_vectorization_vs_apply(df_opt)
     chunk_stats   = benchmark_chunked_processing(df_opt)
     groupby_stats = benchmark_groupby_operations(df_opt)
+    sort_stats    = benchmark_sorting_and_indexing(df_opt)
 
     # 4. Generate consolidated performance report
     generate_performance_report(
@@ -505,3 +577,9 @@ if __name__ == "__main__":
         chunk_stats   = chunk_stats,
         groupby_stats = groupby_stats,
     )
+
+    print("\n[INFO] Sorting & Indexing Summary:")
+    print(f"  sort_values  : {sort_stats['sort_values_time']:.4f}s")
+    print(f"  np.argsort   : {sort_stats['argsort_time']:.4f}s")
+    print(f"  .iloc lookup : {sort_stats['iloc_lookup_time']:.4f}s")
+    print(f"  .loc lookup  : {sort_stats['loc_lookup_time']:.4f}s")
