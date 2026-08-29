@@ -542,6 +542,69 @@ def benchmark_sorting_and_indexing(df: pd.DataFrame) -> Dict[str, float]:
 
 
 # ---------------------------------------------------------------------------
+# 8. EXPORT: SAVE BENCHMARK RESULTS TO CSV
+# ---------------------------------------------------------------------------
+
+def save_benchmark_results_to_csv(
+    mem_stats    : Dict[str, float],
+    query_stats  : Dict[str, float],
+    eval_stats   : Dict[str, float],
+    vec_stats    : Dict[str, float],
+    chunk_stats  : Dict[str, float],
+    groupby_stats: Dict[str, float],
+    sort_stats   : Dict[str, float],
+    output_path  : str = "benchmark_results.csv",
+) -> str:
+    """
+    Serializes all benchmark timing results into a tidy CSV file.
+    The CSV has three columns: benchmark_name, metric, value.
+    This makes it easy to load back for comparison across runs or machines.
+
+    Args:
+        mem_stats     : Memory optimization stats.
+        query_stats   : Query vs masking benchmark.
+        eval_stats    : Eval vs standard math benchmark.
+        vec_stats     : Vectorization vs apply benchmark.
+        chunk_stats   : Chunked I/O benchmark.
+        groupby_stats : GroupBy approach benchmark.
+        sort_stats    : Sorting & indexing benchmark.
+        output_path   : Path for the output CSV file.
+
+    Returns:
+        str: Absolute path to the saved CSV file.
+    """
+    records: List[Dict] = []
+
+    def _add(benchmark: str, data: Dict) -> None:
+        for metric, value in data.items():
+            records.append({
+                'benchmark': benchmark,
+                'metric'   : metric,
+                'value'    : round(float(value), 6) if isinstance(value, (int, float)) else value,
+            })
+
+    _add('memory_optimization', mem_stats)
+    _add('query_vs_masking',    query_stats)
+    _add('eval_vs_standard',    eval_stats)
+    _add('vectorization',       vec_stats)
+    _add('chunked_io',          chunk_stats)
+    _add('groupby_strategies',  groupby_stats)
+    _add('sorting_indexing',    sort_stats)
+
+    results_df = pd.DataFrame(records)
+
+    out_path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)),
+        output_path
+    )
+    results_df.to_csv(out_path, index=False)
+    print(f"\n[SUCCESS] Benchmark results saved → {out_path}")
+    print(f"          ({len(results_df)} rows × {results_df.shape[1]} columns)")
+
+    return out_path
+
+
+# ---------------------------------------------------------------------------
 # MAIN ENTRY POINT
 # ---------------------------------------------------------------------------
 
@@ -583,3 +646,14 @@ if __name__ == "__main__":
     print(f"  np.argsort   : {sort_stats['argsort_time']:.4f}s")
     print(f"  .iloc lookup : {sort_stats['iloc_lookup_time']:.4f}s")
     print(f"  .loc lookup  : {sort_stats['loc_lookup_time']:.4f}s")
+
+    # 5. Export all benchmark results to CSV for reproducibility
+    save_benchmark_results_to_csv(
+        mem_stats     = mem_stats,
+        query_stats   = query_stats,
+        eval_stats    = eval_stats,
+        vec_stats     = vec_stats,
+        chunk_stats   = chunk_stats,
+        groupby_stats = groupby_stats,
+        sort_stats    = sort_stats,
+    )
