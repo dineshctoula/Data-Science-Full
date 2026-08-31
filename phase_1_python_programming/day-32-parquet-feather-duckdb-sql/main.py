@@ -264,6 +264,137 @@ def compare_compression_codecs(df: pd.DataFrame) -> List[Dict]:
     return results
 
 
+
+# ---------------------------------------------------------------------------
+# 4. DUCKDB IN-MEMORY SQL ANALYTICS & PANDAS INTEGRATION BENCHMARKS
+# ---------------------------------------------------------------------------
+
+def benchmark_duckdb_sql_queries(df: pd.DataFrame) -> Dict[str, float]:
+    """
+    Demonstrates zero-copy querying of Pandas DataFrames and Parquet files
+    using DuckDB's vectorized analytical SQL engine.
+
+    Args:
+        df (pd.DataFrame): Input transaction DataFrame.
+
+    Returns:
+        Dict[str, float]: Timing results for DuckDB queries.
+    """
+    print("\n[INFO] Benchmark 4 — DuckDB Vectorized SQL Engine Queries:")
+    data_dir = ensure_data_dir()
+    parquet_path = os.path.join(data_dir, "transactions.parquet")
+
+    # Connect to in-memory DuckDB instance
+    con = duckdb.connect(database=':memory:')
+
+    # Query 1: Direct SQL query on Pandas DataFrame variable 'df'
+    start = time.perf_counter()
+    sql_agg = con.query("""
+        SELECT 
+            category,
+            payment_method,
+            COUNT(*) AS total_transactions,
+            ROUND(SUM(amount * (1 - discount_rate)), 2) AS net_revenue,
+            ROUND(AVG(amount), 2) AS avg_transaction_val
+        FROM df
+        WHERE is_flagged = False
+        GROUP BY category, payment_method
+        ORDER BY net_revenue DESC
+    """).df()
+    df_sql_time = time.perf_counter() - start
+    print(f"  Query 1: DuckDB SQL on Pandas DataFrame  : {df_sql_time:.4f}s  (groups: {len(sql_agg)})")
+
+    # Query 2: SQL Window Functions (Dense Rank & Category Ranking)
+    start = time.perf_counter()
+    sql_window = con.query("""
+        WITH ranked_sales AS (
+            SELECT 
+                transaction_id,
+                customer_id,
+                category,
+                amount,
+                DENSE_RANK() OVER (PARTITION BY category ORDER BY amount DESC) AS rank_in_category
+            FROM df
+        )
+        SELECT * FROM ranked_sales WHERE rank_in_category <= 3
+    """).df()
+    window_sql_time = time.perf_counter() - start
+    print(f"  Query 2: SQL Window Function (Top 3 per Cat): {window_sql_time:.4f}s  (rows: {len(sql_window)})")
+
+    # Query 3: Direct SQL Query on Parquet File on Disk (No Pandas load needed!)
+    start = time.perf_counter()
+    parquet_sql = con.query(f"""
+        SELECT 
+            city,
+            COUNT(DISTINCT customer_id) AS unique_customers,
+            ROUND(AVG(amount), 2) AS avg_spent
+        FROM '{parquet_path}'
+        GROUP BY city
+        ORDER BY avg_spent DESC
+    """).df()
+    parquet_sql_time = time.perf_counter() - start
+    print(f"  Query 3: Direct SQL Query on Parquet File : {parquet_sql_time:.4f}s  (cities: {len(parquet_sql)})")
+
+    con.close()
+
+    return {
+        'duckdb_df_sql_sec': round(df_sql_time, 4),
+        'duckdb_window_sql_sec': round(window_sql_time, 4),
+        'duckdb_parquet_sql_sec': round(parquet_sql_time, 4),
+    }
+
+
+def benchmark_duckdb_vs_pandas_groupby(df: pd.DataFrame) -> Dict[str, float]:
+    """
+    Compares pure Pandas GroupBy aggregation vs DuckDB SQL engine execution.
+
+    Args:
+        df (pd.DataFrame): Input transaction DataFrame.
+
+    Returns:
+        Dict[str, float]: Timing results and speedup factor.
+    """
+    print("\n[INFO] Benchmark 5 — Pandas GroupBy vs DuckDB SQL Performance:")
+
+    # Pure Pandas GroupBy
+    start = time.perf_counter()
+    unflagged = df[df['is_flagged'] == False].copy()
+    unflagged['net_val'] = unflagged['amount'] * (1 - unflagged['discount_rate'])
+    pandas_res = unflagged.groupby(['category', 'city'], observed=False).agg(
+        total_tx=('transaction_id', 'count'),
+        total_revenue=('net_val', 'sum'),
+        avg_amount=('amount', 'mean')
+    ).reset_index().sort_values('total_revenue', ascending=False)
+    pandas_time = time.perf_counter() - start
+    print(f"  Pandas GroupBy Pipeline : {pandas_time:.4f}s  (groups: {len(pandas_res)})")
+
+    # DuckDB SQL Pipeline
+    start = time.perf_counter()
+    duck_res = duckdb.query("""
+        SELECT 
+            category,
+            city,
+            COUNT(transaction_id) AS total_tx,
+            SUM(amount * (1 - discount_rate)) AS total_revenue,
+            AVG(amount) AS avg_amount
+        FROM df
+        WHERE is_flagged = False
+        GROUP BY category, city
+        ORDER BY total_revenue DESC
+    """).df()
+    duck_time = time.perf_counter() - start
+    print(f"  DuckDB SQL Pipeline     : {duck_time:.4f}s  (groups: {len(duck_res)})")
+
+    speedup = pandas_time / duck_time if duck_time > 0 else float('inf')
+    print(f"\n  [RESULTS] DuckDB vs Pandas Speedup: {speedup:.2f}x faster")
+
+    return {
+        'pandas_groupby_sec': round(pandas_time, 4),
+        'duckdb_groupby_sec': round(duck_time, 4),
+        'duckdb_speedup_factor': round(speedup, 2),
+    }
+
+
 if __name__ == "__main__":
     print("=" * 75)
     print("  DAY 32: BIG DATA STORAGE FORMATS & DUCKDB IN-MEMORY SQL ANALYTICS")
@@ -274,4 +405,7 @@ if __name__ == "__main__":
     csv_pq_stats = benchmark_csv_vs_parquet_io(df_transactions)
     feather_stats = benchmark_feather_io(df_transactions)
     codec_stats = compare_compression_codecs(df_transactions)
+    duck_query_stats = benchmark_duckdb_sql_queries(df_transactions)
+    duck_vs_pd_stats = benchmark_duckdb_vs_pandas_groupby(df_transactions)
+
 
