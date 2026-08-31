@@ -395,6 +395,167 @@ def benchmark_duckdb_vs_pandas_groupby(df: pd.DataFrame) -> Dict[str, float]:
     }
 
 
+
+# ---------------------------------------------------------------------------
+# 5. SQLITE RELATIONAL DATABASE BENCHMARKS
+# ---------------------------------------------------------------------------
+
+def benchmark_sqlite_io(df: pd.DataFrame) -> Dict[str, float]:
+    """
+    Benchmarks SQLite database write, query, and index-accelerated lookups.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+
+    Returns:
+        Dict[str, float]: Timing and database size stats.
+    """
+    print("\n[INFO] Benchmark 6 — SQLite Relational Database I/O & Indexing:")
+    data_dir = ensure_data_dir()
+    db_path = os.path.join(data_dir, "transactions.db")
+
+    if os.path.exists(db_path):
+        os.remove(db_path)
+
+    conn = sqlite3.connect(db_path)
+
+    # Convert categoricals back to string for sqlite compatibility
+    df_sqlite = df.copy()
+    for col in df_sqlite.select_dtypes(include=['category']).columns:
+        df_sqlite[col] = df_sqlite[col].astype(str)
+
+    # Write to SQLite
+    start = time.perf_counter()
+    df_sqlite.to_sql('transactions', conn, if_exists='replace', index=False)
+    write_time = time.perf_counter() - start
+    db_size_mb = os.path.getsize(db_path) / (1024 ** 2)
+    print(f"  SQLite Write   : {write_time:.4f}s  | Database Size: {db_size_mb:.2f} MB")
+
+    # Unindexed query lookup
+    start = time.perf_counter()
+    _ = pd.read_sql_query("SELECT * FROM transactions WHERE customer_id = 25000", conn)
+    unindexed_query_time = time.perf_counter() - start
+    print(f"  Unindexed Query: {unindexed_query_time:.4f}s")
+
+    # Create Index
+    start = time.perf_counter()
+    conn.execute("CREATE INDEX idx_customer_id ON transactions (customer_id);")
+    conn.commit()
+    index_create_time = time.perf_counter() - start
+
+    # Indexed query lookup
+    start = time.perf_counter()
+    _ = pd.read_sql_query("SELECT * FROM transactions WHERE customer_id = 25000", conn)
+    indexed_query_time = time.perf_counter() - start
+    print(f"  Indexed Query  : {indexed_query_time:.4f}s  (index creation: {index_create_time:.4f}s)")
+
+    conn.close()
+
+    idx_speedup = unindexed_query_time / indexed_query_time if indexed_query_time > 0 else float('inf')
+    print(f"\n  [RESULTS] SQLite B-Tree Index Speedup: {idx_speedup:.2f}x faster")
+
+    return {
+        'sqlite_write_sec': round(write_time, 4),
+        'sqlite_db_size_mb': round(db_size_mb, 2),
+        'sqlite_unindexed_query_sec': round(unindexed_query_time, 4),
+        'sqlite_indexed_query_sec': round(indexed_query_time, 4),
+        'sqlite_index_speedup': round(idx_speedup, 2),
+    }
+
+
+# ---------------------------------------------------------------------------
+# 6. EXECUTIVE PERFORMANCE SUMMARY REPORT
+# ---------------------------------------------------------------------------
+
+def generate_performance_report(
+    csv_pq_stats: Dict[str, float],
+    feather_stats: Dict[str, float],
+    codec_stats: List[Dict],
+    duck_query_stats: Dict[str, float],
+    duck_vs_pd_stats: Dict[str, float],
+    sqlite_stats: Dict[str, float],
+) -> None:
+    """
+    Prints a formatted consolidated performance report summarizing storage
+    efficiency and query execution across all storage formats and SQL engines.
+    """
+    sep = "=" * 78
+    print(f"\n{sep}")
+    print("  DAY 32: STORAGE FORMATS & DUCKDB SQL — CONSOLIDATED BENCHMARK REPORT")
+    print(sep)
+
+    print("\n  1. FILE STORAGE & COMPRESSION EFFICENCY (1,000,000 Rows)")
+    print(f"     CSV (Plain Text)     : Size: {csv_pq_stats['csv_size_mb']:>7.2f} MB | Read: {csv_pq_stats['csv_read_sec']:>6.4f}s | Write: {csv_pq_stats['csv_write_sec']:>6.4f}s")
+    print(f"     Parquet (Snappy)     : Size: {csv_pq_stats['parquet_size_mb']:>7.2f} MB | Read: {csv_pq_stats['parquet_read_sec']:>6.4f}s | Write: {csv_pq_stats['parquet_write_sec']:>6.4f}s")
+    print(f"     Feather (Uncompressed): Size: {feather_stats['feather_uncomp_size_mb']:>7.2f} MB | Read: {feather_stats['feather_uncomp_read_sec']:>6.4f}s | Write: {feather_stats['feather_uncomp_write_sec']:>6.4f}s")
+    print(f"     Feather (ZSTD)       : Size: {feather_stats['feather_zstd_size_mb']:>7.2f} MB | Read: {feather_stats['feather_zstd_read_sec']:>6.4f}s | Write: {feather_stats['feather_zstd_write_sec']:>6.4f}s")
+    print(f"     SQLite Database      : Size: {sqlite_stats['sqlite_db_size_mb']:>7.2f} MB | Write: {sqlite_stats['sqlite_write_sec']:>6.4f}s")
+
+    print("\n  2. PARQUET COMPRESSION CODEC BREAKDOWN")
+    for c in codec_stats:
+        print(f"     - Codec {c['codec']:<7} : File Size: {c['file_size_mb']:>6.2f} MB | Write: {c['write_sec']:>6.4f}s | Read: {c['read_sec']:>6.4f}s | Ratio: {c['compression_ratio']:>4.2f}x")
+
+    print("\n  3. DUCKDB IN-MEMORY VECTORIZED SQL ENGINE PERFORMANCE")
+    print(f"     - SQL Aggregation on Pandas DataFrame : {duck_query_stats['duckdb_df_sql_sec']:.4f}s")
+    print(f"     - SQL Window Function (DENSE_RANK)    : {duck_query_stats['duckdb_window_sql_sec']:.4f}s")
+    print(f"     - Direct SQL Query on Parquet File    : {duck_query_stats['duckdb_parquet_sql_sec']:.4f}s")
+    print(f"     - DuckDB vs Pandas GroupBy Speedup   : {duck_vs_pd_stats['duckdb_speedup_factor']:.2f}x faster")
+
+    print("\n  4. ARCHITECTURAL RECOMMENDATIONS & BEST PRACTICES")
+    print("     • Cold Storage & Data Lakes    → Apache Parquet + ZSTD / Snappy (76%+ RAM/disk savings)")
+    print("     • Inter-Process & Fast Caching → Arrow Feather Uncompressed (Sub-0.05s read speed)")
+    print("     • Interactive SQL Analytics    → DuckDB over Pandas/Parquet (Vectorized C++ Execution)")
+    print("     • Transactional/Embedded Apps  → SQLite with B-Tree Indexes")
+    print(f"\n{sep}")
+
+
+# ---------------------------------------------------------------------------
+# 7. EXPORT BENCHMARK RESULTS TO CSV
+# ---------------------------------------------------------------------------
+
+def save_benchmark_results_to_csv(
+    csv_pq_stats: Dict[str, float],
+    feather_stats: Dict[str, float],
+    codec_stats: List[Dict],
+    duck_query_stats: Dict[str, float],
+    duck_vs_pd_stats: Dict[str, float],
+    sqlite_stats: Dict[str, float],
+    output_filename: str = "benchmark_results_day32.csv"
+) -> str:
+    """
+    Serializes all timing, file size, and speedup metrics to a CSV artifact.
+    """
+    records = []
+
+    def _add(category: str, metric: str, value: float):
+        records.append({'category': category, 'metric': metric, 'value': value})
+
+    for k, v in csv_pq_stats.items():
+        _add('csv_vs_parquet', k, v)
+    for k, v in feather_stats.items():
+        _add('feather_format', k, v)
+    for c in codec_stats:
+        for k, v in c.items():
+            if k != 'codec':
+                _add(f"parquet_codec_{c['codec'].lower()}", k, v)
+    for k, v in duck_query_stats.items():
+        _add('duckdb_sql_queries', k, v)
+    for k, v in duck_vs_pd_stats.items():
+        _add('duckdb_vs_pandas', k, v)
+    for k, v in sqlite_stats.items():
+        _add('sqlite_benchmarks', k, v)
+
+    df_results = pd.DataFrame(records)
+    out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), output_filename)
+    df_results.to_csv(out_path, index=False)
+    print(f"\n[SUCCESS] Benchmark metrics exported → {out_path} ({len(df_results)} metric rows)")
+    return out_path
+
+
+# ---------------------------------------------------------------------------
+# MAIN EXECUTION PIPELINE
+# ---------------------------------------------------------------------------
+
 if __name__ == "__main__":
     print("=" * 75)
     print("  DAY 32: BIG DATA STORAGE FORMATS & DUCKDB IN-MEMORY SQL ANALYTICS")
@@ -402,10 +563,38 @@ if __name__ == "__main__":
     print("=" * 75)
 
     df_transactions = generate_transaction_data(rows=1_000_000)
+
+    # Storage & Format Benchmarks
     csv_pq_stats = benchmark_csv_vs_parquet_io(df_transactions)
     feather_stats = benchmark_feather_io(df_transactions)
     codec_stats = compare_compression_codecs(df_transactions)
+
+    # DuckDB SQL Analytics Benchmarks
     duck_query_stats = benchmark_duckdb_sql_queries(df_transactions)
     duck_vs_pd_stats = benchmark_duckdb_vs_pandas_groupby(df_transactions)
+
+    # SQLite Relational Database Benchmarks
+    sqlite_stats = benchmark_sqlite_io(df_transactions)
+
+    # Consolidated Executive Report
+    generate_performance_report(
+        csv_pq_stats=csv_pq_stats,
+        feather_stats=feather_stats,
+        codec_stats=codec_stats,
+        duck_query_stats=duck_query_stats,
+        duck_vs_pd_stats=duck_vs_pd_stats,
+        sqlite_stats=sqlite_stats,
+    )
+
+    # Export Benchmark Results
+    save_benchmark_results_to_csv(
+        csv_pq_stats=csv_pq_stats,
+        feather_stats=feather_stats,
+        codec_stats=codec_stats,
+        duck_query_stats=duck_query_stats,
+        duck_vs_pd_stats=duck_vs_pd_stats,
+        sqlite_stats=sqlite_stats,
+    )
+
 
 

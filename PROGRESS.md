@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 2 — Data Manipulation & Visualization |
-| **Current Day** | Day 31 |
-| **Days Completed** | 31 / 100 |
-| **Progress** | 31% |
-| **Current Streak** | 31 Days |
-| **Latest Topic** | High-Performance Data Processing with Pandas |
+| **Current Day** | Day 32 |
+| **Days Completed** | 32 / 100 |
+| **Progress** | 32% |
+| **Current Streak** | 32 Days |
+| **Latest Topic** | Modern Big Data Storage Formats (Parquet, Feather, SQLite) & DuckDB In-Memory SQL Analytics |
 | **Status** | 🟢 On Track |
 
 ---
@@ -64,6 +64,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **29** | 2026-08-24 | Phase 2 | Window Functions, Moving Averages & Financial Technical Indicators | Implemented GBM multi-asset financial simulation, rolling/expanding transformations, RSI, MACD, Bollinger Bands, ATR, Sharpe ratio, and anomaly signal detection. | ✅ |
 | **30** | 2026-08-25 | Phase 2 | Interactive Data Visualization Dashboards with Plotly | Built synthetic e-commerce data pipeline, created interactive Plotly Express scatter/line plots, Sunburst charts, Plotly Graph Objects dropdown menus (updatemenus), histograms, density heatmaps, interactive range sliders, and complex multi-metric executive dashboard subplots. | ✅ |
 | **31** | 2026-08-29 | Phase 2 | High-Performance Data Processing with Pandas | Benchmarked boolean masking vs pd.query(), standard math vs pd.eval(), row-wise apply vs np.where/NumPy vectorization (619× speedup). Implemented dtype downcasting & category conversion for 82% memory reduction (718 MB → 128 MB). Added chunked CSV I/O, groupby strategy comparisons (agg/transform/apply), sorting & index-based lookup benchmarks, and CSV export of all results. | ✅ |
+| **32** | 2026-08-31 | Phase 2 | Modern Big Data Storage Formats (Parquet, Feather, SQLite) & DuckDB SQL Analytics | Benchmarked CSV vs Parquet (76.8% size saving, 20.5x read speedup) & Feather V2 formats. Compared Parquet codecs (Snappy, GZIP, ZSTD). Implemented DuckDB zero-copy SQL queries (6.05x faster than Pandas GroupBy) and SQLite B-tree index lookup (65.4x speedup). Exported benchmark results artifact. | ✅ |
 
 ---
 
@@ -81,30 +82,30 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Days 17–19** — Pandas Series/DataFrames, selection, filtering, and data cleaning
 - [x] **Days 20–21** — House-price EDA, feature engineering, and ML pipeline
 - [x] **Days 22–28** — Data visualization, GroupBy/aggregation, merging, joining, reshaping, time-series analysis, outlier detection, Seaborn dashboards & vectorized datetime/text regex pipelines
-- [x] **Days 29–31** — Financial technical indicators, interactive Plotly dashboards, and high-performance Pandas optimization
-- [ ] **Days 32–35** — Complete Phase 2 data manipulation and visualization goals
+- [x] **Days 29–32** — Financial technical indicators, interactive Plotly dashboards, high-performance Pandas optimization, big data storage formats (Parquet/Feather/SQLite), and DuckDB SQL analytics
+- [ ] **Days 33–35** — Complete Phase 2 data manipulation and visualization goals
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 31 / 100 Days
+Completed: 32 / 100 Days
 
-████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 31%
+█████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 32%
 ```
 
 ### Current Position
 
-**Day 31 — High-Performance Data Processing with Pandas** ✅
+**Day 32 — Modern Big Data Storage Formats (Parquet, Feather, SQLite) & DuckDB In-Memory SQL Analytics** ✅
 
-The challenge has progressed from Python fundamentals and NumPy through Pandas data manipulation, data quality auditing, outlier treatment, feature encoding, time series analysis, advanced statistical visualization, Seaborn dashboards, vectorized text/datetime pipelines, interactive Plotly dashboards, and now into **high-performance Pandas engineering** — covering dtype optimization, vectorization patterns, chunked I/O, groupby strategies, and benchmark-driven code decisions.
+The challenge has progressed from Python fundamentals and NumPy through Pandas data manipulation, data quality auditing, outlier treatment, feature encoding, time series analysis, advanced statistical visualization, Seaborn dashboards, vectorized text/datetime pipelines, interactive Plotly dashboards, high-performance Pandas optimization, and now into **modern big data storage formats and vectorized SQL analytics** — covering CSV vs Parquet/Feather compression, Parquet codecs (Snappy, GZIP, ZSTD), DuckDB zero-copy SQL queries over DataFrames/files, and SQLite B-tree indexing.
 
 ---
 
 ## 🚀 Next Goals
 
-1. Continue **Day 32** with the next advanced Phase 2 topic.
+1. Continue **Day 33** with the next advanced Phase 2 topic.
 2. Maintain the daily learning streak.
 3. Commit each day's work with clear and professional Git messages.
 4. Keep code, notes, and exercises organized.
@@ -114,7 +115,7 @@ The challenge has progressed from Python fundamentals and NumPy through Pandas d
 
 ## 🏆 Challenge Status
 
-> **31 / 100 Days Completed — 31% Progress**
+> **32 / 100 Days Completed — 32% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
