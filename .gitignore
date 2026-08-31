@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Data & Benchmark artifacts generated at runtime
+*.parquet
+*.feather
+*.csv
+*.db
+*.sqlite
+storage_benchmarks/
+output/
+
+# Environments
+.venv
+venv/
+ENV/
