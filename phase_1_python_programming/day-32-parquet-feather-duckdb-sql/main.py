@@ -155,6 +155,115 @@ def benchmark_csv_vs_parquet_io(df: pd.DataFrame) -> Dict[str, float]:
     }
 
 
+
+# ---------------------------------------------------------------------------
+# 3. FEATHER FORMAT & PARQUET COMPRESSION CODEC BENCHMARKS
+# ---------------------------------------------------------------------------
+
+def benchmark_feather_io(df: pd.DataFrame) -> Dict[str, float]:
+    """
+    Benchmarks Arrow Feather V2 format for ultra-fast IPC & in-memory layout storage.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+
+    Returns:
+        Dict[str, float]: Performance metrics for Feather format.
+    """
+    print("\n[INFO] Benchmark 2 — Arrow Feather V2 Format I/O:")
+    data_dir = ensure_data_dir()
+
+    uncompressed_path = os.path.join(data_dir, "transactions_uncompressed.feather")
+    zstd_path = os.path.join(data_dir, "transactions_zstd.feather")
+
+    # Uncompressed Feather
+    start = time.perf_counter()
+    feather.write_feather(df, uncompressed_path, compression='uncompressed')
+    feather_uncomp_write = time.perf_counter() - start
+    feather_uncomp_size = os.path.getsize(uncompressed_path) / (1024 ** 2)
+
+    start = time.perf_counter()
+    _ = feather.read_feather(uncompressed_path)
+    feather_uncomp_read = time.perf_counter() - start
+
+    print(f"  Feather (Uncompressed) Write: {feather_uncomp_write:.4f}s | Read: {feather_uncomp_read:.4f}s | Size: {feather_uncomp_size:.2f} MB")
+
+    # ZSTD Compressed Feather
+    start = time.perf_counter()
+    feather.write_feather(df, zstd_path, compression='zstd')
+    feather_zstd_write = time.perf_counter() - start
+    feather_zstd_size = os.path.getsize(zstd_path) / (1024 ** 2)
+
+    start = time.perf_counter()
+    _ = feather.read_feather(zstd_path)
+    feather_zstd_read = time.perf_counter() - start
+
+    print(f"  Feather (ZSTD)         Write: {feather_zstd_write:.4f}s | Read: {feather_zstd_read:.4f}s | Size: {feather_zstd_size:.2f} MB")
+
+    return {
+        'feather_uncomp_write_sec': round(feather_uncomp_write, 4),
+        'feather_uncomp_read_sec': round(feather_uncomp_read, 4),
+        'feather_uncomp_size_mb': round(feather_uncomp_size, 2),
+        'feather_zstd_write_sec': round(feather_zstd_write, 4),
+        'feather_zstd_read_sec': round(feather_zstd_read, 4),
+        'feather_zstd_size_mb': round(feather_zstd_size, 2),
+    }
+
+
+def compare_compression_codecs(df: pd.DataFrame) -> List[Dict]:
+    """
+    Compares Parquet file size, write time, and read time across compression algorithms:
+    snappy, gzip, zstd, and NONE (uncompressed).
+
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+
+    Returns:
+        List[Dict]: Comparison breakdown for each compression codec.
+    """
+    print("\n[INFO] Benchmark 3 — Parquet Compression Codec Comparison:")
+    data_dir = ensure_data_dir()
+
+    codecs = ['snappy', 'gzip', 'zstd', 'NONE']
+    results = []
+
+    print(f"  {'Codec':<12} {'Write (s)':<12} {'Read (s)':<12} {'File Size (MB)':<16} {'Compress Ratio':<15}")
+    print(f"  {'-'*12} {'-'*12} {'-'*12} {'-'*16} {'-'*15}")
+
+    # Baseline CSV size for ratio calculation
+    csv_path = os.path.join(data_dir, "transactions.csv")
+    csv_size_mb = os.path.getsize(csv_path) / (1024 ** 2) if os.path.exists(csv_path) else 80.0
+
+    for codec in codecs:
+        out_file = os.path.join(data_dir, f"transactions_{codec.lower()}.parquet")
+        comp_arg = None if codec == 'NONE' else codec.lower()
+
+        # Write benchmark
+        start = time.perf_counter()
+        df.to_parquet(out_file, engine='pyarrow', compression=comp_arg, index=False)
+        w_time = time.perf_counter() - start
+
+        file_size_mb = os.path.getsize(out_file) / (1024 ** 2)
+        compress_ratio = csv_size_mb / file_size_mb if file_size_mb > 0 else 1.0
+
+        # Read benchmark
+        start = time.perf_counter()
+        _ = pd.read_parquet(out_file, engine='pyarrow')
+        r_time = time.perf_counter() - start
+
+        print(f"  {codec:<12} {w_time:<12.4f} {r_time:<12.4f} {file_size_mb:<16.2f} {compress_ratio:<15.2f}x")
+
+        results.append({
+            'codec': codec,
+            'write_sec': round(w_time, 4),
+            'read_sec': round(r_time, 4),
+            'file_size_mb': round(file_size_mb, 2),
+            'compression_ratio': round(compress_ratio, 2),
+        })
+
+    return results
+
+
 if __name__ == "__main__":
     print("=" * 75)
     print("  DAY 32: BIG DATA STORAGE FORMATS & DUCKDB IN-MEMORY SQL ANALYTICS")
@@ -163,3 +272,6 @@ if __name__ == "__main__":
 
     df_transactions = generate_transaction_data(rows=1_000_000)
     csv_pq_stats = benchmark_csv_vs_parquet_io(df_transactions)
+    feather_stats = benchmark_feather_io(df_transactions)
+    codec_stats = compare_compression_codecs(df_transactions)
+
