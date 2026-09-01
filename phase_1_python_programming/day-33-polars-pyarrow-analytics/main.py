@@ -148,7 +148,110 @@ def benchmark_eager_pandas_vs_polars():
     return results
 
 
+def benchmark_lazy_polars():
+    """
+    Demonstrates Polars Lazy API (pl.scan_parquet) & Query Plan Optimization:
+    1. Predicate Pushdown (filtering before scanning entire dataset into RAM).
+    2. Projection Pushdown (reading only required columns from Parquet file).
+    3. Query Explanation (.explain()) showing optimized logical plan.
+    """
+    print("\n" + "=" * 70)
+    print("🧠 BENCHMARK 2: POLARS LAZY API & QUERY OPTIMIZATION")
+    print("=" * 70)
+
+    # Construct Lazy Computation Graph
+    lazy_plan = (
+        pl.scan_parquet(PARQUET_FILE)
+        .filter((pl.col("risk_score") > 0.85) & (pl.col("is_fraud") == 1))
+        .select(["category", "payment_method", "amount", "risk_score"])
+        .group_by(["category", "payment_method"])
+        .agg([
+            pl.col("amount").sum().alias("total_fraud_volume"),
+            pl.col("amount").mean().alias("avg_fraud_amount"),
+            pl.col("risk_score").max().alias("max_fraud_score"),
+            pl.len().alias("high_risk_fraud_count"),
+        ])
+        .sort("total_fraud_volume", descending=True)
+    )
+
+    print("\n🔍 Logical & Optimized Query Plan (.explain()):")
+    print("-" * 50)
+    print(lazy_plan.explain())
+    print("-" * 50)
+
+    # Execute Lazy Query
+    gc.collect()
+    t0 = time.perf_counter()
+    lazy_result = lazy_plan.collect()
+    t_lazy = time.perf_counter() - t0
+
+    # Equivalent Pandas scan + process for comparison
+    gc.collect()
+    t0 = time.perf_counter()
+    pd_df = pd.read_parquet(PARQUET_FILE, columns=["category", "payment_method", "amount", "risk_score", "is_fraud"])
+    pd_filtered = pd_df[(pd_df["risk_score"] > 0.85) & (pd_df["is_fraud"] == 1)]
+    pd_res = pd_filtered.groupby(["category", "payment_method"]).agg(
+        total_fraud_volume=("amount", "sum"),
+        avg_fraud_amount=("amount", "mean"),
+        max_fraud_score=("risk_score", "max"),
+        high_risk_fraud_count=("amount", "count")
+    ).sort_values(by="total_fraud_volume", ascending=False)
+    t_pd_lazy_equiv = time.perf_counter() - t0
+
+    lazy_speedup = t_pd_lazy_equiv / t_lazy
+    print(f"⚡ Polars Lazy Execution Time : {t_lazy:.4f} seconds")
+    print(f"🐢 Pandas Equivalent Scan Time : {t_pd_lazy_equiv:.4f} seconds")
+    print(f"🚀 Lazy Query Engine Speedup   : {lazy_speedup:.2f}x faster than Pandas")
+
+    return {"Polars_Lazy": t_lazy, "Pandas_Equiv": t_pd_lazy_equiv, "Speedup": lazy_speedup}
+
+
+def benchmark_pyarrow_interop():
+    """
+    Evaluates zero-copy PyArrow memory bridge and inter-operability between
+    PyArrow Tables, Polars DataFrames, and Pandas DataFrames.
+    """
+    print("\n" + "=" * 70)
+    print("🏹 BENCHMARK 3: PYARROW ZERO-COPY MEMORY INTEROPERABILITY")
+    print("=" * 70)
+
+    # Load PyArrow Table directly from Parquet
+    t0 = time.perf_counter()
+    pa_table = pq.read_table(PARQUET_FILE)
+    t_pa_read = time.perf_counter() - t0
+
+    # PyArrow -> Polars (Zero-Copy Memory Pointer Sharing)
+    t0 = time.perf_counter()
+    pl_from_arrow = pl.from_arrow(pa_table)
+    t_pa_to_pl = time.perf_counter() - t0
+
+    # Polars -> PyArrow (Zero-Copy)
+    t0 = time.perf_counter()
+    pa_from_pl = pl_from_arrow.to_arrow()
+    t_pl_to_pa = time.perf_counter() - t0
+
+    # Polars -> Pandas
+    t0 = time.perf_counter()
+    pd_from_pl = pl_from_arrow.to_pandas()
+    t_pl_to_pd = time.perf_counter() - t0
+
+    print(f"📦 PyArrow Read Table Time         : {t_pa_read:.4f}s")
+    print(f"🔄 PyArrow Table -> Polars DataFrame : {t_pa_to_pl:.6f}s (Zero-Copy Instant Bridge)")
+    print(f"🔄 Polars DataFrame -> PyArrow Table : {t_pl_to_pa:.6f}s (Zero-Copy Instant Bridge)")
+    print(f"🔄 Polars -> Pandas DataFrame       : {t_pl_to_pd:.4f}s")
+
+    return {
+        "PyArrow_Read": t_pa_read,
+        "PyArrow_to_Polars": t_pa_to_pl,
+        "Polars_to_PyArrow": t_pl_to_pa,
+        "Polars_to_Pandas": t_pl_to_pd,
+    }
+
+
 if __name__ == "__main__":
     print("🔥 Starting Day 33: Polars & PyArrow Analytics Engine Benchmarks...")
     file_size = generate_synthetic_transactions(num_rows=2_000_000)
     eager_results = benchmark_eager_pandas_vs_polars()
+    lazy_results = benchmark_lazy_polars()
+    arrow_results = benchmark_pyarrow_interop()
+
