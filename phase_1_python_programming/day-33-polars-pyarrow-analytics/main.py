@@ -237,9 +237,6 @@ def benchmark_pyarrow_interop():
 
     print(f"📦 PyArrow Read Table Time         : {t_pa_read:.4f}s")
     print(f"🔄 PyArrow Table -> Polars DataFrame : {t_pa_to_pl:.6f}s (Zero-Copy Instant Bridge)")
-    print(f"🔄 Polars DataFrame -> PyArrow Table : {t_pl_to_pa:.6f}s (Zero-Copy Instant Bridge)")
-    print(f"🔄 Polars -> Pandas DataFrame       : {t_pl_to_pd:.4f}s")
-
     return {
         "PyArrow_Read": t_pa_read,
         "PyArrow_to_Polars": t_pa_to_pl,
@@ -248,10 +245,132 @@ def benchmark_pyarrow_interop():
     }
 
 
+def benchmark_window_expressions_and_streaming():
+    """
+    Demonstrates advanced Polars Window Expressions (.over()) and Streaming Execution:
+    1. Multi-Partition Window Expressions (User ranking, cumulative spending, relative ratio).
+    2. Polars Out-Of-Core Streaming Engine (collect(streaming=True)) for datasets larger than RAM.
+    """
+    print("\n" + "=" * 70)
+    print("🪟 BENCHMARK 4: POLARS WINDOW EXPRESSIONS (.over()) & STREAMING ENGINE")
+    print("=" * 70)
+
+    # Polars Window Expressions
+    gc.collect()
+    t0 = time.perf_counter()
+    df_pl = pl.read_parquet(PARQUET_FILE)
+    df_windowed = df_pl.with_columns(
+        # Rank user transactions by amount within each user_id partition
+        pl.col("amount").rank(descending=True).over("user_id").alias("user_txn_rank"),
+        # Cumulative sum of amounts per user_id over time
+        pl.col("amount").cum_sum().over("user_id").alias("user_cum_spend"),
+        # Ratio of amount compared to category mean
+        (pl.col("amount") / pl.col("amount").mean().over("category")).alias("amount_vs_category_avg")
+    )
+    t_pl_window = time.perf_counter() - t0
+
+    # Equivalent Pandas transform / groupby windowing
+    gc.collect()
+    t0 = time.perf_counter()
+    df_pd = pd.read_parquet(PARQUET_FILE)
+    df_pd["user_txn_rank"] = df_pd.groupby("user_id")["amount"].rank(ascending=False)
+    df_pd["user_cum_spend"] = df_pd.groupby("user_id")["amount"].cumsum()
+    df_pd["category_avg"] = df_pd.groupby("category")["amount"].transform("mean")
+    df_pd["amount_vs_category_avg"] = df_pd["amount"] / df_pd["category_avg"]
+    t_pd_window = time.perf_counter() - t0
+
+    speedup_window = t_pd_window / t_pl_window
+    print(f"🪟 Window Expressions (.over()) : Pandas={t_pd_window:.4f}s | Polars={t_pl_window:.4f}s | Speedup={speedup_window:.2f}x")
+
+    # Streaming Engine Execution
+    gc.collect()
+    t0 = time.perf_counter()
+    streaming_res = (
+        pl.scan_parquet(PARQUET_FILE)
+        .filter(pl.col("risk_score") > 0.50)
+        .group_by(["category", "payment_method"])
+        .agg(pl.col("amount").mean().alias("avg_amount"))
+        .collect(engine="streaming")
+    )
+    t_streaming = time.perf_counter() - t0
+    print(f"🌊 Polars Streaming Engine Time : {t_streaming:.4f} seconds (Out-Of-Core Chunk Processing)")
+
+    return {
+        "Polars_Window": t_pl_window,
+        "Pandas_Window": t_pd_window,
+        "Window_Speedup": speedup_window,
+        "Streaming_Time": t_streaming,
+    }
+
+
+def export_summary_report(file_size_mb, eager_res, lazy_res, arrow_res, window_res):
+    """
+    Generates a structured markdown benchmark report artifact: POLARS_BENCHMARK_REPORT.md
+    """
+    report_content = f"""# 🚀 Day 33 Performance Report: Polars & PyArrow Analytics Engine
+
+## 📌 Executive Summary
+This report details performance benchmarks between **Pandas (Eager)**, **Polars (Eager & Lazy Mode)**, and **PyArrow Zero-Copy In-Memory Bridge** on a synthetic dataset of **2,000,000 financial transactions** ({file_size_mb:.2f} MB Parquet).
+
+---
+
+## 📊 Benchmark Results
+
+### 1. Eager API Execution Comparison
+| Benchmark Task | Pandas Execution (s) | Polars Execution (s) | Speedup Factor |
+| :--- | :---: | :---: | :---: |
+| **Parquet Load Time** | `{eager_res['Read Parquet']['Pandas']:.4f}s` | `{eager_res['Read Parquet']['Polars']:.4f}s` | **`{eager_res['Read Parquet']['Speedup']:.2f}x`** |
+| **Filtered Multi-Column GroupBy** | `{eager_res['Filter & GroupBy']['Pandas']:.4f}s` | `{eager_res['Filter & GroupBy']['Polars']:.4f}s` | **`{eager_res['Filter & GroupBy']['Speedup']:.2f}x`** |
+| **Vectorized Multi-Column Expressions** | `{eager_res['Vectorized Expressions']['Pandas']:.4f}s` | `{eager_res['Vectorized Expressions']['Polars']:.4f}s` | **`{eager_res['Vectorized Expressions']['Speedup']:.2f}x`** |
+
+---
+
+### 2. Lazy Engine & Query Plan Optimization
+Polars Lazy API (`pl.scan_parquet`) optimizes execution via **Predicate Pushdown** (filtering at file-scan level) and **Projection Pushdown** (loading only requested columns).
+
+- **Pandas Full Scan & Aggregation**: `{lazy_res['Pandas_Equiv']:.4f} seconds`
+- **Polars Optimized Lazy Query**: `{lazy_res['Polars_Lazy']:.4f} seconds`
+- **Lazy Engine Speedup**: **`{lazy_res['Speedup']:.2f}x faster than Pandas`**
+
+---
+
+### 3. Window Expressions (`.over()`) & Streaming Engine
+Polars provides high-speed window functions without expensive explicit `groupby().transform()` calls.
+
+- **Pandas Windowing (`transform` / `cumsum`)**: `{window_res['Pandas_Window']:.4f} seconds`
+- **Polars Windowing (`.over()`)**: `{window_res['Polars_Window']:.4f} seconds`
+- **Window Speedup**: **`{window_res['Window_Speedup']:.2f}x`**
+- **Polars Streaming Engine (`collect(streaming=True)`)**: `{window_res['Streaming_Time']:.4f} seconds`
+
+---
+
+### 4. Apache Arrow Zero-Copy Interoperability
+- **PyArrow Read Table**: `{arrow_res['PyArrow_Read']:.4f}s`
+- **PyArrow -> Polars**: `{arrow_res['PyArrow_to_Polars']:.6f}s` *(Zero-Copy Memory Pointer Sharing)*
+- **Polars -> PyArrow**: `{arrow_res['Polars_to_PyArrow']:.6f}s` *(Zero-Copy Memory Pointer Sharing)*
+- **Polars -> Pandas**: `{arrow_res['Polars_to_Pandas']:.4f}s`
+
+---
+
+## 💡 Key Takeaways & Architecture Insights
+1. **Rust Engine & SIMD Vectorization**: Polars compiles expressions directly into optimized Rust machine code with SIMD parallelization.
+2. **Apache Arrow Layout**: Polars uses Apache Arrow contiguous column-oriented memory, eliminating copying costs.
+3. **Query Optimization**: `pl.scan_parquet` inspects the query tree before execution, minimizing disk I/O and CPU memory allocation.
+"""
+
+    with open(REPORT_FILE, "w") as f:
+        f.write(report_content)
+
+    print(f"\n📝 Successfully generated benchmark report: {REPORT_FILE}")
+
+
 if __name__ == "__main__":
     print("🔥 Starting Day 33: Polars & PyArrow Analytics Engine Benchmarks...")
     file_size = generate_synthetic_transactions(num_rows=2_000_000)
     eager_results = benchmark_eager_pandas_vs_polars()
     lazy_results = benchmark_lazy_polars()
     arrow_results = benchmark_pyarrow_interop()
+    window_results = benchmark_window_expressions_and_streaming()
+    export_summary_report(file_size, eager_results, lazy_results, arrow_results, window_results)
+
 
