@@ -41,7 +41,7 @@ class EnterpriseAnalyticsEngine:
         self.rfm_df: pl.DataFrame = None
         self.psi_metrics: Dict[str, Any] = {}
 
-    def load_and_clean_data() -> pl.DataFrame:
+    def load_and_clean_data(self) -> pl.DataFrame:
         """
         Loads multi-source raw files using Polars eager evaluation and applies
         automated data cleaning rules:

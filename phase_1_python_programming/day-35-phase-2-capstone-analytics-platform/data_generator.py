@@ -105,7 +105,7 @@ def generate_product_catalog(num_products: int = 250) -> pd.DataFrame:
 def generate_transactions(
     num_orders: int,
     customer_ids: list,
-    product_ids: list,
+    products_df: pd.DataFrame,
     start_date: datetime,
     end_date: datetime
 ) -> pd.DataFrame:
@@ -122,6 +122,8 @@ def generate_transactions(
     
     time_span_seconds = int((end_date - start_date).total_seconds())
 
+    product_list = products_df.to_dict(orient='records')
+
     transactions = []
     for oid in range(100001, 100001 + num_orders):
         # Generate random timestamp with peak hours simulation
@@ -130,10 +132,13 @@ def generate_transactions(
 
         # Inject ~2% missing customer IDs for unlinked checkouts
         cust_id = random.choice(customer_ids) if random.random() > 0.02 else None
-        prod_id = random.choice(product_ids)
+        prod = random.choice(product_list)
+        prod_id = prod['product_id']
+        msrp = prod['msrp']
         
-        quantity = np.random.negative_binomial(1, 0.4) + 1  # Skewed small purchase quantities
-        unit_price = round(float(np.random.lognormal(mean=3.5, sigma=0.8)), 2)
+        quantity = int(np.random.negative_binomial(1, 0.4) + 1)  # Skewed small purchase quantities
+        # Price fluctuation around MSRP (+/- 10%)
+        unit_price = round(float(msrp * random.uniform(0.90, 1.10)), 2)
         
         # Inject occasional extreme pricing outlier anomaly (~0.1%)
         if random.random() < 0.001:
@@ -152,7 +157,7 @@ def generate_transactions(
             "transaction_timestamp": txn_timestamp.strftime("%Y-%m-%d %H:%M:%S"),
             "customer_id": cust_id,
             "product_id": prod_id,
-            "quantity": int(quantity),
+            "quantity": quantity,
             "unit_price": unit_price,
             "discount_rate": discount_rate,
             "gross_amount": gross_amount,
@@ -243,7 +248,7 @@ def build_enterprise_datalake(output_dir: str) -> dict:
     df_txn_baseline = generate_transactions(
         num_orders=35000,
         customer_ids=customer_ids,
-        product_ids=product_ids,
+        products_df=df_products,
         start_date=datetime(2025, 1, 1),
         end_date=datetime(2025, 12, 31)
     )
@@ -255,7 +260,7 @@ def build_enterprise_datalake(output_dir: str) -> dict:
     df_txn_current = generate_transactions(
         num_orders=50000,
         customer_ids=customer_ids,
-        product_ids=product_ids,
+        products_df=df_products,
         start_date=datetime(2026, 1, 1),
         end_date=datetime(2026, 8, 31)
     )
