@@ -10,6 +10,7 @@ __pycache__/
 *.json
 *.db
 *.sqlite
+*.duckdb
 storage_benchmarks/
 output/
 
