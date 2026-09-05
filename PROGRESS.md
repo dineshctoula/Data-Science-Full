@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 36 |
-| **Days Completed** | 36 / 100 |
-| **Progress** | 36% |
-| **Current Streak** | 36 Days |
-| **Latest Topic** | Linear Algebra: Vectors, Matrices & Geometric Transformations |
+| **Current Day** | Day 37 |
+| **Days Completed** | 37 / 100 |
+| **Progress** | 37% |
+| **Current Streak** | 37 Days |
+| **Latest Topic** | Determinants, Matrix Inverses & Vector Spaces |
 | **Status** | 🟢 On Track |
 
 ---
@@ -69,6 +69,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **34** | 2026-09-02 | Phase 2 | Automated Data Quality Auditing, Statistical Drift Detection & Modular Multi-Stage ETL Pipeline | Implemented multi-source synthetic ingestion, object-oriented schema validation, null threshold enforcement, PSI statistical distribution drift detection, automated anomaly remediation (imputation, string normalization), feature engineering, Parquet Data Mart & DuckDB analytical staging database. | ✅ |
 | **35** | 2026-09-03 | Phase 2 | Phase 2 Grand Capstone: Enterprise Multi-Source Analytics, RFM Engine & Interactive Executive Dashboard Platform | Multi-source datalake ingestion (Parquet, JSON CRM, CSV Clickstream & Catalog). Polars & DuckDB hybrid analytics engine, automated data quality remediation, RFM customer segmentation (9 personas), PSI sales distribution drift tracking, Seaborn static visual suite, interactive Plotly HTML executive dashboard platform, and DuckDB lakehouse staging. | ✅ |
 | **36** | 2026-09-04 | Phase 3 | Linear Algebra: Vectors, Matrices & Geometric Transformations | Built OOP vector/matrix engine (Gram-Schmidt, projections, norms, cosine similarity), geometric grid transformation suite, and executive visualization suite. | ✅ |
+| **37** | 2026-09-05 | Phase 3 | Determinants, Matrix Inverses & Vector Spaces | Built a cofactor/adjugate inverse engine, invertibility diagnostics, SVD-based column/row/null/left-null space analysis, least-squares solver, and determinant area-scaling visualization. | ✅ |
 
 ---
 
@@ -90,36 +91,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 ### Phase 3 — Math & Statistics for Data Science
 
 - [x] **Day 36** — Linear Algebra: Vectors, Matrices & Geometric Transformations (Gram-Schmidt, norms, projections, linear systems $A x = b$, grid transformations)
+- [x] **Day 37** — Determinants, Matrix Inverses & Vector Spaces (cofactors, adjugates, invertibility, rank-nullity theorem, SVD subspace bases, least squares)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 36 / 100 Days
+Completed: 37 / 100 Days
 
 █████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 36%
 ```
 
 ### Current Position
 
-**Day 36 — Linear Algebra: Vectors, Matrices & Geometric Transformations** ✅
+**Day 37 — Determinants, Matrix Inverses & Vector Spaces** ✅
 
-Phase 3 of the 100-Day Data Science Challenge is officially underway! Started Math & Statistics for Data Science with a high-performance vector/matrix engine, Gram-Schmidt orthonormalization, linear system diagnostic solver, grid geometric transformation renderer, and NLP high-dimensional cosine similarity analytics suite.
+Day 37 deepened the linear algebra foundation with determinant geometry, the cofactor/adjugate route to matrix inversion, rank-based invertibility diagnostics, and SVD-derived bases for the four fundamental subspaces.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 37 topic: Determinants, Matrix Inverses, and Vector Spaces.
+2. Prepare Day 38 topic: Eigenvalues, Eigenvectors, and Matrix Diagonalization.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **36 / 100 Days Completed — 36% Progress**
+> **37 / 100 Days Completed — 37% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
