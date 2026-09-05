@@ -100,7 +100,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 ```text
 Completed: 37 / 100 Days
 
-█████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 36%
+██████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 37%
 ```
 
 ### Current Position
