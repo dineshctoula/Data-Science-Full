@@ -49,13 +49,16 @@ def run_pipeline() -> None:
     print(f"  Minimum-norm least-squares solution: {np.round(solution, 4)}")
     print(f"  Residual norm ||Bx - b||: {residual:.2e}")
 
-    print("\n4. Generating determinant geometry visualization")
-    image = DeterminantVisualizer().plot_area_scaling({
+    print("\n4. Generating determinant geometry visualizations")
+    visualizer = DeterminantVisualizer()
+    area_image = visualizer.plot_area_scaling({
         "Expansion": np.array([[2.0, 0.0], [0.0, 1.5]]),
         "Shear (area preserved)": np.array([[1.0, 1.5], [0.0, 1.0]]),
         "Singular flattening": np.array([[1.0, 1.0], [2.0, 2.0]]),
     })
-    print(f"  Saved: {image}")
+    basis_image = visualizer.plot_basis_transformation(matrix)
+    print(f"  Area scaling chart saved: {area_image}")
+    print(f"  Basis transformation chart saved: {basis_image}")
     print("\nDay 37 pipeline completed successfully.")
 
 
