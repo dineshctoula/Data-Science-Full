@@ -31,6 +31,8 @@ class MatrixSpaceEngine:
         array = np.asarray(matrix, dtype=float)
         if array.ndim != 2:
             raise ValueError("Expected a two-dimensional matrix.")
+        if 0 in array.shape:
+            raise ValueError("Expected a matrix with at least one row and column.")
         return array
 
     @staticmethod
@@ -87,6 +89,21 @@ class MatrixSpaceEngine:
         return MatrixSpaceEngine.cofactor_matrix(array).T / determinant
 
     @staticmethod
+    def verify_inverse(matrix: np.ndarray, inverse: np.ndarray, tolerance: float = 1e-10) -> bool:
+        """Return whether both products are identity matrices within tolerance."""
+        array = MatrixSpaceEngine._square(matrix)
+        inverse_array = MatrixSpaceEngine._square(inverse)
+        if array.shape != inverse_array.shape:
+            return False
+
+        identity = np.eye(array.shape[0])
+        # Checking both multiplication orders catches an incorrectly ordered adjugate.
+        return bool(
+            np.allclose(array @ inverse_array, identity, atol=tolerance)
+            and np.allclose(inverse_array @ array, identity, atol=tolerance)
+        )
+
+    @staticmethod
     def invertibility_report(matrix: np.ndarray, tolerance: float = 1e-12) -> dict[str, Any]:
         """Return numerical diagnostics for the invertible matrix theorem."""
         array = MatrixSpaceEngine._square(matrix)
@@ -111,7 +128,11 @@ class MatrixSpaceEngine:
         """
         array = MatrixSpaceEngine._as_matrix(matrix)
         u, singular_values, vt = np.linalg.svd(array, full_matrices=True)
-        rank = int(np.sum(singular_values > tolerance))
+        if tolerance <= 0:
+            raise ValueError("Tolerance must be positive.")
+        # A relative threshold remains meaningful when a matrix is rescaled.
+        cutoff = tolerance * singular_values[0] if singular_values.size else tolerance
+        rank = int(np.sum(singular_values > cutoff))
         return SubspaceAnalysis(
             rank=rank,
             column_space_basis=u[:, :rank],
@@ -124,7 +145,9 @@ class MatrixSpaceEngine:
     def solve_or_least_squares(matrix: np.ndarray, target: np.ndarray) -> tuple[np.ndarray, float]:
         """Return the least-squares solution and its residual norm."""
         array = MatrixSpaceEngine._as_matrix(matrix)
-        target_array = np.asarray(target, dtype=float)
+        target_array = np.asarray(target, dtype=float).reshape(-1)
+        if target_array.shape[0] != array.shape[0]:
+            raise ValueError("Target length must match the matrix row count.")
         solution, _, _, _ = np.linalg.lstsq(array, target_array, rcond=None)
         residual_norm = float(np.linalg.norm(array @ solution - target_array))
         return solution, residual_norm
