@@ -7,8 +7,9 @@ Connect three closely related ideas: a determinant measures signed geometric sca
 ## What I built
 
 - `matrix_space_engine.py` — cofactor-expansion determinants, minors, cofactors, adjugate inverses, invertibility diagnostics, SVD-based four-subspace analysis, and least-squares solving.
-- `visualizer.py` — a unit-square transformation chart that makes determinant area scaling visible.
-- `main.py` — an executable learning walkthrough and numerical verification suite.
+- `visualizer.py` — unit-square area-scaling and standard-basis transformation charts.
+- `main.py` — an executable learning walkthrough that generates both visual artifacts.
+- `test_matrix_space_engine.py` and `test_visualizer.py` — seven automated regression tests for numerical identities, invalid inputs, and image generation.
 
 ## Key results
 
@@ -31,8 +32,20 @@ Connect three closely related ideas: a determinant measures signed geometric sca
 ## Run it
 
 ```bash
-python3 matrix_space_engine.py
+# Run the complete learning walkthrough and generate the PNG artifacts.
 python3 main.py
+
+# Run the automated regression suite before committing changes.
+python3 -m unittest -v
 ```
 
-The complete pipeline writes `output/determinant_area_scaling.png`, comparing expansion, area-preserving shear, and singular flattening.
+The complete pipeline writes the following artifacts to `output/`:
+
+- `determinant_area_scaling.png` — compares expansion, area-preserving shear, and singular flattening.
+- `basis_transformation.png` — compares the standard basis with its image under the invertible example matrix.
+
+## Implementation notes
+
+- Rank detection uses a relative singular-value cutoff, so scaling every matrix entry by the same non-zero constant does not change the detected rank.
+- An inverse is verified in both orders (`A @ A⁻¹` and `A⁻¹ @ A`) because matrix multiplication is not generally commutative.
+- The visualizer deliberately accepts only `2 × 2` matrices: the displayed unit-square geometry is an area-based explanation rather than a misleading projection of higher-dimensional data.
