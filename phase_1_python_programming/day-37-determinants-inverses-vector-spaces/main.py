@@ -41,7 +41,8 @@ def run_pipeline() -> None:
     format_basis("Null space", spaces.null_space_basis)
     print(f"  Null-space check ||B @ N||: {np.linalg.norm(dependent_matrix @ spaces.null_space_basis):.2e}")
     print("  Rank-nullity check: rank + nullity = "
-          f"{spaces.rank} + {spaces.null_space_basis.shape[1]} = {dependent_matrix.shape[1]}")
+          f"{spaces.rank} + {spaces.nullity} = {dependent_matrix.shape[1]}")
+    print(f"  Fundamental subspace checks pass: {MatrixSpaceEngine.verify_subspaces(dependent_matrix, spaces)}")
 
     print("\n3. Exact vs. least-squares solutions")
     target = np.array([6.0, 12.0, 4.0])

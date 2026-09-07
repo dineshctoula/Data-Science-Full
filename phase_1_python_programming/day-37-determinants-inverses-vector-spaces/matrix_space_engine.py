@@ -22,6 +22,16 @@ class SubspaceAnalysis:
     null_space_basis: np.ndarray
     left_null_space_basis: np.ndarray
 
+    @property
+    def nullity(self) -> int:
+        """Return the dimension of the null space."""
+        return self.null_space_basis.shape[1]
+
+    @property
+    def left_nullity(self) -> int:
+        """Return the dimension of the left null space."""
+        return self.left_null_space_basis.shape[1]
+
 
 class MatrixSpaceEngine:
     """Analyze square matrices and their associated vector spaces."""
@@ -143,6 +153,38 @@ class MatrixSpaceEngine:
             row_space_basis=vt[:rank, :].T,
             null_space_basis=vt[rank:, :].T,
             left_null_space_basis=u[:, rank:],
+        )
+
+    @staticmethod
+    def verify_subspaces(
+        matrix: np.ndarray, analysis: SubspaceAnalysis, tolerance: float = 1e-10
+    ) -> bool:
+        """Check fundamental-subspace identities for an SVD analysis result."""
+        array = MatrixSpaceEngine._as_matrix(matrix)
+        rows, columns = array.shape
+        if tolerance <= 0:
+            raise ValueError("Tolerance must be positive.")
+        if not (0 <= analysis.rank <= min(rows, columns)):
+            return False
+        if analysis.column_space_basis.shape != (rows, analysis.rank):
+            return False
+        if analysis.row_space_basis.shape != (columns, analysis.rank):
+            return False
+        if analysis.null_space_basis.shape != (columns, columns - analysis.rank):
+            return False
+        if analysis.left_null_space_basis.shape != (rows, rows - analysis.rank):
+            return False
+
+        def is_orthonormal(basis: np.ndarray) -> bool:
+            return bool(np.allclose(basis.T @ basis, np.eye(basis.shape[1]), atol=tolerance))
+
+        return bool(
+            is_orthonormal(analysis.column_space_basis)
+            and is_orthonormal(analysis.row_space_basis)
+            and is_orthonormal(analysis.null_space_basis)
+            and is_orthonormal(analysis.left_null_space_basis)
+            and np.allclose(array @ analysis.null_space_basis, 0.0, atol=tolerance)
+            and np.allclose(array.T @ analysis.left_null_space_basis, 0.0, atol=tolerance)
         )
 
     @staticmethod

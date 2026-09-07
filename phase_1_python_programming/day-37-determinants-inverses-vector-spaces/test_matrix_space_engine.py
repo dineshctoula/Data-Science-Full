@@ -36,6 +36,21 @@ class MatrixSpaceEngineTests(unittest.TestCase):
         self.assertEqual(spaces.rank + spaces.null_space_basis.shape[1], matrix.shape[1])
         self.assertTrue(np.allclose(matrix @ spaces.null_space_basis, 0.0))
         self.assertTrue(np.allclose(matrix.T @ spaces.left_null_space_basis, 0.0))
+        self.assertEqual(spaces.nullity, 1)
+        self.assertEqual(spaces.left_nullity, 1)
+        self.assertTrue(MatrixSpaceEngine.verify_subspaces(matrix, spaces))
+
+    def test_subspace_verification_rejects_invalid_basis(self) -> None:
+        matrix = np.array([[1.0, 2.0], [2.0, 4.0]])
+        spaces = MatrixSpaceEngine.analyze_subspaces(matrix)
+        invalid_spaces = type(spaces)(
+            rank=spaces.rank,
+            column_space_basis=spaces.column_space_basis,
+            row_space_basis=spaces.row_space_basis,
+            null_space_basis=np.ones_like(spaces.null_space_basis),
+            left_null_space_basis=spaces.left_null_space_basis,
+        )
+        self.assertFalse(MatrixSpaceEngine.verify_subspaces(matrix, invalid_spaces))
 
     def test_least_squares_rejects_target_with_wrong_length(self) -> None:
         with self.assertRaisesRegex(ValueError, "Target length"):
