@@ -53,8 +53,12 @@ class MatrixSpaceEngine:
     @staticmethod
     def determinant_by_cofactor(matrix: np.ndarray) -> float:
         """Compute a determinant recursively using first-row cofactor expansion."""
-        array = MatrixSpaceEngine._square(matrix)
+        array = np.asarray(matrix, dtype=float)
+        if array.ndim != 2 or array.shape[0] != array.shape[1]:
+            raise ValueError("This operation requires a square matrix.")
         n = array.shape[0]
+        # det([]) = 1 is the conventional empty-product value.  It is needed
+        # for the cofactor of a 1 × 1 matrix, whose minor is 0 × 0.
         if n == 0:
             return 1.0
         if n == 1:

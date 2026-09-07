@@ -19,6 +19,12 @@ class MatrixSpaceEngineTests(unittest.TestCase):
         inverse = MatrixSpaceEngine.inverse_by_adjugate(matrix)
         self.assertTrue(MatrixSpaceEngine.verify_inverse(matrix, inverse))
 
+    def test_adjugate_inverse_handles_one_by_one_matrix(self) -> None:
+        matrix = np.array([[4.0]])
+        inverse = MatrixSpaceEngine.inverse_by_adjugate(matrix)
+        np.testing.assert_allclose(inverse, np.array([[0.25]]))
+        self.assertTrue(MatrixSpaceEngine.verify_inverse(matrix, inverse))
+
     def test_singular_matrix_cannot_be_inverted(self) -> None:
         with self.assertRaisesRegex(ValueError, "singular"):
             MatrixSpaceEngine.inverse_by_adjugate(np.array([[1.0, 2.0], [2.0, 4.0]]))
