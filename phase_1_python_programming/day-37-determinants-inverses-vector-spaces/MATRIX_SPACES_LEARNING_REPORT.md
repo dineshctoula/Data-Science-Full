@@ -7,9 +7,9 @@ Connect three closely related ideas: a determinant measures signed geometric sca
 ## What I built
 
 - `matrix_space_engine.py` — cofactor-expansion determinants, minors, cofactors, adjugate inverses, invertibility diagnostics, SVD-based four-subspace analysis, and least-squares solving.
-- `visualizer.py` — unit-square area-scaling and standard-basis transformation charts.
+- `visualizer.py` — unit-square area-scaling, standard-basis, and arbitrary-vector transformation charts.
 - `main.py` — an executable learning walkthrough that generates both visual artifacts.
-- `test_matrix_space_engine.py` and `test_visualizer.py` — seven automated regression tests for numerical identities, invalid inputs, and image generation.
+- `test_matrix_space_engine.py` and `test_visualizer.py` — regression tests for numerical identities, subspace validation, invalid inputs, and image generation.
 
 ## Key results
 
@@ -43,6 +43,7 @@ The complete pipeline writes the following artifacts to `output/`:
 
 - `determinant_area_scaling.png` — compares expansion, area-preserving shear, and singular flattening.
 - `basis_transformation.png` — compares the standard basis with its image under the invertible example matrix.
+- `vector_transformation.png` — compares a chosen vector with its transformed image, `A v`.
 
 ## Implementation notes
 

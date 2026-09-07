@@ -15,14 +15,20 @@ class DeterminantVisualizerTests(unittest.TestCase):
             visualizer = DeterminantVisualizer(temporary_directory)
             area_path = visualizer.plot_area_scaling({"Identity": np.eye(2)})
             basis_path = visualizer.plot_basis_transformation(np.array([[2.0, 0.0], [0.0, 1.0]]))
+            vector_path = visualizer.plot_vector_transformation(
+                np.array([[2.0, 0.0], [0.0, 1.0]]), np.array([1.0, -1.0])
+            )
             self.assertTrue(Path(area_path).is_file())
             self.assertTrue(Path(basis_path).is_file())
+            self.assertTrue(Path(vector_path).is_file())
 
     def test_non_two_by_two_matrix_is_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             visualizer = DeterminantVisualizer(temporary_directory)
             with self.assertRaisesRegex(ValueError, "2 × 2"):
                 visualizer.plot_basis_transformation(np.ones((3, 3)))
+            with self.assertRaisesRegex(ValueError, "two-dimensional"):
+                visualizer.plot_vector_transformation(np.eye(2), np.ones(3))
 
 
 if __name__ == "__main__":

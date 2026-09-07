@@ -58,8 +58,10 @@ def run_pipeline() -> None:
         "Singular flattening": np.array([[1.0, 1.0], [2.0, 2.0]]),
     })
     basis_image = visualizer.plot_basis_transformation(matrix)
+    vector_image = visualizer.plot_vector_transformation(matrix, np.array([1.0, -1.0]))
     print(f"  Area scaling chart saved: {area_image}")
     print(f"  Basis transformation chart saved: {basis_image}")
+    print(f"  Vector transformation chart saved: {vector_image}")
     print("\nDay 37 pipeline completed successfully.")
 
 

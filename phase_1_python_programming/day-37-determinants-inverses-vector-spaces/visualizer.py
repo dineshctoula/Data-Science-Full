@@ -81,3 +81,37 @@ class DeterminantVisualizer:
         figure.savefig(path, dpi=160, bbox_inches="tight")
         plt.close(figure)
         return path
+
+    def plot_vector_transformation(self, matrix: np.ndarray, vector: np.ndarray) -> Path:
+        """Plot a vector and its image, A v, on one shared coordinate plane."""
+        matrix = np.asarray(matrix, dtype=float)
+        vector = np.asarray(vector, dtype=float).reshape(-1)
+        if matrix.shape != (2, 2):
+            raise ValueError("Vector transformation requires a 2 × 2 matrix.")
+        if vector.shape != (2,):
+            raise ValueError("Vector transformation requires a two-dimensional vector.")
+
+        transformed_vector = matrix @ vector
+        figure, axis = plt.subplots(figsize=(5.5, 5))
+        for plotted_vector, label, color in (
+            (vector, "v", "#4C78A8"),
+            (transformed_vector, "A v", "#E45756"),
+        ):
+            axis.quiver(0, 0, plotted_vector[0], plotted_vector[1], angles="xy", scale_units="xy", scale=1,
+                        color=color, width=0.012, label=label)
+            axis.annotate(label, plotted_vector, xytext=(6, 5), textcoords="offset points", color=color,
+                          fontweight="bold")
+
+        limit = max(1.5, float(np.max(np.abs(np.concatenate((vector, transformed_vector))))) + 0.5)
+        axis.axhline(0, color="black", linewidth=0.7)
+        axis.axvline(0, color="black", linewidth=0.7)
+        axis.set(xlim=(-limit, limit), ylim=(-limit, limit), xlabel="x", ylabel="y")
+        axis.set_aspect("equal", adjustable="box")
+        axis.grid(alpha=0.25)
+        axis.legend(loc="upper left")
+        axis.set_title(f"Vector transformation: A v\nA = {np.array2string(matrix, precision=2)}")
+        figure.tight_layout()
+        path = self.output_dir / "vector_transformation.png"
+        figure.savefig(path, dpi=160, bbox_inches="tight")
+        plt.close(figure)
+        return path
