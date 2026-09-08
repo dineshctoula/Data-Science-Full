@@ -47,6 +47,22 @@ class CalculusEngine:
         return (np.asarray(function(values + h)) - np.asarray(function(values - h))) / (2 * h)
 
     @staticmethod
+    def numerical_gradient(
+        function: Callable[[np.ndarray], float], point: np.ndarray, step: float = 1e-5
+    ) -> np.ndarray:
+        """Estimate a multivariable gradient with one central difference per axis."""
+        location = np.asarray(point, dtype=float)
+        if location.ndim != 1 or location.size == 0:
+            raise ValueError("Gradient point must be a non-empty one-dimensional array.")
+        h = CalculusEngine._positive_step(step)
+        gradient = np.empty_like(location)
+        for index in range(location.size):
+            offset = np.zeros_like(location)
+            offset[index] = h
+            gradient[index] = (function(location + offset) - function(location - offset)) / (2 * h)
+        return gradient
+
+    @staticmethod
     def polynomial_value(coefficients: np.ndarray, x: float | np.ndarray) -> float | np.ndarray:
         """Evaluate coefficients ordered from highest to lowest degree."""
         coefficients = np.asarray(coefficients, dtype=float)

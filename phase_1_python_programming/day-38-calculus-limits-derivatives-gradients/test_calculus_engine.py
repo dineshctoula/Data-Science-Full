@@ -27,6 +27,13 @@ class CalculusEngineTests(unittest.TestCase):
         )
         np.testing.assert_allclose(numerical, exact, atol=1e-6)
 
+    def test_numerical_gradient_matches_known_partial_derivatives(self) -> None:
+        point = np.array([1.0, 2.0])
+        gradient = CalculusEngine.numerical_gradient(
+            lambda values: values[0] ** 2 * values[1] + values[1] ** 3, point
+        )
+        np.testing.assert_allclose(gradient, np.array([4.0, 13.0]), atol=1e-6)
+
     def test_invalid_step_and_polynomial_are_rejected(self) -> None:
         with self.assertRaisesRegex(ValueError, "positive finite"):
             CalculusEngine.symmetric_derivative(lambda x: x, 0.0, step=0)

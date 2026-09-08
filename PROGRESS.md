@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 37 |
-| **Days Completed** | 37 / 100 |
-| **Progress** | 37% |
-| **Current Streak** | 37 Days |
-| **Latest Topic** | Determinants, Matrix Inverses & Vector Spaces |
+| **Current Day** | Day 38 |
+| **Days Completed** | 38 / 100 |
+| **Progress** | 38% |
+| **Current Streak** | 38 Days |
+| **Latest Topic** | Calculus: Limits, Derivatives & Gradients |
 | **Status** | 🟢 On Track |
 
 ---
@@ -70,6 +70,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **35** | 2026-09-03 | Phase 2 | Phase 2 Grand Capstone: Enterprise Multi-Source Analytics, RFM Engine & Interactive Executive Dashboard Platform | Multi-source datalake ingestion (Parquet, JSON CRM, CSV Clickstream & Catalog). Polars & DuckDB hybrid analytics engine, automated data quality remediation, RFM customer segmentation (9 personas), PSI sales distribution drift tracking, Seaborn static visual suite, interactive Plotly HTML executive dashboard platform, and DuckDB lakehouse staging. | ✅ |
 | **36** | 2026-09-04 | Phase 3 | Linear Algebra: Vectors, Matrices & Geometric Transformations | Built OOP vector/matrix engine (Gram-Schmidt, projections, norms, cosine similarity), geometric grid transformation suite, and executive visualization suite. | ✅ |
 | **37** | 2026-09-05 | Phase 3 | Determinants, Matrix Inverses & Vector Spaces | Built a cofactor/adjugate inverse engine, invertibility diagnostics, SVD-based column/row/null/left-null space analysis, least-squares solver, area-scaling and basis-transformation visualizations, plus a seven-test regression suite. | ✅ |
+| **38** | 2026-09-08 | Phase 3 | Calculus: Limits, Derivatives & Gradients | Built finite-difference limit/derivative and multivariate-gradient utilities, batch-gradient-descent linear regression, tangent and loss visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 
 ---
 
@@ -92,36 +93,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 
 - [x] **Day 36** — Linear Algebra: Vectors, Matrices & Geometric Transformations (Gram-Schmidt, norms, projections, linear systems $A x = b$, grid transformations)
 - [x] **Day 37** — Determinants, Matrix Inverses & Vector Spaces (cofactors, adjugates, invertibility, rank-nullity theorem, SVD subspace bases, least squares)
+- [x] **Day 38** — Calculus: Limits, Derivatives & Gradients (one-sided limits, central differences, partial derivatives, numerical gradients, loss minimization)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 37 / 100 Days
+Completed: 38 / 100 Days
 
-██████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 37%
+██████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 38%
 ```
 
 ### Current Position
 
-**Day 37 — Determinants, Matrix Inverses & Vector Spaces** ✅
+**Day 38 — Calculus: Limits, Derivatives & Gradients** ✅
 
-Day 37 deepened the linear algebra foundation with determinant geometry, the cofactor/adjugate route to matrix inversion, rank-based invertibility diagnostics, and SVD-derived bases for the four fundamental subspaces.
+Day 38 connected rates of change to model optimization with numerical limits and derivatives, multivariate gradients, and a batch-gradient-descent linear regression example.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 38 topic: Eigenvalues, Eigenvectors, and Matrix Diagonalization.
+2. Prepare Day 39 topic: Optimization: Gradient Descent.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **37 / 100 Days Completed — 37% Progress**
+> **38 / 100 Days Completed — 38% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
