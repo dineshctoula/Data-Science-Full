@@ -16,6 +16,22 @@ For `g(x, y) = x²y + y³`, the gradient is `[2xy, x² + 3y²]`. At `(1, 2)`, it
 
 The linear-regression example uses batch gradient descent on mean squared error. It standardizes features during fitting for stable updates, then returns the intercept and coefficients in the original feature units.
 
+## Reading the gradient-descent code
+
+The comments in `gradient_descent.py` mark the three ideas to look for while studying the loop:
+
+1. Record the loss before each update; this is why a run with `n` updates has `n + 1` loss samples.
+2. Calculate the derivative (or vector gradient) of the current loss.
+3. Subtract `learning_rate × gradient`, which moves parameters downhill.
+
+`OptimizationResult.initial_loss`, `final_loss`, and `steps` make that progress easy to print without indexing the history manually. The runnable lesson now also fits a two-feature relationship, returning `[1.5, 2.0, -0.5]` for its intercept and two coefficients.
+
+## Practical checks
+
+- Inputs must be finite: `NaN` and infinity are rejected before they can contaminate an update.
+- A constant feature is rejected because its standard deviation is zero, so it cannot be standardized safely.
+- The returned coefficients work directly with the original, unscaled feature values through `GradientDescent.predict`.
+
 ## Run
 
 ```bash
