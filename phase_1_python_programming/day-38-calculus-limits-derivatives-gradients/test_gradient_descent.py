@@ -12,6 +12,9 @@ class GradientDescentTests(unittest.TestCase):
         result = GradientDescent.quadratic(initial_value=-5.0, target=3.0)
         self.assertAlmostEqual(result.parameters[0], 3.0, places=3)
         self.assertLess(result.loss_history[-1], result.loss_history[0])
+        self.assertEqual(result.steps, 50)
+        self.assertEqual(result.initial_loss, result.loss_history[0])
+        self.assertEqual(result.final_loss, result.loss_history[-1])
 
     def test_linear_regression_recovers_known_relationship(self) -> None:
         features = np.array([[1.0], [2.0], [3.0], [4.0], [5.0]])

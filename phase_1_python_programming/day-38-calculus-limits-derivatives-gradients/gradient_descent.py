@@ -14,6 +14,21 @@ class OptimizationResult:
     parameters: np.ndarray
     loss_history: np.ndarray
 
+    @property
+    def initial_loss(self) -> float:
+        """Return the loss measured before the first gradient update."""
+        return float(self.loss_history[0])
+
+    @property
+    def final_loss(self) -> float:
+        """Return the loss after the final gradient update."""
+        return float(self.loss_history[-1])
+
+    @property
+    def steps(self) -> int:
+        """Return the number of updates, excluding the initial loss sample."""
+        return len(self.loss_history) - 1
+
 
 class GradientDescent:
     """Use gradients to minimize simple data-science objective functions."""
