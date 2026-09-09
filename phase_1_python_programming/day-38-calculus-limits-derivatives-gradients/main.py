@@ -35,13 +35,23 @@ def run_pipeline() -> None:
     fit = GradientDescent.linear_regression(features, target, learning_rate=0.1, iterations=500)
     print("\n3. Gradient descent fits a linear model")
     print(f"  Parameters [intercept, slope] = {np.round(fit.parameters, 5)}")
-    print(f"  MSE: {fit.loss_history[0]:.5f} → {fit.loss_history[-1]:.5e}")
+    print(f"  MSE: {fit.initial_loss:.5f} → {fit.final_loss:.5e} in {fit.steps} updates")
+
+    # The same batch update works with multiple columns.  Each returned
+    # coefficient stays in the original units of its matching input feature.
+    two_feature_inputs = np.array([[1.0, 3.0], [2.0, 1.0], [3.0, 4.0], [4.0, 2.0]])
+    two_feature_target = 1.5 + 2.0 * two_feature_inputs[:, 0] - 0.5 * two_feature_inputs[:, 1]
+    two_feature_fit = GradientDescent.linear_regression(
+        two_feature_inputs, two_feature_target, learning_rate=0.1, iterations=500
+    )
+    print("\n4. The same optimizer handles two features")
+    print(f"  Parameters [intercept, x₁, x₂] = {np.round(two_feature_fit.parameters, 5)}")
 
     visualizer = CalculusVisualizer()
     x_values = np.linspace(-3, 3, 300)
     tangent_image = visualizer.plot_tangent_line(x_values, function(x_values), point, exact_slope)
     loss_image = visualizer.plot_loss_history(fit.loss_history, "Linear regression optimized by gradient descent")
-    print("\n4. Generated visual explanations")
+    print("\n5. Generated visual explanations")
     print(f"  Tangent-line chart: {tangent_image}")
     print(f"  Loss chart:         {loss_image}")
     print("\nDay 38 pipeline completed successfully.")

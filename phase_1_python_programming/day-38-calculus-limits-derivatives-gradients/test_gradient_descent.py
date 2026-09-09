@@ -24,6 +24,12 @@ class GradientDescentTests(unittest.TestCase):
         np.testing.assert_allclose(GradientDescent.predict(features, result.parameters), target, atol=1e-5)
         self.assertLess(result.loss_history[-1], result.loss_history[0])
 
+    def test_linear_regression_recovers_two_feature_relationship(self) -> None:
+        features = np.array([[1.0, 3.0], [2.0, 1.0], [3.0, 4.0], [4.0, 2.0]])
+        target = 1.5 + 2.0 * features[:, 0] - 0.5 * features[:, 1]
+        result = GradientDescent.linear_regression(features, target, learning_rate=0.1, iterations=500)
+        np.testing.assert_allclose(result.parameters, np.array([1.5, 2.0, -0.5]), atol=1e-5)
+
     def test_invalid_inputs_are_rejected(self) -> None:
         with self.assertRaisesRegex(ValueError, "positive finite"):
             GradientDescent.quadratic(0.0, 1.0, learning_rate=0.0)
