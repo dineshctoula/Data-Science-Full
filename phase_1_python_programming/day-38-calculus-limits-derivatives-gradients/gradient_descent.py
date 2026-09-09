@@ -32,6 +32,8 @@ class GradientDescent:
         """Minimize f(x) = (x - target)² using its gradient 2(x - target)."""
         GradientDescent._validate_hyperparameters(learning_rate, iterations)
         value = float(initial_value)
+        if not np.isfinite(value) or not np.isfinite(target):
+            raise ValueError("Initial value and target must be finite numbers.")
         history: list[float] = []
         for _ in range(iterations):
             # Record the loss *before* the update so the learning curve starts
@@ -62,6 +64,8 @@ class GradientDescent:
             raise ValueError("Features must be a non-empty two-dimensional array.")
         if y.shape[0] != x.shape[0]:
             raise ValueError("Target length must match the number of feature rows.")
+        if not np.isfinite(x).all() or not np.isfinite(y).all():
+            raise ValueError("Features and target must contain only finite values.")
 
         # Scaling gives each feature roughly equal influence on the update size.
         # This makes one learning rate practical even when raw units differ.
@@ -98,4 +102,6 @@ class GradientDescent:
         weights = np.asarray(parameters, dtype=float).reshape(-1)
         if x.ndim != 2 or weights.size != x.shape[1] + 1:
             raise ValueError("Parameters must include one intercept and one value per feature.")
+        if not np.isfinite(x).all() or not np.isfinite(weights).all():
+            raise ValueError("Features and parameters must contain only finite values.")
         return weights[0] + x @ weights[1:]

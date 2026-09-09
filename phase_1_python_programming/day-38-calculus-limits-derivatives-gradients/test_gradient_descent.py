@@ -24,8 +24,14 @@ class GradientDescentTests(unittest.TestCase):
     def test_invalid_inputs_are_rejected(self) -> None:
         with self.assertRaisesRegex(ValueError, "positive finite"):
             GradientDescent.quadratic(0.0, 1.0, learning_rate=0.0)
+        with self.assertRaisesRegex(ValueError, "finite"):
+            GradientDescent.quadratic(float("nan"), 1.0)
         with self.assertRaisesRegex(ValueError, "constant"):
             GradientDescent.linear_regression(np.ones((3, 1)), np.arange(3.0))
+        with self.assertRaisesRegex(ValueError, "finite"):
+            GradientDescent.linear_regression(np.array([[1.0], [np.inf]]), np.array([1.0, 2.0]))
+        with self.assertRaisesRegex(ValueError, "finite"):
+            GradientDescent.predict(np.array([[1.0]]), np.array([np.nan, 2.0]))
 
 
 if __name__ == "__main__":
