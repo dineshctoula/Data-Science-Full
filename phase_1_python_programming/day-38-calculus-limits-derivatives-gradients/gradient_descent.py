@@ -34,7 +34,11 @@ class GradientDescent:
         value = float(initial_value)
         history: list[float] = []
         for _ in range(iterations):
+            # Record the loss *before* the update so the learning curve starts
+            # at the caller's initial guess.
             history.append((value - target) ** 2)
+            # For (value - target)^2, the derivative is 2(value - target).
+            # Moving opposite that derivative takes a step toward the minimum.
             value -= learning_rate * 2 * (value - target)
         history.append((value - target) ** 2)
         return OptimizationResult(np.array([value]), np.asarray(history))
@@ -59,11 +63,14 @@ class GradientDescent:
         if y.shape[0] != x.shape[0]:
             raise ValueError("Target length must match the number of feature rows.")
 
+        # Scaling gives each feature roughly equal influence on the update size.
+        # This makes one learning rate practical even when raw units differ.
         means = x.mean(axis=0)
         scales = x.std(axis=0)
         if np.any(np.isclose(scales, 0.0)):
             raise ValueError("Features cannot contain a constant column.")
         standardized = (x - means) / scales
+        # The leading column of ones lets the first weight represent intercept.
         design = np.column_stack((np.ones(x.shape[0]), standardized))
         weights = np.zeros(design.shape[1])
         history: list[float] = []
@@ -71,11 +78,15 @@ class GradientDescent:
         for _ in range(iterations):
             residuals = design @ weights - y
             history.append(float(np.mean(residuals**2)))
+            # This is the vector form of the MSE gradient.  Averaging by the
+            # number of rows keeps the update scale independent of data size.
             gradient = 2 / x.shape[0] * design.T @ residuals
             weights -= learning_rate * gradient
 
         residuals = design @ weights - y
         history.append(float(np.mean(residuals**2)))
+        # Convert the standardized-space model back to raw feature units so
+        # callers can pass their original feature values to ``predict``.
         raw_coefficients = weights[1:] / scales
         raw_intercept = weights[0] - means @ raw_coefficients
         return OptimizationResult(np.concatenate(([raw_intercept], raw_coefficients)), np.asarray(history))
