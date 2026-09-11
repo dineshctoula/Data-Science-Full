@@ -40,6 +40,16 @@ class CalculusEngineTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "non-empty"):
             CalculusEngine.polynomial_derivative(np.array([]), 1.0)
 
+    def test_non_finite_calculation_locations_are_rejected(self) -> None:
+        # Reject invalid coordinates early so a misleading numerical result is
+        # never presented as a derivative or gradient.
+        with self.assertRaisesRegex(ValueError, "finite"):
+            CalculusEngine.one_sided_limit(lambda x: x, float("inf"))
+        with self.assertRaisesRegex(ValueError, "finite"):
+            CalculusEngine.derivative_curve(lambda x: x, np.array([0.0, np.nan]))
+        with self.assertRaisesRegex(ValueError, "finite"):
+            CalculusEngine.numerical_gradient(lambda values: values @ values, np.array([np.inf]))
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

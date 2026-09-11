@@ -18,6 +18,14 @@ class CalculusEngine:
     """Estimate limits and derivatives with finite-difference methods."""
 
     @staticmethod
+    def _finite_point(point: float) -> float:
+        """Return a usable scalar location for a one-variable calculation."""
+        value = float(point)
+        if not np.isfinite(value):
+            raise ValueError("Calculation point must be a finite number.")
+        return value
+
+    @staticmethod
     def _positive_step(step: float) -> float:
         if not np.isfinite(step) or step <= 0:
             raise ValueError("Step size must be a positive finite number.")
@@ -27,13 +35,15 @@ class CalculusEngine:
     def one_sided_limit(function: ScalarFunction, point: float, step: float = 1e-5) -> tuple[float, float]:
         """Estimate the left and right limits of ``function`` at ``point``."""
         h = CalculusEngine._positive_step(step)
-        return float(function(point - h)), float(function(point + h))
+        location = CalculusEngine._finite_point(point)
+        return float(function(location - h)), float(function(location + h))
 
     @staticmethod
     def symmetric_derivative(function: ScalarFunction, point: float, step: float = 1e-5) -> float:
         """Estimate f'(x) with the accurate central-difference formula."""
         h = CalculusEngine._positive_step(step)
-        return float((function(point + h) - function(point - h)) / (2 * h))
+        location = CalculusEngine._finite_point(point)
+        return float((function(location + h) - function(location - h)) / (2 * h))
 
     @staticmethod
     def derivative_curve(
@@ -43,6 +53,8 @@ class CalculusEngine:
         values = np.asarray(points, dtype=float)
         if values.ndim != 1:
             raise ValueError("Derivative points must be a one-dimensional array.")
+        if not np.isfinite(values).all():
+            raise ValueError("Derivative points must contain only finite values.")
         h = CalculusEngine._positive_step(step)
         return (np.asarray(function(values + h)) - np.asarray(function(values - h))) / (2 * h)
 
@@ -54,6 +66,8 @@ class CalculusEngine:
         location = np.asarray(point, dtype=float)
         if location.ndim != 1 or location.size == 0:
             raise ValueError("Gradient point must be a non-empty one-dimensional array.")
+        if not np.isfinite(location).all():
+            raise ValueError("Gradient point must contain only finite values.")
         h = CalculusEngine._positive_step(step)
         gradient = np.empty_like(location)
         for index in range(location.size):
