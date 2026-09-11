@@ -63,3 +63,32 @@ class CalculusVisualizer:
         figure.savefig(path, dpi=160, bbox_inches="tight")
         plt.close(figure)
         return path
+
+    def plot_learning_rate_comparison(self, loss_histories: dict[float, np.ndarray]) -> Path:
+        """Plot several loss curves to make learning-rate behavior comparable."""
+        if not loss_histories:
+            raise ValueError("At least one learning-rate history is required.")
+
+        figure, axis = plt.subplots(figsize=(7, 4.5))
+        all_losses: list[np.ndarray] = []
+        for rate, history in sorted(loss_histories.items()):
+            losses = self._as_curve(history, f"loss history for learning rate {rate}")
+            if np.any(losses < 0):
+                raise ValueError("Loss values cannot be negative.")
+            all_losses.append(losses)
+            # Plot the complete history for each rate on common axes.  Seeing
+            # the curves together reveals slow progress and instability fast.
+            axis.plot(np.arange(losses.size), losses, linewidth=2, label=f"rate = {rate:g}")
+
+        axis.set(xlabel="Iteration", ylabel="Loss", title="Learning-rate comparison")
+        # A zero loss is valid; only use logarithmic scaling when every value
+        # can be represented on that scale.
+        if np.all(np.concatenate(all_losses) > 0):
+            axis.set_yscale("log")
+        axis.grid(alpha=0.25)
+        axis.legend()
+        figure.tight_layout()
+        path = self.output_dir / "learning_rate_comparison.png"
+        figure.savefig(path, dpi=160, bbox_inches="tight")
+        plt.close(figure)
+        return path

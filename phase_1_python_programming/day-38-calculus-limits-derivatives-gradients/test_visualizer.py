@@ -16,8 +16,12 @@ class CalculusVisualizerTests(unittest.TestCase):
             x = np.linspace(-2, 2, 40)
             tangent_path = visualizer.plot_tangent_line(x, x**2, point=1.0, slope=2.0)
             loss_path = visualizer.plot_loss_history(np.array([10.0, 1.0, 0.1]))
+            comparison_path = visualizer.plot_learning_rate_comparison(
+                {0.05: np.array([10.0, 5.0, 2.5]), 0.2: np.array([10.0, 0.4, 0.01])}
+            )
             self.assertTrue(Path(tangent_path).is_file())
             self.assertTrue(Path(loss_path).is_file())
+            self.assertTrue(Path(comparison_path).is_file())
 
     def test_invalid_curves_are_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -28,6 +32,8 @@ class CalculusVisualizerTests(unittest.TestCase):
                 )
             with self.assertRaisesRegex(ValueError, "cannot be negative"):
                 visualizer.plot_loss_history(np.array([1.0, -1.0]))
+            with self.assertRaisesRegex(ValueError, "At least one"):
+                visualizer.plot_learning_rate_comparison({})
 
 
 if __name__ == "__main__":
