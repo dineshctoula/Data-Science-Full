@@ -25,6 +25,18 @@ class GradientDescentTests(unittest.TestCase):
         self.assertEqual(result.loss_reduction, 0.0)
         self.assertEqual(result.loss_reduction_ratio, 0.0)
 
+    def test_learning_rate_comparison_keeps_each_run_separate(self) -> None:
+        comparisons = GradientDescent.compare_quadratic_learning_rates(
+            initial_value=-5.0, target=3.0, learning_rates=np.array([0.05, 0.2]), iterations=20
+        )
+        self.assertEqual(set(comparisons), {0.05, 0.2})
+        self.assertEqual(comparisons[0.05].steps, 20)
+        self.assertLess(comparisons[0.2].final_loss, comparisons[0.05].final_loss)
+
+    def test_empty_learning_rate_comparison_is_rejected(self) -> None:
+        with self.assertRaisesRegex(ValueError, "non-empty"):
+            GradientDescent.compare_quadratic_learning_rates(0.0, 1.0, np.array([]))
+
     def test_linear_regression_recovers_known_relationship(self) -> None:
         features = np.array([[1.0], [2.0], [3.0], [4.0], [5.0]])
         target = 4.0 + 2.5 * features[:, 0]

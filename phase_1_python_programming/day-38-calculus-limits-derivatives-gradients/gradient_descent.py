@@ -77,6 +77,31 @@ class GradientDescent:
         return OptimizationResult(np.array([value]), np.asarray(history))
 
     @staticmethod
+    def compare_quadratic_learning_rates(
+        initial_value: float,
+        target: float,
+        learning_rates: np.ndarray,
+        iterations: int = 50,
+    ) -> dict[float, OptimizationResult]:
+        """Run the same quadratic problem at each candidate learning rate.
+
+        Holding the start point and update count constant makes the final-loss
+        differences attributable to the learning rate, not a changed problem.
+        """
+        rates = np.asarray(learning_rates, dtype=float)
+        if rates.ndim != 1 or rates.size == 0:
+            raise ValueError("Learning rates must be a non-empty one-dimensional array.")
+
+        comparisons: dict[float, OptimizationResult] = {}
+        for rate in rates:
+            # Reuse ``quadratic`` so validation and the actual update formula
+            # have one source of truth.
+            comparisons[float(rate)] = GradientDescent.quadratic(
+                initial_value, target, learning_rate=float(rate), iterations=iterations
+            )
+        return comparisons
+
+    @staticmethod
     def linear_regression(
         features: np.ndarray,
         target: np.ndarray,
