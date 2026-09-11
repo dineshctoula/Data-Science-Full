@@ -26,11 +26,19 @@ The comments in `gradient_descent.py` mark the three ideas to look for while stu
 
 `OptimizationResult.initial_loss`, `final_loss`, and `steps` make that progress easy to print without indexing the history manually. The runnable lesson now also fits a two-feature relationship, returning `[1.5, 2.0, -0.5]` for its intercept and two coefficients.
 
+`loss_reduction` and `loss_reduction_ratio` turn a loss history into a concise
+progress summary. The pipeline compares rates `0.05`, `0.1`, and `0.2` on the
+same quadratic problem, then writes `learning_rate_comparison.png`. Because
+each trial starts from the same value and uses the same number of updates, the
+different curves show the effect of step size directly.
+
 ## Practical checks
 
 - Inputs must be finite: `NaN` and infinity are rejected before they can contaminate an update.
 - A constant feature is rejected because its standard deviation is zero, so it cannot be standardized safely.
 - The returned coefficients work directly with the original, unscaled feature values through `GradientDescent.predict`.
+- Non-finite calculation points are rejected before a limit, derivative, or gradient is estimated.
+- A logarithmic loss plot is used only when every plotted loss is positive, because zero cannot be shown on a log scale.
 
 ## Run
 

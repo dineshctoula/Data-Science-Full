@@ -47,13 +47,29 @@ def run_pipeline() -> None:
     print("\n4. The same optimizer handles two features")
     print(f"  Parameters [intercept, x₁, x₂] = {np.round(two_feature_fit.parameters, 5)}")
 
+    learning_rate_trials = GradientDescent.compare_quadratic_learning_rates(
+        initial_value=-5.0,
+        target=3.0,
+        learning_rates=np.array([0.05, 0.1, 0.2]),
+        iterations=20,
+    )
+    print("\n5. Learning rate changes the speed of descent")
+    for rate, trial in learning_rate_trials.items():
+        # The percentage gives a friendlier comparison than tiny final-loss
+        # values, especially after a fast-converging run.
+        print(f"  rate {rate:.2f}: reduced loss by {trial.loss_reduction_ratio:.1%}")
+
     visualizer = CalculusVisualizer()
     x_values = np.linspace(-3, 3, 300)
     tangent_image = visualizer.plot_tangent_line(x_values, function(x_values), point, exact_slope)
     loss_image = visualizer.plot_loss_history(fit.loss_history, "Linear regression optimized by gradient descent")
-    print("\n5. Generated visual explanations")
+    comparison_image = visualizer.plot_learning_rate_comparison(
+        {rate: trial.loss_history for rate, trial in learning_rate_trials.items()}
+    )
+    print("\n6. Generated visual explanations")
     print(f"  Tangent-line chart: {tangent_image}")
     print(f"  Loss chart:         {loss_image}")
+    print(f"  Rate comparison:    {comparison_image}")
     print("\nDay 38 pipeline completed successfully.")
 
 
