@@ -15,6 +15,15 @@ class GradientDescentTests(unittest.TestCase):
         self.assertEqual(result.steps, 50)
         self.assertEqual(result.initial_loss, result.loss_history[0])
         self.assertEqual(result.final_loss, result.loss_history[-1])
+        self.assertGreater(result.loss_reduction, 0.0)
+        self.assertGreater(result.loss_reduction_ratio, 0.99)
+
+    def test_already_optimal_result_has_zero_reduction_ratio(self) -> None:
+        result = GradientDescent.quadratic(initial_value=3.0, target=3.0, iterations=3)
+        # A perfect initial guess has no loss to reduce, but should still
+        # produce a well-defined progress summary.
+        self.assertEqual(result.loss_reduction, 0.0)
+        self.assertEqual(result.loss_reduction_ratio, 0.0)
 
     def test_linear_regression_recovers_known_relationship(self) -> None:
         features = np.array([[1.0], [2.0], [3.0], [4.0], [5.0]])

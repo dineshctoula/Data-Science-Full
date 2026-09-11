@@ -29,6 +29,22 @@ class OptimizationResult:
         """Return the number of updates, excluding the initial loss sample."""
         return len(self.loss_history) - 1
 
+    @property
+    def loss_reduction(self) -> float:
+        """Return the absolute improvement between the first and last losses."""
+        return self.initial_loss - self.final_loss
+
+    @property
+    def loss_reduction_ratio(self) -> float:
+        """Return the fraction of the initial loss removed by optimization.
+
+        A zero initial loss is already optimal, so its reduction is defined as
+        zero instead of dividing by zero to calculate a percentage.
+        """
+        if np.isclose(self.initial_loss, 0.0):
+            return 0.0
+        return self.loss_reduction / self.initial_loss
+
 
 class GradientDescent:
     """Use gradients to minimize simple data-science objective functions."""
