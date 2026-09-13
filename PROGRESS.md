@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 38 |
-| **Days Completed** | 38 / 100 |
-| **Progress** | 38% |
-| **Current Streak** | 38 Days |
-| **Latest Topic** | Calculus: Limits, Derivatives & Gradients |
+| **Current Day** | Day 39 |
+| **Days Completed** | 39 / 100 |
+| **Progress** | 39% |
+| **Current Streak** | 39 Days |
+| **Latest Topic** | Optimization: Gradient Descent |
 | **Status** | 🟢 On Track |
 
 ---
@@ -71,6 +71,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **36** | 2026-09-04 | Phase 3 | Linear Algebra: Vectors, Matrices & Geometric Transformations | Built OOP vector/matrix engine (Gram-Schmidt, projections, norms, cosine similarity), geometric grid transformation suite, and executive visualization suite. | ✅ |
 | **37** | 2026-09-05 | Phase 3 | Determinants, Matrix Inverses & Vector Spaces | Built a cofactor/adjugate inverse engine, invertibility diagnostics, SVD-based column/row/null/left-null space analysis, least-squares solver, area-scaling and basis-transformation visualizations, plus a seven-test regression suite. | ✅ |
 | **38** | 2026-09-08 | Phase 3 | Calculus: Limits, Derivatives & Gradients | Built finite-difference limit/derivative and multivariate-gradient utilities, batch-gradient-descent linear regression, tangent and loss visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
+| **39** | 2026-09-13 | Phase 3 | Optimization: Gradient Descent | Built a reusable batch optimizer, known-minimum 1-D/2-D bowl and MSE regression helpers, loss/contour/learning-rate visualizations, a runnable lesson pipeline, and a 13-test regression suite. | ✅ |
 
 ---
 
@@ -94,36 +95,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 36** — Linear Algebra: Vectors, Matrices & Geometric Transformations (Gram-Schmidt, norms, projections, linear systems $A x = b$, grid transformations)
 - [x] **Day 37** — Determinants, Matrix Inverses & Vector Spaces (cofactors, adjugates, invertibility, rank-nullity theorem, SVD subspace bases, least squares)
 - [x] **Day 38** — Calculus: Limits, Derivatives & Gradients (one-sided limits, central differences, partial derivatives, numerical gradients, loss minimization)
+- [x] **Day 39** — Optimization: Gradient Descent (batch updates, elongated-bowl paths, learning-rate comparisons, MSE linear regression)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 38 / 100 Days
+Completed: 39 / 100 Days
 
-██████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 38%
+███████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 39%
 ```
 
 ### Current Position
 
-**Day 38 — Calculus: Limits, Derivatives & Gradients** ✅
+**Day 39 — Optimization: Gradient Descent** ✅
 
-Day 38 connected rates of change to model optimization with numerical limits and derivatives, multivariate gradients, and a batch-gradient-descent linear regression example.
+Day 39 reused one batch update rule across a 1-D bowl, an elongated 2-D bowl, and mean-squared-error linear regression, then compared learning rates and plotted the descent path.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 39 topic: Optimization: Gradient Descent.
+2. Prepare Day 40 topic: Descriptive Statistics.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **38 / 100 Days Completed — 38% Progress**
+> **39 / 100 Days Completed — 39% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
