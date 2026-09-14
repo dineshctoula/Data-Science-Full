@@ -52,7 +52,7 @@ class StatsVisualizer:
         figure, axis = plt.subplots(figsize=(7, 3.8))
         axis.boxplot(
             sample,
-            vert=False,
+            orientation="horizontal",
             whis=1.5,
             patch_artist=True,
             boxprops={"facecolor": "#4C78A8", "alpha": 0.35, "color": "#4C78A8"},
