@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 41 |
-| **Days Completed** | 41 / 100 |
-| **Progress** | 41% |
-| **Current Streak** | 41 Days |
-| **Latest Topic** | Probability Distributions |
+| **Current Day** | Day 42 |
+| **Days Completed** | 42 / 100 |
+| **Progress** | 42% |
+| **Current Streak** | 42 Days |
+| **Latest Topic** | Hypothesis Testing |
 | **Status** | 🟢 On Track |
 
 ---
@@ -74,6 +74,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **39** | 2026-09-13 | Phase 3 | Optimization: Gradient Descent | Built a reusable batch optimizer, known-minimum 1-D/2-D bowl and MSE regression helpers, loss/contour/learning-rate visualizations, a runnable lesson pipeline, and a 13-test regression suite. | ✅ |
 | **40** | 2026-09-14 | Phase 3 | Descriptive Statistics | Built a from-scratch center/spread/shape engine (sample vs population variance, linear quartiles, Tukey fences, z-scores), histogram/box-plot/z-score visualizations, a runnable exam-score lesson, and a nine-test regression suite. | ✅ |
 | **41** | 2026-09-15 | Phase 3 | Probability Distributions | Built a from-scratch Bernoulli/Binomial/Poisson/Normal/Exponential engine (PMF/PDF/CDF, mean/variance identities, Monte Carlo helpers), PMF/PDF/CDF visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
+| **42** | 2026-09-16 | Phase 3 | Hypothesis Testing | Built z/t proportion and chi-square goodness-of-fit tests with numerical p-values, null-tail and A/B visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 
 ---
 
@@ -100,36 +101,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 39** — Optimization: Gradient Descent (batch updates, elongated-bowl paths, learning-rate comparisons, MSE linear regression)
 - [x] **Day 40** — Descriptive Statistics (mean vs median, sample vs population spread, five-number summaries, IQR outliers, z-scores)
 - [x] **Day 41** — Probability Distributions (Bernoulli, Binomial, Poisson, Normal, Exponential; PMF/PDF/CDF; Monte Carlo checks)
+- [x] **Day 42** — Hypothesis Testing (one-sample z/t, Welch two-sample, one-proportion z, chi-square GOF; α decisions)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 41 / 100 Days
+Completed: 42 / 100 Days
 
-█████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 41%
+██████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 42%
 ```
 
 ### Current Position
 
-**Day 41 — Probability Distributions** ✅
+**Day 42 — Hypothesis Testing** ✅
 
-Day 41 implemented discrete and continuous distributions from first principles, checked mean/variance identities, compared Monte Carlo estimates to exact CDFs, and plotted PMF/PDF/CDF curves.
+Day 42 framed null and alternative hypotheses, computed t/z/χ² statistics with p-values, and applied the α = 0.05 decision rule to training, A/B, and category-count examples.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 42 topic: Hypothesis Testing.
+2. Prepare Day 43 topic: Confidence Intervals.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **41 / 100 Days Completed — 41% Progress**
+> **42 / 100 Days Completed — 42% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
