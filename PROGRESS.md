@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 42 |
-| **Days Completed** | 42 / 100 |
-| **Progress** | 42% |
-| **Current Streak** | 42 Days |
-| **Latest Topic** | Hypothesis Testing |
+| **Current Day** | Day 43 |
+| **Days Completed** | 43 / 100 |
+| **Progress** | 43% |
+| **Current Streak** | 43 Days |
+| **Latest Topic** | Confidence Intervals |
 | **Status** | 🟢 On Track |
 
 ---
@@ -75,6 +75,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **40** | 2026-09-14 | Phase 3 | Descriptive Statistics | Built a from-scratch center/spread/shape engine (sample vs population variance, linear quartiles, Tukey fences, z-scores), histogram/box-plot/z-score visualizations, a runnable exam-score lesson, and a nine-test regression suite. | ✅ |
 | **41** | 2026-09-15 | Phase 3 | Probability Distributions | Built a from-scratch Bernoulli/Binomial/Poisson/Normal/Exponential engine (PMF/PDF/CDF, mean/variance identities, Monte Carlo helpers), PMF/PDF/CDF visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 | **42** | 2026-09-16 | Phase 3 | Hypothesis Testing | Built z/t proportion and chi-square goodness-of-fit tests with numerical p-values, null-tail and A/B visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
+| **43** | 2026-09-17 | Phase 3 | Confidence Intervals | Built z/t mean intervals, Wald proportion and difference intervals, critical-value solvers, coverage simulation, interval/coverage/width visualizations, a runnable lesson pipeline, and a ten-test regression suite. | ✅ |
 
 ---
 
@@ -102,36 +103,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 40** — Descriptive Statistics (mean vs median, sample vs population spread, five-number summaries, IQR outliers, z-scores)
 - [x] **Day 41** — Probability Distributions (Bernoulli, Binomial, Poisson, Normal, Exponential; PMF/PDF/CDF; Monte Carlo checks)
 - [x] **Day 42** — Hypothesis Testing (one-sample z/t, Welch two-sample, one-proportion z, chi-square GOF; α decisions)
+- [x] **Day 43** — Confidence Intervals (z/t mean CIs, Wald proportions, Welch differences, coverage simulation)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 42 / 100 Days
+Completed: 43 / 100 Days
 
-██████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 42%
+███████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 43%
 ```
 
 ### Current Position
 
-**Day 42 — Hypothesis Testing** ✅
+**Day 43 — Confidence Intervals** ✅
 
-Day 42 framed null and alternative hypotheses, computed t/z/χ² statistics with p-values, and applied the α = 0.05 decision rule to training, A/B, and category-count examples.
+Day 43 built estimate ± critical-value × SE intervals for means and proportions, compared z* vs t*, and checked long-run coverage with repeated sampling.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 43 topic: Confidence Intervals.
+2. Prepare Day 44 topic: Correlation & Simple Linear Regression.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **42 / 100 Days Completed — 42% Progress**
+> **43 / 100 Days Completed — 43% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
