@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 43 |
-| **Days Completed** | 43 / 100 |
-| **Progress** | 43% |
-| **Current Streak** | 43 Days |
-| **Latest Topic** | Confidence Intervals |
+| **Current Day** | Day 44 |
+| **Days Completed** | 44 / 100 |
+| **Progress** | 44% |
+| **Current Streak** | 44 Days |
+| **Latest Topic** | Correlation & Simple Linear Regression |
 | **Status** | 🟢 On Track |
 
 ---
@@ -76,6 +76,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **41** | 2026-09-15 | Phase 3 | Probability Distributions | Built a from-scratch Bernoulli/Binomial/Poisson/Normal/Exponential engine (PMF/PDF/CDF, mean/variance identities, Monte Carlo helpers), PMF/PDF/CDF visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 | **42** | 2026-09-16 | Phase 3 | Hypothesis Testing | Built z/t proportion and chi-square goodness-of-fit tests with numerical p-values, null-tail and A/B visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 | **43** | 2026-09-17 | Phase 3 | Confidence Intervals | Built z/t mean intervals, Wald proportion and difference intervals, critical-value solvers, coverage simulation, interval/coverage/width visualizations, a runnable lesson pipeline, and a ten-test regression suite. | ✅ |
+| **44** | 2026-09-18 | Phase 3 | Correlation & Simple Linear Regression | Built Pearson/Spearman correlation and OLS simple regression (R²/RMSE/MAE), scatter/residual/contrast visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 
 ---
 
@@ -104,36 +105,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 41** — Probability Distributions (Bernoulli, Binomial, Poisson, Normal, Exponential; PMF/PDF/CDF; Monte Carlo checks)
 - [x] **Day 42** — Hypothesis Testing (one-sample z/t, Welch two-sample, one-proportion z, chi-square GOF; α decisions)
 - [x] **Day 43** — Confidence Intervals (z/t mean CIs, Wald proportions, Welch differences, coverage simulation)
+- [x] **Day 44** — Correlation & Simple Linear Regression (Pearson/Spearman, OLS slope/intercept, R², residuals)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 43 / 100 Days
+Completed: 44 / 100 Days
 
-███████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 43%
+████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 44%
 ```
 
 ### Current Position
 
-**Day 43 — Confidence Intervals** ✅
+**Day 44 — Correlation & Simple Linear Regression** ✅
 
-Day 43 built estimate ± critical-value × SE intervals for means and proportions, compared z* vs t*, and checked long-run coverage with repeated sampling.
+Day 44 connected association to prediction: Pearson/Spearman correlation, OLS lines with R², and residual checks on study-hours and curved-monotone examples.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 44 topic: Correlation & Simple Linear Regression.
+2. Prepare Day 45 topic: Multiple Linear Regression.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **43 / 100 Days Completed — 43% Progress**
+> **44 / 100 Days Completed — 44% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
