@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 44 |
-| **Days Completed** | 44 / 100 |
-| **Progress** | 44% |
-| **Current Streak** | 44 Days |
-| **Latest Topic** | Correlation & Simple Linear Regression |
+| **Current Day** | Day 45 |
+| **Days Completed** | 45 / 100 |
+| **Progress** | 45% |
+| **Current Streak** | 45 Days |
+| **Latest Topic** | Multiple Linear Regression |
 | **Status** | 🟢 On Track |
 
 ---
@@ -77,6 +77,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **42** | 2026-09-16 | Phase 3 | Hypothesis Testing | Built z/t proportion and chi-square goodness-of-fit tests with numerical p-values, null-tail and A/B visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 | **43** | 2026-09-17 | Phase 3 | Confidence Intervals | Built z/t mean intervals, Wald proportion and difference intervals, critical-value solvers, coverage simulation, interval/coverage/width visualizations, a runnable lesson pipeline, and a ten-test regression suite. | ✅ |
 | **44** | 2026-09-18 | Phase 3 | Correlation & Simple Linear Regression | Built Pearson/Spearman correlation and OLS simple regression (R²/RMSE/MAE), scatter/residual/contrast visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
+| **45** | 2026-09-19 | Phase 3 | Multiple Linear Regression | Built multi-predictor OLS via normal equations with R²/adjusted R²/VIF, housing and collinearity examples, prediction/residual/coefficient/VIF charts, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 
 ---
 
@@ -106,36 +107,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 42** — Hypothesis Testing (one-sample z/t, Welch two-sample, one-proportion z, chi-square GOF; α decisions)
 - [x] **Day 43** — Confidence Intervals (z/t mean CIs, Wald proportions, Welch differences, coverage simulation)
 - [x] **Day 44** — Correlation & Simple Linear Regression (Pearson/Spearman, OLS slope/intercept, R², residuals)
+- [x] **Day 45** — Multiple Linear Regression (normal equations, adjusted R², VIF, multi-predictor housing fit)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 44 / 100 Days
+Completed: 45 / 100 Days
 
-████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 44%
+█████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 45%
 ```
 
 ### Current Position
 
-**Day 44 — Correlation & Simple Linear Regression** ✅
+**Day 45 — Multiple Linear Regression** ✅
 
-Day 44 connected association to prediction: Pearson/Spearman correlation, OLS lines with R², and residual checks on study-hours and curved-monotone examples.
+Day 45 extended OLS to several predictors with the normal equations, compared R² vs adjusted R², and used VIF to spot multicollinearity.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 45 topic: Multiple Linear Regression.
+2. Prepare Day 46 topic: Logistic Regression Foundations.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **44 / 100 Days Completed — 44% Progress**
+> **45 / 100 Days Completed — 45% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
