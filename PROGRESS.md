@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 45 |
-| **Days Completed** | 45 / 100 |
-| **Progress** | 45% |
-| **Current Streak** | 45 Days |
-| **Latest Topic** | Multiple Linear Regression |
+| **Current Day** | Day 46 |
+| **Days Completed** | 46 / 100 |
+| **Progress** | 46% |
+| **Current Streak** | 46 Days |
+| **Latest Topic** | Logistic Regression Foundations |
 | **Status** | 🟢 On Track |
 
 ---
@@ -78,6 +78,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **43** | 2026-09-17 | Phase 3 | Confidence Intervals | Built z/t mean intervals, Wald proportion and difference intervals, critical-value solvers, coverage simulation, interval/coverage/width visualizations, a runnable lesson pipeline, and a ten-test regression suite. | ✅ |
 | **44** | 2026-09-18 | Phase 3 | Correlation & Simple Linear Regression | Built Pearson/Spearman correlation and OLS simple regression (R²/RMSE/MAE), scatter/residual/contrast visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 | **45** | 2026-09-19 | Phase 3 | Multiple Linear Regression | Built multi-predictor OLS via normal equations with R²/adjusted R²/VIF, housing and collinearity examples, prediction/residual/coefficient/VIF charts, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
+| **46** | 2026-09-20 | Phase 3 | Logistic Regression Foundations | Built sigmoid/logit, binary cross-entropy, batch-gradient logistic regression, accuracy/precision/recall and confusion matrices, sigmoid/probability/loss/confusion charts, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 
 ---
 
@@ -108,36 +109,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 43** — Confidence Intervals (z/t mean CIs, Wald proportions, Welch differences, coverage simulation)
 - [x] **Day 44** — Correlation & Simple Linear Regression (Pearson/Spearman, OLS slope/intercept, R², residuals)
 - [x] **Day 45** — Multiple Linear Regression (normal equations, adjusted R², VIF, multi-predictor housing fit)
+- [x] **Day 46** — Logistic Regression Foundations (sigmoid, BCE, gradient descent, precision/recall, confusion matrix)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 45 / 100 Days
+Completed: 46 / 100 Days
 
-█████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 45%
+██████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 46%
 ```
 
 ### Current Position
 
-**Day 45 — Multiple Linear Regression** ✅
+**Day 46 — Logistic Regression Foundations** ✅
 
-Day 45 extended OLS to several predictors with the normal equations, compared R² vs adjusted R², and used VIF to spot multicollinearity.
+Day 46 mapped linear scores to probabilities with the sigmoid, fit logistic models by minimizing binary cross-entropy, and scored them with accuracy, precision, recall, and a confusion matrix.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 46 topic: Logistic Regression Foundations.
+2. Prepare Day 47 topic: ROC Curves & Classification Thresholds.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **45 / 100 Days Completed — 45% Progress**
+> **46 / 100 Days Completed — 46% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
