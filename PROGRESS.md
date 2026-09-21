@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 46 |
-| **Days Completed** | 46 / 100 |
-| **Progress** | 46% |
-| **Current Streak** | 46 Days |
-| **Latest Topic** | Logistic Regression Foundations |
+| **Current Day** | Day 47 |
+| **Days Completed** | 47 / 100 |
+| **Progress** | 47% |
+| **Current Streak** | 47 Days |
+| **Latest Topic** | ROC Curves & Classification Thresholds |
 | **Status** | 🟢 On Track |
 
 ---
@@ -79,6 +79,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **44** | 2026-09-18 | Phase 3 | Correlation & Simple Linear Regression | Built Pearson/Spearman correlation and OLS simple regression (R²/RMSE/MAE), scatter/residual/contrast visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 | **45** | 2026-09-19 | Phase 3 | Multiple Linear Regression | Built multi-predictor OLS via normal equations with R²/adjusted R²/VIF, housing and collinearity examples, prediction/residual/coefficient/VIF charts, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 | **46** | 2026-09-20 | Phase 3 | Logistic Regression Foundations | Built sigmoid/logit, binary cross-entropy, batch-gradient logistic regression, accuracy/precision/recall and confusion matrices, sigmoid/probability/loss/confusion charts, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
+| **47** | 2026-09-21 | Phase 3 | ROC Curves & Classification Thresholds | Built threshold sweeps for TPR/FPR/precision/F1, trapezoidal ROC AUC, Youden/F1 operating-point selection, ROC/PR/threshold/AUC visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 
 ---
 
@@ -110,36 +111,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 44** — Correlation & Simple Linear Regression (Pearson/Spearman, OLS slope/intercept, R², residuals)
 - [x] **Day 45** — Multiple Linear Regression (normal equations, adjusted R², VIF, multi-predictor housing fit)
 - [x] **Day 46** — Logistic Regression Foundations (sigmoid, BCE, gradient descent, precision/recall, confusion matrix)
+- [x] **Day 47** — ROC Curves & Classification Thresholds (TPR/FPR, AUC, Youden/F1 thresholds, PR curves)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 46 / 100 Days
+Completed: 47 / 100 Days
 
-██████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 46%
+███████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 47%
 ```
 
 ### Current Position
 
-**Day 46 — Logistic Regression Foundations** ✅
+**Day 47 — ROC Curves & Classification Thresholds** ✅
 
-Day 46 mapped linear scores to probabilities with the sigmoid, fit logistic models by minimizing binary cross-entropy, and scored them with accuracy, precision, recall, and a confusion matrix.
+Day 47 showed how changing the decision threshold moves TPR and FPR along the ROC curve, summarized ranking quality with AUC, and chose operating points with Youden's J and F1.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 47 topic: ROC Curves & Classification Thresholds.
+2. Prepare Day 48 topic: Naive Bayes Classification.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **46 / 100 Days Completed — 46% Progress**
+> **47 / 100 Days Completed — 47% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
