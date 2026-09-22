@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 47 |
-| **Days Completed** | 47 / 100 |
-| **Progress** | 47% |
-| **Current Streak** | 47 Days |
-| **Latest Topic** | ROC Curves & Classification Thresholds |
+| **Current Day** | Day 48 |
+| **Days Completed** | 48 / 100 |
+| **Progress** | 48% |
+| **Current Streak** | 48 Days |
+| **Latest Topic** | Naive Bayes Classification |
 | **Status** | 🟢 On Track |
 
 ---
@@ -80,6 +80,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **45** | 2026-09-19 | Phase 3 | Multiple Linear Regression | Built multi-predictor OLS via normal equations with R²/adjusted R²/VIF, housing and collinearity examples, prediction/residual/coefficient/VIF charts, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 | **46** | 2026-09-20 | Phase 3 | Logistic Regression Foundations | Built sigmoid/logit, binary cross-entropy, batch-gradient logistic regression, accuracy/precision/recall and confusion matrices, sigmoid/probability/loss/confusion charts, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 | **47** | 2026-09-21 | Phase 3 | ROC Curves & Classification Thresholds | Built threshold sweeps for TPR/FPR/precision/F1, trapezoidal ROC AUC, Youden/F1 operating-point selection, ROC/PR/threshold/AUC visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
+| **48** | 2026-09-22 | Phase 3 | Naive Bayes Classification | Built Gaussian Naive Bayes with Laplace priors, log-likelihood posteriors, MAP prediction, flower/exam datasets, prior/density/decision-region/confusion charts, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 
 ---
 
@@ -112,36 +113,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 45** — Multiple Linear Regression (normal equations, adjusted R², VIF, multi-predictor housing fit)
 - [x] **Day 46** — Logistic Regression Foundations (sigmoid, BCE, gradient descent, precision/recall, confusion matrix)
 - [x] **Day 47** — ROC Curves & Classification Thresholds (TPR/FPR, AUC, Youden/F1 thresholds, PR curves)
+- [x] **Day 48** — Naive Bayes Classification (Gaussian likelihoods, Laplace priors, MAP posteriors, decision regions)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 47 / 100 Days
+Completed: 48 / 100 Days
 
-███████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 47%
+████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 48%
 ```
 
 ### Current Position
 
-**Day 47 — ROC Curves & Classification Thresholds** ✅
+**Day 48 — Naive Bayes Classification** ✅
 
-Day 47 showed how changing the decision threshold moves TPR and FPR along the ROC curve, summarized ranking quality with AUC, and chose operating points with Youden's J and F1.
+Day 48 combined class priors with independent Gaussian feature likelihoods, scored posteriors in log space, and visualized the resulting MAP decision regions.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 48 topic: Naive Bayes Classification.
+2. Prepare Day 49 topic: K-Nearest Neighbors.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **47 / 100 Days Completed — 47% Progress**
+> **48 / 100 Days Completed — 48% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
