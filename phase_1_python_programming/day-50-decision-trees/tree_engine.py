@@ -280,7 +280,8 @@ def make_xor_like(n_per_class: int = 50, seed: int = 50):
     chunks_x = []
     chunks_y = []
     for center, lab in corners:
-        pts = rng.normal(loc=center, scale=0.12, size=(half, 2))
+        # keep the clouds tight so the four corners don't smear into each other
+        pts = rng.normal(loc=center, scale=0.08, size=(half, 2))
         chunks_x.append(pts)
         chunks_y.append(np.full(half, lab))
     X = np.vstack(chunks_x)
