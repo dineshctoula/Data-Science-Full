@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 49 |
-| **Days Completed** | 49 / 100 |
-| **Progress** | 49% |
-| **Current Streak** | 49 Days |
-| **Latest Topic** | K-Nearest Neighbors |
+| **Current Day** | Day 50 |
+| **Days Completed** | 50 / 100 |
+| **Progress** | 50% |
+| **Current Streak** | 50 Days |
+| **Latest Topic** | Decision Trees |
 | **Status** | 🟢 On Track |
 
 ---
@@ -82,6 +82,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **47** | 2026-09-21 | Phase 3 | ROC Curves & Classification Thresholds | Built threshold sweeps for TPR/FPR/precision/F1, trapezoidal ROC AUC, Youden/F1 operating-point selection, ROC/PR/threshold/AUC visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 | **48** | 2026-09-22 | Phase 3 | Naive Bayes Classification | Built Gaussian Naive Bayes with Laplace priors, log-likelihood posteriors, MAP prediction, flower/exam datasets, prior/density/decision-region/confusion charts, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 | **49** | 2026-09-23 | Phase 3 | K-Nearest Neighbors | Implemented from-scratch KNN (euclidean/manhattan, majority vote, LOOCV k-sweep), blob/moons demos, decision-region and neighbor plots, plus an eight-test suite. | ✅ |
+| **50** | 2026-09-23 | Phase 3 | Decision Trees | Built CART-style binary trees (gini/entropy, depth limits), blob/XOR demos, depth-vs-accuracy and region plots, plus a ten-test suite. | ✅ |
 
 ---
 
@@ -116,36 +117,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 47** — ROC Curves & Classification Thresholds (TPR/FPR, AUC, Youden/F1 thresholds, PR curves)
 - [x] **Day 48** — Naive Bayes Classification (Gaussian likelihoods, Laplace priors, MAP posteriors, decision regions)
 - [x] **Day 49** — K-Nearest Neighbors (distance voting, LOOCV, k-sweep, moons vs blobs)
+- [x] **Day 50** — Decision Trees (CART splits, gini/entropy, depth limits, XOR regions)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 49 / 100 Days
+Completed: 50 / 100 Days
 
-█████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 49%
+██████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 50%
 ```
 
 ### Current Position
 
-**Day 49 — K-Nearest Neighbors** ✅
+**Day 50 — Decision Trees** ✅
 
-Day 49 was instance-based classification: store the training points, vote among the k nearest, and use LOOCV to see how k changes the boundary.
+Day 50 was recursive binary partitioning: pick the feature/threshold that drops impurity the most, stop at pure leaves or max depth, and watch depth buy accuracy on XOR-ish data.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 50 topic: Decision Trees.
+2. Prepare Day 51 topic: Random Forests / Ensemble Basics.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **49 / 100 Days Completed — 49% Progress**
+> **50 / 100 Days Completed — 50% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
