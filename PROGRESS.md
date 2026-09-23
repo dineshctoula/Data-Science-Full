@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 48 |
-| **Days Completed** | 48 / 100 |
-| **Progress** | 48% |
-| **Current Streak** | 48 Days |
-| **Latest Topic** | Naive Bayes Classification |
+| **Current Day** | Day 49 |
+| **Days Completed** | 49 / 100 |
+| **Progress** | 49% |
+| **Current Streak** | 49 Days |
+| **Latest Topic** | K-Nearest Neighbors |
 | **Status** | 🟢 On Track |
 
 ---
@@ -81,6 +81,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **46** | 2026-09-20 | Phase 3 | Logistic Regression Foundations | Built sigmoid/logit, binary cross-entropy, batch-gradient logistic regression, accuracy/precision/recall and confusion matrices, sigmoid/probability/loss/confusion charts, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 | **47** | 2026-09-21 | Phase 3 | ROC Curves & Classification Thresholds | Built threshold sweeps for TPR/FPR/precision/F1, trapezoidal ROC AUC, Youden/F1 operating-point selection, ROC/PR/threshold/AUC visualizations, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 | **48** | 2026-09-22 | Phase 3 | Naive Bayes Classification | Built Gaussian Naive Bayes with Laplace priors, log-likelihood posteriors, MAP prediction, flower/exam datasets, prior/density/decision-region/confusion charts, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
+| **49** | 2026-09-23 | Phase 3 | K-Nearest Neighbors | Implemented from-scratch KNN (euclidean/manhattan, majority vote, LOOCV k-sweep), blob/moons demos, decision-region and neighbor plots, plus an eight-test suite. | ✅ |
 
 ---
 
@@ -114,36 +115,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 46** — Logistic Regression Foundations (sigmoid, BCE, gradient descent, precision/recall, confusion matrix)
 - [x] **Day 47** — ROC Curves & Classification Thresholds (TPR/FPR, AUC, Youden/F1 thresholds, PR curves)
 - [x] **Day 48** — Naive Bayes Classification (Gaussian likelihoods, Laplace priors, MAP posteriors, decision regions)
+- [x] **Day 49** — K-Nearest Neighbors (distance voting, LOOCV, k-sweep, moons vs blobs)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 48 / 100 Days
+Completed: 49 / 100 Days
 
-████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 48%
+█████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 49%
 ```
 
 ### Current Position
 
-**Day 48 — Naive Bayes Classification** ✅
+**Day 49 — K-Nearest Neighbors** ✅
 
-Day 48 combined class priors with independent Gaussian feature likelihoods, scored posteriors in log space, and visualized the resulting MAP decision regions.
+Day 49 was instance-based classification: store the training points, vote among the k nearest, and use LOOCV to see how k changes the boundary.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 49 topic: K-Nearest Neighbors.
+2. Prepare Day 50 topic: Decision Trees.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **48 / 100 Days Completed — 48% Progress**
+> **49 / 100 Days Completed — 49% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
