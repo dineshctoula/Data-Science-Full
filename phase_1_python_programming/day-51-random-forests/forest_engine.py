@@ -7,7 +7,6 @@ cancel each other's quirks when you majority-vote.
 
 from __future__ import annotations
 
-from collections import Counter
 from dataclasses import dataclass
 from typing import Optional
 

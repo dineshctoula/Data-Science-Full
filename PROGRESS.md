@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 50 |
-| **Days Completed** | 50 / 100 |
-| **Progress** | 50% |
-| **Current Streak** | 50 Days |
-| **Latest Topic** | Decision Trees |
+| **Current Day** | Day 51 |
+| **Days Completed** | 51 / 100 |
+| **Progress** | 51% |
+| **Current Streak** | 51 Days |
+| **Latest Topic** | Random Forests |
 | **Status** | 🟢 On Track |
 
 ---
@@ -83,6 +83,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **48** | 2026-09-22 | Phase 3 | Naive Bayes Classification | Built Gaussian Naive Bayes with Laplace priors, log-likelihood posteriors, MAP prediction, flower/exam datasets, prior/density/decision-region/confusion charts, a runnable lesson pipeline, and a nine-test regression suite. | ✅ |
 | **49** | 2026-09-23 | Phase 3 | K-Nearest Neighbors | Implemented from-scratch KNN (euclidean/manhattan, majority vote, LOOCV k-sweep), blob/moons demos, decision-region and neighbor plots, plus an eight-test suite. | ✅ |
 | **50** | 2026-09-23 | Phase 3 | Decision Trees | Built CART-style binary trees (gini/entropy, depth limits), blob/XOR demos, depth-vs-accuracy and region plots, plus a ten-test suite. | ✅ |
+| **51** | 2026-09-24 | Phase 3 | Random Forests | Built bagged trees with random feature subsets, OOB scoring, noisy-moons / wide-feature demos, region and n_trees plots, plus an eight-test suite. | ✅ |
 
 ---
 
@@ -118,36 +119,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 48** — Naive Bayes Classification (Gaussian likelihoods, Laplace priors, MAP posteriors, decision regions)
 - [x] **Day 49** — K-Nearest Neighbors (distance voting, LOOCV, k-sweep, moons vs blobs)
 - [x] **Day 50** — Decision Trees (CART splits, gini/entropy, depth limits, XOR regions)
+- [x] **Day 51** — Random Forests (bagging, feature subsets, OOB, noisy moons)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 50 / 100 Days
+Completed: 51 / 100 Days
 
-██████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 50%
+███████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 51%
 ```
 
 ### Current Position
 
-**Day 50 — Decision Trees** ✅
+**Day 51 — Random Forests** ✅
 
-Day 50 was recursive binary partitioning: pick the feature/threshold that drops impurity the most, stop at pure leaves or max depth, and watch depth buy accuracy on XOR-ish data.
+Day 51 was ensemble trees: bootstrap the rows, randomly restrict features at each split, majority-vote at predict time, and peek at OOB accuracy for free validation.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 51 topic: Random Forests / Ensemble Basics.
+2. Prepare Day 52 topic: Gradient Boosting Basics.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **50 / 100 Days Completed — 50% Progress**
+> **51 / 100 Days Completed — 51% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
