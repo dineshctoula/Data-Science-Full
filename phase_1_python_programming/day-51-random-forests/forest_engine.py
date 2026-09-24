@@ -305,8 +305,8 @@ def make_wide_features(n: int = 120, p: int = 8, seed: int = 51):
     # label from a soft XOR on x0, x1, ignore the rest
     signal = (X[:, 0] > 0).astype(float) != (X[:, 1] > 0).astype(float)
     y = signal.astype(int)
-    # flip a few labels so it's not trivial
-    flip = rng.choice(n, size=max(1, n // 20), replace=False)
+    # flip a few labels so it's not trivial — keep it light though
+    flip = rng.choice(n, size=max(1, n // 40), replace=False)
     y[flip] = 1 - y[flip]
     return X, y
 
