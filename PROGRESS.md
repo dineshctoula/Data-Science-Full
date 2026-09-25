@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 52 |
-| **Days Completed** | 52 / 100 |
-| **Progress** | 52% |
-| **Current Streak** | 52 Days |
-| **Latest Topic** | Gradient Boosting |
+| **Current Day** | Day 53 |
+| **Days Completed** | 53 / 100 |
+| **Progress** | 53% |
+| **Current Streak** | 53 Days |
+| **Latest Topic** | Support Vector Machines |
 | **Status** | 🟢 On Track |
 
 ---
@@ -85,6 +85,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **50** | 2026-09-23 | Phase 3 | Decision Trees | Built CART-style binary trees (gini/entropy, depth limits), blob/XOR demos, depth-vs-accuracy and region plots, plus a ten-test suite. | ✅ |
 | **51** | 2026-09-24 | Phase 3 | Random Forests | Built bagged trees with random feature subsets, OOB scoring, noisy-moons / wide-feature demos, region and n_trees plots, plus an eight-test suite. | ✅ |
 | **52** | 2026-09-25 | Phase 3 | Gradient Boosting | Built residual-tree boosting (L2), learning-rate sweeps, wave regression + blob clf demos, loss/fit plots, plus a seven-test suite. | ✅ |
+| **53** | 2026-09-25 | Phase 3 | Support Vector Machines | Built a linear soft-margin SVM via SGD (hinge + weight decay), C sweeps, margin plots, plus an eight-test suite. | ✅ |
 
 ---
 
@@ -122,36 +123,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 50** — Decision Trees (CART splits, gini/entropy, depth limits, XOR regions)
 - [x] **Day 51** — Random Forests (bagging, feature subsets, OOB, noisy moons)
 - [x] **Day 52** — Gradient Boosting (residual trees, shrinkage, L2 binary clf)
+- [x] **Day 53** — Support Vector Machines (linear soft-margin, hinge SGD, C tradeoff)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 52 / 100 Days
+Completed: 53 / 100 Days
 
-████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░ 52%
+█████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░ 53%
 ```
 
 ### Current Position
 
-**Day 52 — Gradient Boosting** ✅
+**Day 53 — Support Vector Machines** ✅
 
-Day 52 was sequential ensembles: fit shallow trees to residuals, shrink each step with a learning rate, and watch train MSE fall round by round.
+Day 53 was the wide-margin idea in primal form: hinge loss, weight decay, and C controlling how hard we punish margin violations.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 53 topic: Support Vector Machines.
+2. Prepare Day 54 topic: Clustering (K-Means).
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **52 / 100 Days Completed — 52% Progress**
+> **53 / 100 Days Completed — 53% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
