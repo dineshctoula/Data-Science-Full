@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 51 |
-| **Days Completed** | 51 / 100 |
-| **Progress** | 51% |
-| **Current Streak** | 51 Days |
-| **Latest Topic** | Random Forests |
+| **Current Day** | Day 52 |
+| **Days Completed** | 52 / 100 |
+| **Progress** | 52% |
+| **Current Streak** | 52 Days |
+| **Latest Topic** | Gradient Boosting |
 | **Status** | 🟢 On Track |
 
 ---
@@ -84,6 +84,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **49** | 2026-09-23 | Phase 3 | K-Nearest Neighbors | Implemented from-scratch KNN (euclidean/manhattan, majority vote, LOOCV k-sweep), blob/moons demos, decision-region and neighbor plots, plus an eight-test suite. | ✅ |
 | **50** | 2026-09-23 | Phase 3 | Decision Trees | Built CART-style binary trees (gini/entropy, depth limits), blob/XOR demos, depth-vs-accuracy and region plots, plus a ten-test suite. | ✅ |
 | **51** | 2026-09-24 | Phase 3 | Random Forests | Built bagged trees with random feature subsets, OOB scoring, noisy-moons / wide-feature demos, region and n_trees plots, plus an eight-test suite. | ✅ |
+| **52** | 2026-09-25 | Phase 3 | Gradient Boosting | Built residual-tree boosting (L2), learning-rate sweeps, wave regression + blob clf demos, loss/fit plots, plus a seven-test suite. | ✅ |
 
 ---
 
@@ -120,36 +121,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 49** — K-Nearest Neighbors (distance voting, LOOCV, k-sweep, moons vs blobs)
 - [x] **Day 50** — Decision Trees (CART splits, gini/entropy, depth limits, XOR regions)
 - [x] **Day 51** — Random Forests (bagging, feature subsets, OOB, noisy moons)
+- [x] **Day 52** — Gradient Boosting (residual trees, shrinkage, L2 binary clf)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 51 / 100 Days
+Completed: 52 / 100 Days
 
-███████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░░ 51%
+████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░░░ 52%
 ```
 
 ### Current Position
 
-**Day 51 — Random Forests** ✅
+**Day 52 — Gradient Boosting** ✅
 
-Day 51 was ensemble trees: bootstrap the rows, randomly restrict features at each split, majority-vote at predict time, and peek at OOB accuracy for free validation.
+Day 52 was sequential ensembles: fit shallow trees to residuals, shrink each step with a learning rate, and watch train MSE fall round by round.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 52 topic: Gradient Boosting Basics.
+2. Prepare Day 53 topic: Support Vector Machines.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **51 / 100 Days Completed — 51% Progress**
+> **52 / 100 Days Completed — 52% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
