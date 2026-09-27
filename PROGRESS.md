@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 54 |
-| **Days Completed** | 54 / 100 |
-| **Progress** | 54% |
-| **Current Streak** | 54 Days |
-| **Latest Topic** | K-Means Clustering |
+| **Current Day** | Day 55 |
+| **Days Completed** | 55 / 100 |
+| **Progress** | 55% |
+| **Current Streak** | 55 Days |
+| **Latest Topic** | DBSCAN |
 | **Status** | 🟢 On Track |
 
 ---
@@ -87,6 +87,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **52** | 2026-09-25 | Phase 3 | Gradient Boosting | Built residual-tree boosting (L2), learning-rate sweeps, wave regression + blob clf demos, loss/fit plots, plus a seven-test suite. | ✅ |
 | **53** | 2026-09-25 | Phase 3 | Support Vector Machines | Built a linear soft-margin SVM via SGD (hinge + weight decay), C sweeps, margin plots, plus an eight-test suite. | ✅ |
 | **54** | 2026-09-26 | Phase 3 | K-Means Clustering | Built k-means with ++-style init, multi-restart, elbow sweep, neat/uneven blob demos, cluster plots, plus a seven-test suite. | ✅ |
+| **55** | 2026-09-27 | Phase 3 | DBSCAN | Built density clustering (eps, min_samples, noise=-1), moons and outlier-blob demos, cluster/eps-sweep plots, plus a six-test suite. | ✅ |
 
 ---
 
@@ -126,36 +127,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 52** — Gradient Boosting (residual trees, shrinkage, L2 binary clf)
 - [x] **Day 53** — Support Vector Machines (linear soft-margin, hinge SGD, C tradeoff)
 - [x] **Day 54** — K-Means Clustering (++ init, inertia, elbow, multi-restart)
+- [x] **Day 55** — DBSCAN (eps, min_samples, noise points, moons)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 54 / 100 Days
+Completed: 55 / 100 Days
 
-██████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░░ 54%
+███████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░ 55%
 ```
 
 ### Current Position
 
-**Day 54 — K-Means Clustering** ✅
+**Day 55 — DBSCAN** ✅
 
-Day 54 was unsupervised grouping: assign points to nearest centers, update means, pick k with an elbow plot, and restart a few times so a bad init doesn't stick.
+Day 55 was density clustering: grow clusters from core points inside eps, leave sparse points as noise, and sweep eps until the moons split instead of gluing together.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 55 topic: Hierarchical Clustering / DBSCAN.
+2. Prepare Day 56 topic: Principal Component Analysis.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **54 / 100 Days Completed — 54% Progress**
+> **55 / 100 Days Completed — 55% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
