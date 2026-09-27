@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 55 |
-| **Days Completed** | 55 / 100 |
-| **Progress** | 55% |
-| **Current Streak** | 55 Days |
-| **Latest Topic** | DBSCAN |
+| **Current Day** | Day 56 |
+| **Days Completed** | 56 / 100 |
+| **Progress** | 56% |
+| **Current Streak** | 56 Days |
+| **Latest Topic** | Principal Component Analysis |
 | **Status** | 🟢 On Track |
 
 ---
@@ -88,6 +88,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **53** | 2026-09-25 | Phase 3 | Support Vector Machines | Built a linear soft-margin SVM via SGD (hinge + weight decay), C sweeps, margin plots, plus an eight-test suite. | ✅ |
 | **54** | 2026-09-26 | Phase 3 | K-Means Clustering | Built k-means with ++-style init, multi-restart, elbow sweep, neat/uneven blob demos, cluster plots, plus a seven-test suite. | ✅ |
 | **55** | 2026-09-27 | Phase 3 | DBSCAN | Built density clustering (eps, min_samples, noise=-1), moons and outlier-blob demos, cluster/eps-sweep plots, plus a six-test suite. | ✅ |
+| **56** | 2026-09-27 | Phase 3 | Principal Component Analysis | Built PCA from the sample covariance (project/reconstruct), stretched-cloud and noisy-signal demos, scree plots, plus a six-test suite. | ✅ |
 
 ---
 
@@ -128,36 +129,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 53** — Support Vector Machines (linear soft-margin, hinge SGD, C tradeoff)
 - [x] **Day 54** — K-Means Clustering (++ init, inertia, elbow, multi-restart)
 - [x] **Day 55** — DBSCAN (eps, min_samples, noise points, moons)
+- [x] **Day 56** — Principal Component Analysis (covariance, scree, reconstruction)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 55 / 100 Days
+Completed: 56 / 100 Days
 
-███████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░░ 55%
+████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░ 56%
 ```
 
 ### Current Position
 
-**Day 55 — DBSCAN** ✅
+**Day 56 — Principal Component Analysis** ✅
 
-Day 55 was density clustering: grow clusters from core points inside eps, leave sparse points as noise, and sweep eps until the moons split instead of gluing together.
+Day 56 was compressing columns: center the data, take the top eigenvectors of the covariance, and check how much variance (and reconstruction error) you give up by keeping fewer components.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 56 topic: Principal Component Analysis.
+2. Prepare Day 57 topic: Cross-Validation.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **55 / 100 Days Completed — 55% Progress**
+> **56 / 100 Days Completed — 56% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
