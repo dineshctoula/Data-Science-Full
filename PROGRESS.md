@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 56 |
-| **Days Completed** | 56 / 100 |
-| **Progress** | 56% |
-| **Current Streak** | 56 Days |
-| **Latest Topic** | Principal Component Analysis |
+| **Current Day** | Day 57 |
+| **Days Completed** | 57 / 100 |
+| **Progress** | 57% |
+| **Current Streak** | 57 Days |
+| **Latest Topic** | Cross-Validation |
 | **Status** | 🟢 On Track |
 
 ---
@@ -89,6 +89,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **54** | 2026-09-26 | Phase 3 | K-Means Clustering | Built k-means with ++-style init, multi-restart, elbow sweep, neat/uneven blob demos, cluster plots, plus a seven-test suite. | ✅ |
 | **55** | 2026-09-27 | Phase 3 | DBSCAN | Built density clustering (eps, min_samples, noise=-1), moons and outlier-blob demos, cluster/eps-sweep plots, plus a six-test suite. | ✅ |
 | **56** | 2026-09-27 | Phase 3 | Principal Component Analysis | Built PCA from the sample covariance (project/reconstruct), stretched-cloud and noisy-signal demos, scree plots, plus a six-test suite. | ✅ |
+| **57** | 2026-09-28 | Phase 3 | Cross-Validation | Built plain and stratified k-fold splits, nearest-centroid scoring, holdout-vs-CV and k-sweep plots, plus a seven-test suite. | ✅ |
 
 ---
 
@@ -130,36 +131,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 54** — K-Means Clustering (++ init, inertia, elbow, multi-restart)
 - [x] **Day 55** — DBSCAN (eps, min_samples, noise points, moons)
 - [x] **Day 56** — Principal Component Analysis (covariance, scree, reconstruction)
+- [x] **Day 57** — Cross-Validation (k-fold, stratified folds, holdout vs CV)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 56 / 100 Days
+Completed: 57 / 100 Days
 
-████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░░ 56%
+█████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░ 57%
 ```
 
 ### Current Position
 
-**Day 56 — Principal Component Analysis** ✅
+**Day 57 — Cross-Validation** ✅
 
-Day 56 was compressing columns: center the data, take the top eigenvectors of the covariance, and check how much variance (and reconstruction error) you give up by keeping fewer components.
+Day 57 was rotating the test set: split into k folds, fit a fresh model each time, and compare that mean to a pile of one-off holdouts so a single lucky split isn't the whole story.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 57 topic: Cross-Validation.
+2. Prepare Day 58 topic: Regularization (Ridge / Lasso).
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **56 / 100 Days Completed — 56% Progress**
+> **57 / 100 Days Completed — 57% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
