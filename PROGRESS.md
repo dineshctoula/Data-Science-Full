@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 57 |
-| **Days Completed** | 57 / 100 |
-| **Progress** | 57% |
-| **Current Streak** | 57 Days |
-| **Latest Topic** | Cross-Validation |
+| **Current Day** | Day 58 |
+| **Days Completed** | 58 / 100 |
+| **Progress** | 58% |
+| **Current Streak** | 58 Days |
+| **Latest Topic** | Ridge and Lasso |
 | **Status** | 🟢 On Track |
 
 ---
@@ -90,6 +90,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **55** | 2026-09-27 | Phase 3 | DBSCAN | Built density clustering (eps, min_samples, noise=-1), moons and outlier-blob demos, cluster/eps-sweep plots, plus a six-test suite. | ✅ |
 | **56** | 2026-09-27 | Phase 3 | Principal Component Analysis | Built PCA from the sample covariance (project/reconstruct), stretched-cloud and noisy-signal demos, scree plots, plus a six-test suite. | ✅ |
 | **57** | 2026-09-28 | Phase 3 | Cross-Validation | Built plain and stratified k-fold splits, nearest-centroid scoring, holdout-vs-CV and k-sweep plots, plus a seven-test suite. | ✅ |
+| **58** | 2026-09-29 | Phase 3 | Ridge and Lasso | Built unpenalized-intercept ridge and lasso coordinate descent, coefficient paths, test-MSE vs lambda, plus an eight-test suite. | ✅ |
 
 ---
 
@@ -132,36 +133,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 55** — DBSCAN (eps, min_samples, noise points, moons)
 - [x] **Day 56** — Principal Component Analysis (covariance, scree, reconstruction)
 - [x] **Day 57** — Cross-Validation (k-fold, stratified folds, holdout vs CV)
+- [x] **Day 58** — Ridge and Lasso (shrinkage, soft-threshold zeros, lambda paths)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 57 / 100 Days
+Completed: 58 / 100 Days
 
-█████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░░ 57%
+██████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░ 58%
 ```
 
 ### Current Position
 
-**Day 57 — Cross-Validation** ✅
+**Day 58 — Ridge and Lasso** ✅
 
-Day 57 was rotating the test set: split into k folds, fit a fresh model each time, and compare that mean to a pile of one-off holdouts so a single lucky split isn't the whole story.
+Day 58 was penalized least squares: ridge shrinks every slope, lasso can set some exactly to zero, and the intercept is left alone so the mean doesn't get punished.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 58 topic: Regularization (Ridge / Lasso).
+2. Prepare Day 59 topic: Bias-Variance Tradeoff.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **57 / 100 Days Completed — 57% Progress**
+> **58 / 100 Days Completed — 58% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
