@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 58 |
-| **Days Completed** | 58 / 100 |
-| **Progress** | 58% |
-| **Current Streak** | 58 Days |
-| **Latest Topic** | Ridge and Lasso |
+| **Current Day** | Day 59 |
+| **Days Completed** | 59 / 100 |
+| **Progress** | 59% |
+| **Current Streak** | 59 Days |
+| **Latest Topic** | Bias-Variance Tradeoff |
 | **Status** | 🟢 On Track |
 
 ---
@@ -91,6 +91,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **56** | 2026-09-27 | Phase 3 | Principal Component Analysis | Built PCA from the sample covariance (project/reconstruct), stretched-cloud and noisy-signal demos, scree plots, plus a six-test suite. | ✅ |
 | **57** | 2026-09-28 | Phase 3 | Cross-Validation | Built plain and stratified k-fold splits, nearest-centroid scoring, holdout-vs-CV and k-sweep plots, plus a seven-test suite. | ✅ |
 | **58** | 2026-09-29 | Phase 3 | Ridge and Lasso | Built unpenalized-intercept ridge and lasso coordinate descent, coefficient paths, test-MSE vs lambda, plus an eight-test suite. | ✅ |
+| **59** | 2026-09-30 | Phase 3 | Bias-Variance Tradeoff | Simulated polynomial fits on a noisy sine, split error into bias², variance, and noise, plus an eight-test suite. | ✅ |
 
 ---
 
@@ -134,36 +135,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 56** — Principal Component Analysis (covariance, scree, reconstruction)
 - [x] **Day 57** — Cross-Validation (k-fold, stratified folds, holdout vs CV)
 - [x] **Day 58** — Ridge and Lasso (shrinkage, soft-threshold zeros, lambda paths)
+- [x] **Day 59** — Bias-Variance Tradeoff (polynomial degree, bias² + variance + noise)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 58 / 100 Days
+Completed: 59 / 100 Days
 
-██████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░ 58%
+███████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░ 59%
 ```
 
 ### Current Position
 
-**Day 58 — Ridge and Lasso** ✅
+**Day 59 — Bias-Variance Tradeoff** ✅
 
-Day 58 was penalized least squares: ridge shrinks every slope, lasso can set some exactly to zero, and the intercept is left alone so the mean doesn't get punished.
+Day 59 was the split of prediction error: a stiff polynomial is wrong on average, a flexible one changes with every sample, and the noise term stays no matter which degree you pick.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 59 topic: Bias-Variance Tradeoff.
+2. Prepare Day 60 topic: Phase 3 wrap-up.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **58 / 100 Days Completed — 58% Progress**
+> **59 / 100 Days Completed — 59% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
