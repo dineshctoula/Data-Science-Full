@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 3 — Math & Statistics for Data Science |
-| **Current Day** | Day 59 |
-| **Days Completed** | 59 / 100 |
-| **Progress** | 59% |
-| **Current Streak** | 59 Days |
-| **Latest Topic** | Bias-Variance Tradeoff |
+| **Current Day** | Day 60 |
+| **Days Completed** | 60 / 100 |
+| **Progress** | 60% |
+| **Current Streak** | 60 Days |
+| **Latest Topic** | Phase 3 Wrap-up |
 | **Status** | 🟢 On Track |
 
 ---
@@ -23,7 +23,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | :--- | :--- | :--- | :--- |
 | **Phase 1** | Days 1–15 | Python & NumPy Fundamentals | ✅ Completed |
 | **Phase 2** | Days 16–35 | Data Manipulation & Visualization | ✅ Completed |
-| **Phase 3** | Days 36–60 | Math & Statistics for Data Science | 🔄 In Progress |
+| **Phase 3** | Days 36–60 | Math & Statistics for Data Science | ✅ Completed |
 | **Phase 4** | Days 61–80 | Machine Learning Fundamentals | ⏳ Upcoming |
 | **Phase 5** | Days 81–100 | Projects & Portfolio Development | ⏳ Upcoming |
 
@@ -92,6 +92,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **57** | 2026-09-28 | Phase 3 | Cross-Validation | Built plain and stratified k-fold splits, nearest-centroid scoring, holdout-vs-CV and k-sweep plots, plus a seven-test suite. | ✅ |
 | **58** | 2026-09-29 | Phase 3 | Ridge and Lasso | Built unpenalized-intercept ridge and lasso coordinate descent, coefficient paths, test-MSE vs lambda, plus an eight-test suite. | ✅ |
 | **59** | 2026-09-30 | Phase 3 | Bias-Variance Tradeoff | Simulated polynomial fits on a noisy sine, split error into bias², variance, and noise, plus an eight-test suite. | ✅ |
+| **60** | 2026-10-01 | Phase 3 | Phase 3 Wrap-up | Tied summary stats, OLS, a holdout, and a bootstrap slope interval together on a small exam-score example, plus a six-test suite. | ✅ |
 
 ---
 
@@ -136,36 +137,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 57** — Cross-Validation (k-fold, stratified folds, holdout vs CV)
 - [x] **Day 58** — Ridge and Lasso (shrinkage, soft-threshold zeros, lambda paths)
 - [x] **Day 59** — Bias-Variance Tradeoff (polynomial degree, bias² + variance + noise)
+- [x] **Day 60** — Phase 3 wrap-up (exam scores, OLS holdout, bootstrap slope interval)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 59 / 100 Days
+Completed: 60 / 100 Days
 
-███████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░ 59%
+████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░ 60%
 ```
 
 ### Current Position
 
-**Day 59 — Bias-Variance Tradeoff** ✅
+**Day 60 — Phase 3 Wrap-up** ✅
 
-Day 59 was the split of prediction error: a stiff polynomial is wrong on average, a flexible one changes with every sample, and the noise term stays no matter which degree you pick.
+Day 60 closed the math and stats phase with one exam-score example: describe the columns, fit least squares, check a holdout against predicting the mean, and put a bootstrap interval on the hours slope.
 
 ---
 
 ## 🚀 Next Goals
 
-1. Advance through **Phase 3 (Days 36–60): Math & Statistics for Data Science**.
-2. Prepare Day 60 topic: Phase 3 wrap-up.
+1. Start **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
+2. Prepare Day 61 topic: a first pass at the ML workflow (train, validate, compare).
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **59 / 100 Days Completed — 59% Progress**
+> **60 / 100 Days Completed — 60% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
