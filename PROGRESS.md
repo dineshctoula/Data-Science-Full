@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 61 |
-| **Days Completed** | 61 / 100 |
-| **Progress** | 61% |
-| **Current Streak** | 61 Days |
-| **Latest Topic** | Train, Validate, Compare |
+| **Current Day** | Day 62 |
+| **Days Completed** | 62 / 100 |
+| **Progress** | 62% |
+| **Current Streak** | 62 Days |
+| **Latest Topic** | Feature Scaling |
 | **Status** | 🟢 On Track |
 
 ---
@@ -94,6 +94,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **59** | 2026-09-30 | Phase 3 | Bias-Variance Tradeoff | Simulated polynomial fits on a noisy sine, split error into bias², variance, and noise, plus an eight-test suite. | ✅ |
 | **60** | 2026-10-01 | Phase 3 | Phase 3 Wrap-up | Tied summary stats, OLS, a holdout, and a bootstrap slope interval together on a small exam-score example, plus a six-test suite. | ✅ |
 | **61** | 2026-10-02 | Phase 4 | Train, Validate, Compare | Compared majority, nearest centroid, and logistic on one signup split, then checked a second seed, plus a seven-test suite. | ✅ |
+| **62** | 2026-10-03 | Phase 4 | Feature Scaling | Built standard and min-max scalers, compared raw vs scaled kNN on age/income, plus a seven-test suite. | ✅ |
 
 ---
 
@@ -143,36 +144,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 ### Phase 4 — Machine Learning Fundamentals
 
 - [x] **Day 61** — Train, validate, compare (majority vs centroid vs logistic, same split)
+- [x] **Day 62** — Feature scaling (standard and min-max, kNN on age vs income)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 61 / 100 Days
+Completed: 62 / 100 Days
 
-█████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░ 61%
+██████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░ 62%
 ```
 
 ### Current Position
 
-**Day 61 — Train, Validate, Compare** ✅
+**Day 62 — Feature Scaling** ✅
 
-Day 61 was the workflow: fit a few models on the same training rows, pick with the validation accuracy, and run a second split because the first one can crown the majority rule by accident.
+Day 62 was putting columns on a shared scale before a distance model: fit the scaler on the training rows, and watch raw kNN get pulled around by income.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 62 topic: feature scaling and why it changes a fit.
+2. Prepare Day 63 topic: categorical encoding.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **61 / 100 Days Completed — 61% Progress**
+> **62 / 100 Days Completed — 62% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
