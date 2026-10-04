@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 62 |
-| **Days Completed** | 62 / 100 |
-| **Progress** | 62% |
-| **Current Streak** | 62 Days |
-| **Latest Topic** | Feature Scaling |
+| **Current Day** | Day 63 |
+| **Days Completed** | 63 / 100 |
+| **Progress** | 63% |
+| **Current Streak** | 63 Days |
+| **Latest Topic** | Categorical Encoding |
 | **Status** | 🟢 On Track |
 
 ---
@@ -95,6 +95,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **60** | 2026-10-01 | Phase 3 | Phase 3 Wrap-up | Tied summary stats, OLS, a holdout, and a bootstrap slope interval together on a small exam-score example, plus a six-test suite. | ✅ |
 | **61** | 2026-10-02 | Phase 4 | Train, Validate, Compare | Compared majority, nearest centroid, and logistic on one signup split, then checked a second seed, plus a seven-test suite. | ✅ |
 | **62** | 2026-10-03 | Phase 4 | Feature Scaling | Built standard and min-max scalers, compared raw vs scaled kNN on age/income, plus a seven-test suite. | ✅ |
+| **63** | 2026-10-04 | Phase 4 | Categorical Encoding | Built ordinal and one-hot encoders, compared them on plan/channel scores, plus a seven-test suite. | ✅ |
 
 ---
 
@@ -145,36 +146,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 
 - [x] **Day 61** — Train, validate, compare (majority vs centroid vs logistic, same split)
 - [x] **Day 62** — Feature scaling (standard and min-max, kNN on age vs income)
+- [x] **Day 63** — Categorical encoding (ordinal vs one-hot, unseen labels)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 62 / 100 Days
+Completed: 63 / 100 Days
 
-██████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░ 62%
+███████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░ 63%
 ```
 
 ### Current Position
 
-**Day 62 — Feature Scaling** ✅
+**Day 63 — Categorical Encoding** ✅
 
-Day 62 was putting columns on a shared scale before a distance model: fit the scaler on the training rows, and watch raw kNN get pulled around by income.
+Day 63 was turning labels into numbers: an ordered plan can be 0, 1, 2, a channel with no order needs one-hot columns, and a category that never appeared in training stays unknown.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 63 topic: categorical encoding.
+2. Prepare Day 64 topic: missing values.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **62 / 100 Days Completed — 62% Progress**
+> **63 / 100 Days Completed — 63% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
