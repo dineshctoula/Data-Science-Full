@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 63 |
-| **Days Completed** | 63 / 100 |
-| **Progress** | 63% |
-| **Current Streak** | 63 Days |
-| **Latest Topic** | Categorical Encoding |
+| **Current Day** | Day 64 |
+| **Days Completed** | 64 / 100 |
+| **Progress** | 64% |
+| **Current Streak** | 64 Days |
+| **Latest Topic** | Missing Values |
 | **Status** | 🟢 On Track |
 
 ---
@@ -96,6 +96,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **61** | 2026-10-02 | Phase 4 | Train, Validate, Compare | Compared majority, nearest centroid, and logistic on one signup split, then checked a second seed, plus a seven-test suite. | ✅ |
 | **62** | 2026-10-03 | Phase 4 | Feature Scaling | Built standard and min-max scalers, compared raw vs scaled kNN on age/income, plus a seven-test suite. | ✅ |
 | **63** | 2026-10-04 | Phase 4 | Categorical Encoding | Built ordinal and one-hot encoders, compared them on plan/channel scores, plus a seven-test suite. | ✅ |
+| **64** | 2026-10-05 | Phase 4 | Missing Values | Built mean/median imputation with an optional missing indicator, compared drop vs fill on a study-score table, plus a seven-test suite. | ✅ |
 
 ---
 
@@ -147,36 +148,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 61** — Train, validate, compare (majority vs centroid vs logistic, same split)
 - [x] **Day 62** — Feature scaling (standard and min-max, kNN on age vs income)
 - [x] **Day 63** — Categorical encoding (ordinal vs one-hot, unseen labels)
+- [x] **Day 64** — Missing values (mean/median fill, missing indicator, train-only stats)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 63 / 100 Days
+Completed: 64 / 100 Days
 
-███████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░ 63%
+████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░ 64%
 ```
 
 ### Current Position
 
-**Day 63 — Categorical Encoding** ✅
+**Day 64 — Missing Values** ✅
 
-Day 63 was turning labels into numbers: an ordered plan can be 0, 1, 2, a channel with no order needs one-hot columns, and a category that never appeared in training stays unknown.
+Day 64 was blanks in a numeric table: fill from the training rows, keep a column that says a value was missing, and don't treat "drop the incomplete rows" as the winner when it is scored on an easier slice.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 64 topic: missing values.
+2. Prepare Day 65 topic: leakage from fitting prep steps on all rows.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **63 / 100 Days Completed — 63% Progress**
+> **64 / 100 Days Completed — 64% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
