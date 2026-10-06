@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 64 |
-| **Days Completed** | 64 / 100 |
-| **Progress** | 64% |
-| **Current Streak** | 64 Days |
-| **Latest Topic** | Missing Values |
+| **Current Day** | Day 65 |
+| **Days Completed** | 65 / 100 |
+| **Progress** | 65% |
+| **Current Streak** | 65 Days |
+| **Latest Topic** | Data Leakage |
 | **Status** | 🟢 On Track |
 
 ---
@@ -97,6 +97,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **62** | 2026-10-03 | Phase 4 | Feature Scaling | Built standard and min-max scalers, compared raw vs scaled kNN on age/income, plus a seven-test suite. | ✅ |
 | **63** | 2026-10-04 | Phase 4 | Categorical Encoding | Built ordinal and one-hot encoders, compared them on plan/channel scores, plus a seven-test suite. | ✅ |
 | **64** | 2026-10-05 | Phase 4 | Missing Values | Built mean/median imputation with an optional missing indicator, compared drop vs fill on a study-score table, plus a seven-test suite. | ✅ |
+| **65** | 2026-10-06 | Phase 4 | Data Leakage | Compared feature selection fit on the training rows with the same step peeking at the holdout, plus a six-test suite. | ✅ |
 
 ---
 
@@ -149,36 +150,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 62** — Feature scaling (standard and min-max, kNN on age vs income)
 - [x] **Day 63** — Categorical encoding (ordinal vs one-hot, unseen labels)
 - [x] **Day 64** — Missing values (mean/median fill, missing indicator, train-only stats)
+- [x] **Day 65** — Data leakage (feature ranking before the split vs after)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 64 / 100 Days
+Completed: 65 / 100 Days
 
-████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░ 64%
+█████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░ 65%
 ```
 
 ### Current Position
 
-**Day 64 — Missing Values** ✅
+**Day 65 — Data Leakage** ✅
 
-Day 64 was blanks in a numeric table: fill from the training rows, keep a column that says a value was missing, and don't treat "drop the incomplete rows" as the winner when it is scored on an easier slice.
+Day 65 was a prep step that saw the holdout: ranking columns by correlation with the target on every row made one test error look better than the same ranking fit on the training rows only.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 65 topic: leakage from fitting prep steps on all rows.
+2. Prepare Day 66 topic: class imbalance.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **64 / 100 Days Completed — 64% Progress**
+> **65 / 100 Days Completed — 65% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
