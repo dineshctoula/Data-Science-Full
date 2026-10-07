@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 65 |
-| **Days Completed** | 65 / 100 |
-| **Progress** | 65% |
-| **Current Streak** | 65 Days |
-| **Latest Topic** | Data Leakage |
+| **Current Day** | Day 66 |
+| **Days Completed** | 66 / 100 |
+| **Progress** | 66% |
+| **Current Streak** | 66 Days |
+| **Latest Topic** | Class Imbalance |
 | **Status** | 🟢 On Track |
 
 ---
@@ -98,6 +98,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **63** | 2026-10-04 | Phase 4 | Categorical Encoding | Built ordinal and one-hot encoders, compared them on plan/channel scores, plus a seven-test suite. | ✅ |
 | **64** | 2026-10-05 | Phase 4 | Missing Values | Built mean/median imputation with an optional missing indicator, compared drop vs fill on a study-score table, plus a seven-test suite. | ✅ |
 | **65** | 2026-10-06 | Phase 4 | Data Leakage | Compared feature selection fit on the training rows with the same step peeking at the holdout, plus a six-test suite. | ✅ |
+| **66** | 2026-10-07 | Phase 4 | Class Imbalance | Compared a majority guess, plain logistic, class weights, and minority oversampling on a rare-event table, plus a seven-test suite. | ✅ |
 
 ---
 
@@ -151,36 +152,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 63** — Categorical encoding (ordinal vs one-hot, unseen labels)
 - [x] **Day 64** — Missing values (mean/median fill, missing indicator, train-only stats)
 - [x] **Day 65** — Data leakage (feature ranking before the split vs after)
+- [x] **Day 66** — Class imbalance (accuracy vs recall, class weights, train-only oversampling)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 65 / 100 Days
+Completed: 66 / 100 Days
 
-█████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░ 65%
+██████████████████████████████████████████████████████████████████░░░░░░░░░░░░░ 66%
 ```
 
 ### Current Position
 
-**Day 65 — Data Leakage** ✅
+**Day 66 — Class Imbalance** ✅
 
-Day 65 was a prep step that saw the holdout: ranking columns by correlation with the target on every row made one test error look better than the same ranking fit on the training rows only.
+Day 66 was a rare class: "always say the common class" scored 0.917 accuracy and caught nothing. Weighting that class, or copying it in the training rows, raised recall and also raised false alarms.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 66 topic: class imbalance.
+2. Prepare Day 67 topic: learning curves.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **65 / 100 Days Completed — 65% Progress**
+> **66 / 100 Days Completed — 66% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
