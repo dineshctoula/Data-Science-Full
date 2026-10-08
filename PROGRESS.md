@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 66 |
-| **Days Completed** | 66 / 100 |
-| **Progress** | 66% |
-| **Current Streak** | 66 Days |
-| **Latest Topic** | Class Imbalance |
+| **Current Day** | Day 67 |
+| **Days Completed** | 67 / 100 |
+| **Progress** | 67% |
+| **Current Streak** | 67 Days |
+| **Latest Topic** | Learning Curves |
 | **Status** | 🟢 On Track |
 
 ---
@@ -99,6 +99,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **64** | 2026-10-05 | Phase 4 | Missing Values | Built mean/median imputation with an optional missing indicator, compared drop vs fill on a study-score table, plus a seven-test suite. | ✅ |
 | **65** | 2026-10-06 | Phase 4 | Data Leakage | Compared feature selection fit on the training rows with the same step peeking at the holdout, plus a six-test suite. | ✅ |
 | **66** | 2026-10-07 | Phase 4 | Class Imbalance | Compared a majority guess, plain logistic, class weights, and minority oversampling on a rare-event table, plus a seven-test suite. | ✅ |
+| **67** | 2026-10-08 | Phase 4 | Learning Curves | Tracked train and test MSE for a line and a degree-4 polynomial as the training slice grew, plus a five-test suite. | ✅ |
 
 ---
 
@@ -153,36 +154,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 64** — Missing values (mean/median fill, missing indicator, train-only stats)
 - [x] **Day 65** — Data leakage (feature ranking before the split vs after)
 - [x] **Day 66** — Class imbalance (accuracy vs recall, class weights, train-only oversampling)
+- [x] **Day 67** — Learning curves (train vs test MSE as the sample grows)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 66 / 100 Days
+Completed: 67 / 100 Days
 
-██████████████████████████████████████████████████████████████████░░░░░░░░░░░░░ 66%
+███████████████████████████████████████████████████████████████████░░░░░░░░░░░░ 67%
 ```
 
 ### Current Position
 
-**Day 66 — Class Imbalance** ✅
+**Day 67 — Learning Curves** ✅
 
-Day 66 was a rare class: "always say the common class" scored 0.917 accuracy and caught nothing. Weighting that class, or copying it in the training rows, raised recall and also raised false alarms.
+Day 67 grew the training slice on a noisy sine. A straight line's test error stayed near 0.32. A degree-4 fit's test error fell until it met the training error, and finished near 0.16.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 67 topic: learning curves.
+2. Prepare Day 68 topic: hyperparameter search.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **66 / 100 Days Completed — 66% Progress**
+> **67 / 100 Days Completed — 67% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
