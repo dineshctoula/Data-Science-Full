@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 67 |
-| **Days Completed** | 67 / 100 |
-| **Progress** | 67% |
-| **Current Streak** | 67 Days |
-| **Latest Topic** | Learning Curves |
+| **Current Day** | Day 68 |
+| **Days Completed** | 68 / 100 |
+| **Progress** | 68% |
+| **Current Streak** | 68 Days |
+| **Latest Topic** | Hyperparameter Search |
 | **Status** | 🟢 On Track |
 
 ---
@@ -100,6 +100,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **65** | 2026-10-06 | Phase 4 | Data Leakage | Compared feature selection fit on the training rows with the same step peeking at the holdout, plus a six-test suite. | ✅ |
 | **66** | 2026-10-07 | Phase 4 | Class Imbalance | Compared a majority guess, plain logistic, class weights, and minority oversampling on a rare-event table, plus a seven-test suite. | ✅ |
 | **67** | 2026-10-08 | Phase 4 | Learning Curves | Tracked train and test MSE for a line and a degree-4 polynomial as the training slice grew, plus a five-test suite. | ✅ |
+| **68** | 2026-10-09 | Phase 4 | Hyperparameter Search | Grid-searched k for a nearest-neighbor fit on a validation slice, then scored the winner on a held-out slice, plus a six-test suite. | ✅ |
 
 ---
 
@@ -155,36 +156,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 65** — Data leakage (feature ranking before the split vs after)
 - [x] **Day 66** — Class imbalance (accuracy vs recall, class weights, train-only oversampling)
 - [x] **Day 67** — Learning curves (train vs test MSE as the sample grows)
+- [x] **Day 68** — Hyperparameter search (pick k on validation, score once on test)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 67 / 100 Days
+Completed: 68 / 100 Days
 
-███████████████████████████████████████████████████████████████████░░░░░░░░░░░░ 67%
+████████████████████████████████████████████████████████████████████░░░░░░░░░░░ 68%
 ```
 
 ### Current Position
 
-**Day 67 — Learning Curves** ✅
+**Day 68 — Hyperparameter Search** ✅
 
-Day 67 grew the training slice on a noisy sine. A straight line's test error stayed near 0.32. A degree-4 fit's test error fell until it met the training error, and finished near 0.16.
+Day 68 searched k for a nearest-neighbor fit. The training column wanted k = 1 and scored 0.272 on the test slice. The validation column wanted k = 15 and scored 0.175. On this seed the test column agreed with validation.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 68 topic: hyperparameter search.
+2. Prepare Day 69 topic: probability calibration.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **67 / 100 Days Completed — 67% Progress**
+> **68 / 100 Days Completed — 68% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
