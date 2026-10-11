@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 68 |
-| **Days Completed** | 68 / 100 |
-| **Progress** | 68% |
-| **Current Streak** | 68 Days |
-| **Latest Topic** | Hyperparameter Search |
+| **Current Day** | Day 69 |
+| **Days Completed** | 69 / 100 |
+| **Progress** | 69% |
+| **Current Streak** | 69 Days |
+| **Latest Topic** | Probability Calibration |
 | **Status** | 🟢 On Track |
 
 ---
@@ -101,6 +101,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **66** | 2026-10-07 | Phase 4 | Class Imbalance | Compared a majority guess, plain logistic, class weights, and minority oversampling on a rare-event table, plus a seven-test suite. | ✅ |
 | **67** | 2026-10-08 | Phase 4 | Learning Curves | Tracked train and test MSE for a line and a degree-4 polynomial as the training slice grew, plus a five-test suite. | ✅ |
 | **68** | 2026-10-09 | Phase 4 | Hyperparameter Search | Grid-searched k for a nearest-neighbor fit on a validation slice, then scored the winner on a held-out slice, plus a six-test suite. | ✅ |
+| **69** | 2026-10-11 | Phase 4 | Probability Calibration | Compared raw, sharpened, and validation-fit Platt probabilities on a logistic holdout, plus a five-test suite. | ✅ |
 
 ---
 
@@ -157,36 +158,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 66** — Class imbalance (accuracy vs recall, class weights, train-only oversampling)
 - [x] **Day 67** — Learning curves (train vs test MSE as the sample grows)
 - [x] **Day 68** — Hyperparameter search (pick k on validation, score once on test)
+- [x] **Day 69** — Probability calibration (temperature sharpening, Platt repair on validation)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 68 / 100 Days
+Completed: 69 / 100 Days
 
-████████████████████████████████████████████████████████████████████░░░░░░░░░░░ 68%
+█████████████████████████████████████████████████████████████████████░░░░░░░░░░ 69%
 ```
 
 ### Current Position
 
-**Day 68 — Hyperparameter Search** ✅
+**Day 69 — Probability Calibration** ✅
 
-Day 68 searched k for a nearest-neighbor fit. The training column wanted k = 1 and scored 0.272 on the test slice. The validation column wanted k = 15 and scored 0.175. On this seed the test column agreed with validation.
+Day 69 sharpened a logistic model's probabilities. Accuracy stayed at 0.780 while Brier and calibration error got worse. A repair fit on the validation rows brought Brier back to 0.161. Accuracy dipped to 0.767.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 69 topic: probability calibration.
+2. Prepare Day 70 topic: permutation importance.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **68 / 100 Days Completed — 68% Progress**
+> **69 / 100 Days Completed — 69% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
