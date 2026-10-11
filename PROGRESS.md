@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 69 |
-| **Days Completed** | 69 / 100 |
-| **Progress** | 69% |
-| **Current Streak** | 69 Days |
-| **Latest Topic** | Probability Calibration |
+| **Current Day** | Day 70 |
+| **Days Completed** | 70 / 100 |
+| **Progress** | 70% |
+| **Current Streak** | 70 Days |
+| **Latest Topic** | Permutation Importance |
 | **Status** | 🟢 On Track |
 
 ---
@@ -102,6 +102,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **67** | 2026-10-08 | Phase 4 | Learning Curves | Tracked train and test MSE for a line and a degree-4 polynomial as the training slice grew, plus a five-test suite. | ✅ |
 | **68** | 2026-10-09 | Phase 4 | Hyperparameter Search | Grid-searched k for a nearest-neighbor fit on a validation slice, then scored the winner on a held-out slice, plus a six-test suite. | ✅ |
 | **69** | 2026-10-11 | Phase 4 | Probability Calibration | Compared raw, sharpened, and validation-fit Platt probabilities on a logistic holdout, plus a five-test suite. | ✅ |
+| **70** | 2026-10-11 | Phase 4 | Permutation Importance | Shuffled each column on the validation rows of a four-column regression and ranked the MSE rise, plus a four-test suite. | ✅ |
 
 ---
 
@@ -159,36 +160,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 67** — Learning curves (train vs test MSE as the sample grows)
 - [x] **Day 68** — Hyperparameter search (pick k on validation, score once on test)
 - [x] **Day 69** — Probability calibration (temperature sharpening, Platt repair on validation)
+- [x] **Day 70** — Permutation importance (shuffle a validation column, rank the MSE rise)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 69 / 100 Days
+Completed: 70 / 100 Days
 
-█████████████████████████████████████████████████████████████████████░░░░░░░░░░ 69%
+██████████████████████████████████████████████████████████████████████░░░░░░░░░ 70%
 ```
 
 ### Current Position
 
-**Day 69 — Probability Calibration** ✅
+**Day 70 — Permutation Importance** ✅
 
-Day 69 sharpened a logistic model's probabilities. Accuracy stayed at 0.780 while Brier and calibration error got worse. A repair fit on the validation rows brought Brier back to 0.161. Accuracy dipped to 0.767.
+Day 70 shuffled one validation column at a time. Scrambling x0 raised the validation MSE by about 11.6. The two noise columns barely moved.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 70 topic: permutation importance.
+2. Prepare Day 71 topic: multiclass classification.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **69 / 100 Days Completed — 69% Progress**
+> **70 / 100 Days Completed — 70% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
