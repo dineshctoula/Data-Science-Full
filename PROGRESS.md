@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 70 |
-| **Days Completed** | 70 / 100 |
-| **Progress** | 70% |
-| **Current Streak** | 70 Days |
-| **Latest Topic** | Permutation Importance |
+| **Current Day** | Day 71 |
+| **Days Completed** | 71 / 100 |
+| **Progress** | 71% |
+| **Current Streak** | 71 Days |
+| **Latest Topic** | Multiclass Classification |
 | **Status** | 🟢 On Track |
 
 ---
@@ -103,6 +103,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **68** | 2026-10-09 | Phase 4 | Hyperparameter Search | Grid-searched k for a nearest-neighbor fit on a validation slice, then scored the winner on a held-out slice, plus a six-test suite. | ✅ |
 | **69** | 2026-10-11 | Phase 4 | Probability Calibration | Compared raw, sharpened, and validation-fit Platt probabilities on a logistic holdout, plus a five-test suite. | ✅ |
 | **70** | 2026-10-11 | Phase 4 | Permutation Importance | Shuffled each column on the validation rows of a four-column regression and ranked the MSE rise, plus a four-test suite. | ✅ |
+| **71** | 2026-10-11 | Phase 4 | Multiclass Classification | Fit one logistic per class on overlapping blobs and read the confusion matrix, plus a five-test suite. | ✅ |
 
 ---
 
@@ -161,36 +162,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 68** — Hyperparameter search (pick k on validation, score once on test)
 - [x] **Day 69** — Probability calibration (temperature sharpening, Platt repair on validation)
 - [x] **Day 70** — Permutation importance (shuffle a validation column, rank the MSE rise)
+- [x] **Day 71** — Multiclass (one logistic per class, confusion matrix)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 70 / 100 Days
+Completed: 71 / 100 Days
 
-██████████████████████████████████████████████████████████████████████░░░░░░░░░ 70%
+███████████████████████████████████████████████████████████████████████░░░░░░░░ 71%
 ```
 
 ### Current Position
 
-**Day 70 — Permutation Importance** ✅
+**Day 71 — Multiclass Classification** ✅
 
-Day 70 shuffled one validation column at a time. Scrambling x0 raised the validation MSE by about 11.6. The two noise columns barely moved.
+Day 71 fit one logistic per class on three overlapping blobs. Accuracy was 0.753 against a majority guess of 0.321. Class 2 recall was 0.679, and most swaps were between class 0 and class 2.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 71 topic: multiclass classification.
+2. Prepare Day 72 topic: early stopping.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **70 / 100 Days Completed — 70% Progress**
+> **71 / 100 Days Completed — 71% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
