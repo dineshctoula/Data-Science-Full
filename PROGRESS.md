@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 71 |
-| **Days Completed** | 71 / 100 |
-| **Progress** | 71% |
-| **Current Streak** | 71 Days |
-| **Latest Topic** | Multiclass Classification |
+| **Current Day** | Day 72 |
+| **Days Completed** | 72 / 100 |
+| **Progress** | 72% |
+| **Current Streak** | 72 Days |
+| **Latest Topic** | Early Stopping |
 | **Status** | 🟢 On Track |
 
 ---
@@ -104,6 +104,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **69** | 2026-10-11 | Phase 4 | Probability Calibration | Compared raw, sharpened, and validation-fit Platt probabilities on a logistic holdout, plus a five-test suite. | ✅ |
 | **70** | 2026-10-11 | Phase 4 | Permutation Importance | Shuffled each column on the validation rows of a four-column regression and ranked the MSE rise, plus a four-test suite. | ✅ |
 | **71** | 2026-10-11 | Phase 4 | Multiclass Classification | Fit one logistic per class on overlapping blobs and read the confusion matrix, plus a five-test suite. | ✅ |
+| **72** | 2026-10-12 | Phase 4 | Early Stopping | Tracked train and validation log loss for a wide logistic fit and kept the best validation epoch, plus a five-test suite. | ✅ |
 
 ---
 
@@ -163,36 +164,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 69** — Probability calibration (temperature sharpening, Platt repair on validation)
 - [x] **Day 70** — Permutation importance (shuffle a validation column, rank the MSE rise)
 - [x] **Day 71** — Multiclass (one logistic per class, confusion matrix)
+- [x] **Day 72** — Early stopping (keep the epoch with the best validation loss)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 71 / 100 Days
+Completed: 72 / 100 Days
 
-███████████████████████████████████████████████████████████████████████░░░░░░░░ 71%
+████████████████████████████████████████████████████████████████████████░░░░░░░ 72%
 ```
 
 ### Current Position
 
-**Day 71 — Multiclass Classification** ✅
+**Day 72 — Early Stopping** ✅
 
-Day 71 fit one logistic per class on three overlapping blobs. Accuracy was 0.753 against a majority guess of 0.321. Class 2 recall was 0.679, and most swaps were between class 0 and class 2.
+Day 72 trained a wide logistic model for 200 epochs. Validation log loss bottomed at epoch 20. By the last epoch the training loss was still falling and the test log loss had gone from 0.562 to 0.828. Accuracy barely changed.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 72 topic: early stopping.
+2. Prepare Day 73 topic: learning rate.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **71 / 100 Days Completed — 71% Progress**
+> **72 / 100 Days Completed — 72% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
