@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 72 |
-| **Days Completed** | 72 / 100 |
-| **Progress** | 72% |
-| **Current Streak** | 72 Days |
-| **Latest Topic** | Early Stopping |
+| **Current Day** | Day 73 |
+| **Days Completed** | 73 / 100 |
+| **Progress** | 73% |
+| **Current Streak** | 73 Days |
+| **Latest Topic** | Learning Rate |
 | **Status** | 🟢 On Track |
 
 ---
@@ -105,6 +105,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **70** | 2026-10-11 | Phase 4 | Permutation Importance | Shuffled each column on the validation rows of a four-column regression and ranked the MSE rise, plus a four-test suite. | ✅ |
 | **71** | 2026-10-11 | Phase 4 | Multiclass Classification | Fit one logistic per class on overlapping blobs and read the confusion matrix, plus a five-test suite. | ✅ |
 | **72** | 2026-10-12 | Phase 4 | Early Stopping | Tracked train and validation log loss for a wide logistic fit and kept the best validation epoch, plus a five-test suite. | ✅ |
+| **73** | 2026-10-13 | Phase 4 | Learning Rate | Compared a small, a settled, and a diverging step size on the same least-squares run, plus a five-test suite. | ✅ |
 
 ---
 
@@ -165,36 +166,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 70** — Permutation importance (shuffle a validation column, rank the MSE rise)
 - [x] **Day 71** — Multiclass (one logistic per class, confusion matrix)
 - [x] **Day 72** — Early stopping (keep the epoch with the best validation loss)
+- [x] **Day 73** — Learning rate (small step lags, large step diverges)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 72 / 100 Days
+Completed: 73 / 100 Days
 
-████████████████████████████████████████████████████████████████████████░░░░░░░ 72%
+█████████████████████████████████████████████████████████████████████████░░░░░░ 73%
 ```
 
 ### Current Position
 
-**Day 72 — Early Stopping** ✅
+**Day 73 — Learning Rate** ✅
 
-Day 72 trained a wide logistic model for 200 epochs. Validation log loss bottomed at epoch 20. By the last epoch the training loss was still falling and the test log loss had gone from 0.562 to 0.828. Accuracy barely changed.
+Day 73 ran the same least-squares fit for 40 epochs at three step sizes. 0.02 was still at test MSE 2.94. 0.2 had settled at 0.695. 1.9 had climbed past 200 million.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 73 topic: learning rate.
+2. Prepare Day 74 topic: mini-batch gradient descent.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **72 / 100 Days Completed — 72% Progress**
+> **73 / 100 Days Completed — 73% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
