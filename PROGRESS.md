@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 74 |
-| **Days Completed** | 74 / 100 |
-| **Progress** | 74% |
-| **Current Streak** | 74 Days |
-| **Latest Topic** | Mini-batch Gradient Descent |
+| **Current Day** | Day 75 |
+| **Days Completed** | 75 / 100 |
+| **Progress** | 75% |
+| **Current Streak** | 75 Days |
+| **Latest Topic** | Momentum |
 | **Status** | 🟢 On Track |
 
 ---
@@ -107,6 +107,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **72** | 2026-10-12 | Phase 4 | Early Stopping | Tracked train and validation log loss for a wide logistic fit and kept the best validation epoch, plus a five-test suite. | ✅ |
 | **73** | 2026-10-13 | Phase 4 | Learning Rate | Compared a small, a settled, and a diverging step size on the same least-squares run, plus a five-test suite. | ✅ |
 | **74** | 2026-10-14 | Phase 4 | Mini-batch Gradient Descent | Compared full-batch, batch-32, and batch-1 updates on one line fit, plus a four-test suite. | ✅ |
+| **75** | 2026-10-15 | Phase 4 | Momentum | Compared plain gradient descent with two momentum settings on a lopsided bowl, plus a five-test suite. | ✅ |
 
 ---
 
@@ -169,36 +170,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 72** — Early stopping (keep the epoch with the best validation loss)
 - [x] **Day 73** — Learning rate (small step lags, large step diverges)
 - [x] **Day 74** — Mini-batch gradient descent (more updates per epoch, noisier path)
+- [x] **Day 75** — Momentum (average the gradient; too much beta rings)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 74 / 100 Days
+Completed: 75 / 100 Days
 
-██████████████████████████████████████████████████████████████████████████░░░░░ 74%
+███████████████████████████████████████████████████████████████████████████░░░░ 75%
 ```
 
 ### Current Position
 
-**Day 74 — Mini-batch Gradient Descent** ✅
+**Day 75 — Momentum** ✅
 
-Day 74 kept the learning rate at 0.2 and changed the batch size. After one pass, batch 1 had test MSE 0.816 and full batch was still at 10.835. By epoch 20, full batch and batch 32 had both landed near 0.86, while batch 1 had wandered back up to 1.087.
+Day 75 walked a lopsided bowl for 80 steps at learning rate 0.05. Beta 0.85 finished near 5e-6. Plain gradient descent was still at 5e-4, mostly because the flat axis was slow. Beta 0.9 finished at 1.9e-3, worse than no momentum.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 75 topic: momentum.
+2. Prepare Day 76 topic: Adam.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **74 / 100 Days Completed — 74% Progress**
+> **75 / 100 Days Completed — 75% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
