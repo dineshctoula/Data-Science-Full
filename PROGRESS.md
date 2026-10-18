@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 78 |
-| **Days Completed** | 78 / 100 |
-| **Progress** | 78% |
-| **Current Streak** | 78 Days |
-| **Latest Topic** | Weight Decay |
+| **Current Day** | Day 79 |
+| **Days Completed** | 79 / 100 |
+| **Progress** | 79% |
+| **Current Streak** | 79 Days |
+| **Latest Topic** | Dropout |
 | **Status** | 🟢 On Track |
 
 ---
@@ -111,6 +111,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **76** | 2026-10-16 | Phase 4 | Adam | Compared GD, momentum, and Adam on the same bowl and measured the first-step sizes, plus a six-test suite. | ✅ |
 | **77** | 2026-10-16 | Phase 4 | Learning-Rate Schedules | Compared a stuck high rate with step decay and cosine cooling on a line fit, plus a five-test suite. | ✅ |
 | **78** | 2026-10-17 | Phase 4 | Weight Decay | Swept weight decay on a wide 36-row regression, picked it on validation, and tracked how the real and junk weights shrank, plus a seven-test suite. | ✅ |
+| **79** | 2026-10-18 | Phase 4 | Dropout | Built a one-layer NumPy network with inverted dropout, swept the rate over five seeds, and showed a 40-row validation slice picking the wrong rate, plus an eight-test suite. | ✅ |
 
 ---
 
@@ -177,36 +178,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 76** — Adam (adaptive steps; first update equalizes the axes)
 - [x] **Day 77** — Learning-rate schedules (step decay and cosine rescue a high rate)
 - [x] **Day 78** — Weight decay (pull every slope toward zero; pick the strength on validation)
+- [x] **Day 79** — Dropout (switch off hidden units while training; a light rate helps)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 78 / 100 Days
+Completed: 79 / 100 Days
 
-██████████████████████████████████████████████████████████████████████████████░ 78%
+███████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░ 79%
 ```
 
 ### Current Position
 
-**Day 78 — Weight Decay** ✅
+**Day 79 — Dropout** ✅
 
-Day 78 fit 42 columns on 36 training rows. With no decay the training MSE was 0.004 and the test MSE was 4.697. Validation picked a decay of 0.1, which brought the test MSE to 3.071. A decay of 3 shrank the real slopes too and the test MSE went back up to 4.130.
+Day 79 trained a 64-unit network on 16 noisy points. With 200 validation rows, dropout 0.1 won and cut the test MSE from 0.208 to 0.180. With only 40 validation rows the pick went to no dropout by 0.001, even though the test set preferred 0.1.
 
 ---
 
 ## 🚀 Next Goals
 
-1. Continue **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 79 topic: dropout.
+1. Finish **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
+2. Prepare Day 80 topic: Phase 4 wrap-up.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **78 / 100 Days Completed — 78% Progress**
+> **79 / 100 Days Completed — 79% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
