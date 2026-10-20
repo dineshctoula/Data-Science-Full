@@ -292,3 +292,73 @@ class ChurnLogistic:
         if self.w is None:
             raise RuntimeError("fit first")
         return sigmoid(np.asarray(X, dtype=float) @ self.w + self.b)
+
+
+# ---------------------------------------------------------------------------
+# choices made on validation
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class DecayTrial:
+    decay: float
+    best_epoch: int
+    train_loss: float
+    val_loss: float
+    model: ChurnLogistic
+
+
+def search_decay(X_tr, y_tr, X_va, y_va, decays, **model_kwargs):
+    """Fit one model per decay; each stops on its own best validation epoch."""
+    decays = [float(d) for d in decays]
+    if not decays:
+        raise ValueError("no decay values")
+    trials = []
+    for decay in decays:
+        model = ChurnLogistic(decay=decay, **model_kwargs).fit(X_tr, y_tr, X_va, y_va)
+        h = model.history
+        trials.append(
+            DecayTrial(decay, h.best_epoch, h.train_loss[h.best_epoch - 1], h.val_loss[h.best_epoch - 1], model)
+        )
+    return trials
+
+
+def pick_decay(trials) -> DecayTrial:
+    """Lowest validation loss. A tie keeps the smaller decay."""
+    if not trials:
+        raise ValueError("no trials")
+    return min(trials, key=lambda t: (t.val_loss, t.decay))
+
+
+def pick_threshold(y_val, p_val, grid=None):
+    """The cut-off with the best validation F1 (Day 66: 0.5 isn't sacred)."""
+    if grid is None:
+        grid = np.round(np.arange(0.05, 0.96, 0.05), 2)
+    best_t, best_f1 = 0.5, -1.0
+    for t in grid:
+        f1 = scores_at(y_val, p_val, t)["f1"]
+        # strictly better only, so a tie keeps the earlier (lower) cut-off
+        if f1 > best_f1:
+            best_t, best_f1 = float(t), f1
+    return best_t, best_f1
+
+
+def permutation_importance(model, prep, table, y, columns=NUMERIC + CATEGORICAL, n_repeats: int = 10, seed: int = 80):
+    """Shuffle one raw column at a time and record the rise in log loss.
+
+    Shuffling the raw column (not the encoded one) keeps a categorical's
+    one-hot block together and lets the missing flag move with spend.
+    """
+    if n_repeats < 1:
+        raise ValueError("need at least one repeat")
+    rng = np.random.default_rng(seed)
+    base = log_loss(y, model.predict_proba(prep.transform(table)))
+    rises = {}
+    for col in columns:
+        losses = []
+        for _ in range(n_repeats):
+            shuffled = dict(table)
+            shuffled[col] = table[col][rng.permutation(len(y))]
+            losses.append(log_loss(y, model.predict_proba(prep.transform(shuffled))))
+        rises[col] = float(np.mean(losses) - base)
+    return base, rises
