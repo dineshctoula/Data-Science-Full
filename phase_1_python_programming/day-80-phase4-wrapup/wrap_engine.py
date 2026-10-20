@@ -9,6 +9,8 @@ and the threshold on validation, and open the test slice once at the end.
 
 from __future__ import annotations
 
+from dataclasses import dataclass, field
+
 import numpy as np
 
 NUMERIC = ("tenure", "spend", "calls")
@@ -186,3 +188,107 @@ def roc_auc(y, p) -> float:
         raise ValueError("need both classes for AUC")
     diff = pos[:, None] - neg[None, :]
     return float(np.mean(diff > 0) + 0.5 * np.mean(diff == 0))
+
+
+# ---------------------------------------------------------------------------
+# the model: logistic + mini-batch Adam + weight decay + early stopping
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class FitHistory:
+    train_loss: list = field(default_factory=list)
+    val_loss: list = field(default_factory=list)
+    best_epoch: int = 0
+
+
+class ChurnLogistic:
+    """Logistic regression trained with the optimizer pieces from Days 72–78."""
+
+    def __init__(
+        self,
+        decay: float = 0.0,
+        lr: float = 0.005,
+        batch: int = 32,
+        max_epochs: int = 300,
+        patience: int = 25,
+        seed: int = 0,
+    ):
+        if decay < 0:
+            raise ValueError("decay should be zero or more")
+        if lr <= 0 or batch < 1 or max_epochs < 1 or patience < 1:
+            raise ValueError("lr, batch, max_epochs, and patience should be positive")
+        self.decay = decay
+        self.lr = lr
+        self.batch = batch
+        self.max_epochs = max_epochs
+        self.patience = patience
+        self.seed = seed
+        self.w = None
+        self.b = 0.0
+        self.history = None
+
+    def fit(self, X, y, X_val, y_val):
+        X = np.asarray(X, dtype=float)
+        y = np.asarray(y, dtype=float).reshape(-1)
+        X_val = np.asarray(X_val, dtype=float)
+        y_val = np.asarray(y_val, dtype=float).reshape(-1)
+        if len(X) != len(y) or len(X_val) != len(y_val):
+            raise ValueError("rows and labels differ in length")
+        rng = np.random.default_rng(self.seed)
+        n, d = X.shape
+        w = np.zeros(d)
+        b = 0.0
+        # Adam keeps a running mean (m) and running square (v) per weight
+        m_w, v_w = np.zeros(d), np.zeros(d)
+        m_b, v_b = 0.0, 0.0
+        beta1, beta2, eps = 0.9, 0.999, 1e-8
+        step = 0
+
+        history = FitHistory()
+        best = (np.inf, w.copy(), b)
+        since_best = 0
+        for epoch in range(1, self.max_epochs + 1):
+            order = rng.permutation(n)
+            for start in range(0, n, self.batch):
+                rows = order[start : start + self.batch]
+                err = sigmoid(X[rows] @ w + b) - y[rows]
+                # the decay term pulls the slopes toward zero; the intercept is left free
+                grad_w = X[rows].T @ err / len(rows) + self.decay * w
+                grad_b = float(err.mean())
+
+                step += 1
+                m_w = beta1 * m_w + (1 - beta1) * grad_w
+                v_w = beta2 * v_w + (1 - beta2) * grad_w**2
+                m_b = beta1 * m_b + (1 - beta1) * grad_b
+                v_b = beta2 * v_b + (1 - beta2) * grad_b**2
+                # bias correction: early averages start at zero and read too small
+                fix1, fix2 = 1 - beta1**step, 1 - beta2**step
+                w = w - self.lr * (m_w / fix1) / (np.sqrt(v_w / fix2) + eps)
+                b = b - self.lr * (m_b / fix1) / (np.sqrt(v_b / fix2) + eps)
+
+            # the losses are reported without the penalty so decays compare fairly
+            train_loss = log_loss(y, sigmoid(X @ w + b))
+            val_loss = log_loss(y_val, sigmoid(X_val @ w + b))
+            history.train_loss.append(train_loss)
+            history.val_loss.append(val_loss)
+            if val_loss < best[0] - 1e-6:
+                best = (val_loss, w.copy(), b)
+                history.best_epoch = epoch
+                since_best = 0
+            else:
+                since_best += 1
+                if since_best >= self.patience:
+                    break
+
+        if not np.all(np.isfinite(best[1])):
+            raise FloatingPointError("training blew up; try a smaller lr")
+        # Day 72: keep the weights from the best validation epoch, not the last one
+        _, self.w, self.b = best
+        self.history = history
+        return self
+
+    def predict_proba(self, X):
+        if self.w is None:
+            raise RuntimeError("fit first")
+        return sigmoid(np.asarray(X, dtype=float) @ self.w + self.b)
