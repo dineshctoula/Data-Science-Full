@@ -80,3 +80,67 @@ def split_three(table, y, fracs=(0.6, 0.2, 0.2), seed: int = 80):
         raise ValueError("a slice came out empty; use more rows")
     cuts = (idx[:n_train], idx[n_train : n_train + n_val], idx[n_train + n_val :])
     return [(take_rows(table, part), y[part]) for part in cuts]
+
+
+# ---------------------------------------------------------------------------
+# preprocessing fit on the training rows only
+# ---------------------------------------------------------------------------
+
+
+class Prep:
+    """Median fill + missing flag, one-hot, then standard scaling.
+
+    Every number it uses (medians, category levels, means, stds) comes from
+    the table passed to fit(). transform() only reuses them.
+    """
+
+    def __init__(self):
+        self.medians = None
+        self.levels = None
+        self.mean = None
+        self.std = None
+        self.names = None
+
+    def fit(self, table):
+        self.medians = {}
+        for col in NUMERIC:
+            values = np.asarray(table[col], dtype=float)
+            if np.all(np.isnan(values)):
+                raise ValueError(f"{col} is empty in the training rows")
+            self.medians[col] = float(np.nanmedian(values))
+        # sorted so the column order doesn't depend on which label showed up first
+        self.levels = {col: sorted(set(table[col].tolist())) for col in CATEGORICAL}
+        raw = self._unscaled(table)
+        self.mean = raw.mean(axis=0)
+        self.std = raw.std(axis=0)
+        # a constant column would divide by zero; leave it unscaled instead
+        self.std[self.std == 0] = 1.0
+        return self
+
+    def _unscaled(self, table):
+        cols, names = [], []
+        for col in NUMERIC:
+            values = np.asarray(table[col], dtype=float)
+            missing = np.isnan(values)
+            cols.append(np.where(missing, self.medians[col], values))
+            names.append(col)
+            if col == "spend":
+                # Day 64: the fact that it was blank is worth keeping
+                cols.append(missing.astype(float))
+                names.append("spend_missing")
+        for col in CATEGORICAL:
+            labels = np.asarray(table[col])
+            for level in self.levels[col]:
+                # a label never seen in training gets all zeros (Day 63)
+                cols.append((labels == level).astype(float))
+                names.append(f"{col}={level}")
+        self.names = tuple(names)
+        return np.column_stack(cols)
+
+    def transform(self, table):
+        if self.mean is None:
+            raise RuntimeError("fit first")
+        return (self._unscaled(table) - self.mean) / self.std
+
+    def fit_transform(self, table):
+        return self.fit(table).transform(table)
