@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 79 |
-| **Days Completed** | 79 / 100 |
-| **Progress** | 79% |
-| **Current Streak** | 79 Days |
-| **Latest Topic** | Dropout |
+| **Current Day** | Day 80 |
+| **Days Completed** | 80 / 100 |
+| **Progress** | 80% |
+| **Current Streak** | 80 Days |
+| **Latest Topic** | Phase 4 Wrap-up |
 | **Status** | 🟢 On Track |
 
 ---
@@ -24,7 +24,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **Phase 1** | Days 1–15 | Python & NumPy Fundamentals | ✅ Completed |
 | **Phase 2** | Days 16–35 | Data Manipulation & Visualization | ✅ Completed |
 | **Phase 3** | Days 36–60 | Math & Statistics for Data Science | ✅ Completed |
-| **Phase 4** | Days 61–80 | Machine Learning Fundamentals | 🔄 In Progress |
+| **Phase 4** | Days 61–80 | Machine Learning Fundamentals | ✅ Completed |
 | **Phase 5** | Days 81–100 | Projects & Portfolio Development | ⏳ Upcoming |
 
 ---
@@ -112,6 +112,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **77** | 2026-10-16 | Phase 4 | Learning-Rate Schedules | Compared a stuck high rate with step decay and cosine cooling on a line fit, plus a five-test suite. | ✅ |
 | **78** | 2026-10-17 | Phase 4 | Weight Decay | Swept weight decay on a wide 36-row regression, picked it on validation, and tracked how the real and junk weights shrank, plus a seven-test suite. | ✅ |
 | **79** | 2026-10-18 | Phase 4 | Dropout | Built a one-layer NumPy network with inverted dropout, swept the rate over five seeds, and showed a 40-row validation slice picking the wrong rate, plus an eight-test suite. | ✅ |
+| **80** | 2026-10-20 | Phase 4 | Phase 4 Wrap-up | Ran one churn table through a train-only fill/encode/scale step, a logistic fit with mini-batch Adam, weight decay, and early stopping, a decay and threshold picked on validation, one test score, and permutation importance, plus an 18-test suite. | ✅ |
 
 ---
 
@@ -179,36 +180,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 77** — Learning-rate schedules (step decay and cosine rescue a high rate)
 - [x] **Day 78** — Weight decay (pull every slope toward zero; pick the strength on validation)
 - [x] **Day 79** — Dropout (switch off hidden units while training; a light rate helps)
+- [x] **Day 80** — Phase 4 wrap-up (churn table: train-only prep, Adam + decay + early stopping, validation picks, one test score)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 79 / 100 Days
+Completed: 80 / 100 Days
 
-███████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░░ 79%
+████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░ 80%
 ```
 
 ### Current Position
 
-**Day 79 — Dropout** ✅
+**Day 80 — Phase 4 Wrap-up** ✅
 
-Day 79 trained a 64-unit network on 16 noisy points. With 200 validation rows, dropout 0.1 won and cut the test MSE from 0.208 to 0.180. With only 40 validation rows the pick went to no dropout by 0.001, even though the test set preferred 0.1.
+Day 80 closed the machine-learning phase with one churn table. Preprocessing was fit on the training rows only, and the decay and threshold were picked on validation. On the single test pass the model scored log loss 0.443 against 0.592 for the base rate, with AUC 0.835. The validation-picked threshold of 0.25 raised recall from 0.38 to 0.80. Weight decay barely mattered with 540 rows and 11 columns.
 
 ---
 
 ## 🚀 Next Goals
 
-1. Finish **Phase 4 (Days 61–80): Machine Learning Fundamentals**.
-2. Prepare Day 80 topic: Phase 4 wrap-up.
+1. Start **Phase 5 (Days 81–100): Projects & Portfolio Development**.
+2. Prepare Day 81 topic: pick the first portfolio project and its dataset.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **79 / 100 Days Completed — 79% Progress**
+> **80 / 100 Days Completed — 80% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
