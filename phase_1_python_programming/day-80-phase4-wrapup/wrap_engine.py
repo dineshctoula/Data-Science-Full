@@ -144,3 +144,45 @@ class Prep:
 
     def fit_transform(self, table):
         return self.fit(table).transform(table)
+
+
+# ---------------------------------------------------------------------------
+# metrics
+# ---------------------------------------------------------------------------
+
+
+def log_loss(y, p) -> float:
+    y = np.asarray(y, dtype=float).reshape(-1)
+    p = np.clip(np.asarray(p, dtype=float).reshape(-1), 1e-12, 1 - 1e-12)
+    if len(y) != len(p) or len(y) == 0:
+        raise ValueError("y and p should be the same non-empty length")
+    return float(-np.mean(y * np.log(p) + (1 - y) * np.log(1 - p)))
+
+
+def scores_at(y, p, threshold: float = 0.5):
+    """Accuracy, precision, recall, and F1 for one cut-off."""
+    y = np.asarray(y).reshape(-1).astype(int)
+    pred = (np.asarray(p, dtype=float).reshape(-1) >= threshold).astype(int)
+    tp = int(np.sum((pred == 1) & (y == 1)))
+    fp = int(np.sum((pred == 1) & (y == 0)))
+    fn = int(np.sum((pred == 0) & (y == 1)))
+    precision = tp / (tp + fp) if tp + fp else 0.0
+    recall = tp / (tp + fn) if tp + fn else 0.0
+    f1 = 2 * precision * recall / (precision + recall) if precision + recall else 0.0
+    return {
+        "accuracy": float(np.mean(pred == y)),
+        "precision": float(precision),
+        "recall": float(recall),
+        "f1": float(f1),
+    }
+
+
+def roc_auc(y, p) -> float:
+    """Chance that a random leaver scores above a random stayer. Ties count half."""
+    y = np.asarray(y).reshape(-1).astype(int)
+    p = np.asarray(p, dtype=float).reshape(-1)
+    pos, neg = p[y == 1], p[y == 0]
+    if len(pos) == 0 or len(neg) == 0:
+        raise ValueError("need both classes for AUC")
+    diff = pos[:, None] - neg[None, :]
+    return float(np.mean(diff > 0) + 0.5 * np.mean(diff == 0))
