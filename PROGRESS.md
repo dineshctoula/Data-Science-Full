@@ -7,12 +7,12 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 
 | Metric | Progress |
 | :--- | :--- |
-| **Current Phase** | Phase 4 — Machine Learning Fundamentals |
-| **Current Day** | Day 80 |
-| **Days Completed** | 80 / 100 |
-| **Progress** | 80% |
-| **Current Streak** | 80 Days |
-| **Latest Topic** | Phase 4 Wrap-up |
+| **Current Phase** | Phase 5 — Projects & Portfolio Development |
+| **Current Day** | Day 81 |
+| **Days Completed** | 81 / 100 |
+| **Progress** | 81% |
+| **Current Streak** | 81 Days |
+| **Latest Topic** | Churn Project Kickoff |
 | **Status** | 🟢 On Track |
 
 ---
@@ -25,7 +25,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **Phase 2** | Days 16–35 | Data Manipulation & Visualization | ✅ Completed |
 | **Phase 3** | Days 36–60 | Math & Statistics for Data Science | ✅ Completed |
 | **Phase 4** | Days 61–80 | Machine Learning Fundamentals | ✅ Completed |
-| **Phase 5** | Days 81–100 | Projects & Portfolio Development | ⏳ Upcoming |
+| **Phase 5** | Days 81–100 | Projects & Portfolio Development | 🔄 In Progress |
 
 ---
 
@@ -113,6 +113,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **78** | 2026-10-17 | Phase 4 | Weight Decay | Swept weight decay on a wide 36-row regression, picked it on validation, and tracked how the real and junk weights shrank, plus a seven-test suite. | ✅ |
 | **79** | 2026-10-18 | Phase 4 | Dropout | Built a one-layer NumPy network with inverted dropout, swept the rate over five seeds, and showed a 40-row validation slice picking the wrong rate, plus an eight-test suite. | ✅ |
 | **80** | 2026-10-20 | Phase 4 | Phase 4 Wrap-up | Ran one churn table through a train-only fill/encode/scale step, a logistic fit with mini-batch Adam, weight decay, and early stopping, a decay and threshold picked on validation, one test score, and permutation importance, plus an 18-test suite. | ✅ |
+| **81** | 2026-10-22 | Phase 5 | Churn Project Kickoff | Started project 1 on IBM's Telco churn data: hash-checked fetch, cleaning, a column audit, a frozen stratified split committed as IDs, a top-20% recall metric, and lookup-table baselines on validation, plus a 15-test suite. | ✅ |
 
 ---
 
@@ -182,35 +183,39 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 79** — Dropout (switch off hidden units while training; a light rate helps)
 - [x] **Day 80** — Phase 4 wrap-up (churn table: train-only prep, Adam + decay + early stopping, validation picks, one test score)
 
+### Phase 5 — Projects & Portfolio Development
+
+- [x] **Day 81** — Churn project kickoff (real Telco data, frozen split, top-20% recall metric, baseline bar of 0.503)
+
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 80 / 100 Days
+Completed: 81 / 100 Days
 
-████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░░ 80%
+█████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░ 81%
 ```
 
 ### Current Position
 
-**Day 80 — Phase 4 Wrap-up** ✅
+**Day 81 — Churn Project Kickoff** ✅
 
-Day 80 closed the machine-learning phase with one churn table. Preprocessing was fit on the training rows only, and the decay and threshold were picked on validation. On the single test pass the model scored log loss 0.443 against 0.592 for the base rate, with AUC 0.835. The validation-picked threshold of 0.25 raised recall from 0.38 to 0.80. Weight decay barely mattered with 540 rows and 11 columns.
+Day 81 started the first portfolio project on IBM's Telco churn data (7043 customers, 26.5% churn). The split is frozen in a committed ID file, and the headline metric is the share of leavers reached by calling the riskiest 20%. A churn-rate lookup on contract, tenure band, and internet type already reaches 0.503 on validation, against 0.200 for random calls and a 0.754 ceiling.
 
 ---
 
 ## 🚀 Next Goals
 
-1. Start **Phase 5 (Days 81–100): Projects & Portfolio Development**.
-2. Prepare Day 81 topic: pick the first portfolio project and its dataset.
+1. Continue **Phase 5 (Days 81–100): Projects & Portfolio Development**.
+2. Prepare Day 82 topic: the first churn model, tuned on validation to beat the 0.503 baseline.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **80 / 100 Days Completed — 80% Progress**
+> **81 / 100 Days Completed — 81% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
