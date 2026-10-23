@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 5 — Projects & Portfolio Development |
-| **Current Day** | Day 81 |
-| **Days Completed** | 81 / 100 |
-| **Progress** | 81% |
-| **Current Streak** | 81 Days |
-| **Latest Topic** | Churn Project Kickoff |
+| **Current Day** | Day 82 |
+| **Days Completed** | 82 / 100 |
+| **Progress** | 82% |
+| **Current Streak** | 82 Days |
+| **Latest Topic** | First Churn Model |
 | **Status** | 🟢 On Track |
 
 ---
@@ -114,6 +114,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **79** | 2026-10-18 | Phase 4 | Dropout | Built a one-layer NumPy network with inverted dropout, swept the rate over five seeds, and showed a 40-row validation slice picking the wrong rate, plus an eight-test suite. | ✅ |
 | **80** | 2026-10-20 | Phase 4 | Phase 4 Wrap-up | Ran one churn table through a train-only fill/encode/scale step, a logistic fit with mini-batch Adam, weight decay, and early stopping, a decay and threshold picked on validation, one test score, and permutation importance, plus an 18-test suite. | ✅ |
 | **81** | 2026-10-22 | Phase 5 | Churn Project Kickoff | Started project 1 on IBM's Telco churn data: hash-checked fetch, cleaning, a column audit, a frozen stratified split committed as IDs, a top-20% recall metric, and lookup-table baselines on validation, plus a 15-test suite. | ✅ |
+| **82** | 2026-10-23 | Phase 5 | First Churn Model | Fit L2 logistic regression by Newton's method on four feature sets, picked one on validation log loss with a simplest-within-0.001 rule, and bootstrapped the gain over the Day 81 lookup, plus a 13-test suite. | ✅ |
 
 ---
 
@@ -186,36 +187,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 ### Phase 5 — Projects & Portfolio Development
 
 - [x] **Day 81** — Churn project kickoff (real Telco data, frozen split, top-20% recall metric, baseline bar of 0.503)
+- [x] **Day 82** — First churn model (Newton logistic, log tenure, 0.554 top-20% recall, +0.051 over the lookup)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 81 / 100 Days
+Completed: 82 / 100 Days
 
-█████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░░ 81%
+██████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░ 82%
 ```
 
 ### Current Position
 
-**Day 81 — Churn Project Kickoff** ✅
+**Day 82 — First Churn Model** ✅
 
-Day 81 started the first portfolio project on IBM's Telco churn data (7043 customers, 26.5% churn). The split is frozen in a committed ID file, and the headline metric is the share of leavers reached by calling the riskiest 20%. A churn-rate lookup on contract, tenure band, and internet type already reaches 0.503 on validation, against 0.200 for random calls and a 0.754 ceiling.
+Day 82 fit the first churn model: L2 logistic regression by Newton's method, with the mirrored service levels collapsed and log1p(tenure) added. On validation it reaches 0.554 top-20% recall (AUC 0.885, log loss 0.372) against 0.503 for the Day 81 lookup. A paired bootstrap puts the gain at +0.051, 95% interval [+0.009, +0.083], which is about 14 more of 280 leavers on the call list.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 5 (Days 81–100): Projects & Portfolio Development**.
-2. Prepare Day 82 topic: the first churn model, tuned on validation to beat the 0.503 baseline.
+2. Prepare Day 83 topic: a gradient-boosted tree model against the logistic, under the same validation rules.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **81 / 100 Days Completed — 81% Progress**
+> **82 / 100 Days Completed — 82% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
