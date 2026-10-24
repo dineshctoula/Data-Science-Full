@@ -221,6 +221,31 @@ class BoostedTrees:
             F += tree.predict(codes)
         return sigmoid(F)
 
+    def additive_parts(self, X):
+        """Per-column log-odds contributions for a stump ensemble.
+
+        A depth-1 tree touches one column, so the model is a sum of
+        one-column step functions. Returns (parts, shift) with parts of
+        shape (n_rows, n_columns) such that base + shift + parts.sum(axis=1)
+        is exactly the model's log-odds; parts[:, j] is column j's curve.
+        """
+        if self.trees is None:
+            raise RuntimeError("fit first")
+        if self.max_depth != 1:
+            raise ValueError("additive parts only exist for depth-1 trees")
+        codes = self.binner.transform(X)
+        parts = np.zeros(codes.shape)
+        shift = 0.0
+        for tree in self.trees:
+            j = tree.feature[0]
+            if j < 0:
+                # a tree that found no split is one constant leaf: it belongs to no column
+                shift += float(tree.value[0])
+                continue
+            go_left = codes[:, j] <= tree.code[0]
+            parts[:, j] += np.where(go_left, tree.value[tree.left[0]], tree.value[tree.right[0]])
+        return parts, shift
+
     def gain_by_column(self, n_columns: int) -> np.ndarray:
         """Total split gain credited to each column across all trees."""
         total = np.zeros(n_columns)
