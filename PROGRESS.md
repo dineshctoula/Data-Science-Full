@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 5 — Projects & Portfolio Development |
-| **Current Day** | Day 82 |
-| **Days Completed** | 82 / 100 |
-| **Progress** | 82% |
-| **Current Streak** | 82 Days |
-| **Latest Topic** | First Churn Model |
+| **Current Day** | Day 83 |
+| **Days Completed** | 83 / 100 |
+| **Progress** | 83% |
+| **Current Streak** | 83 Days |
+| **Latest Topic** | Boosted Trees vs Logistic |
 | **Status** | 🟢 On Track |
 
 ---
@@ -115,6 +115,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **80** | 2026-10-20 | Phase 4 | Phase 4 Wrap-up | Ran one churn table through a train-only fill/encode/scale step, a logistic fit with mini-batch Adam, weight decay, and early stopping, a decay and threshold picked on validation, one test score, and permutation importance, plus an 18-test suite. | ✅ |
 | **81** | 2026-10-22 | Phase 5 | Churn Project Kickoff | Started project 1 on IBM's Telco churn data: hash-checked fetch, cleaning, a column audit, a frozen stratified split committed as IDs, a top-20% recall metric, and lookup-table baselines on validation, plus a 15-test suite. | ✅ |
 | **82** | 2026-10-23 | Phase 5 | First Churn Model | Fit L2 logistic regression by Newton's method on four feature sets, picked one on validation log loss with a simplest-within-0.001 rule, and bootstrapped the gain over the Day 81 lookup, plus a 13-test suite. | ✅ |
+| **83** | 2026-10-24 | Phase 5 | Boosted Trees vs Logistic | Built Newton-boosted trees with histogram splits, tuned depth, learning rate, and tree count by 5-fold CV inside train, and compared against the logistic once on validation: stumps won CV and tied the logistic on ranking, plus a 16-test suite. | ✅ |
 
 ---
 
@@ -188,36 +189,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 
 - [x] **Day 81** — Churn project kickoff (real Telco data, frozen split, top-20% recall metric, baseline bar of 0.503)
 - [x] **Day 82** — First churn model (Newton logistic, log tenure, 0.554 top-20% recall, +0.051 over the lookup)
+- [x] **Day 83** — Boosted trees vs logistic (CV inside train picks stumps; ties on ranking, logistic stays the model)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 82 / 100 Days
+Completed: 83 / 100 Days
 
-██████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░░ 82%
+███████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░ 83%
 ```
 
 ### Current Position
 
-**Day 82 — First Churn Model** ✅
+**Day 83 — Boosted Trees vs Logistic** ✅
 
-Day 82 fit the first churn model: L2 logistic regression by Newton's method, with the mirrored service levels collapsed and log1p(tenure) added. On validation it reaches 0.554 top-20% recall (AUC 0.885, log loss 0.372) against 0.503 for the Day 81 lookup. A paired bootstrap puts the gain at +0.051, 95% interval [+0.009, +0.083], which is about 14 more of 280 leavers on the call list.
+Day 83 built gradient-boosted trees from scratch and tuned them by 5-fold CV inside train, keeping validation for one head-to-head. Depth-1 stumps won CV, which means the churn signal is mostly additive. On validation the booster tied the logistic on ranking (top-20% recall 0.551 vs 0.554, interval [−0.019, +0.020]) and was slightly worse on log loss (0.3775 vs 0.3720), so the logistic stays the project model.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 5 (Days 81–100): Projects & Portfolio Development**.
-2. Prepare Day 83 topic: a gradient-boosted tree model against the logistic, under the same validation rules.
+2. Prepare Day 84 topic: turn the logistic's probabilities into a call list sized by offer cost and expected saves.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **82 / 100 Days Completed — 82% Progress**
+> **83 / 100 Days Completed — 83% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
