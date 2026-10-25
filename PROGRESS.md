@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 5 — Projects & Portfolio Development |
-| **Current Day** | Day 83 |
-| **Days Completed** | 83 / 100 |
-| **Progress** | 83% |
-| **Current Streak** | 83 Days |
-| **Latest Topic** | Boosted Trees vs Logistic |
+| **Current Day** | Day 84 |
+| **Days Completed** | 84 / 100 |
+| **Progress** | 84% |
+| **Current Streak** | 84 Days |
+| **Latest Topic** | Churn Call List |
 | **Status** | 🟢 On Track |
 
 ---
@@ -116,6 +116,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **81** | 2026-10-22 | Phase 5 | Churn Project Kickoff | Started project 1 on IBM's Telco churn data: hash-checked fetch, cleaning, a column audit, a frozen stratified split committed as IDs, a top-20% recall metric, and lookup-table baselines on validation, plus a 15-test suite. | ✅ |
 | **82** | 2026-10-23 | Phase 5 | First Churn Model | Fit L2 logistic regression by Newton's method on four feature sets, picked one on validation log loss with a simplest-within-0.001 rule, and bootstrapped the gain over the Day 81 lookup, plus a 13-test suite. | ✅ |
 | **83** | 2026-10-24 | Phase 5 | Boosted Trees vs Logistic | Built Newton-boosted trees with histogram splits, tuned depth, learning rate, and tree count by 5-fold CV inside train, and compared against the logistic once on validation: stumps won CV and tied the logistic on ranking, plus a 16-test suite. | ✅ |
+| **84** | 2026-10-25 | Phase 5 | Churn Call List | Wrote retention-call economics as explicit assumptions, compared fixed and break-even call lists in dollars on validation, tested over- and under-confident probabilities, and swept the unmeasured save rate, plus a 13-test suite. | ✅ |
 
 ---
 
@@ -190,36 +191,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 81** — Churn project kickoff (real Telco data, frozen split, top-20% recall metric, baseline bar of 0.503)
 - [x] **Day 82** — First churn model (Newton logistic, log tenure, 0.554 top-20% recall, +0.051 over the lookup)
 - [x] **Day 83** — Boosted trees vs logistic (CV inside train picks stumps; ties on ranking, logistic stays the model)
+- [x] **Day 84** — Churn call list (break-even rule beats a fixed 20% by $3,927 and reaches 97% of the hindsight ceiling)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 83 / 100 Days
+Completed: 84 / 100 Days
 
-███████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░░ 83%
+████████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░░ 84%
 ```
 
 ### Current Position
 
-**Day 83 — Boosted Trees vs Logistic** ✅
+**Day 84 — Churn Call List** ✅
 
-Day 83 built gradient-boosted trees from scratch and tuned them by 5-fold CV inside train, keeping validation for one head-to-head. Depth-1 stumps won CV, which means the churn signal is mostly additive. On validation the booster tied the logistic on ranking (top-20% recall 0.551 vs 0.554, interval [−0.019, +0.020]) and was slightly worse on log loss (0.3775 vs 0.3720), so the logistic stays the project model.
+Day 84 turned the logistic's probabilities into a call list. With a $30 call, a 25% save rate, and a year of 50% margin as placeholder assumptions, calling everyone with positive expected profit (406 of 1056 validation customers) earned $16,244, against $12,317 for a fixed top 20%. The gain is $3,927, with a 95% interval of [$2,045, $5,813], and the rule reaches 97% of the hindsight ceiling without peeking at outcomes. The save rate drives the right list size more than anything else.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 5 (Days 81–100): Projects & Portfolio Development**.
-2. Prepare Day 84 topic: turn the logistic's probabilities into a call list sized by offer cost and expected saves.
+2. Prepare Day 85 topic: open the test slice once, score the logistic and the break-even rule, and write the project README.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **83 / 100 Days Completed — 83% Progress**
+> **84 / 100 Days Completed — 84% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
