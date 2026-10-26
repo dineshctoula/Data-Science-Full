@@ -111,6 +111,7 @@ def run_pipeline(rehearse: bool = False):
                 ("break-even rule", pc["rule"]["calls"], pc["rule"]["profit"]),
             ],
             title=f"{held_name}: profit as the call list grows",
+            ylabel=f"profit on {held_name} ($)",
         ),
     ]
     print("\n4) plots saved")

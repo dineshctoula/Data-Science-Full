@@ -18,7 +18,7 @@ class CallPlots:
         plt.close(fig)
         return path
 
-    def profit_curves(self, curves, marks, title="validation: profit as the call list grows"):
+    def profit_curves(self, curves, marks, title="validation: profit as the call list grows", ylabel="profit on validation ($)"):
         """curves: {label: profit after k calls, k = 0..n}; marks: list of (label, k, profit)."""
         if not curves:
             raise ValueError("no curves")
@@ -32,7 +32,7 @@ class CallPlots:
             ax.annotate(f"{label}\n{k} calls, ${profit:,.0f}", (k, profit), textcoords="offset points", xytext=(8, -26), fontsize=7.5)
         ax.axhline(0, color="#111111", linewidth=0.8)
         ax.set_xlabel("customers called (best first)")
-        ax.set_ylabel("profit on validation ($)")
+        ax.set_ylabel(ylabel)
         ax.set_title(title)
         ax.legend(fontsize=8, loc="lower left")
         ax.grid(alpha=0.25)
