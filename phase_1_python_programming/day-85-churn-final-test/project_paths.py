@@ -6,6 +6,7 @@ Day 84: the call-list economics and policies. Their own modules run
 every earlier folder they lean on goes on the path here.
 """
 
+import importlib.util
 import sys
 from pathlib import Path
 
@@ -22,3 +23,12 @@ for folder in (KICKOFF, FIRST_MODEL, CALL_LIST):
     # appended, so this day's visualizer.py and main.py win the name lookup
     if str(folder) not in sys.path:
         sys.path.append(str(folder))
+
+
+def load_from(folder: Path, module: str):
+    """Import a same-named module (e.g. an earlier day's visualizer) by file path."""
+    path = folder / f"{module}.py"
+    spec = importlib.util.spec_from_file_location(f"{folder.name.replace('-', '_')}_{module}", path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
