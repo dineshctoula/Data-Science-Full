@@ -23,6 +23,12 @@ This directory is organized to support your daily study and coding practice:
 
 ---
 
+## 🧪 Projects
+
+- **[Project 1 — Who should a retention team call?](phase_1_python_programming/day-85-churn-final-test/README.md)** (Days 81–85). Telco churn with a from-scratch logistic and boosted trees, a frozen split, and a call list sized by expected profit. On the one-time test slice: AUC 0.841, and $4,181 more than calling a fixed top 20%.
+
+---
+
 ## 📊 How to Use the Interactive Dashboard
 
 We have built a premium, interactive web dashboard to help you visualize your progress, read daily tasks, and write study notes.
