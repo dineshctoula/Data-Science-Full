@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 5 — Projects & Portfolio Development |
-| **Current Day** | Day 85 |
-| **Days Completed** | 85 / 100 |
-| **Progress** | 85% |
-| **Current Streak** | 85 Days |
-| **Latest Topic** | Churn Final Test & README |
+| **Current Day** | Day 86 |
+| **Days Completed** | 86 / 100 |
+| **Progress** | 86% |
+| **Current Streak** | 86 Days |
+| **Latest Topic** | Bike-Sharing Kickoff |
 | **Status** | 🟢 On Track |
 
 ---
@@ -118,6 +118,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **83** | 2026-10-24 | Phase 5 | Boosted Trees vs Logistic | Built Newton-boosted trees with histogram splits, tuned depth, learning rate, and tree count by 5-fold CV inside train, and compared against the logistic once on validation: stumps won CV and tied the logistic on ranking, plus a 16-test suite. | ✅ |
 | **84** | 2026-10-25 | Phase 5 | Churn Call List | Wrote retention-call economics as explicit assumptions, compared fixed and break-even call lists in dollars on validation, tested over- and under-confident probabilities, and swept the unmeasured save rate, plus a 13-test suite. | ✅ |
 | **85** | 2026-10-26 | Phase 5 | Churn Final Test & README | Committed the final recipe first, opened the test slice once behind a fingerprint lock, scored the logistic and the break-even rule with bootstrap intervals, and wrote the Project 1 README, plus a 10-test suite that never reads test. | ✅ |
+| **86** | 2026-10-27 | Phase 5 | Bike-Sharing Kickoff | Started Project 2 on UCI hourly bike rentals: hash-checked fetch, a rebuilt hourly grid with quiet gaps filled and outage days flagged, a leak and growth audit, a frozen time split, and day-ahead lag baselines with a day-block bootstrap, plus a 13-test suite. | ✅ |
 
 ---
 
@@ -194,36 +195,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 83** — Boosted trees vs logistic (CV inside train picks stumps; ties on ranking, logistic stays the model)
 - [x] **Day 84** — Churn call list (break-even rule beats a fixed 20% by $3,927 and reaches 97% of the hindsight ceiling)
 - [x] **Day 85** — Churn final test (AUC 0.841, log loss 0.420 matching Day 83's CV; the rule earns $4,181 over a fixed 20%; Project 1 closed)
+- [x] **Day 86** — Bike-sharing kickoff (time split, leak trap, outage days; 4-week same-hour mean sets the bar at MAE 47.1)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 85 / 100 Days
+Completed: 86 / 100 Days
 
-█████████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░░ 85%
+██████████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░ 86%
 ```
 
 ### Current Position
 
-**Day 85 — Churn Final Test & README** ✅
+**Day 86 — Bike-Sharing Kickoff** ✅
 
-Day 85 closed Project 1. The recipe was committed before the test slice was opened, and a fingerprint lock records the single opening. On test the logistic scored top-20% recall 0.471, AUC 0.841, and log loss 0.420. That's below validation (0.554, 0.885, 0.372), but it matches Day 83's 5-fold CV estimate (0.418). Validation had been an easy slice. The margins held: +0.051 over the lookup, and the break-even rule earned $4,181 more than a fixed 20% ([$2,325, $6,131]), reaching 98% of the hindsight ceiling.
+Day 86 started Project 2: a day-ahead forecast of hourly bike rentals (UCI, Washington D.C., 2011–2012). The hourly grid was rebuilt by filling 74 quiet hours with 0 and flagging 8 shutdown days, including Hurricane Sandy, as outages. casual + registered rebuild the target exactly, so both are dropped. Demand grew 1.4–2.6× year over year, so the split follows time. On validation, the mean of the same hour over the last 4 weeks scores MAE 47.1 (WAPE 16.3%), and that is the bar.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 5 (Days 81–100): Projects & Portfolio Development**.
-2. Prepare Day 86 topic: pick Project 2 and its dataset (a regression or time-based problem, to stretch beyond classification).
+2. Prepare Day 87 topic: the first bike-demand model (lags + calendar + weather), scored day-ahead against the MAE 47.1 bar.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **85 / 100 Days Completed — 85% Progress**
+> **86 / 100 Days Completed — 86% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
