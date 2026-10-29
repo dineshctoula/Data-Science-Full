@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 5 — Projects & Portfolio Development |
-| **Current Day** | Day 86 |
-| **Days Completed** | 86 / 100 |
-| **Progress** | 86% |
-| **Current Streak** | 86 Days |
-| **Latest Topic** | Bike-Sharing Kickoff |
+| **Current Day** | Day 87 |
+| **Days Completed** | 87 / 100 |
+| **Progress** | 87% |
+| **Current Streak** | 87 Days |
+| **Latest Topic** | First Bike-Demand Model |
 | **Status** | 🟢 On Track |
 
 ---
@@ -119,6 +119,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **84** | 2026-10-25 | Phase 5 | Churn Call List | Wrote retention-call economics as explicit assumptions, compared fixed and break-even call lists in dollars on validation, tested over- and under-confident probabilities, and swept the unmeasured save rate, plus a 13-test suite. | ✅ |
 | **85** | 2026-10-26 | Phase 5 | Churn Final Test & README | Committed the final recipe first, opened the test slice once behind a fingerprint lock, scored the logistic and the break-even rule with bootstrap intervals, and wrote the Project 1 README, plus a 10-test suite that never reads test. | ✅ |
 | **86** | 2026-10-27 | Phase 5 | Bike-Sharing Kickoff | Started Project 2 on UCI hourly bike rentals: hash-checked fetch, a rebuilt hourly grid with quiet gaps filled and outage days flagged, a leak and growth audit, a frozen time split, and day-ahead lag baselines with a day-block bootstrap, plus a 13-test suite. | ✅ |
+| **87** | 2026-10-29 | Phase 5 | First Bike-Demand Model | Fit ridge on the log-ratio to the 4-week baseline, with hour shape, holiday and drift, and hinge-curve weather taken as differences from the lag weeks; scored each feature block by rolling-origin CV inside train and on validation, plus a 12-test suite. | ✅ |
 
 ---
 
@@ -196,36 +197,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 84** — Churn call list (break-even rule beats a fixed 20% by $3,927 and reaches 97% of the hindsight ceiling)
 - [x] **Day 85** — Churn final test (AUC 0.841, log loss 0.420 matching Day 83's CV; the rule earns $4,181 over a fixed 20%; Project 1 closed)
 - [x] **Day 86** — Bike-sharing kickoff (time split, leak trap, outage days; 4-week same-hour mean sets the bar at MAE 47.1)
+- [x] **Day 87** — First bike-demand model (correct the baseline, don't replace it; MAE 44.7 without weather, 41.2 with actual weather)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 86 / 100 Days
+Completed: 87 / 100 Days
 
-██████████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░░ 86%
+███████████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░░ 87%
 ```
 
 ### Current Position
 
-**Day 86 — Bike-Sharing Kickoff** ✅
+**Day 87 — First Bike-Demand Model** ✅
 
-Day 86 started Project 2: a day-ahead forecast of hourly bike rentals (UCI, Washington D.C., 2011–2012). The hourly grid was rebuilt by filling 74 quiet hours with 0 and flagging 8 shutdown days, including Hurricane Sandy, as outages. casual + registered rebuild the target exactly, so both are dropped. Demand grew 1.4–2.6× year over year, so the split follows time. On validation, the mean of the same hour over the last 4 weeks scores MAE 47.1 (WAPE 16.3%), and that is the bar.
+Day 87 fit the first bike-demand model. Plain regression on lags lost to the baseline, so the model instead keeps the 4-week same-hour mean as a log-scale offset and learns a ridge correction. Every feature is a difference from the four lag weeks, and temperature and humidity enter as hinge curves. Rolling-origin CV inside train confirmed each step: 48.7 → 48.4 → 45.3 → 35.4. On validation the no-weather model scores MAE 44.7 (a borderline gain, −2.4 [−4.6, +0.2]) and the actual-weather upper bound scores 41.2 (−5.9 [−9.2, −2.8]).
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 5 (Days 81–100): Projects & Portfolio Development**.
-2. Prepare Day 87 topic: the first bike-demand model (lags + calendar + weather), scored day-ahead against the MAE 47.1 bar.
+2. Prepare Day 88 topic: replace actual weather with forecast-grade (noisy) weather and measure how much of the weather gain survives.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **86 / 100 Days Completed — 86% Progress**
+> **87 / 100 Days Completed — 87% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
