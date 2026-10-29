@@ -35,7 +35,13 @@ PEAK_HOURS = (7, 8, 9, 16, 17, 18, 19)
 
 
 def lag_weeks_mean(series: pd.Series, weeks: int = WEEKS) -> pd.Series:
-    """Mean of the same hour over the last `weeks` weeks: what the baseline 'saw'."""
+    """Mean of the same hour over the last `weeks` weeks: what the baseline 'saw'.
+
+    Like the baseline, it averages whichever lag weeks exist, so only the
+    very first week has no value. One known mismatch: the baseline skips an
+    outage week's counts, but that week's weather still counts here. It only
+    touches the few weeks after the 8 outage days, none of them in validation.
+    """
     return pd.concat([series.shift(168 * k) for k in range(1, weeks + 1)], axis=1).mean(axis=1)
 
 
