@@ -29,6 +29,8 @@ class CorrectionRidge:
         self.names = None
 
     def fit(self, X, y, base):
+        # keep the column names before X becomes a plain array
+        self.names = tuple(X.columns) if hasattr(X, "columns") else None
         X = np.asarray(X, dtype=float)
         y = np.asarray(y, dtype=float).reshape(-1)
         base = np.asarray(base, dtype=float).reshape(-1)
@@ -38,7 +40,6 @@ class CorrectionRidge:
             raise ValueError("drop hours with missing features before fitting")
         if (y < 0).any() or (base < 0).any():
             raise ValueError("counts can't be negative")
-        self.names = getattr(X, "columns", None)
         self.mean = X.mean(axis=0)
         self.std = X.std(axis=0)
         # a column that never varies in training (e.g. a rare holiday mismatch) is left unscaled
