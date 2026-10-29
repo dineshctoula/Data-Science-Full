@@ -37,7 +37,8 @@ class ModelPlots:
         ax.set_xticks(x, labels, rotation=12, ha="right", fontsize=8)
         ax.set_ylabel("MAE (bikes per hour)")
         ax.set_title(title)
-        ax.legend(fontsize=8)
+        # lower left sits over the bars' bodies, never over their value labels
+        ax.legend(fontsize=8, loc="lower left")
         ax.grid(axis="y", alpha=0.25)
         return self._save(fig, "ladder.png")
 
