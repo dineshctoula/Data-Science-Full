@@ -26,6 +26,7 @@ This directory is organized to support your daily study and coding practice:
 ## 🧪 Projects
 
 - **[Project 1 — Who should a retention team call?](phase_1_python_programming/day-85-churn-final-test/README.md)** (Days 81–85). Telco churn with a from-scratch logistic and boosted trees, a frozen split, and a call list sized by expected profit. On the one-time test slice: AUC 0.841, and $4,181 more than calling a fixed top 20%.
+- **[Project 2 — How many bikes will be rented each hour tomorrow?](phase_1_python_programming/day-89-bike-final-test/README.md)** (Days 86–89). A day-ahead hourly forecast for Capital Bikeshare: a time split, a ridge correction to a 4-week baseline, and weather from simulated forecasts. On the one-time test quarter: MAE 46.9 bikes per hour against 60.6 for the baseline. Forecast weather added under 1 bike an hour, which isn't proven.
 
 ---
 

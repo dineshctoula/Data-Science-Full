@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 5 — Projects & Portfolio Development |
-| **Current Day** | Day 88 |
-| **Days Completed** | 88 / 100 |
-| **Progress** | 88% |
-| **Current Streak** | 88 Days |
-| **Latest Topic** | Forecast-Grade Weather |
+| **Current Day** | Day 89 |
+| **Days Completed** | 89 / 100 |
+| **Progress** | 89% |
+| **Current Streak** | 89 Days |
+| **Latest Topic** | Bike Final Test & README |
 | **Status** | 🟢 On Track |
 
 ---
@@ -121,6 +121,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **86** | 2026-10-27 | Phase 5 | Bike-Sharing Kickoff | Started Project 2 on UCI hourly bike rentals: hash-checked fetch, a rebuilt hourly grid with quiet gaps filled and outage days flagged, a leak and growth audit, a frozen time split, and day-ahead lag baselines with a day-block bootstrap, plus a 13-test suite. | ✅ |
 | **87** | 2026-10-29 | Phase 5 | First Bike-Demand Model | Fit ridge on the log-ratio to the 4-week baseline, with hour shape, holiday and drift, and hinge-curve weather taken as differences from the lag weeks; scored each feature block by rolling-origin CV inside train and on validation, plus a 12-test suite. | ✅ |
 | **88** | 2026-10-30 | Phase 5 | Forecast-Grade Weather | Simulated good, typical, and poor day-ahead weather forecasts, compared training on actual vs forecast-grade weather over 10 noise draws each, and measured how much of the weather gain survives on validation and rolling CV, plus an 11-test suite. | ✅ |
+| **89** | 2026-10-31 | Phase 5 | Bike Final Test & README | Committed Project 2's recipe first, including a drift fallback for the day after Sandy, opened the Oct–Dec test quarter once behind Day 85's gate, scored all named models on shared hours with day-block intervals over 10 forecast draws, and wrote the Project 2 README, plus a 9-test suite that never reads test. | ✅ |
 
 ---
 
@@ -200,36 +201,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 86** — Bike-sharing kickoff (time split, leak trap, outage days; 4-week same-hour mean sets the bar at MAE 47.1)
 - [x] **Day 87** — First bike-demand model (correct the baseline, don't replace it; MAE 44.7 without weather, 41.2 with actual weather)
 - [x] **Day 88** — Forecast-grade weather (training on actuals can lose to no weather; train on forecasts; about half the gain survives in spring, little in summer)
+- [x] **Day 89** — Bike final test (MAE 46.9 vs 60.6 for the baseline; forecast weather adds about 1 bike an hour, unproven; Project 2 closed)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 88 / 100 Days
+Completed: 89 / 100 Days
 
-████████████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░░ 88%
+█████████████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░░ 89%
 ```
 
 ### Current Position
 
-**Day 88 — Forecast-Grade Weather** ✅
+**Day 89 — Bike Final Test & README** ✅
 
-Day 88 replaced actual weather with simulated forecast-grade weather in three quality scenarios, using 10 draws each. A model trained on actual weather and fed typical forecasts scored validation MAE 47.8, worse than no weather at all (44.7). Training on forecast-grade weather fixed that in every scenario, and the model learned to trust rain calls less (× 0.64 → 0.79). With typical forecasts, about half the weather gain survives under rolling CV (45.3 → 40.5) and none survives in the summer validation months (44.8).
+Day 89 closed Project 2. The recipe was committed before the test quarter was opened, and Day 85's fingerprint gate recorded the single opening. On Oct–Dec 2012 the primary model, trained and scored on typical simulated forecasts, scored MAE 46.9 ± 0.9 over 10 draws, against 47.8 with no weather and 60.6 for the 4-week baseline. That's −13.7 against the baseline in every draw. The weather gain of −0.9 sits between CV (−4.8) and validation (+0.1) and isn't proven. The Friday after Thanksgiving shows the next thing to fix: bridge days.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 5 (Days 81–100): Projects & Portfolio Development**.
-2. Prepare Day 89 topic: commit the Project 2 recipe (typical-forecast weather model as primary, no-weather as comparison) and open the test slice once.
+2. Prepare Day 90 topic: a portfolio pass over both projects (shared lessons, a tidy top-level index, and a consistent way to run every day).
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **88 / 100 Days Completed — 88% Progress**
+> **89 / 100 Days Completed — 89% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
