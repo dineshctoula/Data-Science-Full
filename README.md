@@ -1,25 +1,10 @@
 # 100-Day Data Science Challenge: From Scratch to Job-Ready 🚀
 
-Welcome to your 100-Day Data Science Challenge! This workspace is set up to guide you step-by-step from programming foundations to deploying machine learning models in production and preparing for technical interviews.
+A day-by-day record of learning data science, from Python basics to two end-to-end projects. From Day 36 on, most days are a small, tested NumPy/pandas module written from scratch, plus a runnable walkthrough and notes on what the numbers showed.
 
----
-
-## 📂 Workspace Structure
-
-This directory is organized to support your daily study and coding practice:
-
-```
-/home/dinesh/Desktop/data/
-├── README.md                          # This introduction and roadmap guide
-├── dashboard/                         # Local Interactive Progress Tracker
-│   ├── index.html                     # Main Dashboard UI (Glassmorphic design)
-│   ├── styles.css                     # Premium dark theme stylesheet
-│   ├── app.js                         # JavaScript logic & state manager
-│   └── curriculum.json                # JSON database of all 100 days of syllabus
-└── templates/                         # Templates for coding exercises and notes
-    ├── daily_template.ipynb           # Jupyter Notebook template
-    └── daily_template.py              # Python script template
-```
+- **Where things stand:** [`PROGRESS.md`](PROGRESS.md) (the daily log)
+- **Every day, with links:** [`INDEX.md`](INDEX.md) (generated)
+- **What the two projects taught:** [`LESSONS.md`](LESSONS.md)
 
 ---
 
@@ -30,64 +15,78 @@ This directory is organized to support your daily study and coding practice:
 
 ---
 
-## 📊 How to Use the Interactive Dashboard
+## ⚡ Quick start
 
-We have built a premium, interactive web dashboard to help you visualize your progress, read daily tasks, and write study notes.
+Developed on Python 3.12 with NumPy, pandas, and matplotlib (a few Phase 2 days also use seaborn, plotly, polars, pyarrow, and duckdb).
 
-### 🏃‍♂️ Running the Dashboard
-Since the dashboard is built with pure HTML, CSS, and JavaScript, you can open it in two ways:
-1. **Direct Double-Click**: Double-click `/home/dinesh/Desktop/data /dashboard/index.html` in your file explorer to open it in your browser.
-2. **Local HTTP Server (Recommended)**:
-   Run a lightweight web server in your terminal to avoid CORS issues on certain browsers:
-   ```bash
-   cd "/home/dinesh/Desktop/data "
-   python3 -m http.server 8000
-   ```
-   Then open `http://localhost:8000/dashboard/` in your browser.
+```bash
+python3 tools/run_day.py --list               # every day, and whether it has a walkthrough and tests
+python3 tools/run_day.py 87                   # run Day 87's walkthrough (plots land in its output/)
+python3 tools/run_day.py 87 --tests           # run Day 87's tests
+python3 tools/run_day.py 85 -- --rehearse     # pass arguments through to a day's main.py
+python3 tools/check_all.py                    # every test suite, as a health report
+python3 tools/build_index.py                  # regenerate INDEX.md after adding a day
+```
 
-### 🌟 Dashboard Features
-- **Overall Progress Circle**: Displays your exact completion percentage out of 100 days.
-- **Daily Checklist**: Track sub-tasks for each day. Checking all sub-tasks automatically completes the day.
-- **Active Streak Tracker**: Complete challenges daily to maintain and grow your fire streak!
-- **Auto-saved Study Notes**: Type summaries, definitions, or code snippets directly into the "Study Notes" tab. They are saved automatically to your browser's local storage and rendered in real-time in the Markdown Preview panel.
-- **Filtering & Search**: Quickly search for topics (e.g., "Logistic Regression", "ANOVA", "SQL Joins") or filter by Status (All, To Do, Completed).
+Project data is downloaded once and checked by sha256: run Day 81 (churn) or Day 86 (bikes) first.
 
 ---
 
-## 📅 The 100-Day Curriculum Phases
+## 📂 Workspace Structure
 
-The curriculum is carefully structured into 7 progressive phases:
+```
+.
+├── README.md                      # this page
+├── PROGRESS.md                    # the daily log and phase checklist
+├── INDEX.md                       # generated: every day, grouped by phase, with links
+├── LESSONS.md                     # what Projects 1 and 2 taught
+├── phase_1_python_programming/    # one folder per day: day-NN-short-name
+│   ├── day-01-setup/
+│   ├── ...
+│   └── day-89-bike-final-test/    # typical later day: *_engine.py, visualizer.py,
+│                                  #   main.py, test_*.py, *_NOTES.md, output/ (ignored)
+├── tools/                         # run_day.py, check_all.py, build_index.py, daycatalog.py
+├── dashboard/                     # local progress tracker (HTML / CSS / JS)
+└── templates/                     # daily notebook and script templates
+```
 
-1. **Phase 1: Python & Programming Fundamentals (Days 1–15)**
-   Master variables, control flow, loops, sequences, dicts, exceptions, file I/O, OOP, and functional utilities.
-   
-2. **Phase 2: Data Manipulation & Visualization (Days 16–35)**
-   Deep dive into NumPy arrays and vectorization. Master Pandas for data cleaning, transformations, groupings, joins, and timeseries. Build statistical plots in Matplotlib and Seaborn.
-   
-3. **Phase 3: Math & Statistics for Data Science (Days 36–50)**
-   Learn vectors, matrices, determinants, calculus derivatives, gradients, gradient descent, descriptive statistics, distributions, hypothesis testing (T-tests, ANOVA, Chi-Square), and regression metrics.
-   
-4. **Phase 4: Machine Learning Fundamentals (Days 51–75)**
-   Implement regression, classification, clustering, dimensionality reduction (PCA), feature engineering, hyperparameter tuning, and cross-validation using Scikit-Learn pipelines.
-   
-5. **Phase 5: Advanced Topics & Intro to Deep Learning (Days 76–85)**
-   Understand Artificial Neural Networks (ANNs), CNNs, basic Natural Language Processing (NLP), Sentiment Analysis, and Time Series Forecasting.
-   
-6. **Phase 6: SQL, Git, & Production Tools (Days 86–95)**
-   Write advanced SQL queries (CTEs, window functions). Learn Git collaboration. Build and dockerize FastAPI prediction web endpoints for machine learning models.
-   
-7. **Phase 7: Capstone Projects & Job Readiness (Days 96–100)**
-   Build an end-to-end predictive machine learning system. Polish your GitHub repositories, write premium README files, optimize your resume for ATS, and run mock interview simulations.
+Every day folder follows the same `day-NN-short-name` pattern (Day 90 renamed the early ones), so paths work unquoted and `tools/` can find any day by number.
 
 ---
 
-## 💡 Recommended Study Routine
-1. **Open the Dashboard** each day to check your daily topic, checklist, and resources.
-2. **Read/Watch** the recommended learning resources (tutorials/videos).
-3. **Open the daily template** in your favorite editor (VS Code, Jupyter, etc.):
-   - Copy `/home/dinesh/Desktop/data /templates/daily_template.ipynb` into a new folder for the day (e.g., `phase_1_python_programming/day_01_setup.ipynb`).
-4. **Code the exercise** and write down key definitions and formulas.
-5. **Log notes** in the dashboard and mark the day completed!
+## 📅 How the 100 days are organized
 
-Good luck, Dinesh! You have a solid, highly structured workspace to begin your Data Science career. Let's make it happen!
-# Data-Science-Full
+| phase | days | focus |
+|---|---|---|
+| Phase 1 | 1–15 | Python and NumPy fundamentals |
+| Phase 2 | 16–35 | pandas, visualization, fast data tools (Parquet, DuckDB, Polars) |
+| Phase 3 | 36–60 | linear algebra, calculus, statistics, and classic ML from scratch |
+| Phase 4 | 61–80 | the ML workflow: leakage, scaling, tuning, calibration, optimizers, regularization |
+| Phase 5 | 81–100 | projects and portfolio |
+
+This is the plan `PROGRESS.md` follows. The dashboard's `curriculum.json` still carries the original seven-phase syllabus, so some of its later day titles differ from what the repo did (its Day 80, for example, is CNNs, where the repo's Day 80 was the Phase 4 wrap-up).
+
+---
+
+## 📊 The Interactive Dashboard
+
+A small HTML/CSS/JavaScript tracker in `dashboard/`: a progress circle, daily checklists, a streak counter, auto-saved study notes (browser local storage, with a Markdown preview), and search and filters by topic or status.
+
+Serve it from the repo root so the browser can load `curriculum.json`:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open `http://localhost:8000/dashboard/`. Opening `dashboard/index.html` directly also works in most browsers.
+
+---
+
+## 💡 Daily Routine
+
+1. Check the day's topic in `PROGRESS.md` (or the dashboard).
+2. Create `phase_1_python_programming/day-NN-short-name/`, starting from `templates/daily_template.py` or `.ipynb`.
+3. Write the code, a `main.py` walkthrough, `test_*.py`, and a short notes file with the real numbers.
+4. Run `python3 tools/run_day.py NN --tests`, update `PROGRESS.md`, and regenerate the index with `python3 tools/build_index.py`.
+
+Good luck, Dinesh! Keep learning, keep building, keep committing.
