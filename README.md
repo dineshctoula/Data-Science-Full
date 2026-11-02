@@ -24,6 +24,8 @@ python3 tools/run_day.py --list               # every day, and whether it has a 
 python3 tools/run_day.py 87                   # run Day 87's walkthrough (plots land in its output/)
 python3 tools/run_day.py 87 --tests           # run Day 87's tests
 python3 tools/run_day.py 85 -- --rehearse     # pass arguments through to a day's main.py
+python3 tools/run_day.py 91                   # one validation day's bike forecast, as JSON
+python3 tools/run_day.py 91 -- --serve        # then listen on http://127.0.0.1:8765
 python3 tools/check_all.py                    # every test suite, as a health report
 python3 tools/build_index.py                  # regenerate INDEX.md after adding a day
 ```
@@ -43,8 +45,9 @@ Project data is downloaded once and checked by sha256: run Day 81 (churn) or Day
 ├── phase_1_python_programming/    # one folder per day: day-NN-short-name
 │   ├── day-01-setup/
 │   ├── ...
-│   └── day-89-bike-final-test/    # typical later day: *_engine.py, visualizer.py,
-│                                  #   main.py, test_*.py, *_NOTES.md, output/ (ignored)
+│   ├── day-89-bike-final-test/    # typical later day: *_engine.py, visualizer.py,
+│   │                              #   main.py, test_*.py, *_NOTES.md, output/ (ignored)
+│   └── day-91-bike-forecast-api/  # that forecast over HTTP; the test quarter stays closed
 ├── tools/                         # run_day.py, check_all.py, build_index.py, daycatalog.py
 ├── dashboard/                     # local progress tracker (HTML / CSS / JS)
 └── templates/                     # daily notebook and script templates

@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 5 — Projects & Portfolio Development |
-| **Current Day** | Day 90 |
-| **Days Completed** | 90 / 100 |
-| **Progress** | 90% |
-| **Current Streak** | 90 Days |
-| **Latest Topic** | Portfolio Pass |
+| **Current Day** | Day 91 |
+| **Days Completed** | 91 / 100 |
+| **Progress** | 91% |
+| **Current Streak** | 91 Days |
+| **Latest Topic** | Forecast HTTP API |
 | **Status** | 🟢 On Track |
 
 ---
@@ -123,6 +123,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **88** | 2026-10-30 | Phase 5 | Forecast-Grade Weather | Simulated good, typical, and poor day-ahead weather forecasts, compared training on actual vs forecast-grade weather over 10 noise draws each, and measured how much of the weather gain survives on validation and rolling CV, plus an 11-test suite. | ✅ |
 | **89** | 2026-10-31 | Phase 5 | Bike Final Test & README | Committed Project 2's recipe first, including a drift fallback for the day after Sandy, opened the Oct–Dec test quarter once behind Day 85's gate, scored all named models on shared hours with day-block intervals over 10 forecast draws, and wrote the Project 2 README, plus a 9-test suite that never reads test. | ✅ |
 | **90** | 2026-11-01 | Phase 5 | Portfolio Pass | Renamed Days 1–21 to one day-NN-name pattern, added tools to list, run, test, and index every day, swept all 53 suites (449 tests, all passing), and wrote INDEX.md, LESSONS.md, and a refreshed README, plus a 9-test suite for the tools. | ✅ |
+| **91** | 2026-11-02 | Phase 5 | Forecast HTTP API | Served Project 2's no-weather model on localhost from train only (validation MAE 44.7, matching Day 87), refused the test quarter without predicting it, and covered the request, the refusals, and a live round trip with 16 tests. | ✅ |
 
 ---
 
@@ -204,36 +205,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 88** — Forecast-grade weather (training on actuals can lose to no weather; train on forecasts; about half the gain survives in spring, little in summer)
 - [x] **Day 89** — Bike final test (MAE 46.9 vs 60.6 for the baseline; forecast weather adds about 1 bike an hour, unproven; Project 2 closed)
 - [x] **Day 90** — Portfolio pass (one folder pattern, tools/ to run and check every day, 53/53 suites green, INDEX and LESSONS)
+- [x] **Day 91** — Forecast HTTP API (no-weather model on localhost, train-only fit, validation MAE 44.7; the test quarter is refused and never predicted)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 90 / 100 Days
+Completed: 91 / 100 Days
 
-██████████████████████████████████████████████████████████████████████████████████████████░░░░░░░░░░ 90%
+███████████████████████████████████████████████████████████████████████████████████████████░░░░░░░░░ 91%
 ```
 
 ### Current Position
 
-**Day 90 — Portfolio Pass** ✅
+**Day 91 — Forecast HTTP API** ✅
 
-Day 90 tidied the whole repo. Days 1–21 now share the day-NN-name folder pattern as pure renames. tools/ can list every day, run any day's walkthrough or tests from the repo root, sweep every suite into a health report (53 of 53 pass, 449 tests), and regenerate INDEX.md. LESSONS.md gathers eleven habits both projects relied on, and the README now matches how the repo actually works.
+Day 91 serves Project 2's no-weather model on 127.0.0.1, fit on train only. Validation MAE is 44.7, the same number Day 87 reported, against 47.1 for the baseline. The server answers 622 days, refuses 6 outages and 11 days with no baseline or drift, and does not predict the 92-day test quarter. A weather body is a 400: this model was trained without weather. 16 tests cover the contract, the refusals, and a live request.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 5 (Days 81–100): Projects & Portfolio Development**.
-2. Prepare Day 91 topic: serve the Project 2 forecast behind a small HTTP endpoint (standard library only), with a tested request/response contract.
+2. Prepare Day 92 topic: a small client that asks the Day 91 server for a week of forecasts and turns them into a morning rebalancing table, still without the test quarter.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **90 / 100 Days Completed — 90% Progress**
+> **91 / 100 Days Completed — 91% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
