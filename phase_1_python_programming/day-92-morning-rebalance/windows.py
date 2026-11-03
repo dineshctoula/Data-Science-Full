@@ -13,7 +13,7 @@ should sit at, and this day does not invent station ids to pretend it can.
 
 from __future__ import annotations
 
-import project_paths  # noqa: F401  (puts Day 91's contract on the path)
+import server_path  # noqa: F401  (puts Day 91 on the path without taking its module name)
 from contract import ApiError, whole_bikes
 
 # Inbound commute. Staged before 7, because the rush is already happening at 8.

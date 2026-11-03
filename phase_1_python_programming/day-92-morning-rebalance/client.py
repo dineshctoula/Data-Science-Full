@@ -18,7 +18,7 @@ import json
 import urllib.error
 import urllib.request
 
-import project_paths  # noqa: F401  (puts Day 91's contract on the path)
+import server_path  # noqa: F401  (puts Day 91 on the path without taking its module name)
 from contract import parse_date
 
 # dates the server has decided not to forecast; the week still prints them
