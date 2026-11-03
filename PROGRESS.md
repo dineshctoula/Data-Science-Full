@@ -8,11 +8,11 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | Metric | Progress |
 | :--- | :--- |
 | **Current Phase** | Phase 5 — Projects & Portfolio Development |
-| **Current Day** | Day 91 |
-| **Days Completed** | 91 / 100 |
-| **Progress** | 91% |
-| **Current Streak** | 91 Days |
-| **Latest Topic** | Forecast HTTP API |
+| **Current Day** | Day 92 |
+| **Days Completed** | 92 / 100 |
+| **Progress** | 92% |
+| **Current Streak** | 92 Days |
+| **Latest Topic** | Morning Rebalancing Table |
 | **Status** | 🟢 On Track |
 
 ---
@@ -124,6 +124,7 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 | **89** | 2026-10-31 | Phase 5 | Bike Final Test & README | Committed Project 2's recipe first, including a drift fallback for the day after Sandy, opened the Oct–Dec test quarter once behind Day 85's gate, scored all named models on shared hours with day-block intervals over 10 forecast draws, and wrote the Project 2 README, plus a 9-test suite that never reads test. | ✅ |
 | **90** | 2026-11-01 | Phase 5 | Portfolio Pass | Renamed Days 1–21 to one day-NN-name pattern, added tools to list, run, test, and index every day, swept all 53 suites (449 tests, all passing), and wrote INDEX.md, LESSONS.md, and a refreshed README, plus a 9-test suite for the tools. | ✅ |
 | **91** | 2026-11-02 | Phase 5 | Forecast HTTP API | Served Project 2's no-weather model on localhost from train only (validation MAE 44.7, matching Day 87), refused the test quarter without predicting it, and covered the request, the refusals, and a live round trip with 16 tests. | ✅ |
+| **92** | 2026-11-03 | Phase 5 | Morning Rebalancing Table | Asked the Day 91 server for the week of 2012-08-06 and staged 8,491 morning bikes (+123 vs the 4-week baseline). Working days staff the evening wave and the weekend staffs midday. The week of 2012-09-28 leaves Oct 1–4 blank, plus 17 tests. | ✅ |
 
 ---
 
@@ -206,36 +207,37 @@ A structured record of my progress through the **100-Day Data Science Challenge*
 - [x] **Day 89** — Bike final test (MAE 46.9 vs 60.6 for the baseline; forecast weather adds about 1 bike an hour, unproven; Project 2 closed)
 - [x] **Day 90** — Portfolio pass (one folder pattern, tools/ to run and check every day, 53/53 suites green, INDEX and LESSONS)
 - [x] **Day 91** — Forecast HTTP API (no-weather model on localhost, train-only fit, validation MAE 44.7; the test quarter is refused and never predicted)
+- [x] **Day 92** — Morning rebalancing table (week of 6 Aug: 8,491 morning bikes, +123 vs the 4-week baseline; October rows stay blank)
 
 ---
 
 ## 📊 Current Progress
 
 ```text
-Completed: 91 / 100 Days
+Completed: 92 / 100 Days
 
-███████████████████████████████████████████████████████████████████████████████████████████░░░░░░░░░ 91%
+████████████████████████████████████████████████████████████████████████████████████████████░░░░░░░░ 92%
 ```
 
 ### Current Position
 
-**Day 91 — Forecast HTTP API** ✅
+**Day 92 — Morning Rebalancing Table** ✅
 
-Day 91 serves Project 2's no-weather model on 127.0.0.1, fit on train only. Validation MAE is 44.7, the same number Day 87 reported, against 47.1 for the baseline. The server answers 622 days, refuses 6 outages and 11 days with no baseline or drift, and does not predict the 92-day test quarter. A weather body is a 400: this model was trained without weather. 16 tests cover the contract, the refusals, and a live request.
+Day 92 asks Day 91 for seven days and turns the replies into a staging table. The week of 6 August is all validation: 8,491 morning bikes (hours 7–9), +123 against the 4-week baseline. Working days staff the evening wave first; Saturday and Sunday staff midday. Tuesday's day total is 7,071, the same integer Day 91 printed. The week of 28 September serves three days and leaves 1–4 October blank (HTTP 403, not zero). 17 tests cover the windows, a refused day, and both weeks.
 
 ---
 
 ## 🚀 Next Goals
 
 1. Continue **Phase 5 (Days 81–100): Projects & Portfolio Development**.
-2. Prepare Day 92 topic: a small client that asks the Day 91 server for a week of forecasts and turns them into a morning rebalancing table, still without the test quarter.
+2. Prepare Day 93 topic: score one validation week of morning staging against the actual morning totals, and leave the test quarter unread.
 3. Maintain daily learning streak and Git version control standard.
 
 ---
 
 ## 🏆 Challenge Status
 
-> **91 / 100 Days Completed — 91% Progress**
+> **92 / 100 Days Completed — 92% Progress**
 
 **Keep learning. Keep building. Keep committing. 🚀**
 
